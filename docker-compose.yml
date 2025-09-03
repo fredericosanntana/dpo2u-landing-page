@@ -15,6 +15,7 @@ services:
       - "traefik.http.routers.dpo2u-landing.rule=Host(`dpo2u.com`,`www.dpo2u.com`)"
       - "traefik.http.routers.dpo2u-landing.entrypoints=websecure"
       - "traefik.http.routers.dpo2u-landing.tls=true"
+      - "traefik.http.routers.dpo2u-landing.tls.certresolver=leresolver"
       - "traefik.http.services.dpo2u-landing.loadbalancer.server.port=3000"
       - "traefik.http.middlewares.dpo2u-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.dpo2u-landing-http.rule=Host(`dpo2u.com`,`www.dpo2u.com`)"
