@@ -1,0 +1,9 @@
+
+> dpo2u-landing-page@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.2
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+   Creating an optimized production build ...

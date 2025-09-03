@@ -1,0 +1,30 @@
+{
+  "name": "DPO2U - Compliance LGPD com IA",
+  "short_name": "DPO2U",
+  "description": "Sistema multiagente para transformação digital das empresas com foco em privacidade de dados e compliance LGPD/GDPR.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#64748b",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png", 
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "productivity", "legal"],
+  "lang": "pt-BR",
+  "scope": "/",
+  "orientation": "portrait-primary"
+}

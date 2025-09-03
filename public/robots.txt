@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# SEO Optimization
+Sitemap: https://dpo2u.com.br/sitemap.xml
+
+# Block admin and internal pages
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /dashboard/
+
+# Allow important pages
+Allow: /
+Allow: /servicos/
+Allow: /sobre/
+Allow: /contato/
+Allow: /blog/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

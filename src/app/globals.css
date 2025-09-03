@@ -1,0 +1,282 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* CSS Variables for DPO2U Brand - Revolutionary 2025 System */
+:root {
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-playfair: 'Playfair Display', 'Times New Roman', serif;
+  
+  /* DPO2U Brand Colors - LEANN Enhanced System */
+  --brand-primary-blue: 79 70 229; /* #4F46E5 - Found in LEANN: DPO2U primary blue */
+  --brand-primary-purple: 124 58 237; /* #7C3AED - Found in LEANN: DPO2U primary purple */
+  --brand-sapphire: 79 70 229; /* Aligned with LEANN patterns */
+  --brand-emerald: 0 212 148; /* #00d494 - Tech Emerald */
+  --brand-platinum: 248 250 252; /* #F8FAFC - LEANN: neutral-gray */
+  --brand-ocean: 74 144 226; /* #4A90E2 - Found in LEANN: primary_blue */
+  --brand-text-dark: 30 41 59; /* #1E293B - Found in LEANN: text-dark */
+  
+  /* Revolutionary Semantic Colors */
+  --background: 255 255 255;
+  --foreground: 15 23 42;
+  --primary: 0 109 255; /* Revolutionary Sapphire */
+  --primary-foreground: 255 255 255;
+  --secondary: 0 212 148; /* Revolutionary Emerald */
+  --secondary-foreground: 255 255 255;
+  --accent: 3 105 161; /* Revolutionary Ocean */
+  --accent-foreground: 255 255 255;
+  --muted: 248 250 252; /* Revolutionary Platinum Light */
+  --muted-foreground: 51 65 85;
+  
+  /* Borders and rings */
+  --border: 226 232 240;
+  --input: 226 232 240;
+  --ring: 0 109 255; /* Revolutionary Sapphire for focus rings */
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252; /* slate-50 */
+  --primary: 0 109 255; /* Revolutionary Sapphire */
+  --primary-foreground: 255 255 255;
+  --secondary: 51 65 85; /* slate-700 */
+  --secondary-foreground: 248 250 252; /* slate-50 */
+  --accent: 51 65 85; /* slate-700 */
+  --accent-foreground: 248 250 252; /* slate-50 */
+  --muted: 51 65 85; /* slate-700 */
+  --muted-foreground: 148 163 184; /* slate-400 */
+  
+  /* Borders and rings for dark mode */
+  --border: 51 65 85; /* slate-700 */
+  --input: 51 65 85; /* slate-700 */
+  --ring: 0 109 255; /* Revolutionary Sapphire */
+}
+
+/* Base styles */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Typography enhancements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair);
+  font-weight: 600;
+  line-height: 1.2;
+  color: hsl(var(--foreground));
+}
+
+.font-serif {
+  font-family: var(--font-playfair);
+}
+
+.font-sans {
+  font-family: var(--font-inter);
+}
+
+/* Custom components */
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-lg bg-secondary px-6 py-3 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center rounded-lg border border-gray-300 bg-transparent px-6 py-3 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+}
+
+/* Card component */
+.card {
+  @apply rounded-2xl border bg-gradient-card p-6 shadow-card transition-shadow hover:shadow-card-hover;
+}
+
+/* Section spacing */
+.section-padding {
+  @apply py-16 md:py-24 lg:py-32;
+}
+
+.container-padding {
+  @apply px-4 sm:px-6 lg:px-8;
+}
+
+/* Grid layouts */
+.grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-auto-fill {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+/* Animation utilities */
+.animate-on-scroll {
+  @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+}
+
+.animate-on-scroll.in-view {
+  @apply opacity-100 translate-y-0;
+}
+
+/* Focus styles for accessibility */
+.focus-visible\:ring-brand:focus-visible {
+  @apply ring-2 ring-accent ring-offset-2;
+}
+
+/* Custom scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted)) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted));
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground));
+}
+
+/* Text selection */
+::selection {
+  background-color: hsla(var(--accent), 0.2);
+  color: hsl(var(--foreground));
+}
+
+/* Image optimization */
+img {
+  @apply max-w-full h-auto;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    @apply border-2;
+  }
+}
+
+/* Loading states */
+.loading-skeleton {
+  @apply animate-pulse bg-muted rounded;
+}
+
+/* Revolutionary Utility Classes for Ultimate Brand Consistency */
+.text-brand-gradient {
+  background: linear-gradient(135deg, hsl(var(--brand-sapphire)), hsl(var(--brand-emerald)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-brand-gradient {
+  background: linear-gradient(135deg, hsl(var(--brand-sapphire)), hsl(var(--brand-emerald)));
+}
+
+.bg-success-gradient {
+  background: linear-gradient(135deg, hsl(var(--brand-emerald)), hsl(var(--brand-sapphire)));
+}
+
+.text-success-gradient {
+  background: linear-gradient(135deg, hsl(var(--brand-emerald)), hsl(var(--brand-sapphire)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Revolutionary DPO2U Authority Elements */
+.authority-badge {
+  @apply inline-flex items-center px-3 py-1 text-xs font-semibold bg-brand-sapphire-50 text-brand-platinum-800 rounded-full border border-brand-sapphire-200;
+}
+
+/* Revolutionary Enhanced Brand Colors */
+.text-brand-primary {
+  color: #006dff; /* Revolutionary Sapphire */
+}
+
+.bg-brand-primary {
+  background-color: #006dff; /* Revolutionary Sapphire */
+}
+
+.text-brand-success {
+  color: #00d494; /* Revolutionary Emerald */
+}
+
+.bg-brand-success {
+  background-color: #00d494; /* Revolutionary Emerald */
+}
+
+.text-brand-innovation {
+  color: #0369a1; /* Revolutionary Ocean */
+}
+
+.bg-brand-innovation {
+  background-color: #0369a1; /* Revolutionary Ocean */
+}
+
+.shadow-brand {
+  box-shadow: 0 4px 6px -1px hsla(var(--brand-platinum), 0.1), 0 2px 4px -1px hsla(var(--brand-platinum), 0.06);
+}
+
+.shadow-brand-strong {
+  box-shadow: 0 10px 15px -3px hsla(var(--brand-sapphire), 0.1), 0 4px 6px -2px hsla(var(--brand-sapphire), 0.05);
+}
+
+/* Container queries support */
+@supports (container-type: inline-size) {
+  .container-card {
+    container-type: inline-size;
+  }
+  
+  @container (max-width: 400px) {
+    .container-card .card-content {
+      @apply p-4;
+    }
+  }
+}
