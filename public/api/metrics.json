@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-09-06T03:10:19.125727",
+  "system": {
+    "cpuUsage": 25,
+    "memoryUsage": 35,
+    "diskUsage": 0,
+    "uptime": "0d 6h 53m",
+    "health": "good"
+  },
+  "agents": {
+    "total": 20,
+    "active": 5,
+    "available": 15
+  },
+  "tasks": {
+    "completedToday": 145,
+    "running": 5,
+    "queued": 10,
+    "avgTime": 8.4
+  },
+  "performance": {
+    "throughput": 700,
+    "latency": 59,
+    "errorRate": 0.079,
+    "successRate": 99.921
+  },
+  "leann": {
+    "documents": 2856,
+    "status": "online"
+  },
+  "apiGateway": {
+    "status": "Online",
+    "port": 8090
+  }
+}

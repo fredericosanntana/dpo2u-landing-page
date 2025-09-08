@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dpo2u.com.br'),
+  metadataBase: new URL('https://www.dpo2u.com'),
   title: {
     default: 'DPO2U | Compliance LGPD com IA - 99.9% Conformidade em 24h',
     template: '%s | DPO2U'

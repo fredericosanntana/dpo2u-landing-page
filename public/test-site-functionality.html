@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPO2U - Teste de Funcionalidades</title>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4F46E5;
+            border-bottom: 3px solid #4F46E5;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #4F46E5;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #4F46E5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 5px;
+        }
+        button:hover {
+            background: #3730A3;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .metric-card {
+            padding: 15px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4F46E5;
+        }
+        .metric-label {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 DPO2U - Central de Testes de Funcionalidades</h1>
+        
+        <div class="test-section">
+            <h2>1. Teste de Conectividade com API Gateway</h2>
+            <button onclick="testAPIGateway()">Testar API Gateway</button>
+            <button onclick="testAllEndpoints()">Testar Todos os Endpoints</button>
+            <div id="api-results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. Dashboard de Métricas em Tempo Real</h2>
+            <button onclick="loadDashboard()">Carregar Dashboard</button>
+            <button onclick="startAutoRefresh()">Auto-Refresh (5s)</button>
+            <button onclick="stopAutoRefresh()">Parar Auto-Refresh</button>
+            <div id="dashboard-container">
+                <div class="metrics-grid" id="metrics-grid"></div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. Teste de Performance</h2>
+            <button onclick="testPerformance()">Executar Teste de Performance</button>
+            <div id="performance-results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. Teste de Funcionalidades JavaScript</h2>
+            <button onclick="testJSFeatures()">Testar Features JS</button>
+            <div id="js-results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>5. Status Geral do Sistema</h2>
+            <button onclick="checkSystemStatus()">Verificar Status Completo</button>
+            <div id="system-status"></div>
+        </div>
+    </div>
+    
+    <!-- Include API Config -->
+    <script src="/api-config.js"></script>
+    
+    <script>
+        let autoRefreshInterval = null;
+        
+        // Test API Gateway connectivity
+        async function testAPIGateway() {
+            const resultsDiv = document.getElementById('api-results');
+            resultsDiv.innerHTML = '<div class="test-result loading">Testando conexão com API Gateway...</div>';
+            
+            try {
+                const response = await fetch('http://195.200.2.56:8090/api/health');
+                const data = await response.json();
+                
+                if (data.status === 'healthy') {
+                    resultsDiv.innerHTML = '<div class="test-result success">✅ API Gateway Online - Latência: ' + data.latency_ms + 'ms</div>';
+                } else {
+                    resultsDiv.innerHTML = '<div class="test-result warning">⚠️ API Gateway com status: ' + data.status + '</div>';
+                }
+            } catch (error) {
+                // Try local proxy
+                try {
+                    const proxyResponse = await fetch('/api/dashboard.php');
+                    const proxyData = await proxyResponse.json();
+                    resultsDiv.innerHTML = '<div class="test-result warning">⚠️ API Gateway via proxy local - Dados obtidos</div>';
+                } catch (proxyError) {
+                    resultsDiv.innerHTML = '<div class="test-result error">❌ API Gateway Offline - ' + error.message + '</div>';
+                }
+            }
+        }
+        
+        // Test all endpoints
+        async function testAllEndpoints() {
+            const resultsDiv = document.getElementById('api-results');
+            resultsDiv.innerHTML = '<div class="test-result loading">Testando todos os endpoints...</div>';
+            
+            const endpoints = [
+                { url: 'http://195.200.2.56:8090/api/health', name: 'Health' },
+                { url: 'http://195.200.2.56:8090/api/dashboard', name: 'Dashboard' },
+                { url: 'http://195.200.2.56:8090/api/agents/active', name: 'Agents' },
+                { url: 'http://195.200.2.56:8090/api/leann/status', name: 'LEANN' },
+                { url: 'http://195.200.2.56:8090/api/performance/metrics', name: 'Performance' }
+            ];
+            
+            let results = [];
+            
+            for (const endpoint of endpoints) {
+                try {
+                    const start = Date.now();
+                    const response = await fetch(endpoint.url);
+                    const latency = Date.now() - start;
+                    const data = await response.json();
+                    
+                    results.push(`<div class="test-result success">✅ ${endpoint.name}: OK (${latency}ms)</div>`);
+                } catch (error) {
+                    results.push(`<div class="test-result error">❌ ${endpoint.name}: ${error.message}</div>`);
+                }
+            }
+            
+            resultsDiv.innerHTML = results.join('');
+        }
+        
+        // Load Dashboard
+        async function loadDashboard() {
+            const container = document.getElementById('metrics-grid');
+            container.innerHTML = '<div class="test-result loading">Carregando dashboard...</div>';
+            
+            try {
+                const response = await fetch('http://195.200.2.56:8090/api/dashboard');
+                const data = await response.json();
+                
+                const metrics = [
+                    { label: 'Throughput', value: data.throughput + ' req/s' },
+                    { label: 'Latência', value: data.latency + ' ms' },
+                    { label: 'Taxa de Erro', value: (data.errorRate * 100).toFixed(2) + '%' },
+                    { label: 'Uptime', value: data.uptime + '%' },
+                    { label: 'Agentes Ativos', value: data.activeAgents + '/' + data.totalAgents },
+                    { label: 'LEANN Docs', value: data.leannDocs },
+                    { label: 'CPU', value: data.cpuUsage + '%' },
+                    { label: 'Memória', value: data.memoryUsage + '%' }
+                ];
+                
+                container.innerHTML = metrics.map(m => `
+                    <div class="metric-card">
+                        <div class="metric-value">${m.value}</div>
+                        <div class="metric-label">${m.label}</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                container.innerHTML = '<div class="test-result error">Erro ao carregar dashboard: ' + error.message + '</div>';
+            }
+        }
+        
+        // Auto refresh
+        function startAutoRefresh() {
+            stopAutoRefresh();
+            loadDashboard();
+            autoRefreshInterval = setInterval(loadDashboard, 5000);
+            document.getElementById('dashboard-container').insertAdjacentHTML('afterbegin', 
+                '<div class="test-result success">Auto-refresh ativado (5 segundos)</div>');
+        }
+        
+        function stopAutoRefresh() {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+            }
+        }
+        
+        // Test Performance
+        async function testPerformance() {
+            const resultsDiv = document.getElementById('performance-results');
+            resultsDiv.innerHTML = '<div class="test-result loading">Executando testes de performance...</div>';
+            
+            const tests = [];
+            
+            // Test 1: Page Load Time
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            tests.push(`Page Load Time: ${loadTime}ms`);
+            
+            // Test 2: DOM Content Loaded
+            const domTime = performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart;
+            tests.push(`DOM Ready: ${domTime}ms`);
+            
+            // Test 3: First Paint
+            const paintEntries = performance.getEntriesByType('paint');
+            if (paintEntries.length > 0) {
+                tests.push(`First Paint: ${Math.round(paintEntries[0].startTime)}ms`);
+            }
+            
+            // Test 4: API Response Time
+            const apiStart = Date.now();
+            try {
+                await fetch('http://195.200.2.56:8090/api/health');
+                const apiTime = Date.now() - apiStart;
+                tests.push(`API Response: ${apiTime}ms`);
+            } catch (e) {
+                tests.push(`API Response: Error`);
+            }
+            
+            resultsDiv.innerHTML = tests.map(t => 
+                `<div class="test-result ${t.includes('Error') ? 'error' : 'success'}">📊 ${t}</div>`
+            ).join('');
+        }
+        
+        // Test JS Features
+        function testJSFeatures() {
+            const resultsDiv = document.getElementById('js-results');
+            const features = [];
+            
+            // Check if API config is loaded
+            if (window.DPO2U && window.DPO2U.API) {
+                features.push('<div class="test-result success">✅ API Configuration carregada</div>');
+            } else {
+                features.push('<div class="test-result error">❌ API Configuration não encontrada</div>');
+            }
+            
+            // Check for service worker support
+            if ('serviceWorker' in navigator) {
+                features.push('<div class="test-result success">✅ Service Worker suportado</div>');
+            } else {
+                features.push('<div class="test-result warning">⚠️ Service Worker não suportado</div>');
+            }
+            
+            // Check for IntersectionObserver (lazy loading)
+            if ('IntersectionObserver' in window) {
+                features.push('<div class="test-result success">✅ Lazy Loading disponível</div>');
+            } else {
+                features.push('<div class="test-result warning">⚠️ Lazy Loading não suportado</div>');
+            }
+            
+            // Check for localStorage
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                features.push('<div class="test-result success">✅ LocalStorage funcionando</div>');
+            } catch (e) {
+                features.push('<div class="test-result error">❌ LocalStorage com erro</div>');
+            }
+            
+            resultsDiv.innerHTML = features.join('');
+        }
+        
+        // Check System Status
+        async function checkSystemStatus() {
+            const statusDiv = document.getElementById('system-status');
+            statusDiv.innerHTML = '<div class="test-result loading">Verificando status completo do sistema...</div>';
+            
+            const checks = [];
+            
+            // Check main site
+            try {
+                const siteResponse = await fetch('/');
+                checks.push(`<div class="test-result success">✅ Site Principal: ${siteResponse.status}</div>`);
+            } catch (e) {
+                checks.push('<div class="test-result error">❌ Site Principal: Erro</div>');
+            }
+            
+            // Check API Gateway
+            try {
+                const apiResponse = await fetch('http://195.200.2.56:8090/api/health');
+                const apiData = await apiResponse.json();
+                checks.push(`<div class="test-result success">✅ API Gateway: ${apiData.status}</div>`);
+            } catch (e) {
+                checks.push('<div class="test-result error">❌ API Gateway: Offline</div>');
+            }
+            
+            // Check SSL
+            if (location.protocol === 'https:') {
+                checks.push('<div class="test-result success">✅ SSL/HTTPS: Ativo</div>');
+            } else {
+                checks.push('<div class="test-result warning">⚠️ SSL/HTTPS: Não ativo</div>');
+            }
+            
+            // Check viewport
+            const viewport = window.innerWidth;
+            checks.push(`<div class="test-result success">✅ Viewport: ${viewport}px</div>`);
+            
+            // Check browser
+            const userAgent = navigator.userAgent;
+            const browser = userAgent.includes('Chrome') ? 'Chrome' : 
+                           userAgent.includes('Firefox') ? 'Firefox' : 
+                           userAgent.includes('Safari') ? 'Safari' : 'Outro';
+            checks.push(`<div class="test-result success">✅ Browser: ${browser}</div>`);
+            
+            statusDiv.innerHTML = checks.join('');
+        }
+        
+        // Auto-run basic test on load
+        window.addEventListener('DOMContentLoaded', function() {
+            testAPIGateway();
+        });
+    </script>
+</body>
+</html>
