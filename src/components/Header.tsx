@@ -35,10 +35,10 @@ export default function Header() {
             </div>
             <div className="flex flex-col">
               <h1 className="text-xl md:text-2xl font-serif font-bold text-brand-gray-800 dark:text-white">
-                DPO2U <span className="text-brand-blue-600 dark:text-brand-blue-400 font-semibold">(Legal Tech)</span> <span className="text-gray-400 dark:text-gray-500">—</span> <span className="text-brand-emerald-600 dark:text-brand-emerald-400 font-medium">Sistema Multiagentes IA</span>
+                DPO2U
               </h1>
-              <p className="text-xs text-gray-600 dark:text-gray-400 -mt-1 hidden lg:block font-medium">
-                Transformação Digital Empresarial com Compliance Nativo
+              <p className="text-xs text-gray-600 dark:text-gray-400 -mt-1 hidden md:block">
+                Legal Tech + IA
               </p>
             </div>
           </motion.div>
