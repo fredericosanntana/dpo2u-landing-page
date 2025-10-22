@@ -2,9 +2,11 @@
 const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     unoptimized: true
+  },
+  turbopack: {
+    root: process.cwd()
   }
 }
 

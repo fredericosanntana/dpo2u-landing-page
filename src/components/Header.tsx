@@ -34,44 +34,44 @@ export default function Header() {
               />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-xl md:text-2xl font-serif font-bold text-brand-gray-800">
-                DPO2U
+              <h1 className="text-xl md:text-2xl font-serif font-bold text-brand-gray-800 dark:text-white">
+                DPO2U <span className="text-brand-blue-600 dark:text-brand-blue-400 font-semibold">(Legal Tech)</span> <span className="text-gray-400 dark:text-gray-500">—</span> <span className="text-brand-emerald-600 dark:text-brand-emerald-400 font-medium">Sistema Multiagentes IA</span>
               </h1>
-              <p className="text-xs text-gray-600 -mt-1 hidden md:block">
-                Legal Tech + IA
+              <p className="text-xs text-gray-600 dark:text-gray-400 -mt-1 hidden lg:block font-medium">
+                Transformação Digital Empresarial com Compliance Nativo
               </p>
             </div>
           </motion.div>
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#about" className="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+            <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
               Sobre
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
-            <a href="#services" className="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+            <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
               Serviços
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
-            <a href="#benefits" className="text-gray-700 hover:text-primary transition-colors font-medium relative group">
-              Benefícios  
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+            <a href="#benefits" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
+              Benefícios
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
-            <a href="#cases" className="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+            <a href="#cases" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
               Cases
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
-            <a href="/lgpd" className="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+            <a href="/lgpd" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
               LGPD
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
-            <a href="/privacy" className="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+            <a href="/privacy" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
               Privacidade
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
-            <a href="/terms" className="text-gray-700 hover:text-primary transition-colors font-medium relative group">
+            <a href="/terms" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
               Termos
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
           </nav>
 
