@@ -1,43 +1,132 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Shield, Download, CheckCircle, AlertCircle, Loader2, Brain, Activity } from 'lucide-react';
-import clsx from 'clsx';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Shield, CheckCircle, AlertCircle, Download } from 'lucide-react';
+import { CompleteFormData, CompanyInfo, DataInventoryItem, PurposeAndBasis, StorageAndRetention, ThirdPartyProcessor, SecurityMeasures, RiskAssessment, WizardStep } from '@/../types/wizard';
 import Header from '@/components/Header';
+import { Card } from '@/components/ui/card';
 import { motion } from 'framer-motion';
+import StepIndicator from '@/components/wizard/StepIndicator';
+import NavigationButtons from '@/components/wizard/NavigationButtons';
+import Step1CompanyInfo from '@/components/wizard/Step1CompanyInfo';
+import Step2DataInventory from '@/components/wizard/Step2DataInventory';
+import Step3PurposesAndBases from '@/components/wizard/Step3PurposesAndBases';
+import Step4StorageAndRetention from '@/components/wizard/Step4StorageAndRetention';
+import Step5ThirdParties from '@/components/wizard/Step5ThirdParties';
+import Step6SecurityAndRisks from '@/components/wizard/Step6SecurityAndRisks';
 
-type FormData = {
-    nome: string;
-    cnpj: string;
-    setor: string;
-    colaboradores: string;
-    coletaDados: boolean;
-    possuiOperadores: boolean;
-    responsavel: string;
-    email: string;
-    telefone: string;
-    apiKey?: string;
-};
+const STEP_TITLES = [
+    'Empresa',
+    'Inventário',
+    'Finalidades',
+    'Armazenamento',
+    'Terceiros',
+    'Segurança'
+];
 
 export default function AnalisePage() {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
-    const [isLoading, setIsLoading] = useState(false);
+    const [currentStep, setCurrentStep] = useState<WizardStep>(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [result, setResult] = useState<{ downloadUrl: string; logs: string } | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const onSubmit = async (data: FormData) => {
-        setIsLoading(true);
+    // Form state
+    const [companyInfo, setCompanyInfo] = useState<CompanyInfo>({
+        nome: '',
+        cnpj: '',
+        setor: 'Tecnologia/Software',
+        colaboradores: 5,
+        coletaDados: true,
+        possuiOperadores: true,
+        responsavel: '',
+        email: '',
+        telefone: ''
+    });
+
+    const [dataInventory, setDataInventory] = useState<DataInventoryItem[]>([]);
+    const [purposes, setPurposes] = useState<PurposeAndBasis[]>([]);
+    const [storage, setStorage] = useState<StorageAndRetention[]>([]);
+    const [thirdParties, setThirdParties] = useState<ThirdPartyProcessor[]>([]);
+    const [security, setSecurity] = useState<SecurityMeasures>({
+        tecnicas: {
+            criptografia: false,
+            controle_acesso: false,
+            backup: false,
+            firewall: false,
+            antivirus: false,
+            monitoramento: false,
+            outras: []
+        },
+        organizacionais: {
+            politica_privacidade_interna: false,
+            treinamento_colaboradores: false,
+            procedimentos_documentados: false,
+            auditoria_regular: false,
+            outras: []
+        }
+    });
+    const [risks, setRisks] = useState<RiskAssessment>({
+        atividades_alto_risco: false,
+        decisoes_automatizadas: false,
+        perfilamento: false,
+        transferencia_internacional: false,
+        incidentes_anteriores: false,
+        medidas_mitigacao: ''
+    });
+
+    // Validation
+    const isStepValid = (): boolean => {
+        switch (currentStep) {
+            case 1:
+                return !!(companyInfo.nome && companyInfo.cnpj && companyInfo.responsavel && companyInfo.email);
+            case 2:
+                return dataInventory.length > 0 && dataInventory.every(item => item.tipo.trim() !== '');
+            case 3:
+                return purposes.every(p => p.finalidade.trim() !== '' && p.justificativa.trim() !== '');
+            case 4:
+                return storage.every(s => s.periodo_retencao.trim() !== '' && s.procedimento_exclusao.trim() !== '');
+            case 5:
+                return true; // Third parties are optional
+            case 6:
+                return risks.medidas_mitigacao.trim() !== '';
+            default:
+                return false;
+        }
+    };
+
+    const handleNext = () => {
+        if (currentStep < 6) {
+            setCurrentStep((currentStep + 1) as WizardStep);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const handleBack = () => {
+        if (currentStep > 1) {
+            setCurrentStep((currentStep - 1) as WizardStep);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const handleSubmit = async () => {
+        setIsSubmitting(true);
         setError(null);
-        setResult(null);
+
+        const completeData: CompleteFormData = {
+            step1_company: companyInfo,
+            step2_inventory: dataInventory,
+            step3_purposes: purposes,
+            step4_storage: storage,
+            step5_third_parties: thirdParties,
+            step6_security: security,
+            step6_risks: risks
+        };
 
         try {
             const response = await fetch('/api/analise/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                body: JSON.stringify(completeData),
             });
 
             const json = await response.json();
@@ -50,7 +139,7 @@ export default function AnalisePage() {
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Erro desconhecido');
         } finally {
-            setIsLoading(false);
+            setIsSubmitting(false);
         }
     };
 
@@ -58,222 +147,130 @@ export default function AnalisePage() {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <main className="container mx-auto px-4 py-32">
+            <main className="container mx-auto px-4 py-24">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="max-w-4xl mx-auto"
+                    className="max-w-5xl mx-auto"
                 >
-                    <div className="text-center mb-12">
-                        <div className="inline-flex items-center justify-center p-4 bg-primary/10 rounded-2xl mb-6">
-                            <Shield className="h-8 w-8 text-primary" />
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
-                            Gerador de Adequação LGPD
-                        </h1>
-                        <p className="text-xl text-muted-foreground font-light">
-                            Gere seu kit de conformidade completo em minutos usando nossa IA.
-                        </p>
-                    </div>
-
-                    <Card className="p-8 shadow-xl bg-card border-border/50 backdrop-blur-sm">
-                        {!result && (
-                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                                    {/* Nome */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Razão Social</label>
-                                        <input
-                                            {...register('nome', { required: 'Nome é obrigatório' })}
-                                            className={clsx(
-                                                "w-full px-4 py-3 bg-muted/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all",
-                                                errors.nome ? "border-destructive" : "border-input"
-                                            )}
-                                            placeholder="Sua Empresa Ltda"
-                                        />
-                                        {errors.nome && <span className="text-destructive text-xs">{errors.nome.message}</span>}
-                                    </div>
-
-                                    {/* CNPJ */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">CNPJ</label>
-                                        <input
-                                            {...register('cnpj', { required: 'CNPJ é obrigatório' })}
-                                            className={clsx(
-                                                "w-full px-4 py-3 bg-muted/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all",
-                                                errors.cnpj ? "border-destructive" : "border-input"
-                                            )}
-                                            placeholder="00.000.000/0001-00"
-                                        />
-                                        {errors.cnpj && <span className="text-destructive text-xs">{errors.cnpj.message}</span>}
-                                    </div>
-
-                                    {/* Setor */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Setor de Atuação</label>
-                                        <select
-                                            {...register('setor')}
-                                            className="w-full px-4 py-3 bg-muted/50 border border-input rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all"
-                                        >
-                                            <option value="Tecnologia/Software">Tecnologia/Software</option>
-                                            <option value="E-commerce/Varejo">E-commerce/Varejo</option>
-                                            <option value="Serviços Financeiros">Serviços Financeiros</option>
-                                            <option value="Saúde">Saúde</option>
-                                            <option value="Educação">Educação</option>
-                                            <option value="Consultoria">Consultoria</option>
-                                            <option value="Outro">Outro</option>
-                                        </select>
-                                    </div>
-
-                                    {/* Colaboradores */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Colaboradores</label>
-                                        <select
-                                            {...register('colaboradores')}
-                                            className="w-full px-4 py-3 bg-muted/50 border border-input rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all"
-                                        >
-                                            <option value="5">1-10 (Micro)</option>
-                                            <option value="30">11-49 (Pequena)</option>
-                                            <option value="150">50-249 (Média)</option>
-                                            <option value="500">250+ (Grande)</option>
-                                        </select>
-                                    </div>
-
-                                    {/* DPO Nome */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Nome do DPO/Responsável</label>
-                                        <input
-                                            {...register('responsavel', { required: 'Responsável é obrigatório' })}
-                                            className={clsx(
-                                                "w-full px-4 py-3 bg-muted/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all",
-                                                errors.responsavel ? "border-destructive" : "border-input"
-                                            )}
-                                            placeholder="Nome Completo"
-                                        />
-                                        {errors.responsavel && <span className="text-destructive text-xs">{errors.responsavel.message}</span>}
-                                    </div>
-
-                                    {/* Email */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Email de Contato</label>
-                                        <input
-                                            {...register('email', { required: 'Email é obrigatório' })}
-                                            className={clsx(
-                                                "w-full px-4 py-3 bg-muted/50 border rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all",
-                                                errors.email ? "border-destructive" : "border-input"
-                                            )}
-                                            placeholder="dpo@empresa.com"
-                                        />
-                                        {errors.email && <span className="text-destructive text-xs">{errors.email.message}</span>}
-                                    </div>
-
-                                    {/* Telefone */}
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium">Telefone (Opcional)</label>
-                                        <input
-                                            {...register('telefone')}
-                                            className="w-full px-4 py-3 bg-muted/50 border border-input rounded-lg focus:ring-2 focus:ring-primary outline-none transition-all"
-                                            placeholder="(00) 00000-0000"
-                                        />
-                                    </div>
+                    {!result ? (
+                        <>
+                            {/* Header */}
+                            <div className="text-center mb-8">
+                                <div className="inline-flex items-center justify-center p-4 bg-primary/10 rounded-2xl mb-6">
+                                    <Shield className="h-8 w-8 text-primary" />
                                 </div>
+                                <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+                                    Adequação LGPD Completa
+                                </h1>
+                                <p className="text-xl text-muted-foreground">
+                                    Preencha todas as etapas para gerar sua documentação personalizada.
+                                </p>
+                            </div>
 
-                                {/* Checkboxes */}
-                                <div className="space-y-4 pt-4">
-                                    <div className="flex items-center space-x-3 p-4 bg-muted/30 rounded-lg border border-border/50">
-                                        <input
-                                            type="checkbox"
-                                            {...register('coletaDados')}
-                                            className="w-5 h-5 rounded border-input text-primary focus:ring-primary"
-                                        />
-                                        <span className="text-sm">A empresa coleta dados pessoais de clientes/usuários?</span>
-                                    </div>
-                                    <div className="flex items-center space-x-3 p-4 bg-muted/30 rounded-lg border border-border/50">
-                                        <input
-                                            type="checkbox"
-                                            {...register('possuiOperadores')}
-                                            className="w-5 h-5 rounded border-input text-primary focus:ring-primary"
-                                        />
-                                        <span className="text-sm">A empresa utiliza fornecedores que processam dados (operadores)?</span>
-                                    </div>
-                                </div>
+                            {/* Step Indicator */}
+                            <StepIndicator
+                                currentStep={currentStep}
+                                totalSteps={6}
+                                stepTitles={STEP_TITLES}
+                            />
 
-                                {/* API Key */}
-                                <div className="space-y-2 pt-6 border-t border-border">
-                                    <label className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Gemini API Key (Opcional)</label>
-                                    <div className="text-xs text-muted-foreground mb-1">Se não preenchido, usará a chave do servidor.</div>
-                                    <input
-                                        {...register('apiKey')}
-                                        type="password"
-                                        className="w-full px-4 py-3 bg-muted/50 border border-emerald-500/30 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition-all placeholder-muted-foreground"
-                                        placeholder="AIza..."
+                            {/* Form Card */}
+                            <Card className="p-8 shadow-xl">
+                                {/* Current Step Content */}
+                                {currentStep === 1 && (
+                                    <Step1CompanyInfo data={companyInfo} onChange={setCompanyInfo} />
+                                )}
+                                {currentStep === 2 && (
+                                    <Step2DataInventory data={dataInventory} onChange={setDataInventory} />
+                                )}
+                                {currentStep === 3 && (
+                                    <Step3PurposesAndBases
+                                        data={purposes}
+                                        dataInventory={dataInventory}
+                                        onChange={setPurposes}
                                     />
-                                </div>
+                                )}
+                                {currentStep === 4 && (
+                                    <Step4StorageAndRetention
+                                        data={storage}
+                                        dataInventory={dataInventory}
+                                        onChange={setStorage}
+                                    />
+                                )}
+                                {currentStep === 5 && (
+                                    <Step5ThirdParties
+                                        data={thirdParties}
+                                        dataInventory={dataInventory}
+                                        onChange={setThirdParties}
+                                    />
+                                )}
+                                {currentStep === 6 && (
+                                    <Step6SecurityAndRisks
+                                        security={security}
+                                        risks={risks}
+                                        onSecurityChange={setSecurity}
+                                        onRisksChange={setRisks}
+                                    />
+                                )}
 
-                                <div className="pt-6">
-                                    <Button
-                                        type="submit"
-                                        disabled={isLoading}
-                                        className="w-full py-6 text-lg font-bold shadow-lg shadow-primary/20"
-                                    >
-                                        {isLoading ? (
-                                            <>
-                                                <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                                                Gerando Documentos... (2-3 min)
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Shield className="w-5 h-5 mr-2" />
-                                                Gerar Kit de Adequação
-                                            </>
-                                        )}
-                                    </Button>
-                                </div>
-                            </form>
-                        )}
+                                {/* Navigation */}
+                                <NavigationButtons
+                                    currentStep={currentStep}
+                                    totalSteps={6}
+                                    onBack={handleBack}
+                                    onNext={handleNext}
+                                    onSubmit={handleSubmit}
+                                    isSubmitting={isSubmitting}
+                                    isValid={isStepValid()}
+                                />
+                            </Card>
 
-                        {error && (
-                            <div className="mt-6 p-4 bg-destructive/10 border border-destructive/20 rounded-xl flex items-start text-destructive">
-                                <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" />
-                                <span>{error}</span>
+                            {/* Error Display */}
+                            {error && (
+                                <div className="mt-6 p-4 bg-destructive/10 border border-destructive/20 rounded-xl flex items-start text-destructive">
+                                    <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0 mt-0.5" />
+                                    <span>{error}</span>
+                                </div>
+                            )}
+                        </>
+                    ) : (
+                        /* Success Result */
+                        <Card className="p-8 text-center space-y-8">
+                            <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto">
+                                <CheckCircle className="w-10 h-10 text-emerald-500" />
                             </div>
-                        )}
 
-                        {result && (
-                            <div className="mt-6 text-center space-y-8 animate-in fade-in slide-in-from-bottom-4">
-                                <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <CheckCircle className="w-10 h-10 text-emerald-500" />
-                                </div>
-
-                                <div>
-                                    <h3 className="text-2xl font-bold mb-2">Adequação Concluída!</h3>
-                                    <p className="text-muted-foreground">
-                                        Seus documentos foram gerados e validados com sucesso pela nossa IA.
-                                    </p>
-                                </div>
-
-                                <div className="p-4 bg-muted/50 rounded-lg text-left text-xs font-mono text-muted-foreground h-48 overflow-y-auto border border-border">
-                                    <pre>{result.logs}</pre>
-                                </div>
-
-                                <Button
-                                    onClick={() => window.location.href = result.downloadUrl}
-                                    className="w-full py-6 text-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-500/20"
-                                >
-                                    <Download className="w-5 h-5 mr-2" />
-                                    Baixar Pacote Final (.zip)
-                                </Button>
-
-                                <button
-                                    onClick={() => setResult(null)}
-                                    className="block w-full mt-4 text-muted-foreground hover:text-foreground text-sm underline"
-                                >
-                                    Gerar novo kit
-                                </button>
+                            <div>
+                                <h2 className="text-3xl font-bold mb-2">Adequação Concluída!</h2>
+                                <p className="text-muted-foreground text-lg">
+                                    Sua documentação LGPD foi gerada com sucesso.
+                                </p>
                             </div>
-                        )}
-                    </Card>
+
+                            <div className="p-4 bg-muted/50 rounded-lg text-left text-xs font-mono text-muted-foreground h-48 overflow-y-auto border border-border">
+                                <pre>{result.logs}</pre>
+                            </div>
+
+                            <a
+                                href={result.downloadUrl}
+                                className="inline-flex items-center px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-emerald-500/20 transition-all hover:scale-105"
+                            >
+                                <Download className="w-5 h-5 mr-2" />
+                                Baixar Pacote Completo (.zip)
+                            </a>
+
+                            <button
+                                onClick={() => {
+                                    setResult(null);
+                                    setCurrentStep(1);
+                                }}
+                                className="block w-full mt-4 text-muted-foreground hover:text-foreground text-sm underline"
+                            >
+                                Gerar nova adequação
+                            </button>
+                        </Card>
+                    )}
                 </motion.div>
             </main>
         </div>

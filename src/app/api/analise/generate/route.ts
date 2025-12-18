@@ -10,13 +10,17 @@ export async function POST(req: Request) {
     try {
         const data = await req.json();
 
-        // Validar dados básicos
-        if (!data.nome || !data.cnpj || !data.email) {
-            return NextResponse.json({ error: 'Dados incompletos' }, { status: 400 });
+        // Validar estrutura completa do wizard
+        if (!data.step1_company || !data.step1_company.nome || !data.step1_company.cnpj || !data.step1_company.email) {
+            return NextResponse.json({ error: 'Dados da empresa incompletos' }, { status: 400 });
+        }
+
+        if (!data.step2_inventory || data.step2_inventory.length === 0) {
+            return NextResponse.json({ error: 'Inventário de dados é obrigatório' }, { status: 400 });
         }
 
         const timestamp = Date.now();
-        const id = `${data.cnpj.replace(/\D/g, '')}-${timestamp}`;
+        const id = `${data.step1_company.cnpj.replace(/\D/g, '')}-${timestamp}`;
         // Use /tmp for temp files - always writable in containers
         const inputPath = path.join('/tmp', `temp-${id}.json`);
 
@@ -27,22 +31,32 @@ export async function POST(req: Request) {
         // Garantir que o diretório de downloads existe
         fs.mkdirSync(publicDownloadDir, { recursive: true });
 
-        // Salvar JSON de entrada
-        const empresaData = {
-            nome: data.nome,
-            cnpj: data.cnpj,
-            setor: data.setor,
-            colaboradores: parseInt(data.colaboradores),
-            coletaDados: data.coletaDados === 'true' || data.coletaDados === true,
-            possuiOperadores: data.possuiOperadores === 'true' || data.possuiOperadores === true,
+        // Salvar JSON de entrada completo (wizard data)
+        const completeData = {
+            // Dados backward-compatible com formato antigo
+            nome: data.step1_company.nome,
+            cnpj: data.step1_company.cnpj,
+            setor: data.step1_company.setor,
+            colaboradores: data.step1_company.colaboradores,
+            coletaDados: data.step1_company.coletaDados,
+            possuiOperadores: data.step1_company.possuiOperadores,
             contato: {
-                responsavel: data.responsavel,
-                email: data.email,
-                telefone: data.telefone
+                responsavel: data.step1_company.responsavel,
+                email: data.step1_company.email,
+                telefone: data.step1_company.telefone || ''
+            },
+            //Dados estendidos do wizard
+            wizard_data: {
+                inventory: data.step2_inventory || [],
+                purposes: data.step3_purposes || [],
+                storage: data.step4_storage || [],
+                third_parties: data.step5_third_parties || [],
+                security: data.step6_security || {},
+                risks: data.step6_risks || {}
             }
         };
 
-        fs.writeFileSync(inputPath, JSON.stringify(empresaData, null, 2));
+        fs.writeFileSync(inputPath, JSON.stringify(completeData, null, 2));
 
         // Executar CLI - Caminho Absoluto para o Kit
         const cliPath = '/root/dpo2u-lgpd-kit/dist/cli.js';
