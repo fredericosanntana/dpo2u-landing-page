@@ -30,35 +30,35 @@ interface PremiumDialogProps {
 
 const backdropVariants = {
   hidden: { opacity: 0 },
-  visible: { 
+  visible: {
     opacity: 1,
     transition: { duration: 0.3 }
   },
-  exit: { 
+  exit: {
     opacity: 0,
     transition: { duration: 0.2 }
   }
 };
 
 const dialogVariants = {
-  hidden: { 
-    opacity: 0, 
+  hidden: {
+    opacity: 0,
     scale: 0.8,
     y: 50
   },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     y: 0,
-    transition: { 
+    transition: {
       type: 'spring',
       damping: 25,
       stiffness: 200,
       duration: 0.4
     }
   },
-  exit: { 
-    opacity: 0, 
+  exit: {
+    opacity: 0,
     scale: 0.8,
     y: 50,
     transition: { duration: 0.2 }
@@ -101,8 +101,8 @@ export function PremiumDialog({
   const styles = getVariantStyles();
 
   const defaultTrigger = (
-    <Button 
-      variant="cta-primary" 
+    <Button
+      variant="cta-primary"
       size="lg"
       className="group"
     >
@@ -116,8 +116,8 @@ export function PremiumDialog({
       <DialogTrigger asChild>
         {trigger || defaultTrigger}
       </DialogTrigger>
-      
-      <DialogContent 
+
+      <DialogContent
         className={`max-w-5xl max-h-[90vh] overflow-auto p-0 ${styles.background} ${styles.border} border-2`}
         onEscapeKeyDown={() => setIsOpen(false)}
       >
@@ -143,15 +143,15 @@ export function PremiumDialog({
                 {/* Header Content */}
                 <DialogHeader className="relative z-10 p-8 text-center text-white">
                   {badge && (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
                       className="flex justify-center mb-4"
                     >
-                      <Badge 
-                        variant={badge.variant === 'luxury' ? 'premium' : badge.variant} 
-                        size="xl" 
+                      <Badge
+                        variant={badge.variant === 'luxury' ? 'premium' : badge.variant}
+                        size="xl"
                         className="px-6 py-2 backdrop-blur-sm"
                       >
                         {badge.icon && <badge.icon className="h-5 w-5 mr-2" />}
@@ -159,7 +159,7 @@ export function PremiumDialog({
                       </Badge>
                     </motion.div>
                   )}
-                  
+
                   <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -174,7 +174,7 @@ export function PremiumDialog({
                   </motion.div>
 
                   {/* Premium Features */}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
@@ -185,7 +185,7 @@ export function PremiumDialog({
                       { icon: Zap, text: 'Imediato' },
                       { icon: Star, text: 'Gratuito' }
                     ].map((feature, index) => (
-                      <div 
+                      <div
                         key={index}
                         className="flex items-center space-x-2 px-4 py-2 bg-white/10 rounded-full border border-white/20 backdrop-blur-sm"
                       >
@@ -232,7 +232,7 @@ export function PremiumDialog({
 export function ConsultationDialog() {
   return (
     <PremiumDialog
-      title="Diagnóstico Sistema Multiagente Gratuito"
+      title="Diagnóstico de Infraestrutura Gratuito"
       description="Análise completa em 72h + Roadmap personalizado + Demo da plataforma IA em produção"
       variant="executive"
       badge={{
@@ -241,11 +241,11 @@ export function ConsultationDialog() {
         icon: Sparkles
       }}
       trigger={
-        <Button 
-          variant="cta-primary" 
+        <Button
+          variant="cta-primary"
           size="xl"
           className="group relative border-0 shadow-xl transform hover:scale-[1.02] transition-all duration-200 font-bold text-lg px-12 py-6 rounded-2xl overflow-hidden bg-gradient-to-r from-brand-emerald-500 to-brand-emerald-600 hover:from-brand-emerald-600 hover:to-brand-emerald-700 focus:outline-none focus:ring-4 focus:ring-brand-emerald-500/50"
-          aria-label="Abrir formulário para diagnóstico do sistema multiagente gratuito em 72 horas"
+          aria-label="Abrir formulário para diagnóstico de infraestrutura gratuito em 72 horas"
           role="button"
           tabIndex={0}
         >
@@ -292,10 +292,10 @@ interface PremiumTriggerProps {
   className?: string;
 }
 
-export function PremiumTrigger({ 
-  children, 
+export function PremiumTrigger({
+  children,
   variant = 'premium',
-  className 
+  className
 }: PremiumTriggerProps) {
   const getVariantClass = () => {
     switch (variant) {
@@ -309,7 +309,7 @@ export function PremiumTrigger({
   };
 
   return (
-    <Button 
+    <Button
       className={`
         ${getVariantClass()}
         text-white border-0 shadow-xl transform hover:scale-[1.02] transition-all duration-200 

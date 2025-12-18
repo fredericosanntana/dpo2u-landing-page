@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Code, 
-  Database, 
-  Shield, 
-  Zap, 
-  GitBranch, 
-  Server, 
-  Globe, 
+import {
+  Code,
+  Database,
+  Shield,
+  Zap,
+  GitBranch,
+  Server,
+  Globe,
   Lock,
   TrendingUp,
-  Users,
+  Box,
   CheckCircle,
   ArrowRight,
   Download,
@@ -23,7 +23,7 @@ import {
   Layers,
   Activity,
   BarChart3,
-  Brain
+  Cpu
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -53,53 +53,53 @@ interface TechnicalSpec {
 
 const technicalSpecs: TechnicalSpec[] = [
   {
-    category: "AI & Machine Learning",
+    category: "Infrastructure & Security",
     items: [
       {
-        name: "OpenAI MCP Server",
-        technology: "GPT-4o + o3-mini",
-        description: "Strategic AI brain with reasoning capabilities",
-        performance: 99.8,
+        name: "Secure VPS Hardening",
+        technology: "Ubuntu/Debian + UFW",
+        description: "Kernel hardening, firewall rules, and SSH key enforcement",
+        performance: 99.9,
         status: "production"
       },
       {
-        name: "LEANN Neural Network",
-        technology: "Legal Enterprise AI",
-        description: "2,856+ indexed legal documents with semantic search",
-        performance: 99.2,
+        name: "Gateway & Routing",
+        technology: "Traefik Proxy v3",
+        description: "Auto-HTTPS, middleware security headers, and load balancing",
+        performance: 99.5,
         status: "production"
       },
       {
-        name: "Agent Factory",
-        technology: "Dynamic Agent Creation",
-        description: "Runtime agent specialization and optimization",
-        performance: 96.3,
+        name: "Private Git Server",
+        technology: "Gitea Instance",
+        description: "Self-hosted code repositories with complete ownership",
+        performance: 100,
         status: "production"
       }
     ]
   },
   {
-    category: "Infrastructure & DevOps",
+    category: "Stack & Application",
     items: [
       {
-        name: "Claude Code Orchestrator",
-        technology: "Anthropic Claude + MCP",
-        description: "Session management and context preservation",
-        performance: 97.9,
-        status: "production"
-      },
-      {
-        name: "Master Orchestrator", 
-        technology: "Python + FastAPI",
-        description: "Meta-orchestration with dynamic agent spawning",
+        name: "Container Orchestration",
+        technology: "Docker Swarm/Compose",
+        description: "Service isolation, health checks, and auto-restart policies",
         performance: 98.5,
         status: "production"
       },
       {
-        name: "Session Manager",
-        technology: "Obsidian + Markdown",
-        description: "Zero-loss context preservation and recovery",
+        name: "Application Runtime",
+        technology: "Next.js + Python/FastAPI",
+        description: "High-performance frontend and async backend services",
         performance: 99.2,
+        status: "production"
+      },
+      {
+        name: "Data Persistence",
+        technology: "PostgreSQL + Vector DB",
+        description: "Structured and unstructured data storage in private volumes",
+        performance: 99.8,
         status: "production"
       }
     ]
@@ -107,7 +107,7 @@ const technicalSpecs: TechnicalSpec[] = [
 ];
 
 const TechnicalCredibilitySection: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('AI & Machine Learning');
+  const [selectedCategory, setSelectedCategory] = useState<string>('Infrastructure & Security');
   const [activeMetricCategory, setActiveMetricCategory] = useState<TechnicalMetric['category']>('performance');
   const [liveMetrics, setLiveMetrics] = useState<any>(null);
 
@@ -122,7 +122,7 @@ const TechnicalCredibilitySection: React.FC = () => {
         console.error('Failed to fetch live metrics:', error);
       }
     };
-    
+
     fetchMetrics();
     const interval = setInterval(fetchMetrics, 30000); // Update every 30s
     return () => clearInterval(interval);
@@ -130,57 +130,57 @@ const TechnicalCredibilitySection: React.FC = () => {
 
   const technicalMetrics: TechnicalMetric[] = [
     {
-      title: "System Throughput",
-      value: liveMetrics?.system?.throughput?.toString() || "847",
-      unit: "requests/min", 
+      title: "API Throughput",
+      value: liveMetrics?.system?.throughput?.toString() || "1,240",
+      unit: "req/min",
       change: 340,
-      benchmark: "Industry standard: 680/min",
-      description: "Real-time multiagent task processing capability",
+      benchmark: "Standard VPS: 800/min",
+      description: "High-performance Traefik routing capacity",
       category: "performance"
     },
     {
-      title: "Response Latency", 
-      value: liveMetrics?.system?.latency?.toString() || "120",
+      title: "Gateway Latency",
+      value: liveMetrics?.system?.latency?.toString() || "45",
       unit: "ms",
-      change: -67,
-      benchmark: "Traditional: 4-8h", 
-      description: "End-to-end agent coordination latency",
+      change: -28,
+      benchmark: "Public Cloud: 80ms+",
+      description: "Direct connection to your private infrastructure",
       category: "performance"
     },
     {
-      title: "System Uptime",
-      value: liveMetrics?.system?.uptime?.toFixed(2) || "99.97",
+      title: "Stack Uptime",
+      value: liveMetrics?.system?.uptime?.toFixed(2) || "99.99",
       unit: "%",
-      change: 22,
-      benchmark: "Enterprise SLA: 99.9%",
-      description: "Production system availability with failover",
+      change: 0,
+      benchmark: "SLA Guarantee: 99.9%",
+      description: "Continuous availability via Docker auto-healing",
       category: "reliability"
     },
     {
-      title: "Active Agents",
-      value: liveMetrics?.agents?.active?.toString() || "12",
-      unit: "concurrent",
-      change: 156,
-      benchmark: "Traditional: max 5 parallel",
-      description: "Coordinated specialist agents running simultaneously",
+      title: "Active Services",
+      value: liveMetrics?.infrastructure?.containers_active?.toString() || "12",
+      unit: "containers",
+      change: 4,
+      benchmark: "Monolith: 1 service",
+      description: "Microservices running in isolated environments",
       category: "scalability"
     },
     {
-      title: "Memory Efficiency",
-      value: liveMetrics?.system?.memoryUsage?.toString() || "67",
-      unit: "% utilized",
-      change: -23,
-      benchmark: "Standard: 90%+ usage",
-      description: "Optimized memory allocation across agent pool",
+      title: "Resource Efficiency",
+      value: liveMetrics?.infrastructure?.memory_usage?.toString() || "32",
+      unit: "% RAM",
+      change: -15,
+      benchmark: "Java Stack: 60%+",
+      description: "Optimized lightweight container footprint",
       category: "performance"
     },
     {
-      title: "Security Score",
-      value: "99.8",
+      title: "Security & Privacy",
+      value: "100",
       unit: "%",
-      change: 15,
-      benchmark: "Industry average: 84%",
-      description: "Multi-factor auth, encryption, and compliance monitoring",
+      change: 0,
+      benchmark: "SaaS: Shared Data",
+      description: "Data sovereignty with zero external leakage",
       category: "security"
     }
   ];
@@ -198,10 +198,8 @@ const TechnicalCredibilitySection: React.FC = () => {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'AI & Machine Learning': return <Brain className="h-5 w-5" />;
-      case 'Infrastructure & DevOps': return <Server className="h-5 w-5" />;
-      case 'Security & Compliance': return <Shield className="h-5 w-5" />;
-      case 'Integration & APIs': return <Globe className="h-5 w-5" />;
+      case 'Infrastructure & Security': return <Shield className="h-5 w-5" />;
+      case 'Stack & Application': return <Layers className="h-5 w-5" />;
       default: return <Code className="h-5 w-5" />;
     }
   };
@@ -210,7 +208,7 @@ const TechnicalCredibilitySection: React.FC = () => {
     switch (category) {
       case 'performance': return <Zap className="h-4 w-4" />;
       case 'scalability': return <TrendingUp className="h-4 w-4" />;
-      case 'reliability': return <Shield className="h-4 w-4" />;
+      case 'reliability': return <Server className="h-4 w-4" />;
       case 'security': return <Lock className="h-4 w-4" />;
     }
   };
@@ -228,20 +226,19 @@ const TechnicalCredibilitySection: React.FC = () => {
           <div className="inline-flex items-center px-4 py-2 bg-brand-sapphire-100 rounded-full mb-6">
             <Activity className="h-4 w-4 text-brand-sapphire-600 mr-2" />
             <span className="text-sm font-medium text-brand-sapphire-600">
-              {liveMetrics ? 'Live Production Metrics' : 'Technical Specifications'}
+              {liveMetrics ? 'Métricas de Infraestrutura em Tempo Real' : 'Especificações Técnicas'}
             </span>
             {liveMetrics && <div className="w-2 h-2 bg-emerald-400 rounded-full ml-2 animate-pulse" />}
           </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text-dark mb-6">
-            Arquitetura{' '}
+            Performance de{' '}
             <span className="bg-gradient-to-r from-brand-sapphire-600 to-brand-emerald-600 bg-clip-text text-transparent">
-              Enterprise-Grade
+              Infraestrutura Privada
             </span>{' '}
-            em Produção
+            Validada
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Especificações técnicas e métricas de performance em tempo real do nosso sistema multiagente 
-            rodando em produção com {liveMetrics?.agents?.active || 12} agentes ativos
+            Métricas reais de uma Stack de IA completa rodando em VPS dedicada. Zero latência de terceiros, 100% de soberania.
           </p>
         </motion.div>
 
@@ -257,11 +254,10 @@ const TechnicalCredibilitySection: React.FC = () => {
               <button
                 key={category}
                 onClick={() => setActiveMetricCategory(category)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                  activeMetricCategory === category
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${activeMetricCategory === category
                     ? 'bg-brand-sapphire-600 text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
-                }`}
+                  }`}
               >
                 {getMetricCategoryIcon(category)}
                 <span className="text-sm font-medium capitalize">{category}</span>
@@ -284,20 +280,20 @@ const TechnicalCredibilitySection: React.FC = () => {
                       <h3 className="font-semibold text-slate-800 mb-1">{metric.title}</h3>
                       <p className="text-sm text-slate-600">{metric.description}</p>
                     </div>
-                    <Badge 
-                      className={`${metric.change > 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}`}
+                    <Badge
+                      className={`${metric.change >= 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-brand-sapphire-100 text-brand-sapphire-700'}`}
                     >
                       {metric.change > 0 ? '+' : ''}{metric.change}%
                     </Badge>
                   </div>
-                  
+
                   <div className="flex items-baseline space-x-2 mb-2">
                     <span className="text-3xl font-bold text-brand-sapphire-600">{metric.value}</span>
                     <span className="text-sm text-slate-500">{metric.unit}</span>
                   </div>
-                  
+
                   <div className="text-xs text-slate-500 mb-3">{metric.benchmark}</div>
-                  
+
                   <Progress value={85} className="h-2" />
                 </Card>
               </motion.div>
@@ -314,10 +310,10 @@ const TechnicalCredibilitySection: React.FC = () => {
         >
           <div className="text-center mb-8">
             <h3 className="text-2xl font-serif font-bold text-brand-text-dark mb-4">
-              Stack Técnico em Produção
+              Stack de IA Segura
             </h3>
             <p className="text-gray-600">
-              Componentes core do sistema multiagente com performance validada em produção
+              Componentes core da sua infraestrutura privada
             </p>
           </div>
 
@@ -326,11 +322,10 @@ const TechnicalCredibilitySection: React.FC = () => {
               <button
                 key={spec.category}
                 onClick={() => setSelectedCategory(spec.category)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                  selectedCategory === spec.category
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${selectedCategory === spec.category
                     ? 'bg-brand-sapphire-600 text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
-                }`}
+                  }`}
               >
                 {getCategoryIcon(spec.category)}
                 <span className="text-sm font-medium">{spec.category}</span>
@@ -365,7 +360,7 @@ const TechnicalCredibilitySection: React.FC = () => {
                         <div className="text-2xl font-bold text-brand-emerald-600 mb-1">
                           {item.performance}%
                         </div>
-                        <div className="text-xs text-gray-500">Performance</div>
+                        <div className="text-xs text-gray-500">Uptime</div>
                       </div>
                     </div>
                   </Card>
@@ -384,20 +379,19 @@ const TechnicalCredibilitySection: React.FC = () => {
         >
           <Card className="p-8 bg-gradient-to-r from-brand-sapphire-50 to-brand-emerald-50 border border-brand-sapphire-200">
             <h3 className="text-2xl font-serif font-bold text-brand-text-dark mb-4">
-              Quer ver nossa arquitetura em ação?
+              Quer ver esta stack rodando ao vivo?
             </h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Agende uma demonstração técnica personalizada onde nossos arquitetos mostram 
-              o sistema multiagente rodando em produção com métricas reais
+              Agende uma demonstração técnica onde mostramos como clonamos e subimos essa mesma infraestrutura para sua empresa em 72h.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-gradient-to-r from-brand-sapphire-600 to-brand-emerald-600 hover:from-brand-sapphire-700 hover:to-brand-emerald-700 text-white">
                 <Monitor className="h-5 w-5 mr-2" />
-                Demo Técnica Live
+                Demo Técnica
               </Button>
               <Button variant="outline" className="border-brand-sapphire-200 text-brand-sapphire-700 hover:bg-brand-sapphire-50">
                 <Download className="h-5 w-5 mr-2" />
-                Whitepaper Técnico
+                Whitepaper Arquitetura
               </Button>
             </div>
           </Card>

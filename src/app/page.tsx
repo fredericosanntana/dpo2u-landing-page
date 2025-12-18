@@ -333,7 +333,7 @@ export default function HomePage() {
               </span>
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Nossa arquitetura multiagente está em produção, demonstrando capacidades técnicas
+              Nossa Stack de IA está em produção, demonstrando capacidades técnicas
               avançadas e entregando automação empresarial mensurável
             </p>
           </motion.div>
@@ -344,7 +344,7 @@ export default function HomePage() {
           >
             {[
               {
-                title: 'Sistema Multiagente em Produção',
+                title: 'Stack de IA em Produção',
                 description: 'Arquitetura híbrida 4-níveis rodando 24/7 com 145+ agentes especializados disponíveis para coordenação dinâmica.',
                 metrics: ['12+ agentes ativos simultâneos', '99.97% uptime sistema', '847 req/min throughput'],
                 icon: <Brain className="h-8 w-8" />,
@@ -400,7 +400,7 @@ export default function HomePage() {
                   Sistema Live - Métricas Reais
                 </h3>
                 <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                  Acompanhe em tempo real as métricas do nosso sistema multiagente em produção.
+                  Acompanhe em tempo real as métricas da nossa infraestrutura em produção.
                   Dados atualizados automaticamente a cada 2 segundos.
                 </p>
                 <Button
@@ -534,7 +534,7 @@ export default function HomePage() {
                 size="xl"
                 className="border-2 border-brand-sapphire-500 text-brand-platinum-200 hover:bg-brand-sapphire-700 hover:text-white hover:border-brand-sapphire-400 transition-all duration-200 font-medium"
               >
-                Baixar Guia Sistema Multiagentes
+                Baixar Guia Técnico
               </Button>
             </div>
           </motion.div>

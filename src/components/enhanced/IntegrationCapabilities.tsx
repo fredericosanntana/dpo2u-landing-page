@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import {
   Puzzle,
   Database,
   Cloud,
@@ -54,10 +54,10 @@ const integrationCapabilities: IntegrationCapability[] = [
     techSpecs: ["WebSocket connections", "JSON-RPC messaging", "SSL/TLS encryption", "Auto-reconnection"]
   },
   {
-    title: "RESTful API Architecture", 
+    title: "RESTful API Architecture",
     description: "APIs robustas para integração com qualquer sistema enterprise existente",
     icon: <Network className="h-8 w-8" />,
-    status: "production", 
+    status: "production",
     features: [
       "Agent status endpoints",
       "Real-time metrics API",
@@ -73,7 +73,7 @@ const integrationCapabilities: IntegrationCapability[] = [
     status: "production",
     features: [
       "Dynamic connector generation",
-      "Custom protocol adapters", 
+      "Custom protocol adapters",
       "Legacy system compatibility",
       "No-code configuration"
     ],
@@ -102,14 +102,14 @@ const apiExamples = [
     example: "Currently active in production"
   },
   {
-    method: "POST" as const, 
+    method: "POST" as const,
     path: "/api/tasks/orchestrate",
     description: "Trigger multi-agent task coordination",
     example: "Agent Factory ready"
   },
   {
     method: "GET" as const,
-    path: "/api/sessions/active", 
+    path: "/api/sessions/active",
     description: "Session management and context",
     example: "Obsidian integration active"
   },
@@ -164,13 +164,13 @@ const IntegrationCapabilities: React.FC = () => {
             </span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Arquitetura de integração flexível baseada em MCP, APIs REST e Agent Factory 
+            Arquitetura de integração flexível baseada em MCP, APIs REST e Agent Factory
             para conectar com sua infraestrutura existente
           </p>
         </motion.div>
 
         {/* Integration Stats */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -208,16 +208,15 @@ const IntegrationCapabilities: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card 
-                    className={`p-6 cursor-pointer transition-all hover:shadow-lg ${
-                      selectedCapability === index ? 'border-brand-sapphire-300 bg-brand-sapphire-50' : ''
-                    }`}
+                  <Card
+                    className={`p-6 cursor-pointer transition-all hover:shadow-lg ${selectedCapability === index ? 'border-brand-sapphire-300 bg-brand-sapphire-50' : ''
+                      }`}
                     onClick={() => setSelectedCapability(index)}
                   >
                     <div className="flex items-start space-x-4">
                       <div className="flex-shrink-0 p-3 bg-brand-sapphire-100 rounded-lg">
-                        {React.cloneElement(capability.icon as React.ReactElement, { 
-                          className: "h-8 w-8 text-brand-sapphire-600" 
+                        {React.cloneElement(capability.icon as React.ReactElement, {
+                          className: "h-8 w-8 text-brand-sapphire-600"
                         })}
                       </div>
                       <div className="flex-1">
@@ -250,8 +249,8 @@ const IntegrationCapabilities: React.FC = () => {
                   <Card className="p-6">
                     <div className="flex items-center space-x-3 mb-6">
                       <div className="p-3 bg-brand-emerald-100 rounded-lg">
-                        {integrationCapabilities[selectedCapability]?.icon && React.cloneElement(integrationCapabilities[selectedCapability].icon as React.ReactElement, { 
-                          className: "h-8 w-8 text-brand-emerald-600" 
+                        {integrationCapabilities[selectedCapability]?.icon && React.cloneElement(integrationCapabilities[selectedCapability].icon as React.ReactElement, {
+                          className: "h-8 w-8 text-brand-emerald-600"
                         })}
                       </div>
                       <div>
@@ -323,8 +322,8 @@ const IntegrationCapabilities: React.FC = () => {
             </div>
 
             <p className="text-gray-600 mb-6">
-              APIs REST completas com documentação, exemplos de código e endpoints 
-              ativos para integração com o sistema multiagente em produção.
+              APIs REST completas com documentação, exemplos de código e endpoints
+              ativos para integração com a Stack de IA em produção.
             </p>
 
             <AnimatePresence>
@@ -369,8 +368,8 @@ const IntegrationCapabilities: React.FC = () => {
               Precisa de Integração Personalizada?
             </h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Nossa Agent Factory pode criar conectores especializados para sua infraestrutura. 
-              Desenvolvimento sob medida com nossa arquitetura multiagente.
+              Nossa Agent Factory pode criar conectores especializados para sua infraestrutura.
+              Desenvolvimento sob medida com nossa arquitetura soberana.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-gradient-to-r from-brand-sapphire-600 to-brand-emerald-600 hover:from-brand-sapphire-700 hover:to-brand-emerald-700 text-white">

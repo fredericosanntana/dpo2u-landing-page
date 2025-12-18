@@ -5,13 +5,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Brain, 
-  Building2, 
-  Mail, 
-  Phone, 
-  User, 
-  Users, 
+import {
+  Brain,
+  Building2,
+  Mail,
+  Phone,
+  User,
+  Users,
   CheckCircle,
   ArrowRight,
   Sparkles,
@@ -91,15 +91,15 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
 
   async function onSubmit(values: SystemMultiagenteFormValues) {
     setIsSubmitting(true);
-    
+
     try {
       // Simulação de envio para API
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       console.log('Sistema Multiagente Form submitted:', values);
-      
+
       setIsSuccess(true);
-      
+
       toast({
         title: "🚀 Diagnóstico Agendado com Sucesso!",
         description: "Nossa equipe especializada entrará em contato em até 2 horas para agendar sua análise personalizada.",
@@ -109,7 +109,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
       setTimeout(() => {
         onClose?.();
       }, 3000);
-      
+
     } catch (error) {
       toast({
         title: "Erro no envio",
@@ -154,7 +154,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
               <CheckCircle className="h-10 w-10 text-white" />
             </div>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -164,9 +164,9 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
               Diagnóstico Agendado! 🎉
             </h3>
             <p className="text-gray-600 text-lg mb-6">
-              Nossa equipe de arquitetos de sistemas multiagentes entrará em contato em <strong>até 2 horas</strong> para agendar sua análise personalizada.
+              Nossa equipe de arquitetos de soluções entrará em contato em <strong>até 2 horas</strong> para agendar sua análise personalizada.
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="bg-white/80 rounded-lg p-4">
                 <Clock className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
@@ -200,14 +200,14 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
         <div className="flex justify-center mb-4">
           <Badge variant="secondary" size="xl" className="px-6 py-2 bg-white/20 text-white border-white/30">
             <Brain className="h-5 w-5 mr-2" />
-            Diagnóstico Sistema Multiagente
+            Diagnóstico de Infraestrutura
           </Badge>
         </div>
-        
+
         <CardTitle className="text-3xl font-serif font-bold mb-4">
           Transformação Digital Inteligente
         </CardTitle>
-        
+
         <p className="text-slate-300 text-lg">
           Avaliação personalizada em <strong>72h</strong> + Roadmap de implementação + Demo da plataforma IA
         </p>
@@ -216,26 +216,23 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
         <div className="flex justify-center mt-6 space-x-2">
           {[
             { step: 1, label: 'Perfil', icon: User },
-            { step: 2, label: 'Empresa', icon: Building2 }, 
+            { step: 2, label: 'Empresa', icon: Building2 },
             { step: 3, label: 'Necessidades', icon: Target }
           ].map(({ step, label, icon: Icon }) => (
             <div key={step} className="flex flex-col items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                step <= currentStep 
-                  ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white' 
-                  : 'bg-white/20 text-slate-400'
-              }`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${step <= currentStep
+                ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white'
+                : 'bg-white/20 text-slate-400'
+                }`}>
                 <Icon className="h-4 w-4" />
               </div>
-              <div className={`text-xs mt-1 transition-all duration-300 ${
-                step <= currentStep ? 'text-emerald-300' : 'text-slate-400'
-              }`}>
+              <div className={`text-xs mt-1 transition-all duration-300 ${step <= currentStep ? 'text-emerald-300' : 'text-slate-400'
+                }`}>
                 {label}
               </div>
               {step < 3 && (
-                <div className={`h-1 w-12 mt-2 rounded-full transition-all duration-300 ${
-                  step < currentStep ? 'bg-emerald-400' : 'bg-white/20'
-                }`} />
+                <div className={`h-1 w-12 mt-2 rounded-full transition-all duration-300 ${step < currentStep ? 'bg-emerald-400' : 'bg-white/20'
+                  }`} />
               )}
             </div>
           ))}
@@ -245,7 +242,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
       <CardContent className="p-8">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            
+
             <AnimatePresence mode="wait">
               {/* Step 1: Perfil Executivo */}
               {currentStep === 1 && (
@@ -266,10 +263,10 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                             Nome Completo
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder="Seu nome completo" 
-                              className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500" 
-                              {...field} 
+                            <Input
+                              placeholder="Seu nome completo"
+                              className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
@@ -287,10 +284,10 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                             Cargo/Função
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder="CEO, CTO, COO, Diretor, etc." 
+                            <Input
+                              placeholder="CEO, CTO, COO, Diretor, etc."
                               className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
-                              {...field} 
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
@@ -310,10 +307,10 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                             Email Corporativo
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder="email@empresa.com" 
+                            <Input
+                              placeholder="email@empresa.com"
                               className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
-                              {...field} 
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
@@ -331,10 +328,10 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                             WhatsApp
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              placeholder="(11) 99999-9999" 
+                            <Input
+                              placeholder="(11) 99999-9999"
                               className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
-                              {...field} 
+                              {...field}
                             />
                           </FormControl>
                           <FormMessage />
@@ -363,10 +360,10 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                           Nome da Empresa
                         </FormLabel>
                         <FormControl>
-                          <Input 
-                            placeholder="Nome da sua empresa" 
+                          <Input
+                            placeholder="Nome da sua empresa"
                             className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
-                            {...field} 
+                            {...field}
                           />
                         </FormControl>
                         <FormMessage />
@@ -542,19 +539,19 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
             {/* Navigation Buttons */}
             <div className="flex justify-between pt-8 border-t border-gray-200">
               {currentStep > 1 && (
-                <Button 
-                  type="button" 
-                  variant="outline" 
+                <Button
+                  type="button"
+                  variant="outline"
                   onClick={prevStep}
                   className="flex items-center"
                 >
                   Voltar
                 </Button>
               )}
-              
+
               {currentStep < 3 ? (
-                <Button 
-                  type="button" 
+                <Button
+                  type="button"
                   onClick={nextStep}
                   className="flex items-center ml-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white"
                 >
@@ -562,8 +559,8 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
               ) : (
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={isSubmitting}
                   className="ml-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white text-lg px-8 py-3"
                 >

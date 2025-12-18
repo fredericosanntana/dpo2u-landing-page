@@ -9,7 +9,7 @@ import ThemeToggle from './ui/theme-toggle';
 
 export default function Header() {
   return (
-    <motion.header 
+    <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -18,7 +18,7 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo DPO2U */}
-          <motion.div 
+          <motion.div
             className="flex items-center space-x-3"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
@@ -35,10 +35,10 @@ export default function Header() {
             </div>
             <div className="flex flex-col">
               <h1 className="text-xl md:text-2xl font-serif font-bold text-brand-gray-800 dark:text-white">
-                DPO2U <span className="text-brand-blue-600 dark:text-brand-blue-400 font-semibold">(Legal Tech)</span> <span className="text-gray-400 dark:text-gray-500">—</span> <span className="text-brand-emerald-600 dark:text-brand-emerald-400 font-medium">Sistema Multiagentes IA</span>
+                DPO2U <span className="text-brand-blue-600 dark:text-brand-blue-400 font-semibold">(Legal Tech)</span> <span className="text-gray-400 dark:text-gray-500">—</span> <span className="text-brand-emerald-600 dark:text-brand-emerald-400 font-medium">Stack de IA Privada</span>
               </h1>
               <p className="text-xs text-gray-600 dark:text-gray-400 -mt-1 hidden lg:block font-medium">
-                Transformação Digital Empresarial com Compliance Nativo
+                Transformação Digital com Infraestrutura 100% Soberana
               </p>
             </div>
           </motion.div>

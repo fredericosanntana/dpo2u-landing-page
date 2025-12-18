@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  XMarkIcon, 
-  RocketLaunchIcon, 
-  ChartBarIcon, 
+import {
+  XMarkIcon,
+  RocketLaunchIcon,
+  ChartBarIcon,
   ShieldCheckIcon,
   Cog6ToothIcon,
   StarIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  ServerIcon,
+  CommandLineIcon
 } from '@heroicons/react/24/outline'
 import { Button } from '../ui/button'
 
@@ -35,42 +37,42 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
   const journeySteps: JourneyStep[] = [
     {
       id: 'discovery',
-      title: 'Descoberta Tecnológica',
-      description: 'Sistema multiagentes analisa sua infraestrutura atual e identifica oportunidades de transformação digital',
-      icon: <RocketLaunchIcon className="w-8 h-8" />,
+      title: 'Diagnóstico de Infraestrutura',
+      description: 'Analisamos seus dados e requisitos para dimensionar a VPS ideal e a arquitetura da sua Stack de IA.',
+      icon: <ServerIcon className="w-8 h-8" />,
       status: 'active',
-      metrics: ['95% precisão diagnóstico', '15 min análise completa', '200+ pontos auditados'],
-      cta: 'Iniciar Diagnóstico IA',
+      metrics: ['Análise de segurança', 'Sizing de hardware', 'Mapeamento de dados'],
+      cta: 'Iniciar Diagnóstico',
       gradient: 'from-blue-600 to-indigo-600'
     },
     {
       id: 'architecture',
-      title: 'Arquitetura Inteligente',
-      description: 'Master Orchestrator desenha arquitetura multiagente personalizada para sua empresa',
-      icon: <Cog6ToothIcon className="w-8 h-8" />,
+      title: 'Setup da Stack Privada',
+      description: 'Provisionamento da VPS, hardening de segurança e instalação do core (Docker, Traefik, Gitea).',
+      icon: <CommandLineIcon className="w-8 h-8" />,
       status: 'upcoming',
-      metrics: ['145+ agentes coordenados', '4 níveis orquestração', 'Zero downtime'],
-      cta: 'Visualizar Arquitetura',
+      metrics: ['Entrega do código-fonte', 'Ambiente CI/CD', 'SSL & Firewall'],
+      cta: 'Ver Arquitetura Base',
       gradient: 'from-purple-600 to-pink-600'
     },
     {
       id: 'implementation',
-      title: 'Implementação Acelerada',
-      description: 'Deploy de sistema multiagentes em produção com integração enterprise em 72h',
-      icon: <ChartBarIcon className="w-8 h-8" />,
+      title: 'Deploy da Aplicação',
+      description: 'Instalação da stack de aplicação (Next.js + Python/FastAPI) e customização dos modelos.',
+      icon: <RocketLaunchIcon className="w-8 h-8" />,
       status: 'upcoming',
-      metrics: ['72h implementação', '99.9% uptime garantido', 'ROI visível 30 dias'],
+      metrics: ['Deploy em 72h', 'Testes automatizados', 'Documentação API'],
       cta: 'Agendar Deploy',
       gradient: 'from-emerald-600 to-teal-600'
     },
     {
       id: 'optimization',
-      title: 'Otimização Contínua',
-      description: 'Agentes de monitoramento garantem performance e compliance 24/7 com melhorias automáticas',
-      icon: <StarIcon className="w-8 h-8" />,
+      title: 'Transferência de Controle',
+      description: 'Entrega final das chaves, treinamento da equipe e início do suporte sob demanda.',
+      icon: <ShieldCheckIcon className="w-8 h-8" />,
       status: 'upcoming',
-      metrics: ['400% ROI em 12 meses', '90% automação processos', '100% compliance'],
-      cta: 'Ver Métricas ROI',
+      metrics: ['100% Autonomia', 'Sem lock-in', 'Garantia de 30 dias'],
+      cta: 'Planejar Transição',
       gradient: 'from-orange-600 to-red-600'
     }
   ]
@@ -111,28 +113,25 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
               className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-blue-200 mb-6"
             >
               <RocketLaunchIcon className="h-5 w-5 text-blue-600 mr-3" />
-              <span className="font-medium text-blue-800">Jornada de Transformação Digital</span>
+              <span className="font-medium text-blue-800">Jornada de Soberania Digital</span>
             </motion.div>
 
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6"
             >
-              De <span className="text-gray-600">Compliance Manual</span> para{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Sistema Multiagentes
-              </span>
+              Do Zero à <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Stack Própria</span> em 4 Etapas
             </motion.h2>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="text-xl text-gray-600 max-w-3xl mx-auto"
             >
-              Transformação digital completa em 4 etapas com ROI de 400% comprovado
+              Processo estruturado para garantir que você tenha sua infraestrutura de IA rodando em sua própria VPS em 72h.
             </motion.p>
 
             <button
@@ -148,20 +147,18 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
             <div className="flex justify-between mb-4">
               {journeySteps.map((step, index) => (
                 <div key={step.id} className="flex items-center">
-                  <div 
-                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      index <= currentStep 
-                        ? `bg-gradient-to-r ${step.gradient} text-white shadow-lg` 
+                  <div
+                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${index <= currentStep
+                        ? `bg-gradient-to-r ${step.gradient} text-white shadow-lg`
                         : 'bg-gray-200 text-gray-400'
-                    }`}
+                      }`}
                   >
                     {step.icon}
                   </div>
                   {index < journeySteps.length - 1 && (
-                    <div 
-                      className={`w-16 h-1 mx-4 transition-all duration-500 ${
-                        index < currentStep ? 'bg-gradient-to-r from-blue-500 to-purple-500' : 'bg-gray-200'
-                      }`}
+                    <div
+                      className={`w-16 h-1 mx-4 transition-all duration-500 ${index < currentStep ? 'bg-gradient-to-r from-blue-500 to-purple-500' : 'bg-gray-200'
+                        }`}
                     />
                   )}
                 </div>
@@ -230,7 +227,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
                       {currentJourneyStep.icon}
                     </div>
                   </div>
-                  
+
                   {/* Animated Elements */}
                   {isAnimating && (
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -259,9 +256,8 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
                 <button
                   key={index}
                   onClick={() => setCurrentStep(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
-                    index === currentStep ? 'bg-blue-600' : 'bg-gray-300'
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${index === currentStep ? 'bg-blue-600' : 'bg-gray-300'
+                    }`}
                 />
               ))}
             </div>
@@ -280,26 +276,26 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
           <div className="mt-12 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-2xl p-8 border border-emerald-200">
             <div className="text-center">
               <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
-                Transformação Digital Garantida
+                Resultados Esperados
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
-                    400%
+                    -60%
                   </div>
-                  <div className="text-gray-600">ROI em 12 meses</div>
+                  <div className="text-gray-600">de Custo (TCO)</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
                     72h
                   </div>
-                  <div className="text-gray-600">Implementação completa</div>
+                  <div className="text-gray-600">Implementação Total</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-                    90%
+                    100%
                   </div>
-                  <div className="text-gray-600">Automação de processos</div>
+                  <div className="text-gray-600">Propriedade Intelectual</div>
                 </div>
               </div>
             </div>

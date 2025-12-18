@@ -44,7 +44,7 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
     {
       id: 'optimization',
       name: 'Roadmap Estratégico',
-      description: 'Definindo estratégia de transformação digital e implementação multiagente',
+      description: 'Definindo estratégia de transformação digital e implementação de infraestrutura',
       status: 'pending',
       icon: <Cog6ToothIcon className="w-6 h-6" />,
       duration: 2500
@@ -56,7 +56,7 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
   const startProcessing = () => {
     setIsProcessing(true)
     setCurrentStep(0)
-    
+
     const runStep = (stepIndex: number) => {
       if (stepIndex >= steps.length) {
         setIsProcessing(false)
@@ -73,7 +73,7 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
           ...step,
           status: index === stepIndex ? 'completed' : step.status
         })))
-        
+
         setTimeout(() => {
           setCurrentStep(stepIndex + 1)
           runStep(stepIndex + 1)
@@ -250,7 +250,7 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                   )}
                   {getProgressWidth() === 100 && (
                     <Button
-                      onClick={() => {/* Implement save functionality */}}
+                      onClick={() => {/* Implement save functionality */ }}
                       className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
                     >
                       Agendar Consultoria

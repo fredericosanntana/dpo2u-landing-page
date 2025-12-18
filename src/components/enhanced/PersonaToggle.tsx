@@ -2,19 +2,21 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Code, 
-  TrendingUp, 
-  DollarSign, 
-  Shield, 
-  Zap, 
-  Users, 
-  FileText, 
+import {
+  Code,
+  TrendingUp,
+  DollarSign,
+  Shield,
+  Zap,
+  Users,
+  FileText,
   BarChart3,
   Cpu,
   Settings,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Server,
+  Lock
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -48,136 +50,136 @@ interface PersonaContent {
 const personaContent: Record<Persona, PersonaContent> = {
   cto: {
     title: "Para o CTO Visionário",
-    subtitle: "Arquitetura técnica escalável e integrações enterprise",
+    subtitle: "Controle total da infraestrutura, código-fonte e dados",
     icon: Code,
     color: "text-brand-sapphire-600",
     gradient: "from-brand-sapphire-500 to-brand-sapphire-600",
     priorities: [
       {
-        icon: Cpu,
-        title: "Arquitetura Multiagente",
-        description: "Sistema híbrido de 4 níveis com APIs RESTful e GraphQL"
+        icon: Server,
+        title: "Soberania de Infraestrutura",
+        description: "Stack completa (Docker, Traefik, Gitea) na sua própria VPS"
       },
       {
         icon: Shield,
-        title: "Segurança Enterprise",
-        description: "ISO 27001, SOC 2, criptografia AES-256, zero-trust"
+        title: "Segurança & Privacidade",
+        description: "Zero data leakage, firewall configurado, updates automáticos"
       },
       {
         icon: Settings,
-        title: "Integrações Nativas",
-        description: "APIs abertas, webhooks, SDKs para Python/Node.js/Java"
+        title: "DevEx Superior",
+        description: "Repositórios git privados, CI/CD local e ambiente Dockerizado"
       }
     ],
-    ctaText: "Documentação Técnica Completa",
+    ctaText: "Ver Documentação da Stack",
     ctaSecondary: "Agendar Technical Deep Dive",
     benefits: [
-      { metric: "99.99%", description: "Uptime garantido", color: "text-brand-emerald-500" },
-      { metric: "<100ms", description: "Latência média API", color: "text-brand-sapphire-500" },
-      { metric: "15min", description: "Tempo de deploy", color: "text-brand-purple-500" }
+      { metric: "100%", description: "Acesso ao Código", color: "text-brand-emerald-500" },
+      { metric: "<45ms", description: "Latência Local", color: "text-brand-sapphire-500" },
+      { metric: "72h", description: "Tempo de Deploy", color: "text-brand-purple-500" }
     ],
     concerns: [
       {
-        concern: "Complexidade de integração",
-        solution: "APIs plug-and-play com documentação completa e SDKs oficiais"
+        concern: "Lock-in com fornecedores",
+        solution: "Zero lock-in. O código e a infraestrutura são seus para sempre."
       },
       {
-        concern: "Escalabilidade do sistema",
-        solution: "Arquitetura cloud-native com auto-scaling e load balancing"
+        concern: "Complexidade de manutenção",
+        solution: "Entregamos a stack configurada com scripts de auto-healing e updates."
       },
       {
-        concern: "Segurança e compliance",
-        solution: "Certificações enterprise e auditoria contínua de segurança"
+        concern: "Segurança dos dados",
+        solution: "Dados nunca saem da sua VPS. Privacidade absoluta por design."
       }
     ]
   },
   ceo: {
     title: "Para o CEO Estratégico",
-    subtitle: "Transformação digital e vantagem competitiva sustentável",
+    subtitle: "Ativo proprietário real e valorização do valuation",
     icon: TrendingUp,
     color: "text-brand-emerald-600",
     gradient: "from-brand-emerald-500 to-brand-emerald-600",
     priorities: [
       {
         icon: TrendingUp,
-        title: "Vantagem Competitiva",
-        description: "Primeira empresa do setor com sistema multiagente completo"
+        title: "Propriedade Intelectual",
+        description: "Pare de alugar inteligência, comece a construir seu ativo próprio"
       },
       {
         icon: Users,
-        title: "Transformação Digital",
-        description: "90% dos processos automatizados em 6 meses"
+        title: "Autonomia Digital",
+        description: "Independência total de APIs de terceiros e custos flutuantes"
       },
       {
         icon: BarChart3,
-        title: "Growth Acelerado",
-        description: "300% ROI e redução de 60% no time-to-market"
+        title: "Valorização da Empresa",
+        description: "Tecnologia proprietária aumenta o valuation do seu negócio"
       }
     ],
-    ctaText: "Business Case Completo",
-    ctaSecondary: "Consultoria C-Level Executiva",
+    ctaText: "Planejamento Estratégico",
+    ctaSecondary: "Consultoria Executiva",
     benefits: [
-      { metric: "300%", description: "ROI médio 12 meses", color: "text-brand-emerald-500" },
-      { metric: "6 meses", description: "Payback period", color: "text-brand-sapphire-500" },
-      { metric: "+500", description: "Empresas confiaram", color: "text-brand-purple-500" }
+      { metric: "Zero", description: "Licenças Mensais", color: "text-brand-emerald-500" },
+      { metric: "Ativo", description: "IP Proprietária", color: "text-brand-sapphire-500" },
+      { metric: "Speed", description: "Go-to-market Rápido", color: "text-brand-purple-500" }
     ],
     concerns: [
       {
-        concern: "ROI e tempo de retorno",
-        solution: "300% ROI garantido com payback em 6 meses ou reembolso"
+        concern: "Dependência tecnológica",
+        solution: "Sua empresa é dona da tecnologia. Sem surpresas de preço ou mudanças de regras."
       },
       {
-        concern: "Disrupção operacional",
-        solution: "Implementação gradual com zero downtime e suporte 24/7"
+        concern: "Continuidade de negócio",
+        solution: "Infraestrutura robusta e documentada, sem risco de descontinuação de SaaS."
       },
       {
         concern: "Diferencial competitivo",
-        solution: "Único sistema multiagente híbrido do mercado brasileiro"
+        solution: "Stack de IA exclusiva treinada nos seus dados, impossível de copiar."
       }
     ]
   },
   cfo: {
     title: "Para o CFO Analítico",
-    subtitle: "ROI comprovado e otimização de custos operacionais",
+    subtitle: "Redução drástica de TCO e previsibilidade financeira",
     icon: DollarSign,
     color: "text-brand-purple-600",
     gradient: "from-brand-purple-500 to-brand-purple-600",
     priorities: [
       {
         icon: DollarSign,
-        title: "Redução de Custos",
-        description: "70% menos custos de compliance vs. equipe interna"
+        title: "Redução de OpEx",
+        description: "Elimine mensalidades recorrentes de múltiplos SaaS"
       },
       {
         icon: BarChart3,
-        title: "ROI Mensurável",
-        description: "Métricas detalhadas e relatórios financeiros automáticos"
+        title: "Investimento em CapEx",
+        description: "Converta aluguel de software em ativo da empresa"
       },
       {
         icon: FileText,
-        title: "Budget Predictable",
-        description: "Modelo SaaS transparente sem custos ocultos"
+        title: "Sem Custos Ocultos",
+        description: "Custo fixo de VPS conhecido e controlado"
       }
     ],
-    ctaText: "Análise de Custo-Benefício",
-    ctaSecondary: "ROI Calculator Detalhado",
+    ctaText: "Análise de ROI vs SaaS",
+    ctaSecondary: "Calculadora de Economia",
     benefits: [
-      { metric: "70%", description: "Redução custos", color: "text-brand-emerald-500" },
-      { metric: "R$ 2.3M", description: "Economia média/ano", color: "text-brand-sapphire-500" },
-      { metric: "6 meses", description: "Payback period", color: "text-brand-purple-500" }
+      { metric: "-60%", description: "Redução TCO", color: "text-brand-emerald-500" },
+      { metric: "Fixo", description: "Custo Infra", color: "text-brand-sapphire-500" },
+      { metric: "6 meses", description: "Payback Estimado", color: "text-brand-purple-500" }
     ],
     concerns: [
       {
-        concern: "Justificativa de investimento",
-        solution: "ROI calculator com dados reais e benchmarks do mercado"
+        concern: "Custo inicial vs recorrente",
+        solution: "Investimento único de setup que se paga com a economia de mensalidades."
       },
       {
-        concern: "Custos ocultos",
-        solution: "Pricing transparente all-inclusive sem taxas adicionais"
+        concern: "Escalabilidade de custos",
+        solution: "Custo de VPS escala linearmente e de forma muito mais barata que licenças por usuário."
       },
       {
-        concern: "Previsibilidade orçamentária",
-        solution: "Modelo SaaS fixo com escalabilidade previsível"
+        concern: "Risco do investimento",
+        solution: "Tecnologia open-source standard de mercado (Docker, Python), sem risco de vendor lock-in."
       }
     ]
   }
@@ -190,15 +192,14 @@ const PersonaButton: React.FC<{
   content: PersonaContent;
 }> = ({ persona, isActive, onClick, content }) => {
   const Icon = content.icon;
-  
+
   return (
     <button
       onClick={onClick}
-      className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${
-        isActive
+      className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${isActive
           ? `border-transparent bg-gradient-to-r ${content.gradient} text-white shadow-lg scale-105`
           : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md text-gray-700'
-      }`}
+        }`}
     >
       <div className="flex items-center space-x-3">
         <Icon className={`h-6 w-6 ${isActive ? 'text-white' : content.color}`} />
@@ -229,7 +230,7 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
         <div className="flex-1">
           <h3 className="text-2xl font-bold text-gray-800 mb-2">{content.title}</h3>
           <p className="text-lg text-gray-600 mb-6">{content.subtitle}</p>
-          
+
           {/* Key Benefits */}
           <div className="grid md:grid-cols-3 gap-4 mb-6">
             {content.benefits.map((benefit, index) => (
@@ -244,15 +245,15 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className={`bg-gradient-to-r ${content.gradient} hover:opacity-90`}
             >
               <FileText className="h-5 w-5 mr-2" />
               {content.ctaText}
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               size="lg"
               className={`border-2 ${content.color.replace('text-', 'border-')} hover:bg-gray-50`}
             >
@@ -262,7 +263,7 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
             </Button>
           </div>
         </div>
-        
+
         {/* Visual Element */}
         <div className="hidden lg:block ml-8">
           <div className={`w-32 h-32 bg-gradient-to-br ${content.gradient} rounded-2xl flex items-center justify-center shadow-lg`}>
@@ -291,7 +292,7 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
     <Card className="p-8">
       <h4 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
         <CheckCircle className={`h-6 w-6 ${content.color} mr-3`} />
-        Principais Preocupações Respondidas
+        Dúvidas Estratégicas
       </h4>
       <div className="space-y-6">
         {content.concerns.map((item, index) => (
@@ -327,14 +328,14 @@ export default function PersonaToggle() {
             <span className="text-sm font-medium text-brand-ocean-700">Conteúdo Personalizado</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-6">
-            Benefícios{' '}
+            Impacto{' '}
             <span className="bg-gradient-to-r from-brand-ocean-600 to-brand-purple-600 bg-clip-text text-transparent">
-              Específicos
+              Estratégico
             </span>{' '}
-            para Cada Líder
+            para Lideranças
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Descubra como o sistema multiagente DPO2U impacta diretamente suas prioridades e objetivos específicos
+            Entenda como a adoção de uma Stack de IA Própria transforma os objetivos da sua área
           </p>
         </motion.div>
 
@@ -353,9 +354,9 @@ export default function PersonaToggle() {
 
         {/* Content Display */}
         <AnimatePresence mode="wait">
-          <ContentSection 
+          <ContentSection
             key={activePersona}
-            content={personaContent[activePersona]} 
+            content={personaContent[activePersona]}
           />
         </AnimatePresence>
 
@@ -368,21 +369,21 @@ export default function PersonaToggle() {
         >
           <Card className="p-8 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
             <h3 className="text-2xl font-semibold mb-4">
-              Pronto para ver os resultados na prática?
+              Pronto para assumir o controle?
             </h3>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Agende uma demonstração personalizada focada nas suas prioridades específicas como {activePersona.toUpperCase()}
+              Agende uma demonstração personalizada focada nas prioridades de {activePersona.toUpperCase()} e veja o ROI da soberania digital.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className={`bg-gradient-to-r ${personaContent[activePersona].gradient}`}
               >
                 <Zap className="h-5 w-5 mr-2" />
-                Demo Personalizada {activePersona.toUpperCase()}
+                Demo para {activePersona.toUpperCase()}
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="lg"
                 className="border-white text-white hover:bg-white hover:text-gray-800"
               >
