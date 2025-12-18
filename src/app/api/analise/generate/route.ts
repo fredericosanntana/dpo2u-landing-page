@@ -17,11 +17,15 @@ export async function POST(req: Request) {
 
         const timestamp = Date.now();
         const id = `${data.cnpj.replace(/\D/g, '')}-${timestamp}`;
-        const inputPath = path.resolve(process.cwd(), `temp-${id}.json`);
+        // Use /tmp for temp files - always writable in containers
+        const inputPath = path.join('/tmp', `temp-${id}.json`);
 
         // O diretório de output deve ser acessível publicamente para download
         // Vamos usar public/downloads na raiz do landing page
         const publicDownloadDir = path.resolve(process.cwd(), 'public', 'downloads', id);
+
+        // Garantir que o diretório de downloads existe
+        fs.mkdirSync(publicDownloadDir, { recursive: true });
 
         // Salvar JSON de entrada
         const empresaData = {
