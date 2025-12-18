@@ -40,7 +40,7 @@ function AgentCard({ id }: { id: string }) {
             <p className="text-sm text-slate-500 mt-1">{agent.role} • {agent.level}</p>
           </div>
           <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary-700 border border-primary/20">
-            DPO2U
+            Agent
           </span>
         </div>
         <p className="text-slate-600 mt-4 text-sm leading-relaxed">{agent.description}</p>
@@ -61,17 +61,17 @@ export default function AgentsSection() {
   return (
     <section id="agents" className="bg-white dark:bg-slate-900 section-padding">
       <div className="container mx-auto container-padding">
-        <SectionHeader icon={Users} title="Agentes DPO2U" subtitle="Arquitetura multiagente em 4 níveis: Estratégia → Orquestração → Especialização → Execução" />
+        <SectionHeader icon={Sparkles} title="O Que Você Pode Construir" subtitle="Exemplos reais de agentes autônomos rodando hoje em nossa infraestrutura. Sua empresa pode ter os mesmos." />
 
         {/* Modal: Arquitetura de Classes (fonte única: lib/agents.ts) */}
         <div className="mb-8 flex justify-end">
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline">Ver Arquitetura de Agentes</Button>
+              <Button variant="outline">Ver Biblioteca de Agentes</Button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl">
               <DialogHeader>
-                <DialogTitle>Arquitetura de Agentes (fonte única)</DialogTitle>
+                <DialogTitle>Catálogo de Agentes Possíveis</DialogTitle>
               </DialogHeader>
               <div className="grid sm:grid-cols-2 gap-4 max-h-[60vh] overflow-auto">
                 {agents.map((a) => (

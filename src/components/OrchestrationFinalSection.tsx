@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Trophy, Rocket, Target, FileText, Timer, BarChart3 } from 'lucide-react';
+import { CheckCircle2, Trophy, Rocket, Target, FileText, Timer, BarChart3, Shield, Server, Lock } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
 const fadeInUp = {
@@ -12,7 +12,7 @@ const fadeInUp = {
 
 export default function OrchestrationFinalSection() {
   return (
-    <section id="orquestracao-final" className="bg-gray-50 dark:bg-slate-900 section-padding">
+    <section id="roadmap-implementacao" className="bg-gray-50 dark:bg-slate-900 section-padding">
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div
@@ -24,23 +24,23 @@ export default function OrchestrationFinalSection() {
         >
           <div className="inline-flex items-center px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
             <Trophy className="h-4 w-4 text-primary mr-2" />
-            <span className="text-sm font-medium text-primary">Orquestração Final Concluída</span>
+            <span className="text-sm font-medium text-primary">Implementação Turnkey</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 leading-tight">
-            DPO2U — Sistema Multiagentes: Pronto para Implementação Executiva
+            Sua Stack de IA Privada: Roadmap de Entrega em 72h
           </h2>
           <p className="text-gray-600 mt-4 max-w-3xl mx-auto">
-            Conclusão executiva da transformação: de ferramenta de compliance → plataforma de transformação
-            de categoria. Arquitetura multiagente de 4 níveis, 145+ agentes, e ROI comprovado.
+            Transformamos seus servidores em uma potência de Inteligência Artificial com soberania total de dados.
+            Do zero ao "Hello World" da sua IA corporativa em apenas 3 dias.
           </p>
         </motion.div>
 
         {/* Highlights */}
         <div className="grid md:grid-cols-3 gap-6 mb-10">
           {[
-            { icon: Rocket, title: 'Missão Cumprida', desc: 'Transformação estratégica completa, pronta para go‑live em 48h' },
-            { icon: FileText, title: 'Plano Final', desc: 'Plano executivo, SEO/GEO, guias e scripts prontos' },
-            { icon: BarChart3, title: 'ROI Projetado', desc: '84.900% em 12 meses com liderança de categoria' },
+            { icon: Rocket, title: 'Deploy Acelerado', desc: 'Infraestrutura completa (Docker, Traefik, Gitea) instalada e configurada em 24-48h.' },
+            { icon: Lock, title: 'Segurança Máxima', desc: 'Hardening de VPS, Firewalls, SSL Automático e sandboxing de aplicações.' },
+            { icon: FileText, title: 'Autonomia Total', desc: 'Entrega de documentação técnica, credenciais root e repositórios de código fonte.' },
           ].map((item, idx) => (
             <motion.div key={idx} variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }}>
               <Card variant="brand" className="h-full">
@@ -61,14 +61,14 @@ export default function OrchestrationFinalSection() {
           <motion.div variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }}>
             <Card variant="elevated" padding="lg" hover>
               <div className="flex items-center gap-3 mb-3">
-                <CheckCircle2 className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-slate-800">Entregáveis Executivos</h3>
+                <Server className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-semibold text-slate-800">O Que Entregamos (Deliverables)</h3>
               </div>
               <ul className="list-none space-y-2 text-slate-700">
-                <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>Plano Executivo Final</strong> — Roadmap 28 dias, impacto e ROI</span></li>
-                <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>Script de Tradução</strong> — 95% automação com glossário padronizado</span></li>
-                <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>SEO/GEO Estratégico</strong> — Dominar “sistema multiagentes” no Brasil</span></li>
-                <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>Relatórios e Guias</strong> — 5+ docs técnicos e executivos</span></li>
+                <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>VPS Hardening</strong> — Configuração de segurança militar em seu servidor</span></li>
+                <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>Stack Core</strong> — Docker Swarm/Compose, Traefik Proxy, Portainer</span></li>
+                <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>DevTools Privados</strong> — Gitea (Git), Registry Privado, CI/CD Actions</span></li>
+                <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>App Template</strong> — Next.js + FastAPI Starter Kit configurado</span></li>
               </ul>
             </Card>
           </motion.div>
@@ -76,14 +76,14 @@ export default function OrchestrationFinalSection() {
           <motion.div variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }}>
             <Card variant="elevated" padding="lg" hover>
               <div className="flex items-center gap-3 mb-3">
-                <Timer className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-slate-800">Demonstração de Supremacia</h3>
+                <Shield className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-semibold text-slate-800">Garantias do Projeto</h3>
               </div>
               <ul className="list-disc pl-6 text-slate-700 space-y-2">
-                <li>47 oportunidades mapeadas em 2 horas</li>
-                <li>4 documentos estratégicos + scripts prontos</li>
-                <li>Coordenação multiagente com 0 conflitos</li>
-                <li>KPIs definidos e metrificados por sprint</li>
+                <li>Zero dependência externa (Lock-in Free)</li>
+                <li>Auditoria de código e segurança inclusa</li>
+                <li>Treinamento "Hand-over" para sua equipe de TI</li>
+                <li>30 dias de suporte pós-implementação</li>
               </ul>
             </Card>
           </motion.div>
@@ -91,9 +91,9 @@ export default function OrchestrationFinalSection() {
 
         {/* Call to Action */}
         <motion.div variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="mt-10 text-center">
-          <p className="text-sm text-gray-600 mb-4">Próximos passos (48h): aprovar plano executivo, ativar traduções, iniciar A/B e SEO.</p>
+          <p className="text-sm text-gray-600 mb-4">Próximos passos: Agende uma call técnica para avaliarmos sua infraestrutura atual.</p>
           <a href="#contact" className="inline-flex items-center px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:opacity-95 transition">
-            <Target className="h-4 w-4 mr-2" /> Aprovar e Iniciar Implementação
+            <Target className="h-4 w-4 mr-2" /> Agendar Avaliação Técnica
           </a>
         </motion.div>
       </div>

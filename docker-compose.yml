@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  dpo2u:
+    container_name: dpo2u-landing-page
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=production
+      - API_GATEWAY_URL=http://172.17.0.1:8090
+      - LEANN_SERVICE_URL=http://172.17.0.1:8089
+    labels:
+      - "traefik.enable=true"
+      # HTTP Router (optional due to global redirect, but good for clarity)
+      - "traefik.http.routers.dpo2u.rule=Host(`www.dpo2u.com`)"
+      - "traefik.http.routers.dpo2u.entrypoints=web"
+      - "traefik.http.routers.dpo2u.service=dpo2u"
+      # HTTPS Router
+      - "traefik.http.routers.dpo2u-secure.rule=Host(`www.dpo2u.com`)"
+      - "traefik.http.routers.dpo2u-secure.entrypoints=websecure"
+      - "traefik.http.routers.dpo2u-secure.tls=true"
+      - "traefik.http.routers.dpo2u-secure.tls.certresolver=myresolver"
+      - "traefik.http.routers.dpo2u-secure.service=dpo2u"
+      # Service definition
+      - "traefik.http.services.dpo2u.loadbalancer.server.port=3000"
+    networks:
+      - tweb
+
+networks:
+  tweb:
+    external: true
