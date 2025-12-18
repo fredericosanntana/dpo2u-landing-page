@@ -34,22 +34,21 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.dpo2u.com'),
   title: {
-    default: 'DPO2U | Compliance LGPD com IA - 99.9% Conformidade em 24h',
+    default: 'DPO2U | Stack de IA Segura em VPS - Transformação Digital com Privacidade',
     template: '%s | DPO2U'
   },
-  description: 'Líder em Legal Tech + IA para LGPD/GDPR. DPO especializado, plataforma multiagente, ROI 400%. Consultoria gratuita. +500 empresas protegidas.',
+  description: 'Implemente sua própria Stack de IA (Docker, Gitea, Next.js, Python) em VPS dedicada. Zero Lock-in, 100% Privacidade. Transformação digital acelerada em 72h.',
   keywords: [
+    'VPS IA',
+    'Stack IA Privada',
+    'Docker Swarm',
+    'Gitea Private Repo',
+    'Traefik Proxy',
+    'Soberania de Dados',
     'LGPD compliance',
     'DPO as a service',
     'legal tech Brasil',
-    'GDPR consultoria',
-    'compliance LGPD empresa',
-    'DPO terceirizado',
-    'implementar LGPD',
-    'consultoria LGPD',
-    'IA jurídica',
     'automação compliance',
-    'plataforma LGPD',
     'proteção de dados',
     'transformação digital',
     'DPO2U'
@@ -73,21 +72,21 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     url: 'https://dpo2u.com.br',
     siteName: 'DPO2U',
-    title: 'Transforme LGPD em Vantagem Competitiva - DPO2U',
-    description: 'Ecossistema IA que automatiza compliance. Deploy 24h, conformidade 99.9%.',
+    title: 'Transformação Digital com Stack de IA Privada',
+    description: 'Soberania de dados e IA em sua própria VPS. Deploy em 72h.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'DPO2U - Transformação Digital com Privacidade e IA',
+        alt: 'DPO2U - Stack IA Segura e Privada',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DPO2U - Transformação Digital com Privacidade e IA',
-    description: 'Sistema multiagente para transformação digital das empresas com compliance LGPD/GDPR e inovação com IA.',
+    title: 'DPO2U - Stack de IA Privada',
+    description: 'Implemente sua infraestrutura de IA em 72h com total privacidade.',
     images: ['/og-image.jpg'],
     creator: '@dpo2u',
   },
@@ -128,7 +127,7 @@ const jsonLd = {
   name: 'DPO2U',
   url: 'https://dpo2u.com.br',
   logo: 'https://dpo2u.com.br/logo.png',
-  description: 'Sistema multiagente para transformação digital das empresas com foco em privacidade de dados e compliance LGPD/GDPR.',
+  description: 'Provedora de Infraestrutura e Stack de IA Privada para transformação digital segura de empresas.',
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'BR',
@@ -136,7 +135,7 @@ const jsonLd = {
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: '+55-11-99999-9999',
-    contactType: 'customer service',
+    contactType: 'sales',
     availableLanguage: ['Portuguese', 'English'],
   },
   sameAs: [
@@ -148,7 +147,7 @@ const jsonLd = {
     name: 'DPO2U Founder',
   },
   foundingDate: '2023',
-  industry: 'Legal Technology',
+  industry: 'Cloud & AI Infrastructure',
   numberOfEmployees: '10-50',
   areaServed: {
     '@type': 'Country',
@@ -157,18 +156,18 @@ const jsonLd = {
   service: [
     {
       '@type': 'Service',
-      name: 'DPO as a Service',
-      description: 'Serviço completo de Data Protection Officer para empresas.',
-    },
-    {
-      '@type': 'Service', 
-      name: 'AI No-Code LGPD Platform',
-      description: 'Plataforma automatizada para gestão de compliance LGPD.',
+      name: 'VPS AI Stack Deployment',
+      description: 'Implementação de stack completa de IA (Docker, Gitea, Traefik) em infraestrutura privada.',
     },
     {
       '@type': 'Service',
-      name: 'Consultoria Legal',
-      description: 'Consultoria especializada em proteção de dados e privacidade.',
+      name: 'Secure Digital Transformation',
+      description: 'Consultoria e implementação técnica para digitalização com soberania de dados.',
+    },
+    {
+      '@type': 'Service',
+      name: 'Private AI Agents',
+      description: 'Desenvolvimento e hospedagem de agentes de IA em ambiente seguro.',
     },
   ],
 };
