@@ -1,0 +1,417 @@
+[
+  {
+    "timestamp": "2025-12-18T19:52:40.758Z",
+    "etapa": "MATURITY_CHECK",
+    "sucesso": true,
+    "entrada": {
+      "nome": "Teste",
+      "cnpj": "Teste",
+      "setor": "Tecnologia/Software",
+      "colaboradores": 5,
+      "coletaDados": true,
+      "possuiOperadores": true,
+      "contato": {
+        "responsavel": "Teste",
+        "email": "Teste",
+        "telefone": ""
+      },
+      "wizard_data": {
+        "inventory": [
+          {
+            "id": "item-1766086890973",
+            "tipo": "cpf",
+            "categoria": "cadastral",
+            "volume": "baixo",
+            "descricao": ""
+          }
+        ],
+        "purposes": [
+          {
+            "dataItemId": "item-1766086890973",
+            "finalidade": "Teste",
+            "baseLegal": "consentimento",
+            "justificativa": "Teste"
+          }
+        ],
+        "storage": [
+          {
+            "dataItemId": "item-1766086890973",
+            "localizacao": "cloud_brasil",
+            "periodo_retencao": "2",
+            "procedimento_exclusao": "Teste"
+          }
+        ],
+        "third_parties": [],
+        "security": {
+          "tecnicas": {
+            "criptografia": false,
+            "controle_acesso": false,
+            "backup": false,
+            "firewall": false,
+            "antivirus": false,
+            "monitoramento": false,
+            "outras": []
+          },
+          "organizacionais": {
+            "politica_privacidade_interna": false,
+            "treinamento_colaboradores": false,
+            "procedimentos_documentados": false,
+            "auditoria_regular": false,
+            "outras": []
+          }
+        },
+        "risks": {
+          "atividades_alto_risco": false,
+          "decisoes_automatizadas": false,
+          "perfilamento": false,
+          "transferencia_internacional": false,
+          "incidentes_anteriores": false,
+          "medidas_mitigacao": "Teste"
+        }
+      }
+    },
+    "saida": {
+      "score": 44,
+      "nivel": "Básico",
+      "gaps": [
+        "A empresa possui política de privacidade publicada e atualizada?",
+        "Existe um encarregado (DPO) nomeado e treinado?",
+        "A empresa possui política corporativa abrangente de proteção de dados pessoais?",
+        "Estão claramente definidas as responsabilidades de cada área sobre proteção de dados?",
+        "Para cada tratamento existe base legal específica identificada e documentada?",
+        "A empresa identificou e possui controles especiais para dados pessoais sensíveis?",
+        "Existe inventário atualizado de tratamento de dados pessoais?",
+        "Existe controle formal de solicitações de titulares de dados?",
+        "Existe canal específico e divulgado para exercício de direitos dos titulares?",
+        "Existem procedimentos padronizados para atender cada tipo de solicitação?",
+        "A empresa cumpre os prazos legais para resposta às solicitações?",
+        "A empresa possui medidas técnicas adequadas de segurança?",
+        "Dados pessoais sensíveis são adequadamente criptografados?",
+        "Existe controle rigoroso de acesso baseado no princípio do menor privilégio?",
+        "Sistemas mantêm logs de acesso e alteração de dados pessoais?",
+        "A empresa possui contratos adequados com fornecedores que processam dados?",
+        "A empresa possui plano de resposta a incidentes de segurança?",
+        "São realizados treinamentos regulares sobre LGPD para colaboradores?",
+        "Todos os pontos de coleta possuem avisos claros sobre o tratamento?",
+        "A empresa possui KPIs para medir a eficácia do programa de privacidade?"
+      ],
+      "planoAcao": [
+        "Estabelecer estrutura de governança de dados com políticas claras",
+        "Definir papéis e responsabilidades específicas para proteção de dados",
+        "Mapear e documentar bases legais para todos os tratamentos",
+        "Implementar controles específicos para dados sensíveis",
+        "Atualizar inventário de dados com detalhamento por finalidade",
+        "Criar canal dedicado para exercício de direitos dos titulares",
+        "Padronizar procedimentos de atendimento com prazos definidos",
+        "Implementar criptografia para dados sensíveis",
+        "Estabelecer controles de acesso baseados em menor privilégio",
+        "Configurar logs de auditoria para acesso a dados pessoais",
+        "Revisar e adequar contratos com fornecedores (DPAs)",
+        "Implementar sistema de gestão de consentimentos",
+        "Implementar programa de treinamento contínuo em LGPD",
+        "Criar avisos de privacidade em todos os pontos de coleta",
+        "Definir KPIs para medir eficácia do programa de privacidade",
+        "Estabelecer cronograma de auditorias internas"
+      ]
+    }
+  },
+  {
+    "timestamp": "2025-12-18T19:52:40.761Z",
+    "etapa": "DATA_FLOW_MAPPING",
+    "sucesso": true,
+    "entrada": {
+      "nome": "Teste",
+      "cnpj": "Teste",
+      "setor": "Tecnologia/Software",
+      "colaboradores": 5,
+      "coletaDados": true,
+      "possuiOperadores": true,
+      "contato": {
+        "responsavel": "Teste",
+        "email": "Teste",
+        "telefone": ""
+      },
+      "wizard_data": {
+        "inventory": [
+          {
+            "id": "item-1766086890973",
+            "tipo": "cpf",
+            "categoria": "cadastral",
+            "volume": "baixo",
+            "descricao": ""
+          }
+        ],
+        "purposes": [
+          {
+            "dataItemId": "item-1766086890973",
+            "finalidade": "Teste",
+            "baseLegal": "consentimento",
+            "justificativa": "Teste"
+          }
+        ],
+        "storage": [
+          {
+            "dataItemId": "item-1766086890973",
+            "localizacao": "cloud_brasil",
+            "periodo_retencao": "2",
+            "procedimento_exclusao": "Teste"
+          }
+        ],
+        "third_parties": [],
+        "security": {
+          "tecnicas": {
+            "criptografia": false,
+            "controle_acesso": false,
+            "backup": false,
+            "firewall": false,
+            "antivirus": false,
+            "monitoramento": false,
+            "outras": []
+          },
+          "organizacionais": {
+            "politica_privacidade_interna": false,
+            "treinamento_colaboradores": false,
+            "procedimentos_documentados": false,
+            "auditoria_regular": false,
+            "outras": []
+          }
+        },
+        "risks": {
+          "atividades_alto_risco": false,
+          "decisoes_automatizadas": false,
+          "perfilamento": false,
+          "transferencia_internacional": false,
+          "incidentes_anteriores": false,
+          "medidas_mitigacao": "Teste"
+        }
+      }
+    },
+    "saida": [
+      {
+        "atividade": "Teste",
+        "dados": [
+          "cpf"
+        ],
+        "finalidade": "Teste",
+        "baseLegal": "consentimento",
+        "retencao": "2",
+        "acesso": [
+          "Conforme matriz de acesso interna"
+        ],
+        "destino": "cloud_brasil",
+        "operador": ""
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-12-18T19:52:42.879Z",
+    "etapa": "LEGAL_BASIS_ASSIGNMENT",
+    "sucesso": true,
+    "entrada": [
+      {
+        "atividade": "Teste",
+        "dados": [
+          "cpf"
+        ],
+        "finalidade": "Teste",
+        "baseLegal": "consentimento",
+        "retencao": "2",
+        "acesso": [
+          "Conforme matriz de acesso interna"
+        ],
+        "destino": "cloud_brasil",
+        "operador": ""
+      }
+    ],
+    "saida": [
+      {
+        "atividade": "Teste",
+        "finalidade": "Teste",
+        "baseLegal": "Depende do contexto específico do \"Teste\". No entanto, considerando a informação limitada fornecida, a base legal mais apropriada **NÃO** é \"V - execução de contrato\".\n\nNenhuma das opções fornecidas parece ideal sem mais contexto. A escolha da base legal depende da finalidade específica do teste e dos dados que estão sendo coletados e processados.\n\nPara oferecer uma resposta mais precisa, preciso de mais informações sobre:\n\n*   **Qual o objetivo do teste?** O que se espera alcançar com ele?\n*   **Quais dados serão coletados e processados?** São dados pessoais sensíveis?\n*   **Quem são os titulares dos dados?**\n*   **O teste é obrigatório por lei?**\n\nCom essas informações, posso ajudá-lo a determinar a base legal mais adequada.\n\n**Considerando a finalidade genérica \"Teste\", a opção mais provável seria obter o consentimento do titular dos dados (I - consentimento), informando claramente a finalidade do teste, os dados coletados e como serão utilizados.**",
+        "justificativa": "Base legal definida conforme análise jurídica"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-12-18T19:52:47.288Z",
+    "etapa": "DPIA_GENERATION",
+    "sucesso": true,
+    "entrada": {
+      "maturity": {
+        "score": 44,
+        "nivel": "Básico",
+        "gaps": [
+          "A empresa possui política de privacidade publicada e atualizada?",
+          "Existe um encarregado (DPO) nomeado e treinado?",
+          "A empresa possui política corporativa abrangente de proteção de dados pessoais?",
+          "Estão claramente definidas as responsabilidades de cada área sobre proteção de dados?",
+          "Para cada tratamento existe base legal específica identificada e documentada?",
+          "A empresa identificou e possui controles especiais para dados pessoais sensíveis?",
+          "Existe inventário atualizado de tratamento de dados pessoais?",
+          "Existe controle formal de solicitações de titulares de dados?",
+          "Existe canal específico e divulgado para exercício de direitos dos titulares?",
+          "Existem procedimentos padronizados para atender cada tipo de solicitação?",
+          "A empresa cumpre os prazos legais para resposta às solicitações?",
+          "A empresa possui medidas técnicas adequadas de segurança?",
+          "Dados pessoais sensíveis são adequadamente criptografados?",
+          "Existe controle rigoroso de acesso baseado no princípio do menor privilégio?",
+          "Sistemas mantêm logs de acesso e alteração de dados pessoais?",
+          "A empresa possui contratos adequados com fornecedores que processam dados?",
+          "A empresa possui plano de resposta a incidentes de segurança?",
+          "São realizados treinamentos regulares sobre LGPD para colaboradores?",
+          "Todos os pontos de coleta possuem avisos claros sobre o tratamento?",
+          "A empresa possui KPIs para medir a eficácia do programa de privacidade?"
+        ],
+        "planoAcao": [
+          "Estabelecer estrutura de governança de dados com políticas claras",
+          "Definir papéis e responsabilidades específicas para proteção de dados",
+          "Mapear e documentar bases legais para todos os tratamentos",
+          "Implementar controles específicos para dados sensíveis",
+          "Atualizar inventário de dados com detalhamento por finalidade",
+          "Criar canal dedicado para exercício de direitos dos titulares",
+          "Padronizar procedimentos de atendimento com prazos definidos",
+          "Implementar criptografia para dados sensíveis",
+          "Estabelecer controles de acesso baseados em menor privilégio",
+          "Configurar logs de auditoria para acesso a dados pessoais",
+          "Revisar e adequar contratos com fornecedores (DPAs)",
+          "Implementar sistema de gestão de consentimentos",
+          "Implementar programa de treinamento contínuo em LGPD",
+          "Criar avisos de privacidade em todos os pontos de coleta",
+          "Definir KPIs para medir eficácia do programa de privacidade",
+          "Estabelecer cronograma de auditorias internas"
+        ]
+      },
+      "dataFlow": [
+        {
+          "atividade": "Teste",
+          "dados": [
+            "cpf"
+          ],
+          "finalidade": "Teste",
+          "baseLegal": "consentimento",
+          "retencao": "2",
+          "acesso": [
+            "Conforme matriz de acesso interna"
+          ],
+          "destino": "cloud_brasil",
+          "operador": ""
+        }
+      ]
+    },
+    "saida": {
+      "descricao": "A Empresa Teste, atuante no setor de Tecnologia/Software, realiza tratamento de dados pessoais de clientes para fins de cadastro, autenticação, personalização de serviços e envio de comunicações de marketing. O tratamento envolve coleta de nome, endereço de e-mail, telefone, dados de navegação (cookies, endereço IP) e dados de uso dos serviços. Os dados são armazenados em servidores cloud com medidas de segurança padrão de mercado. O acesso aos dados é restrito a funcionários autorizados e mediante autenticação. A empresa busca aumentar sua maturidade em proteção de dados, atualmente em 44/100, através da implementação de controles mais robustos e processos de gestão da privacidade.",
+      "riscos": [
+        {
+          "tipo": "Vazamento de dados devido a falha de segurança no servidor cloud.",
+          "nivel": "Alto",
+          "probabilidade": "Médio"
+        },
+        {
+          "tipo": "Acesso não autorizado aos dados por funcionários internos.",
+          "nivel": "Médio",
+          "probabilidade": "Baixo"
+        },
+        {
+          "tipo": "Uso indevido dos dados para fins diferentes dos explicitados na política de privacidade.",
+          "nivel": "Médio",
+          "probabilidade": "Baixo"
+        },
+        {
+          "tipo": "Não cumprimento dos direitos dos titulares (acesso, retificação, exclusão).",
+          "nivel": "Médio",
+          "probabilidade": "Médio"
+        },
+        {
+          "tipo": "Coleta excessiva de dados desnecessários para a finalidade do serviço.",
+          "nivel": "Baixo",
+          "probabilidade": "Médio"
+        }
+      ],
+      "mitigacoes": [
+        "Implementar autenticação de dois fatores (2FA) para todos os acessos aos dados.",
+        "Realizar testes de intrusão e vulnerabilidade regulares nos servidores cloud.",
+        "Criptografar os dados em repouso e em trânsito.",
+        "Implementar um programa de treinamento e conscientização sobre proteção de dados para todos os funcionários.",
+        "Revisar e atualizar a política de privacidade, tornando-a mais clara e transparente.",
+        "Implementar um processo formal para responder às solicitações dos titulares de dados (direitos LGPD).",
+        "Realizar o mapeamento do fluxo de dados e identificar os dados minimamente necessários para cada finalidade.",
+        "Implementar controle de acesso baseado em função (RBAC) para limitar o acesso aos dados apenas às pessoas que precisam deles.",
+        "Implementar um sistema de monitoramento e alerta para detectar atividades suspeitas ou anormais nos sistemas.",
+        "Realizar avaliações de impacto à proteção de dados (DPIA) regulares para novos projetos e mudanças nos processos existentes."
+      ],
+      "scoreResidual": 6
+    }
+  },
+  {
+    "timestamp": "2025-12-18T19:52:47.289Z",
+    "etapa": "PRIVACY_POLICY_GENERATION",
+    "sucesso": true,
+    "entrada": {
+      "empresa": "Teste"
+    },
+    "saida": {
+      "arquivo": "/app/public/downloads/-1766087547956/teste-2025-12-18/politica-privacidade.txt"
+    }
+  },
+  {
+    "timestamp": "2025-12-18T19:52:47.290Z",
+    "etapa": "DPA_CONTRACT_GENERATION",
+    "sucesso": true,
+    "entrada": {
+      "empresa": "Teste"
+    },
+    "saida": {
+      "arquivo": "/app/public/downloads/-1766087547956/teste-2025-12-18/contrato-dpa.txt"
+    }
+  },
+  {
+    "timestamp": "2025-12-18T19:52:47.292Z",
+    "etapa": "BREACH_RESPONSE_PLAN",
+    "sucesso": true,
+    "entrada": {
+      "empresa": "Teste"
+    },
+    "saida": {
+      "arquivo": "/app/public/downloads/-1766087547956/teste-2025-12-18/plano-incidente.txt"
+    }
+  },
+  {
+    "timestamp": "2025-12-18T19:52:47.306Z",
+    "etapa": "DPO_REPORT_GENERATION",
+    "sucesso": true,
+    "entrada": {
+      "empresa": "Teste"
+    },
+    "saida": {
+      "empresa": "Teste",
+      "dataGeracao": "2025-12-18T19:52:47.292Z",
+      "documentos": [
+        "bases-legais.csv",
+        "contrato-dpa.txt",
+        "dpia.pdf",
+        "inventario.csv",
+        "maturidade.pdf",
+        "plano-incidente.txt",
+        "politica-privacidade.txt"
+      ],
+      "resumo": {
+        "maturidade": "Avaliada",
+        "inventario": "Mapeado",
+        "basesLegais": "Definidas",
+        "dpia": "Elaborada",
+        "politica": "Gerada",
+        "contratos": "Preparados",
+        "incidentes": "Planejado",
+        "status": "Conformidade básica alcançada"
+      },
+      "proximosPassos": [
+        "Publicar política de privacidade",
+        "Treinar equipe sobre LGPD",
+        "Implementar controles técnicos",
+        "Assinar contratos com operadores",
+        "Testar plano de incidentes",
+        "Agendar revisão trimestral"
+      ]
+    }
+  }
+]

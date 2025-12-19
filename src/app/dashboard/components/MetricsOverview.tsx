@@ -62,10 +62,10 @@ const colorClasses = {
     progress: 'bg-purple-500'
   },
   orange: {
-    bg: 'bg-orange-500/10',
-    border: 'border-orange-500/20',
-    icon: 'text-orange-500',
-    progress: 'bg-orange-500'
+    bg: 'bg-emerald-500/10',
+    border: 'border-emerald-500/20',
+    icon: 'text-emerald-500',
+    progress: 'bg-emerald-500'
   },
   red: {
     bg: 'bg-red-500/10',
@@ -81,19 +81,19 @@ const colorClasses = {
   }
 };
 
-function MetricCard({ 
-  title, 
-  value, 
-  subtitle, 
-  icon: Icon, 
-  trend, 
-  trendValue, 
-  color, 
+function MetricCard({
+  title,
+  value,
+  subtitle,
+  icon: Icon,
+  trend,
+  trendValue,
+  color,
   progress,
-  badge 
+  badge
 }: MetricCardProps) {
   const classes = colorClasses[color];
-  
+
   return (
     <Card className={`${classes.bg} ${classes.border} border backdrop-blur-sm hover:bg-opacity-80 transition-all duration-300 group`}>
       <CardHeader className="pb-3">
@@ -129,12 +129,11 @@ function MetricCard({
                 {badge.text}
               </Badge>
             )}
-            
+
             {trend && trendValue && (
-              <div className={`flex items-center space-x-1 text-xs ${
-                trend === 'up' ? 'text-emerald-400' : 
-                trend === 'down' ? 'text-red-400' : 'text-slate-400'
-              }`}>
+              <div className={`flex items-center space-x-1 text-xs ${trend === 'up' ? 'text-emerald-400' :
+                  trend === 'down' ? 'text-red-400' : 'text-slate-400'
+                }`}>
                 {trend === 'up' ? (
                   <TrendingUp className="h-3 w-3" />
                 ) : trend === 'down' ? (
@@ -212,7 +211,7 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
           </div>
           <Skeleton className="h-4 w-64 bg-slate-700 mb-6" />
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
             <MetricCardSkeleton key={i} />
@@ -240,8 +239,8 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
           title="Status do Sistema"
           value={metrics.systemHealth.status}
           subtitle={`Uptime: ${metrics.systemHealth.uptime}`}
-          icon={metrics.systemHealth.status === 'excellent' ? CheckCircle : 
-                metrics.systemHealth.status === 'poor' ? AlertTriangle : Activity}
+          icon={metrics.systemHealth.status === 'excellent' ? CheckCircle :
+            metrics.systemHealth.status === 'poor' ? AlertTriangle : Activity}
           color={getHealthColor(metrics.systemHealth.status)}
           badge={getHealthBadge(metrics.systemHealth.status)}
         />
@@ -297,8 +296,8 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
           value={`${metrics.performance.avgResponseTime}ms`}
           subtitle="Média global"
           icon={Clock}
-          color={metrics.performance.avgResponseTime > 1000 ? 'red' : 
-                 metrics.performance.avgResponseTime > 500 ? 'orange' : 'green'}
+          color={metrics.performance.avgResponseTime > 1000 ? 'red' :
+            metrics.performance.avgResponseTime > 500 ? 'orange' : 'green'}
           trend={metrics.performance.avgResponseTime < 500 ? 'down' : 'up'}
           trendValue={metrics.performance.avgResponseTime < 500 ? 'Rápido' : 'Lento'}
         />
@@ -309,14 +308,14 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
           value={`${metrics.performance.successRate}%`}
           subtitle="Últimas 24h"
           icon={TrendingUp}
-          color={metrics.performance.successRate > 90 ? 'green' : 
-                 metrics.performance.successRate > 75 ? 'orange' : 'red'}
+          color={metrics.performance.successRate > 90 ? 'green' :
+            metrics.performance.successRate > 75 ? 'orange' : 'red'}
           progress={metrics.performance.successRate}
-          badge={metrics.performance.successRate > 90 ? 
-            { text: 'Excelente', variant: 'default' } : 
+          badge={metrics.performance.successRate > 90 ?
+            { text: 'Excelente', variant: 'default' } :
             metrics.performance.successRate > 75 ?
-            { text: 'Bom', variant: 'secondary' } :
-            { text: 'Precisa Atenção', variant: 'destructive' }}
+              { text: 'Bom', variant: 'secondary' } :
+              { text: 'Precisa Atenção', variant: 'destructive' }}
         />
 
         {/* Error Rate */}
@@ -325,12 +324,12 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
           value={`${metrics.performance.errorRate}%`}
           subtitle="Últimas 24h"
           icon={AlertTriangle}
-          color={metrics.performance.errorRate < 5 ? 'green' : 
-                 metrics.performance.errorRate < 15 ? 'orange' : 'red'}
+          color={metrics.performance.errorRate < 5 ? 'green' :
+            metrics.performance.errorRate < 15 ? 'orange' : 'red'}
           trend={metrics.performance.errorRate < 10 ? 'down' : 'up'}
           trendValue={metrics.performance.errorRate < 10 ? 'Baixa' : 'Alta'}
-          badge={metrics.performance.errorRate < 5 ? 
-            { text: 'Baixa', variant: 'default' } : 
+          badge={metrics.performance.errorRate < 5 ?
+            { text: 'Baixa', variant: 'default' } :
             { text: 'Atenção', variant: 'destructive' }}
         />
       </div>
@@ -355,7 +354,7 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
                 Online
               </Badge>
             </div>
-            
+
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
               <span className="text-sm text-slate-300">LEANN Service</span>
@@ -363,7 +362,7 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
                 Degraded
               </Badge>
             </div>
-            
+
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
               <span className="text-sm text-slate-300">Task Master</span>
@@ -371,7 +370,7 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
                 Online
               </Badge>
             </div>
-            
+
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
               <span className="text-sm text-slate-300">Auto-Healing</span>

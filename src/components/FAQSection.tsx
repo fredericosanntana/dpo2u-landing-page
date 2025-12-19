@@ -86,7 +86,7 @@ const categoryIcons = {
   "Infraestrutura & VPS": <Server className="h-5 w-5 text-blue-600" />,
   "Segurança & Privacidade": <Shield className="h-5 w-5 text-emerald-600" />,
   "Implementação": <Rocket className="h-5 w-5 text-purple-600" />,
-  "Técnico": <Zap className="h-5 w-5 text-amber-600" />,
+  "Técnico": <Zap className="h-5 w-5 text-blue-600" />,
   "Comercial": <HelpCircle className="h-5 w-5 text-brand-sapphire-600" />
 };
 

@@ -1,0 +1,61 @@
+PLANO DE RESPOSTA A INCIDENTES DE DADOS
+Teste
+
+Data: 18/12/2025
+
+1. EQUIPE DE RESPOSTA
+Coordenador: Teste
+Email: Teste
+
+
+2. CLASSIFICAÇÃO DE INCIDENTES
+Baixo: Acesso não autorizado limitado
+Médio: Exposição de dados não sensíveis
+Alto: Vazamento de dados sensíveis
+Crítico: Vazamento massivo com risco aos titulares
+
+3. PRIMEIROS 30 MINUTOS
+□ Identificar e conter o incidente
+□ Documentar evidências
+□ Acionar equipe de resposta
+□ Avaliar gravidade e impacto
+
+4. PRIMEIRAS 2 HORAS
+□ Investigar causa raiz
+□ Implementar medidas corretivas
+□ Preparar comunicação interna
+□ Avaliar necessidade de notificação à ANPD
+
+5. PRIMEIRAS 24 HORAS
+□ Notificar ANPD (se aplicável)
+□ Preparar comunicação aos titulares
+□ Revisar medidas de segurança
+□ Documentar lições aprendidas
+
+6. CRITÉRIOS PARA NOTIFICAÇÃO ANPD
+- Incidente de alto risco aos direitos dos titulares
+- Possibilidade de danos patrimoniais, morais ou coletivos
+- Vazamento de dados sensíveis
+- Grande volume de titulares afetados
+
+7. TEMPLATE DE COMUNICAÇÃO
+"Informamos sobre incidente de segurança ocorrido em [data].
+Dados afetados: [tipos]
+Titulares impactados: [número]
+Medidas adotadas: [ações]
+Contato: Teste"
+
+8. PÓS-INCIDENTE
+□ Análise forense completa
+□ Atualização de políticas
+□ Treinamento adicional
+□ Monitoramento reforçado
+□ Relatório final
+
+9. CONTATOS IMPORTANTES
+ANPD: https://www.gov.br/anpd/
+Polícia Civil - Crimes Cibernéticos
+Advogado especializado em LGPD
+
+10. REVISÃO
+Este plano deve ser revisado semestralmente e testado anualmente.

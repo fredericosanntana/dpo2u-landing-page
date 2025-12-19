@@ -1,0 +1,16 @@
+[
+  {
+    "atividade": "Teste",
+    "dados": [
+      "cpf"
+    ],
+    "finalidade": "Teste",
+    "baseLegal": "consentimento",
+    "retencao": "2",
+    "acesso": [
+      "Conforme matriz de acesso interna"
+    ],
+    "destino": "cloud_brasil",
+    "operador": ""
+  }
+]

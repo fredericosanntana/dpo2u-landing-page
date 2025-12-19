@@ -67,10 +67,10 @@ const statusColors = {
     dot: 'bg-emerald-500'
   },
   busy: {
-    bg: 'bg-amber-500/20',
-    text: 'text-amber-400',
-    border: 'border-amber-500/30',
-    dot: 'bg-amber-500'
+    bg: 'bg-emerald-500/20',
+    text: 'text-emerald-400',
+    border: 'border-emerald-500/30',
+    dot: 'bg-emerald-500'
   },
   offline: {
     bg: 'bg-slate-500/20',
@@ -129,7 +129,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
               </div>
             </div>
           </div>
-          
+
           <Button
             variant="ghost"
             size="sm"
@@ -140,14 +140,14 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
           </Button>
         </div>
       </CardHeader>
-      
+
       <CardContent className="space-y-4">
         <CardDescription className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
           {agent.description}
         </CardDescription>
 
-        <Badge 
-          variant="outline" 
+        <Badge
+          variant="outline"
           className={`text-xs border ${categoryStyle} bg-opacity-50`}
         >
           {agent.category}
@@ -194,7 +194,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
             <span className="text-slate-300">{agent.resources.cpu}%</span>
           </div>
           <Progress value={agent.resources.cpu} className="h-1" />
-          
+
           <div className="flex justify-between items-center text-xs">
             <span className="text-slate-400 flex items-center space-x-1">
               <HardDrive className="h-3 w-3" />
@@ -209,17 +209,17 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
           <div className="text-xs text-slate-400 mb-2">Capacidades</div>
           <div className="flex flex-wrap gap-1">
             {agent.capabilities.slice(0, 2).map((capability, index) => (
-              <Badge 
-                key={index} 
-                variant="secondary" 
+              <Badge
+                key={index}
+                variant="secondary"
                 className="text-[10px] px-1.5 py-0.5 bg-slate-700/50 text-slate-300 border-slate-600"
               >
                 {capability.replace('_', ' ')}
               </Badge>
             ))}
             {agent.capabilities.length > 2 && (
-              <Badge 
-                variant="secondary" 
+              <Badge
+                variant="secondary"
                 className="text-[10px] px-1.5 py-0.5 bg-slate-700/50 text-slate-300 border-slate-600"
               >
                 +{agent.capabilities.length - 2}
@@ -250,7 +250,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
               Iniciar
             </Button>
           )}
-          
+
           <Button
             size="sm"
             variant="ghost"
@@ -265,11 +265,11 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
   );
 }
 
-export default function AgentsGrid({ 
-  agents, 
-  loading, 
-  onAgentAction, 
-  onFilterChange 
+export default function AgentsGrid({
+  agents,
+  loading,
+  onAgentAction,
+  onFilterChange
 }: AgentsGridProps) {
   const [filters, setFilters] = useState<AgentFilters>({
     search: '',
@@ -284,7 +284,7 @@ export default function AgentsGrid({
 
     if (filters.search) {
       const searchLower = filters.search.toLowerCase();
-      filtered = filtered.filter(agent => 
+      filtered = filtered.filter(agent =>
         agent.displayName.toLowerCase().includes(searchLower) ||
         agent.description.toLowerCase().includes(searchLower) ||
         agent.category.toLowerCase().includes(searchLower)
@@ -335,7 +335,7 @@ export default function AgentsGrid({
           <Skeleton className="h-10 w-32 bg-slate-700" />
           <Skeleton className="h-10 w-32 bg-slate-700" />
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
             <Card key={i} className="bg-slate-800/50 border-slate-700/50">
@@ -385,9 +385,9 @@ export default function AgentsGrid({
           <SelectContent className="bg-slate-800 border-slate-700">
             <SelectItem value="all" className="text-white hover:bg-slate-700">Todos</SelectItem>
             {statuses.map(status => (
-              <SelectItem 
-                key={status} 
-                value={status} 
+              <SelectItem
+                key={status}
+                value={status}
                 className="text-white hover:bg-slate-700 capitalize"
               >
                 {status}
@@ -426,15 +426,15 @@ export default function AgentsGrid({
       </div>
 
       {filteredAndSortedAgents.length > 0 ? (
-        <div className={viewMode === 'grid' ? 
-          "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" : 
+        <div className={viewMode === 'grid' ?
+          "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" :
           "space-y-4"
         }>
           {filteredAndSortedAgents.map((agent) => (
-            <AgentCard 
-              key={agent.id} 
-              agent={agent} 
-              onAction={(action) => onAgentAction?.(agent.id, action as any)} 
+            <AgentCard
+              key={agent.id}
+              agent={agent}
+              onAction={(action) => onAgentAction?.(agent.id, action as any)}
             />
           ))}
         </div>

@@ -1,0 +1,42 @@
+{
+  "score": 46,
+  "nivel": "Básico",
+  "gaps": [
+    "Existe um encarregado (DPO) nomeado e treinado?",
+    "A empresa possui política corporativa abrangente de proteção de dados pessoais?",
+    "Estão claramente definidas as responsabilidades de cada área sobre proteção de dados?",
+    "Para cada tratamento existe base legal específica identificada e documentada?",
+    "A empresa identificou e possui controles especiais para dados pessoais sensíveis?",
+    "Existe inventário atualizado de tratamento de dados pessoais?",
+    "A empresa realiza avaliação de impacto (DPIA) para novos projetos?",
+    "Existe canal específico e divulgado para exercício de direitos dos titulares?",
+    "Existem procedimentos padronizados para atender cada tipo de solicitação?",
+    "Dados pessoais sensíveis são adequadamente criptografados?",
+    "Existe controle rigoroso de acesso baseado no princípio do menor privilégio?",
+    "A empresa possui contratos adequados com fornecedores que processam dados?",
+    "Existe processo formal para coleta e gestão de consentimentos?",
+    "A empresa possui plano de resposta a incidentes de segurança?",
+    "São realizados treinamentos regulares sobre LGPD para colaboradores?",
+    "Todos os pontos de coleta possuem avisos claros sobre o tratamento?",
+    "A empresa possui KPIs para medir a eficácia do programa de privacidade?",
+    "São realizadas auditorias internas regulares de conformidade?"
+  ],
+  "planoAcao": [
+    "Estabelecer estrutura de governança de dados com políticas claras",
+    "Definir papéis e responsabilidades específicas para proteção de dados",
+    "Mapear e documentar bases legais para todos os tratamentos",
+    "Implementar controles específicos para dados sensíveis",
+    "Atualizar inventário de dados com detalhamento por finalidade",
+    "Criar canal dedicado para exercício de direitos dos titulares",
+    "Padronizar procedimentos de atendimento com prazos definidos",
+    "Implementar criptografia para dados sensíveis",
+    "Estabelecer controles de acesso baseados em menor privilégio",
+    "Configurar logs de auditoria para acesso a dados pessoais",
+    "Revisar e adequar contratos com fornecedores (DPAs)",
+    "Implementar sistema de gestão de consentimentos",
+    "Implementar programa de treinamento contínuo em LGPD",
+    "Criar avisos de privacidade em todos os pontos de coleta",
+    "Definir KPIs para medir eficácia do programa de privacidade",
+    "Estabelecer cronograma de auditorias internas"
+  ]
+}

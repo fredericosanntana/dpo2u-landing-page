@@ -1,0 +1,54 @@
+POLÍTICA DE PRIVACIDADE
+Teste
+CNPJ: Teste
+
+Última atualização: 18/12/2025
+
+1. INTRODUÇÃO
+Esta Política de Privacidade descreve como Teste coleta, usa, armazena e protege os dados pessoais de nossos clientes, usuários e colaboradores, em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
+
+2. DADOS COLETADOS
+Coletamos e tratamos as seguintes categorias de dados pessoais:
+
+- cpf: Utilizado conforme descrito nesta política.
+
+3. FINALIDADES E BASES LEGAIS
+Utilizamos os dados pessoais para as seguintes finalidades:
+
+- cpf: Teste
+  Base legal: consentimento
+  Justificativa: Teste
+
+4. ARMAZENAMENTO E RETENÇÃO
+- cpf: Armazenado em cloud_brasil, mantido por 2
+
+5. COMPARTILHAMENTO DE DADOS
+Não compartilhamos dados pessoais com terceiros, exceto quando exigido por lei.
+
+6. SEGURANÇA
+Adotamos as seguintes medidas de segurança:
+
+Medidas Técnicas:
+
+
+Medidas Organizacionais:
+
+
+7. DIREITOS DOS TITULARES
+Você tem direito a:
+- Confirmação da existência de tratamento dos seus dados
+- Acesso aos seus dados
+- Correção de dados incompletos, inexatos ou desatualizados
+- Anonimização, bloqueio ou eliminação de dados
+- Portabilidade dos dados
+- Informação sobre compartilhamento dos dados
+- Revogação do consentimento
+
+8. ENCARREGADO DE DADOS (DPO)
+Para exercer seus direitos ou esclarecer dúvidas sobre esta política:
+Nome: Teste
+Email: Teste
+
+
+9. ALTERAÇÕES NESTA POLÍTICA
+Esta política pode ser atualizada periodicamente. A data da última atualização está indicada no início deste documento.

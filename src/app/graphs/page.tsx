@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useCallback, useMemo, Suspense } from 'react'
-import dynamic from 'next/dynamic'
+
 import { motion, AnimatePresence } from 'framer-motion'
 // import { 
 //   Sidebar, 
@@ -9,9 +9,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 //   PanelGroup,
 //   PanelResizeHandle 
 // } from 'react-resizable-panels'
-import { 
-  Brain, 
-  BarChart3, 
+import {
+  Brain,
+  BarChart3,
   Settings,
   Menu,
   X,
@@ -30,17 +30,16 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { useGraphData, useGraphFilters, useNodeSelection } from '@/hooks/useGraphData'
 
 // Dynamic imports to prevent SSR issues
-const GraphVisualization = dynamic(() => import('./components/GraphVisualization'), { 
-  ssr: false,
-  loading: () => (
-    <div className="h-full flex items-center justify-center bg-slate-900/20 rounded-lg border border-white/10">
-      <div className="text-center">
-        <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-white">Carregando visualização...</p>
-      </div>
+const GraphVisualization = React.lazy(() => import('./components/GraphVisualization'))
+
+const GraphVisualizationLoader = () => (
+  <div className="h-full flex items-center justify-center bg-slate-900/20 rounded-lg border border-white/10">
+    <div className="text-center">
+      <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+      <p className="text-white">Carregando visualização...</p>
     </div>
-  )
-})
+  </div>
+)
 
 import FilterPanel from './components/FilterPanel'
 import NodeDetails from './components/NodeDetails'
@@ -82,7 +81,7 @@ export default function GraphsPage() {
   // Prepare data for components
   const nodeTypes = useMemo(() => {
     if (!rawGraphData?.nodes) return []
-    
+
     const typeCounts: Record<string, number> = {}
     Object.values(rawGraphData.nodes).forEach(node => {
       typeCounts[node.type] = (typeCounts[node.type] || 0) + 1
@@ -105,7 +104,7 @@ export default function GraphsPage() {
 
   const availableConcepts = useMemo(() => {
     if (!rawGraphData?.nodes) return []
-    
+
     const conceptCounts: Record<string, number> = {}
     Object.values(rawGraphData.nodes).forEach(node => {
       node.concepts.forEach(concept => {
@@ -121,17 +120,17 @@ export default function GraphsPage() {
   // Handle node interactions
   const handleNodeClick = useCallback((nodeId: string) => {
     selectNode(nodeId)
-    
+
     if (rawGraphData?.nodes[nodeId]) {
       const node = rawGraphData.nodes[nodeId]
       const connectedNodes = new Set([nodeId, ...node.connections])
       const connectedLinks = new Set<string>()
-      
+
       node.connections.forEach(targetId => {
         connectedLinks.add(`${nodeId}-${targetId}`)
         connectedLinks.add(`${targetId}-${nodeId}`)
       })
-      
+
       updateHighlights(connectedNodes, connectedLinks)
     }
   }, [selectNode, rawGraphData, updateHighlights])
@@ -144,8 +143,8 @@ export default function GraphsPage() {
     clearSelection()
   }, [clearSelection])
 
-  const selectedNodeData = selectedNode && rawGraphData?.nodes[selectedNode] 
-    ? rawGraphData.nodes[selectedNode] 
+  const selectedNodeData = selectedNode && rawGraphData?.nodes[selectedNode]
+    ? rawGraphData.nodes[selectedNode]
     : null
 
   const selectedNodeConnections = selectedNodeData ? selectedNodeData.connections : []
@@ -175,7 +174,7 @@ export default function GraphsPage() {
             <TabsTrigger value="suggestions" className="text-xs">IA</TabsTrigger>
           </TabsList>
         </div>
-        
+
         <div className="flex-1 overflow-hidden">
           <TabsContent value="filters" className="h-full m-0">
             <FilterPanel
@@ -188,10 +187,10 @@ export default function GraphsPage() {
               filteredCount={filteredData.nodes.length}
             />
           </TabsContent>
-          
+
           <TabsContent value="stats" className="h-full m-0 p-4">
             <div className="h-full overflow-y-auto">
-              <StatsCards 
+              <StatsCards
                 stats={statsData || {
                   total_notes: 0,
                   connections: 0,
@@ -207,7 +206,7 @@ export default function GraphsPage() {
               />
             </div>
           </TabsContent>
-          
+
           <TabsContent value="suggestions" className="h-full m-0">
             <SuggestionsPanel
               suggestions={suggestionsData || {}}
@@ -224,7 +223,7 @@ export default function GraphsPage() {
     <TooltipProvider>
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 relative overflow-hidden">
         {/* Header */}
-        <motion.header 
+        <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="relative z-10 border-b border-white/10 bg-slate-900/50 backdrop-blur"
@@ -245,7 +244,7 @@ export default function GraphsPage() {
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="hidden md:flex items-center gap-2">
                   <Badge variant="outline" className="bg-purple-500/20 text-purple-200 border-purple-500/30">
                     {filteredData.nodes.length} notas
@@ -321,7 +320,7 @@ export default function GraphsPage() {
         </motion.header>
 
         {/* Main Content */}
-        <motion.main 
+        <motion.main
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -335,16 +334,18 @@ export default function GraphsPage() {
 
             {/* Graph Visualization */}
             <div className="flex-1 p-4">
-              <GraphVisualization
-                data={filteredData}
-                selectedNode={selectedNode}
-                hoveredNode={hoveredNode}
-                highlightNodes={highlightNodes}
-                highlightLinks={highlightLinks}
-                onNodeClick={handleNodeClick}
-                onNodeHover={handleNodeHover}
-                onBackgroundClick={handleBackgroundClick}
-              />
+              <Suspense fallback={<GraphVisualizationLoader />}>
+                <GraphVisualization
+                  data={filteredData}
+                  selectedNode={selectedNode}
+                  hoveredNode={hoveredNode}
+                  highlightNodes={highlightNodes}
+                  highlightLinks={highlightLinks}
+                  onNodeClick={handleNodeClick}
+                  onNodeHover={handleNodeHover}
+                  onBackgroundClick={handleBackgroundClick}
+                />
+              </Suspense>
             </div>
 
             {/* Right Panel - Node Details */}

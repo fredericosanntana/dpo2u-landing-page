@@ -1,7 +1,7 @@
-'use client';
+
 
 import React from 'react';
-import Image from 'next/image';
+
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { trackCTA } from '@/lib/analytics';
@@ -24,14 +24,13 @@ export default function Header() {
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             <div className="relative w-10 h-10 md:w-12 md:h-12">
-              <Image
-                src="/images/logo-dpo2u.png"
-                alt="DPO2U - Transformação Digital com Privacidade e IA"
-                fill
-                className="object-contain"
-                priority
-                sizes="(max-width: 768px) 40px, 48px"
-              />
+              <div className="relative w-10 h-10 md:w-12 md:h-12">
+                <img
+                  src="/images/logo-dpo2u.png"
+                  alt="DPO2U - Transformação Digital com Privacidade e IA"
+                  className="object-contain w-full h-full"
+                />
+              </div>
             </div>
             <div className="flex flex-col">
               <h1 className="text-xl md:text-2xl font-serif font-bold text-brand-gray-800 dark:text-white">
@@ -84,7 +83,7 @@ export default function Header() {
               className="hidden sm:inline-flex bg-primary hover:opacity-90 border-0 shadow-lg transform hover:scale-105 transition-all"
               onClick={() => trackCTA('consultoria_executiva', 'header_desktop')}
             >
-              Agendar Consultoria Executive
+              Agendar Consultoria Executiva
             </Button>
             <Button
               variant="primary"

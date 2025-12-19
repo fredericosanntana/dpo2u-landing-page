@@ -153,7 +153,32 @@ export default function AnalisePage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="max-w-5xl mx-auto"
                 >
-                    {!result ? (
+                    {isSubmitting ? (
+                        /* Loading State */
+                        <Card className="p-12 text-center space-y-8">
+                            <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                className="w-20 h-20 border-4 border-primary border-t-transparent rounded-full mx-auto"
+                            />
+                            <div>
+                                <h2 className="text-3xl font-bold mb-4">Gerando sua Adequação...</h2>
+                                <p className="text-muted-foreground text-lg max-w-lg mx-auto">
+                                    Nossa IA está analisando seus dados, classificando bases legais e gerando
+                                    todos os documentos obrigatórios. Isso pode levar alguns minutos.
+                                </p>
+                            </div>
+                            <div className="max-w-md mx-auto bg-muted/50 rounded-lg p-4 text-sm text-muted-foreground">
+                                <p className="mb-2">Estamos processando:</p>
+                                <ul className="list-disc list-inside text-left space-y-1">
+                                    <li>Mapeamento de Inventário</li>
+                                    <li>Análise de Riscos e DPIA</li>
+                                    <li>Política de Privacidade e Termos</li>
+                                    <li>Relatório do DPO</li>
+                                </ul>
+                            </div>
+                        </Card>
+                    ) : !result ? (
                         <>
                             {/* Header */}
                             <div className="text-center mb-8">

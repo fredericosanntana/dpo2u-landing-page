@@ -1,0 +1,48 @@
+ADENDO DE PROTEÇÃO DE DADOS (DPA)
+Teste
+
+Data: 18/12/2025
+
+1. DEFINIÇÕES
+Controlador: Teste
+Operador: [Nome do Fornecedor]
+
+2. OBJETO
+Este adendo regula o tratamento de dados pessoais pelo Operador em nome do Controlador.
+
+3. OBRIGAÇÕES DO OPERADOR
+- Tratar dados apenas conforme instruções documentadas
+- Garantir confidencialidade dos dados
+- Implementar medidas técnicas de segurança
+- Auxiliar o Controlador no atendimento aos direitos dos titulares
+- Notificar incidentes de segurança em até 24 horas
+- Excluir ou devolver dados ao final do contrato
+
+4. MEDIDAS DE SEGURANÇA
+- Criptografia de dados em trânsito e repouso
+- Controle de acesso baseado em funções
+- Logs de auditoria
+- Backup seguro
+- Treinamento de equipe
+
+5. SUBCONTRATAÇÃO
+Qualquer subcontratação deve ser aprovada previamente pelo Controlador.
+
+6. TRANSFERÊNCIA INTERNACIONAL
+Dados permanecem no território nacional.
+
+7. AUDITORIA
+Controlador pode auditar o cumprimento deste adendo mediante aviso prévio.
+
+8. RESPONSABILIDADE
+Operador é responsável por danos causados por tratamento em desacordo com a LGPD.
+
+9. VIGÊNCIA
+Este adendo vigora durante todo o período do contrato principal.
+
+
+Controlador: _________________________
+Teste
+
+Operador: ___________________________
+[Nome e Assinatura]

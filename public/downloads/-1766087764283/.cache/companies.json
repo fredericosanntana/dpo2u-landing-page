@@ -1,0 +1,74 @@
+[
+  {
+    "empresa": {
+      "nome": "Teste",
+      "cnpj": "Teste",
+      "setor": "Tecnologia/Software",
+      "colaboradores": 5,
+      "coletaDados": true,
+      "possuiOperadores": true,
+      "contato": {
+        "responsavel": "Teste",
+        "email": "Teste",
+        "telefone": ""
+      },
+      "wizard_data": {
+        "inventory": [
+          {
+            "id": "item-1766086890973",
+            "tipo": "cpf",
+            "categoria": "cadastral",
+            "volume": "baixo",
+            "descricao": ""
+          }
+        ],
+        "purposes": [
+          {
+            "dataItemId": "item-1766086890973",
+            "finalidade": "Teste",
+            "baseLegal": "consentimento",
+            "justificativa": "Teste"
+          }
+        ],
+        "storage": [
+          {
+            "dataItemId": "item-1766086890973",
+            "localizacao": "cloud_brasil",
+            "periodo_retencao": "2",
+            "procedimento_exclusao": "Teste"
+          }
+        ],
+        "third_parties": [],
+        "security": {
+          "tecnicas": {
+            "criptografia": false,
+            "controle_acesso": false,
+            "backup": false,
+            "firewall": false,
+            "antivirus": false,
+            "monitoramento": false,
+            "outras": []
+          },
+          "organizacionais": {
+            "politica_privacidade_interna": false,
+            "treinamento_colaboradores": false,
+            "procedimentos_documentados": false,
+            "auditoria_regular": false,
+            "outras": []
+          }
+        },
+        "risks": {
+          "atividades_alto_risco": false,
+          "decisoes_automatizadas": false,
+          "perfilamento": false,
+          "transferencia_internacional": false,
+          "incidentes_anteriores": false,
+          "medidas_mitigacao": "Teste"
+        }
+      }
+    },
+    "outputDir": "/app/public/downloads/-1766087764283/teste-2025-12-18",
+    "lastExecution": "2025-12-18T19:56:28.244Z",
+    "completed": true
+  }
+]
