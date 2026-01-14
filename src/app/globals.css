@@ -1,18 +1,13 @@
+/* Importar o sistema de cores centralizado - ÚNICA FONTE DE VERDADE */
+@import '../styles/colors.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* DPO2U Brand Colors - Essential for task-agent-design.css */
-    --dpo2u-primary: 79 70 229; /* #4F46E5 - LEANN: DPO2U primary */
-    --dpo2u-accent: 124 58 237; /* #7C3AED - Brand accent purple */
-    --dpo2u-sapphire: 0 109 255; /* #006DFF - Revolutionary Sapphire */
-    --dpo2u-emerald: 0 212 148; /* #00D494 - Tech Emerald */
-    --dpo2u-ocean: 74 144 226; /* #4A90E2 - LEANN: primary_blue */
-    --dpo2u-dark: 15 23 42; /* #0F172A - Aligned with P05 */
-    --dpo2u-light: 248 250 252; /* #F8FAFC - LEANN: neutral-gray */
-    
+    /* Variáveis semânticas que usam as cores centralizadas */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -41,15 +36,6 @@
   }
 
   .dark {
-    /* DPO2U Brand Colors - Dark mode values remain the same */
-    --dpo2u-primary: 79 70 229;
-    --dpo2u-accent: 255 107 0;
-    --dpo2u-sapphire: 0 109 255;
-    --dpo2u-emerald: 0 212 148;
-    --dpo2u-ocean: 74 144 226;
-    --dpo2u-dark: 15 23 42;
-    --dpo2u-light: 248 250 252;
-    
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -87,53 +73,77 @@
 :root {
   --font-inter: 'Inter', system-ui, sans-serif;
   --font-playfair: 'Playfair Display', 'Times New Roman', serif;
-  
+
   /* DPO2U Brand Colors - LEANN Enhanced System */
-  --brand-primary-blue: 79 70 229; /* #4F46E5 - Found in LEANN: DPO2U primary blue */
-  --brand-primary-purple: 124 58 237; /* #7C3AED - Found in LEANN: DPO2U primary purple */
-  --brand-sapphire: 79 70 229; /* Aligned with LEANN patterns */
-  --brand-emerald: 0 212 148; /* #00d494 - Tech Emerald */
-  --brand-platinum: 248 250 252; /* #F8FAFC - LEANN: neutral-gray */
-  --brand-ocean: 74 144 226; /* #4A90E2 - Found in LEANN: primary_blue */
-  --brand-text-dark: 30 41 59; /* #1E293B - Found in LEANN: text-dark */
-  
+  --brand-primary-blue: 79 70 229;
+  /* #4F46E5 - Found in LEANN: DPO2U primary blue */
+  --brand-primary-purple: 124 58 237;
+  /* #7C3AED - Found in LEANN: DPO2U primary purple */
+  --brand-sapphire: 79 70 229;
+  /* Aligned with LEANN patterns */
+  --brand-emerald: 0 212 148;
+  /* #00d494 - Tech Emerald */
+  --brand-platinum: 248 250 252;
+  /* #F8FAFC - LEANN: neutral-gray */
+  --brand-ocean: 74 144 226;
+  /* #4A90E2 - Found in LEANN: primary_blue */
+  --brand-text-dark: 15 23 42;
+  /* #0F172A - Azul muito escuro (não aparenta marrom) */
+
   /* Revolutionary Semantic Colors */
   --background: 255 255 255;
   --foreground: 15 23 42;
-  --primary: 0 109 255; /* Revolutionary Sapphire */
+  --primary: 0 109 255;
+  /* Revolutionary Sapphire */
   --primary-foreground: 255 255 255;
-  --secondary: 0 212 148; /* Revolutionary Emerald */
+  --secondary: 0 212 148;
+  /* Revolutionary Emerald */
   --secondary-foreground: 255 255 255;
-  --accent: 3 105 161; /* Revolutionary Ocean */
+  --accent: 3 105 161;
+  /* Revolutionary Ocean */
   --accent-foreground: 255 255 255;
-  --muted: 248 250 252; /* Revolutionary Platinum Light */
+  --muted: 248 250 252;
+  /* Revolutionary Platinum Light */
   --muted-foreground: 51 65 85;
-  
+
   /* Borders and rings */
   --border: 226 232 240;
   --input: 226 232 240;
-  --ring: 0 109 255; /* Revolutionary Sapphire for focus rings */
-  
+  --ring: 0 109 255;
+  /* Revolutionary Sapphire for focus rings */
+
   /* Radius */
   --radius: 0.5rem;
 }
 
 .dark {
-  --background: 15 23 42; /* slate-900 */
-  --foreground: 248 250 252; /* slate-50 */
-  --primary: 0 109 255; /* Revolutionary Sapphire */
+  --background: 15 23 42;
+  /* slate-900 */
+  --foreground: 248 250 252;
+  /* slate-50 */
+  --primary: 0 109 255;
+  /* Revolutionary Sapphire */
   --primary-foreground: 255 255 255;
-  --secondary: 51 65 85; /* slate-700 */
-  --secondary-foreground: 248 250 252; /* slate-50 */
-  --accent: 51 65 85; /* slate-700 */
-  --accent-foreground: 248 250 252; /* slate-50 */
-  --muted: 51 65 85; /* slate-700 */
-  --muted-foreground: 148 163 184; /* slate-400 */
-  
+  --secondary: 51 65 85;
+  /* slate-700 */
+  --secondary-foreground: 248 250 252;
+  /* slate-50 */
+  --accent: 51 65 85;
+  /* slate-700 */
+  --accent-foreground: 248 250 252;
+  /* slate-50 */
+  --muted: 51 65 85;
+  /* slate-700 */
+  --muted-foreground: 148 163 184;
+  /* slate-400 */
+
   /* Borders and rings for dark mode */
-  --border: 51 65 85; /* slate-700 */
-  --input: 51 65 85; /* slate-700 */
-  --ring: 0 109 255; /* Revolutionary Sapphire */
+  --border: 51 65 85;
+  /* slate-700 */
+  --input: 51 65 85;
+  /* slate-700 */
+  --ring: 0 109 255;
+  /* Revolutionary Sapphire */
 }
 
 /* Base styles */
@@ -150,7 +160,12 @@ body {
 }
 
 /* Typography enhancements */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-playfair);
   font-weight: 600;
   line-height: 1.2;
@@ -251,6 +266,7 @@ img {
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -266,7 +282,7 @@ img {
   .no-print {
     display: none !important;
   }
-  
+
   * {
     -webkit-print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -276,6 +292,7 @@ img {
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
+
   .btn-primary,
   .btn-secondary,
   .btn-outline {
@@ -318,27 +335,33 @@ img {
 
 /* Revolutionary Enhanced Brand Colors */
 .text-brand-primary {
-  color: #006dff; /* Revolutionary Sapphire */
+  color: #006dff;
+  /* Revolutionary Sapphire */
 }
 
 .bg-brand-primary {
-  background-color: #006dff; /* Revolutionary Sapphire */
+  background-color: #006dff;
+  /* Revolutionary Sapphire */
 }
 
 .text-brand-success {
-  color: #00d494; /* Revolutionary Emerald */
+  color: #00d494;
+  /* Revolutionary Emerald */
 }
 
 .bg-brand-success {
-  background-color: #00d494; /* Revolutionary Emerald */
+  background-color: #00d494;
+  /* Revolutionary Emerald */
 }
 
 .text-brand-innovation {
-  color: #0369a1; /* Revolutionary Ocean */
+  color: #0369a1;
+  /* Revolutionary Ocean */
 }
 
 .bg-brand-innovation {
-  background-color: #0369a1; /* Revolutionary Ocean */
+  background-color: #0369a1;
+  /* Revolutionary Ocean */
 }
 
 .shadow-brand {
@@ -354,7 +377,7 @@ img {
   .container-card {
     container-type: inline-size;
   }
-  
+
   @container (max-width: 400px) {
     .container-card .card-content {
       @apply p-4;

@@ -153,6 +153,21 @@ const config: Config = {
 					'800': '#1e293b',
 					'900': '#0f172a'
 				},
+				// Sobrescrever gray padrão do Tailwind para evitar aparência marrom
+				gray: {
+					'50': '#f8fafc',
+					'100': '#f1f5f9',
+					'200': '#e2e8f0',
+					'300': '#cbd5e1',
+					'400': '#94a3b8',
+					'500': '#64748b',
+					'600': '#475569',
+					'700': '#334155',
+					'800': '#0f172a',  // Mudado de #1e293b para #0f172a (evita aparência marrom)
+					'900': '#0f172a'  // Substituído de #111827 (que aparenta marrom) para #0f172a
+				},
+				// Cor para textos escuros - usada em títulos
+				'brand-text-dark': '#0f172a',  // Azul muito escuro (não aparenta marrom)
 				success: '#10b981',
 				warning: '#f59e0b',
 				error: '#ef4444',

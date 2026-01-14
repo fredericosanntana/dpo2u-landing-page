@@ -467,10 +467,7 @@ const SystemArchitectureDashboard: React.FC = () => {
                     <span className="text-sm text-slate-300">Firewall (UFW)</span>
                     <Badge className="bg-emerald-500/20 text-emerald-400">ACTIVE</Badge>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-300">SSH Root Login</span>
-                    <Badge className="bg-emerald-500/20 text-emerald-400">DISABLED</Badge>
-                  </div>
+
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-slate-300">Docker Socket</span>
                     <Badge className="bg-emerald-500/20 text-emerald-400">PROTECTED</Badge>

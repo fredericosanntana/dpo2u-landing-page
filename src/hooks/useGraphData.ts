@@ -107,7 +107,7 @@ export function useGraphData() {
     }))
 
     const links: Array<{ source: string; target: string; value: number }> = []
-    
+
     // Create links from connections
     Object.values(graphData.nodes).forEach(node => {
       node.connections.forEach(targetId => {
@@ -134,31 +134,39 @@ export function useGraphData() {
     rawGraphData: graphData,
     graphError,
     graphLoading,
-    
+
     // Stats data
     statsData,
     statsError,
     statsLoading,
-    
+
     // Suggestions data
     suggestionsData,
     suggestionsError,
     suggestionsLoading,
-    
+
     // Actions
     refreshData,
   }
 }
 
 function getNodeColor(type: string): string {
+  // Helper function to get color from CSS variables
+  const getColor = (varName: string): string => {
+    if (typeof window === 'undefined') return '#8b5cf6'; // SSR fallback
+    const root = document.documentElement;
+    const color = getComputedStyle(root).getPropertyValue(varName).trim();
+    return color || '#8b5cf6'; // Fallback if not found
+  };
+
   const colorMap = {
-    project: '#8b5cf6', // Purple
-    area: '#06b6d4', // Cyan
-    resource: '#10b981', // Emerald
-    permanent: '#f59e0b', // Amber
-    reference: '#6b7280', // Gray
+    project: getColor('--graph-project'),
+    area: getColor('--graph-area'),
+    resource: getColor('--graph-resource'),
+    permanent: getColor('--graph-permanent'),
+    reference: getColor('--graph-reference'),
   }
-  return colorMap[type as keyof typeof colorMap] || '#6b7280'
+  return colorMap[type as keyof typeof colorMap] || getColor('--graph-reference')
 }
 
 // Custom hook for graph filtering
@@ -193,8 +201,8 @@ export function useGraphFilters(graphData: GraphData | undefined) {
     }
 
     // Apply connections filter
-    filteredNodes = filteredNodes.filter(node => 
-      node.connections.length >= filters.minConnections && 
+    filteredNodes = filteredNodes.filter(node =>
+      node.connections.length >= filters.minConnections &&
       node.connections.length <= filters.maxConnections
     )
 
@@ -204,7 +212,7 @@ export function useGraphFilters(graphData: GraphData | undefined) {
         const nodeDate = new Date(node.created)
         const fromDate = filters.dateRange.from
         const toDate = filters.dateRange.to
-        
+
         if (fromDate && nodeDate < fromDate) return false
         if (toDate && nodeDate > toDate) return false
         return true
@@ -224,7 +232,7 @@ export function useGraphFilters(graphData: GraphData | undefined) {
 
     // Transform to graph format
     const nodeIds = new Set(filteredNodes.map(n => n.id))
-    
+
     const nodes = filteredNodes.map(node => ({
       id: node.id,
       title: node.title,
@@ -240,7 +248,7 @@ export function useGraphFilters(graphData: GraphData | undefined) {
     }))
 
     const links: Array<{ source: string; target: string; value: number }> = []
-    
+
     filteredNodes.forEach(node => {
       node.connections.forEach(targetId => {
         if (nodeIds.has(targetId)) {

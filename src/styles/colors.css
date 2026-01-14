@@ -1,0 +1,205 @@
+/**
+ * DPO2U Color System - Single Source of Truth
+ * 
+ * Este arquivo define TODAS as cores usadas no projeto.
+ * Para alterar as cores do projeto inteiro, edite apenas este arquivo.
+ * 
+ * Uso: Use var(--color-*) em CSS ou getComputedStyle em JavaScript
+ */
+
+:root {
+    /* ============================================
+     CORES PRIMÁRIAS DA MARCA DPO2U
+     ============================================ */
+
+    /* Sapphire - Azul Principal */
+    --color-sapphire-50: #f0f7ff;
+    --color-sapphire-100: #e0efff;
+    --color-sapphire-200: #c7e4ff;
+    --color-sapphire-300: #a5d4ff;
+    --color-sapphire-400: #84c5ff;
+    --color-sapphire-500: #4F46E5;
+    /* DPO2U Primary Blue */
+    --color-sapphire-600: #4338CA;
+    --color-sapphire-700: #3730A3;
+    --color-sapphire-800: #312E81;
+    --color-sapphire-900: #1E1B4B;
+
+    /* Emerald - Verde Tecnológico */
+    --color-emerald-50: #ecfdf5;
+    --color-emerald-100: #d1fae5;
+    --color-emerald-200: #a7f3d0;
+    --color-emerald-300: #6ee7b7;
+    --color-emerald-400: #34d399;
+    --color-emerald-500: #00d494;
+    /* Tech Emerald */
+    --color-emerald-600: #00b377;
+    --color-emerald-700: #00925f;
+    --color-emerald-800: #006b47;
+    --color-emerald-900: #004430;
+
+    /* Purple - Roxo Acentuado */
+    --color-purple-50: #faf5ff;
+    --color-purple-100: #f3e8ff;
+    --color-purple-200: #e9d5ff;
+    --color-purple-300: #d8b4fe;
+    --color-purple-400: #c084fc;
+    --color-purple-500: #7C3AED;
+    /* DPO2U Primary Purple */
+    --color-purple-600: #6D28D9;
+    --color-purple-700: #6B21A8;
+    --color-purple-800: #581C87;
+    --color-purple-900: #4C1D95;
+
+    /* Ocean - Azul Oceano */
+    --color-ocean-50: #f0f9ff;
+    --color-ocean-100: #e0f2fe;
+    --color-ocean-200: #bae6fd;
+    --color-ocean-300: #7dd3fc;
+    --color-ocean-400: #38bdf8;
+    --color-ocean-500: #0ea5e9;
+    --color-ocean-600: #0284c7;
+    --color-ocean-700: #0369a1;
+    --color-ocean-800: #075985;
+    --color-ocean-900: #0c4a6e;
+
+    /* Platinum - Cinza Neutro */
+    --color-platinum-50: #fcfcfd;
+    --color-platinum-100: #f8fafc;
+    --color-platinum-200: #f1f5f9;
+    --color-platinum-300: #e2e8f0;
+    --color-platinum-400: #cbd5e1;
+    --color-platinum-500: #8892a6;
+    --color-platinum-600: #64748b;
+    --color-platinum-700: #475569;
+    --color-platinum-800: #334155;
+    --color-platinum-900: #1e293b;
+
+    /* Chrome - Cinza Escuro */
+    --color-chrome-50: #fafafa;
+    --color-chrome-100: #f4f4f5;
+    --color-chrome-200: #e4e4e7;
+    --color-chrome-300: #d4d4d8;
+    --color-chrome-400: #a1a1aa;
+    --color-chrome-500: #71717a;
+    --color-chrome-600: #52525b;
+    --color-chrome-700: #3f3f46;
+    --color-chrome-800: #27272a;
+    --color-chrome-900: #18181b;
+
+    /* ============================================
+     CORES SEMÂNTICAS
+     ============================================ */
+
+    --color-success: #10b981;
+    --color-warning: #00d494;
+    /* Usando emerald */
+    --color-error: #ef4444;
+    --color-info: #3b82f6;
+
+    /* ============================================
+     CORES DE UI/INTERFACE
+     ============================================ */
+
+    /* Cores Principais */
+    --color-primary: #006dff;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #00d494;
+    --color-secondary-foreground: #ffffff;
+    --color-accent: #a855f7;
+    --color-accent-foreground: #ffffff;
+
+    /* Background e Foreground */
+    --color-background: #ffffff;
+    --color-foreground: #0f172a;
+    --color-muted: #f1f5f9;
+    --color-muted-foreground: #334155;
+
+    /* Borders e Inputs */
+    --color-border: #e2e8f0;
+    --color-input: #e2e8f0;
+    --color-ring: #006dff;
+
+    /* ============================================
+     GRADIENTES
+     ============================================ */
+
+    --gradient-hero: linear-gradient(135deg, #006dff 0%, #00d494 100%);
+    --gradient-premium: linear-gradient(135deg, #334155 0%, #1e293b 100%);
+    --gradient-chrome: linear-gradient(135deg, #71717a 0%, #27272a 100%);
+    --gradient-ocean: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+    --gradient-luxury: linear-gradient(135deg, #8892a6 0%, #334155 100%);
+    --gradient-tech: linear-gradient(135deg, #006dff 0%, #0369a1 100%);
+    --gradient-success: linear-gradient(135deg, #00d494 0%, #00b377 100%);
+    --gradient-card: linear-gradient(145deg, #fcfcfd 0%, #f8fafc 100%);
+    --gradient-dark: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+
+    /* Gradientes do Dashboard */
+    --gradient-dpo2u-primary: linear-gradient(135deg, #1E293B 0%, #8B5CF6 100%);
+    --gradient-dpo2u-accent: linear-gradient(135deg, #8B5CF6 0%, #10B981 100%);
+    --gradient-dpo2u-dark: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #6366F1 100%);
+
+    /* ============================================
+     CORES DO DASHBOARD
+     ============================================ */
+
+    --dpo2u-primary: #1E293B;
+    --dpo2u-secondary: #334155;
+    --dpo2u-accent: #8B5CF6;
+    --dpo2u-success: #10B981;
+    --dpo2u-warning: #00D494;
+    --dpo2u-error: #EF4444;
+    --dpo2u-info: #3B82F6;
+
+    /* ============================================
+     CORES PARA GRÁFICOS E VISUALIZAÇÕES
+     ============================================ */
+
+    --chart-primary: #006dff;
+    --chart-secondary: #00d494;
+    --chart-accent: #a855f7;
+    --chart-success: #10b981;
+    --chart-warning: #f59e0b;
+    --chart-error: #ef4444;
+
+    /* Paleta de cores para gráficos (gradient) */
+    --chart-color-1: #006dff;
+    --chart-color-2: #00d494;
+    --chart-color-3: #a855f7;
+    --chart-color-4: #10b981;
+    --chart-color-5: #f59e0b;
+
+    /* Cores para tipos de nós no grafo */
+    --graph-project: #8b5cf6;
+    --graph-area: #06b6d4;
+    --graph-resource: #10b981;
+    --graph-permanent: #f59e0b;
+    --graph-reference: #6b7280;
+
+    /* Cores para grid de gráficos */
+    --chart-grid: #e2e8f0;
+    --chart-text: #64748b;
+
+    /* ============================================
+     CORES RGBA (para transparência)
+     ============================================ */
+
+    --color-sapphire-rgb: 79, 70, 229;
+    --color-emerald-rgb: 0, 212, 148;
+    --color-purple-rgb: 124, 58, 237;
+    --color-ocean-rgb: 74, 144, 226;
+    --color-platinum-rgb: 248, 250, 252;
+}
+
+/* ============================================
+   MODO ESCURO
+   ============================================ */
+
+.dark {
+    --color-background: #0f172a;
+    --color-foreground: #f8fafc;
+    --color-muted: #334155;
+    --color-muted-foreground: #94a3b8;
+    --color-border: #334155;
+    --color-input: #334155;
+}

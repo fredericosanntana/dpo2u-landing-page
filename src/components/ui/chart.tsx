@@ -24,16 +24,40 @@ import {
   Radar
 } from 'recharts';
 
-// Color palettes for DPO2U brand
+// Helper function to get color from CSS variables
+const getColor = (varName: string): string => {
+  if (typeof window === 'undefined') return '#006dff'; // SSR fallback
+  const root = document.documentElement;
+  const color = getComputedStyle(root).getPropertyValue(varName).trim();
+  return color || '#006dff'; // Fallback if not found
+};
+
+// Color palettes for DPO2U brand - Reading from centralized colors.css
 const brandColors = {
-  primary: '#006dff',
-  secondary: '#00d494',
-  accent: '#a855f7',
-  success: '#10b981',
-  warning: '#f59e0b',
-  error: '#ef4444',
-  gradient: ['#006dff', '#00d494', '#a855f7', '#10b981', '#f59e0b'],
-  light: ['#e0efff', '#d1fae5', '#ede9fe', '#ecfdf5', '#fef3c7']
+  get primary() { return getColor('--chart-primary'); },
+  get secondary() { return getColor('--chart-secondary'); },
+  get accent() { return getColor('--chart-accent'); },
+  get success() { return getColor('--chart-success'); },
+  get warning() { return getColor('--chart-warning'); },
+  get error() { return getColor('--chart-error'); },
+  get gradient() {
+    return [
+      getColor('--chart-color-1'),
+      getColor('--chart-color-2'),
+      getColor('--chart-color-3'),
+      getColor('--chart-color-4'),
+      getColor('--chart-color-5')
+    ];
+  },
+  get light() {
+    return [
+      getColor('--color-sapphire-100'),
+      getColor('--color-emerald-100'),
+      getColor('--color-purple-100'),
+      getColor('--color-emerald-50'),
+      getColor('--color-ocean-100')
+    ];
+  }
 };
 
 // Custom tooltip component
@@ -315,8 +339,8 @@ export const DPORadarChart: React.FC<RadarChartProps> = ({
       <ResponsiveContainer width="100%" height={height}>
         <RadarChart data={data}>
           {showGrid && <PolarGrid />}
-          <PolarAngleAxis dataKey="category" tick={{ fontSize: 12, fill: '#64748b' }} />
-          <PolarRadiusAxis tick={{ fontSize: 10, fill: '#64748b' }} />
+          <PolarAngleAxis dataKey="category" tick={{ fontSize: 12, fill: getColor('--chart-text') }} />
+          <PolarRadiusAxis tick={{ fontSize: 10, fill: getColor('--chart-text') }} />
           <Radar
             name="Value"
             dataKey="value"
@@ -370,20 +394,20 @@ export const ComplianceDashboard: React.FC<ComplianceDashboardProps> = ({
           </div>
         </div>
       </div>
-      
+
       <ResponsiveContainer width="100%" height={height}>
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.5} />
+          <CartesianGrid strokeDasharray="3 3" stroke={getColor('--chart-grid')} opacity={0.5} />
           <XAxis
             dataKey="month"
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748b', fontSize: 12 }}
+            tick={{ fill: getColor('--chart-text'), fontSize: 12 }}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748b', fontSize: 12 }}
+            tick={{ fill: getColor('--chart-text'), fontSize: 12 }}
           />
           <Tooltip content={<CustomTooltip />} />
           <Line
@@ -396,10 +420,10 @@ export const ComplianceDashboard: React.FC<ComplianceDashboardProps> = ({
           <Line
             type="monotone"
             dataKey="incidents"
-            stroke="#ef4444"
+            stroke={getColor('--color-error')}
             strokeWidth={2}
             strokeDasharray="5 5"
-            dot={{ fill: '#ef4444', strokeWidth: 2, r: 4 }}
+            dot={{ fill: getColor('--color-error'), strokeWidth: 2, r: 4 }}
           />
           <Line
             type="monotone"

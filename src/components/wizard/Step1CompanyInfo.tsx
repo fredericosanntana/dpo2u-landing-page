@@ -17,7 +17,7 @@ export default function Step1CompanyInfo({ data, onChange }: Step1Props) {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-serif font-bold mb-2">Informações da Empresa</h2>
+                <h2 className="text-2xl font-serif font-bold mb-2 text-gray-900 dark:text-white">Informações da Empresa</h2>
                 <p className="text-muted-foreground">
                     Dados básicos sobre a organização e o responsável pela proteção de dados.
                 </p>
@@ -26,7 +26,7 @@ export default function Step1CompanyInfo({ data, onChange }: Step1Props) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Nome */}
                 <div className="space-y-2 md:col-span-2">
-                    <label className="text-sm font-medium">Razão Social *</label>
+                    <label className="text-sm font-medium text-gray-900 dark:text-white">Razão Social *</label>
                     <input
                         type="text"
                         value={data.nome}
@@ -39,7 +39,7 @@ export default function Step1CompanyInfo({ data, onChange }: Step1Props) {
 
                 {/* CNPJ */}
                 <div className="space-y-2">
-                    <label className="text-sm font-medium">CNPJ *</label>
+                    <label className="text-sm font-medium text-gray-900 dark:text-white">CNPJ *</label>
                     <input
                         type="text"
                         value={data.cnpj}
@@ -52,7 +52,7 @@ export default function Step1CompanyInfo({ data, onChange }: Step1Props) {
 
                 {/* Setor */}
                 <div className="space-y-2">
-                    <label className="text-sm font-medium">Setor de Atuação *</label>
+                    <label className="text-sm font-medium text-gray-900 dark:text-white">Setor de Atuação *</label>
                     <select
                         value={data.setor}
                         onChange={(e) => update('setor', e.target.value)}
@@ -71,7 +71,7 @@ export default function Step1CompanyInfo({ data, onChange }: Step1Props) {
 
                 {/* Colaboradores */}
                 <div className="space-y-2">
-                    <label className="text-sm font-medium">Número de Colaboradores *</label>
+                    <label className="text-sm font-medium text-gray-900 dark:text-white">Número de Colaboradores *</label>
                     <select
                         value={data.colaboradores}
                         onChange={(e) => update('colaboradores', parseInt(e.target.value))}
@@ -109,11 +109,11 @@ export default function Step1CompanyInfo({ data, onChange }: Step1Props) {
 
                 {/* DPO/Responsável */}
                 <div className="space-y-2 md:col-span-2 pt-4 border-t border-border">
-                    <h3 className="font-semibold text-lg mb-4">Dados do DPO / Responsável</h3>
+                    <h3 className="font-semibold text-lg mb-4 text-gray-900 dark:text-white">Dados do DPO / Responsável</h3>
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium">Nome do Responsável *</label>
+                    <label className="text-sm font-medium text-gray-900 dark:text-white">Nome do Responsável *</label>
                     <input
                         type="text"
                         value={data.responsavel}
@@ -125,7 +125,7 @@ export default function Step1CompanyInfo({ data, onChange }: Step1Props) {
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium">Email de Contato *</label>
+                    <label className="text-sm font-medium text-gray-900 dark:text-white">Email de Contato *</label>
                     <input
                         type="email"
                         value={data.email}
@@ -137,7 +137,7 @@ export default function Step1CompanyInfo({ data, onChange }: Step1Props) {
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-sm font-medium">Telefone (Opcional)</label>
+                    <label className="text-sm font-medium text-gray-900 dark:text-white">Telefone (Opcional)</label>
                     <input
                         type="tel"
                         value={data.telefone || ''}

@@ -20,21 +20,21 @@
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* DPO2U Color Palette */
+/* DPO2U Color Palette - Usando cores centralizadas */
 :root {
-    --dpo2u-primary: #1E293B;
-    --dpo2u-secondary: #334155;
-    --dpo2u-accent: #8B5CF6;
-    --dpo2u-success: #10B981;
-    --dpo2u-warning: #00D494;
+    --dpo2u-primary: var(--color-platinum-900);
+    --dpo2u-secondary: var(--color-platinum-800);
+    --dpo2u-accent: var(--color-purple-500);
+    --dpo2u-success: var(--color-success);
+    --dpo2u-warning: var(--color-emerald-500);
     /* Emerald for warning/success standardization */
-    --dpo2u-error: #EF4444;
-    --dpo2u-info: #3B82F6;
+    --dpo2u-error: var(--color-error);
+    --dpo2u-info: var(--color-info);
 
-    /* Gradients */
-    --dpo2u-gradient-primary: linear-gradient(135deg, #1E293B 0%, #8B5CF6 100%);
-    --dpo2u-gradient-accent: linear-gradient(135deg, #8B5CF6 0%, #10B981 100%);
-    --dpo2u-gradient-dark: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #6366F1 100%);
+    /* Gradientes - Usando gradientes centralizados */
+    --dpo2u-gradient-primary: var(--gradient-dpo2u-primary);
+    --dpo2u-gradient-accent: var(--gradient-dpo2u-accent);
+    --dpo2u-gradient-dark: var(--gradient-dpo2u-dark);
 }
 
 /* Custom Animations */
@@ -226,5 +226,3 @@
 .skeleton-title {
     @apply skeleton h-6 mb-3;
 }
-
-.skeleton
