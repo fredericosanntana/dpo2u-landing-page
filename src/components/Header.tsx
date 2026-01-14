@@ -60,6 +60,14 @@ export default function Header() {
               Cases
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
+            <a href="/mcp" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
+              MCP
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
+            </a>
+            <a href="/kit-lgpd" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
+              Kit LGPD
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
+            </a>
             <a href="/lgpd" className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-brand-blue-400 transition-colors font-medium relative group">
               LGPD
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>

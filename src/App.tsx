@@ -6,6 +6,9 @@ import MarketingScripts from '@/components/MarketingScripts';
 import { ThemeProvider } from '@/hooks/use-theme';
 import { Toaster } from '@/components/ui/toaster';
 import HomePage from '@/app/page';
+import MCPPage from '@/app/mcp';
+import AnalysisPage from '@/app/analise';
+import LgpdKitPage from '@/app/lgpd-kit';
 
 // Placeholder for other pages - functionality to be verified
 const Placeholder = ({ title }: { title: string }) => (
@@ -23,9 +26,11 @@ function App() {
                     <div className="flex flex-col min-h-screen">
                         <Routes>
                             <Route path="/" element={<HomePage />} />
-                            <Route path="/analise" element={<Placeholder title="Análise" />} />
+                            <Route path="/mcp" element={<MCPPage />} />
+                            <Route path="/analise" element={<AnalysisPage />} />
                             <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
-                            <Route path="/lgpd" element={<Placeholder title="LGPD" />} />
+                            <Route path="/lgpd" element={<LgpdKitPage />} />
+                            <Route path="/kit-lgpd" element={<LgpdKitPage />} />
                             <Route path="/privacy" element={<Placeholder title="Privacy" />} />
                             <Route path="/terms" element={<Placeholder title="Terms" />} />
                             <Route path="*" element={<Placeholder title="404 Not Found" />} />
