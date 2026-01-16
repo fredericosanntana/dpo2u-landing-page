@@ -174,15 +174,25 @@ const config: Config = {
 				info: '#3b82f6'
 			},
 			fontFamily: {
-				serif: [
-					'Playfair Display',
-					'Times New Roman',
-					'serif'
+				display: [
+					'Outfit',
+					'system-ui',
+					'sans-serif'
+				],
+				heading: [
+					'Outfit',
+					'system-ui',
+					'sans-serif'
 				],
 				sans: [
 					'Inter',
 					'system-ui',
 					'sans-serif'
+				],
+				mono: [
+					'JetBrains Mono',
+					'Fira Code',
+					'monospace'
 				]
 			},
 			spacing: {

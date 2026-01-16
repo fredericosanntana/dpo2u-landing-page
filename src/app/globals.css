@@ -72,7 +72,20 @@
 /* CSS Variables for DPO2U Brand - Revolutionary 2025 System */
 :root {
   --font-inter: 'Inter', system-ui, sans-serif;
-  --font-playfair: 'Playfair Display', 'Times New Roman', serif;
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* DPO2U Official Design Tokens */
+  --dpo2u-blue: #4F46E5;
+  --dpo2u-blue-hover: #4338CA;
+  --dpo2u-blue-light: #818CF8;
+  --dpo2u-purple: #7C3AED;
+  --dpo2u-purple-hover: #6D28D9;
+  --dpo2u-purple-light: #A78BFA;
+  --dpo2u-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+  --dpo2u-gradient-hover: linear-gradient(135deg, #4338CA 0%, #6D28D9 100%);
+  --dpo2u-emerald: #00d494;
+  --dpo2u-ocean: #0369a1;
 
   /* DPO2U Brand Colors - LEANN Enhanced System */
   --brand-primary-blue: 79 70 229;
@@ -166,18 +179,22 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-playfair);
+  font-family: var(--font-display);
   font-weight: 600;
   line-height: 1.2;
   color: hsl(var(--foreground));
 }
 
-.font-serif {
-  font-family: var(--font-playfair);
+.font-display {
+  font-family: var(--font-display);
 }
 
 .font-sans {
   font-family: var(--font-inter);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
 }
 
 /* Custom components */
@@ -333,35 +350,29 @@ img {
   @apply inline-flex items-center px-3 py-1 text-xs font-semibold bg-brand-sapphire-50 text-brand-platinum-800 rounded-full border border-brand-sapphire-200;
 }
 
-/* Revolutionary Enhanced Brand Colors */
+/* Revolutionary Enhanced Brand Colors - Using DPO2U Design Tokens */
 .text-brand-primary {
-  color: #006dff;
-  /* Revolutionary Sapphire */
+  color: var(--dpo2u-blue);
 }
 
 .bg-brand-primary {
-  background-color: #006dff;
-  /* Revolutionary Sapphire */
+  background-color: var(--dpo2u-blue);
 }
 
 .text-brand-success {
-  color: #00d494;
-  /* Revolutionary Emerald */
+  color: var(--dpo2u-emerald);
 }
 
 .bg-brand-success {
-  background-color: #00d494;
-  /* Revolutionary Emerald */
+  background-color: var(--dpo2u-emerald);
 }
 
 .text-brand-innovation {
-  color: #0369a1;
-  /* Revolutionary Ocean */
+  color: var(--dpo2u-ocean);
 }
 
 .bg-brand-innovation {
-  background-color: #0369a1;
-  /* Revolutionary Ocean */
+  background-color: var(--dpo2u-ocean);
 }
 
 .shadow-brand {
