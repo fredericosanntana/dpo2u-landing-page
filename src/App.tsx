@@ -9,6 +9,7 @@ import HomePage from '@/app/page';
 import MCPPage from '@/app/mcp';
 import AnalysisPage from '@/app/analise';
 import LgpdKitPage from '@/app/lgpd-kit';
+import ERC8004Page from '@/app/erc8004';
 
 // Placeholder for other pages - functionality to be verified
 const Placeholder = ({ title }: { title: string }) => (
@@ -31,6 +32,7 @@ function App() {
                             <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
                             <Route path="/lgpd" element={<LgpdKitPage />} />
                             <Route path="/kit-lgpd" element={<LgpdKitPage />} />
+                            <Route path="/erc8004" element={<ERC8004Page />} />
                             <Route path="/privacy" element={<Placeholder title="Privacy" />} />
                             <Route path="/terms" element={<Placeholder title="Terms" />} />
                             <Route path="*" element={<Placeholder title="404 Not Found" />} />
