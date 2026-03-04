@@ -12,18 +12,17 @@
      CORES PRIMÁRIAS DA MARCA DPO2U
      ============================================ */
 
-    /* Sapphire - Azul Principal */
-    --color-sapphire-50: #f0f7ff;
-    --color-sapphire-100: #e0efff;
-    --color-sapphire-200: #c7e4ff;
-    --color-sapphire-300: #a5d4ff;
-    --color-sapphire-400: #84c5ff;
-    --color-sapphire-500: #4F46E5;
-    /* DPO2U Primary Blue */
-    --color-sapphire-600: #4338CA;
-    --color-sapphire-700: #3730A3;
-    --color-sapphire-800: #312E81;
-    --color-sapphire-900: #1E1B4B;
+    /* Sapphire - Azul Principal DPO2U (#006dff) */
+    --color-sapphire-50:  #e6f0fb;
+    --color-sapphire-100: #bfd7f3;
+    --color-sapphire-200: #99bdec;
+    --color-sapphire-300: #4d94e0;
+    --color-sapphire-400: #1a72d9;
+    --color-sapphire-500: #006dff;  /* DPO2U Primary Blue */
+    --color-sapphire-600: #005fe0;
+    --color-sapphire-700: #004fc0;
+    --color-sapphire-800: #1e293b;  /* Fundo escuro (slate-800) */
+    --color-sapphire-900: #0f172a;  /* Fundo mais escuro (slate-900) */
 
     /* Emerald - Verde Tecnológico */
     --color-emerald-50: #ecfdf5;
@@ -184,7 +183,7 @@
      CORES RGBA (para transparência)
      ============================================ */
 
-    --color-sapphire-rgb: 79, 70, 229;
+    --color-sapphire-rgb: 0, 109, 255;
     --color-emerald-rgb: 0, 212, 148;
     --color-purple-rgb: 124, 58, 237;
     --color-ocean-rgb: 74, 144, 226;

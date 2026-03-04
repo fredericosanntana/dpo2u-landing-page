@@ -19,15 +19,15 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         
-        // DPO2U Brand variants (enhanced)
-        primary: "bg-primary text-white hover:bg-primary/90 shadow-lg hover:shadow-xl transform hover:scale-[1.02]",
-        brand: "bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 text-white hover:from-brand-sapphire-600 hover:to-brand-emerald-600 shadow-xl hover:shadow-2xl transform hover:scale-[1.02]",
-        premium: "bg-gradient-to-r from-brand-ocean-600 to-brand-sapphire-600 text-white hover:from-brand-ocean-700 hover:to-brand-sapphire-700 shadow-2xl border border-white/20 backdrop-blur-sm",
-        luxury: "bg-gradient-to-r from-brand-platinum-400 to-brand-chrome-500 text-brand-gray-900 hover:from-brand-platinum-500 hover:to-brand-chrome-600 shadow-xl font-semibold",
+        // DPO2U Brand variants (padronizados com tokens de marca)
+        primary: "bg-brand-blue-500 text-white hover:bg-brand-blue-600 shadow-brand hover:shadow-brand-lg transform hover:scale-[1.02]",
+        brand: "bg-gradient-hero text-white hover:opacity-90 shadow-brand-lg hover:shadow-2xl transform hover:scale-[1.02]",
+        premium: "bg-gradient-to-r from-brand-ocean-600 to-brand-blue-600 text-white hover:from-brand-ocean-700 hover:to-brand-blue-700 shadow-2xl border border-white/20 backdrop-blur-sm",
+        luxury: "bg-gradient-to-r from-brand-gray-200 to-brand-gray-300 text-brand-gray-900 hover:from-brand-gray-300 hover:to-brand-gray-400 shadow-xl font-semibold",
         
-        // CTA variants for landing page
-        'cta-primary': "bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white shadow-2xl hover:shadow-3xl transform hover:scale-[1.05] transition-all duration-300 font-bold border-0",
-        'cta-secondary': "border-2 border-slate-500/50 text-slate-200 hover:bg-slate-700 hover:text-white hover:border-slate-400 backdrop-blur-md bg-slate-800/20 font-medium transition-all duration-300"
+        // CTA variants para landing page
+        'cta-primary': "bg-gradient-to-r from-brand-green-500 to-brand-blue-600 hover:from-brand-green-600 hover:to-brand-blue-700 text-white shadow-2xl transform hover:scale-[1.05] transition-all duration-300 font-bold border-0",
+        'cta-secondary': "border-2 border-brand-gray-500/50 text-brand-gray-200 hover:bg-brand-gray-700 hover:text-white hover:border-brand-gray-400 backdrop-blur-md bg-brand-gray-800/20 font-medium transition-all duration-300"
       },
       size: {
         default: "h-10 px-4 py-2",

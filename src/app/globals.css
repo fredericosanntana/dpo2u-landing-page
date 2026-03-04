@@ -5,56 +5,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   DPO2U Design System — globals.css
+   Fonte única de verdade para variáveis semânticas de UI.
+   As cores primitivas estão em src/styles/colors.css.
+   ============================================================ */
+
 @layer base {
   :root {
-    /* Variáveis semânticas que usam as cores centralizadas */
+    /* ── Cores semânticas (Radix/shadcn compatível, formato HSL) ── */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 215 28% 17%;          /* #0f172a — brand-gray-900 */
+
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 28% 17%;
+
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --popover-foreground: 215 28% 17%;
+
+    /* Primária: Azul DPO2U #006dff */
+    --primary: 216 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secundária: Emerald #00d494 */
+    --secondary: 161 100% 41%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Accent: Azul Oceano #0369a1 */
+    --accent: 201 96% 32%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 216 100% 50%;
+
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+
+    /* ── Gráficos ── */
+    --chart-1: 216 100% 50%;
+    --chart-2: 161 100% 41%;
+    --chart-3: 201 96% 32%;
+    --chart-4: 43 96% 56%;
+    --chart-5: 0 84% 60%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --background: 215 28% 17%;          /* #0f172a */
+    --foreground: 210 40% 98%;          /* #f8fafc */
+
+    --card: 215 28% 17%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
+
+    --popover: 215 28% 17%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+
+    --primary: 216 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 25% 27%;           /* slate-700 */
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+
+    --accent: 215 25% 27%;
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
+
+    --muted: 215 25% 27%;
+    --muted-foreground: 215 20% 65%;
+
+    --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+
+    --border: 215 25% 27%;
+    --input: 215 25% 27%;
+    --ring: 216 100% 50%;
+
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -64,142 +93,41 @@
 }
 
 @layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+
   body {
+    font-family: var(--font-inter, 'Inter', system-ui, sans-serif);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    line-height: 1.6;
+    scroll-behavior: smooth;
     @apply bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display, 'Outfit', system-ui, sans-serif);
+    font-weight: 600;
+    line-height: 1.2;
+    color: hsl(var(--foreground));
   }
 }
 
-/* CSS Variables for DPO2U Brand - Revolutionary 2025 System */
-:root {
-  --font-inter: 'Inter', system-ui, sans-serif;
-  --font-display: 'Outfit', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-
-  /* DPO2U Official Design Tokens */
-  --dpo2u-blue: #4F46E5;
-  --dpo2u-blue-hover: #4338CA;
-  --dpo2u-blue-light: #818CF8;
-  --dpo2u-purple: #7C3AED;
-  --dpo2u-purple-hover: #6D28D9;
-  --dpo2u-purple-light: #A78BFA;
-  --dpo2u-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
-  --dpo2u-gradient-hover: linear-gradient(135deg, #4338CA 0%, #6D28D9 100%);
-  --dpo2u-emerald: #00d494;
-  --dpo2u-ocean: #0369a1;
-
-  /* DPO2U Brand Colors - LEANN Enhanced System */
-  --brand-primary-blue: 79 70 229;
-  /* #4F46E5 - Found in LEANN: DPO2U primary blue */
-  --brand-primary-purple: 124 58 237;
-  /* #7C3AED - Found in LEANN: DPO2U primary purple */
-  --brand-sapphire: 79 70 229;
-  /* Aligned with LEANN patterns */
-  --brand-emerald: 0 212 148;
-  /* #00d494 - Tech Emerald */
-  --brand-platinum: 248 250 252;
-  /* #F8FAFC - LEANN: neutral-gray */
-  --brand-ocean: 74 144 226;
-  /* #4A90E2 - Found in LEANN: primary_blue */
-  --brand-text-dark: 15 23 42;
-  /* #0F172A - Azul muito escuro (não aparenta marrom) */
-
-  /* Revolutionary Semantic Colors */
-  --background: 255 255 255;
-  --foreground: 15 23 42;
-  --primary: 0 109 255;
-  /* Revolutionary Sapphire */
-  --primary-foreground: 255 255 255;
-  --secondary: 0 212 148;
-  /* Revolutionary Emerald */
-  --secondary-foreground: 255 255 255;
-  --accent: 3 105 161;
-  /* Revolutionary Ocean */
-  --accent-foreground: 255 255 255;
-  --muted: 248 250 252;
-  /* Revolutionary Platinum Light */
-  --muted-foreground: 51 65 85;
-
-  /* Borders and rings */
-  --border: 226 232 240;
-  --input: 226 232 240;
-  --ring: 0 109 255;
-  /* Revolutionary Sapphire for focus rings */
-
-  /* Radius */
-  --radius: 0.5rem;
-}
-
-.dark {
-  --background: 15 23 42;
-  /* slate-900 */
-  --foreground: 248 250 252;
-  /* slate-50 */
-  --primary: 0 109 255;
-  /* Revolutionary Sapphire */
-  --primary-foreground: 255 255 255;
-  --secondary: 51 65 85;
-  /* slate-700 */
-  --secondary-foreground: 248 250 252;
-  /* slate-50 */
-  --accent: 51 65 85;
-  /* slate-700 */
-  --accent-foreground: 248 250 252;
-  /* slate-50 */
-  --muted: 51 65 85;
-  /* slate-700 */
-  --muted-foreground: 148 163 184;
-  /* slate-400 */
-
-  /* Borders and rings for dark mode */
-  --border: 51 65 85;
-  /* slate-700 */
-  --input: 51 65 85;
-  /* slate-700 */
-  --ring: 0 109 255;
-  /* Revolutionary Sapphire */
-}
-
-/* Base styles */
-* {
-  border-color: hsl(var(--border));
-}
-
-body {
-  font-family: var(--font-inter);
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  line-height: 1.6;
-  scroll-behavior: smooth;
-}
-
-/* Typography enhancements */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.2;
-  color: hsl(var(--foreground));
-}
-
+/* ── Tipografia ── */
 .font-display {
-  font-family: var(--font-display);
+  font-family: var(--font-display, 'Outfit', system-ui, sans-serif);
 }
-
 .font-sans {
-  font-family: var(--font-inter);
+  font-family: var(--font-inter, 'Inter', system-ui, sans-serif);
 }
-
 .font-mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
 }
 
-/* Custom components */
+/* ── Componentes base ── */
 .btn-primary {
-  @apply inline-flex items-center justify-center rounded-lg bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  @apply inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
 }
 
 .btn-secondary {
@@ -207,15 +135,15 @@ h6 {
 }
 
 .btn-outline {
-  @apply inline-flex items-center justify-center rounded-lg border border-gray-300 bg-transparent px-6 py-3 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  @apply inline-flex items-center justify-center rounded-lg border border-border bg-transparent px-6 py-3 text-sm font-medium transition-colors hover:bg-primary hover:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
 }
 
-/* Card component */
+/* ── Card ── */
 .card {
-  @apply rounded-2xl border bg-gradient-card p-6 shadow-card transition-shadow hover:shadow-card-hover;
+  @apply rounded-2xl border bg-card p-6 shadow-card transition-shadow hover:shadow-card-hover;
 }
 
-/* Section spacing */
+/* ── Espaçamento de seções ── */
 .section-padding {
   @apply py-16 md:py-24 lg:py-32;
 }
@@ -224,7 +152,7 @@ h6 {
   @apply px-4 sm:px-6 lg:px-8;
 }
 
-/* Grid layouts */
+/* ── Grids ── */
 .grid-auto-fit {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
@@ -233,7 +161,7 @@ h6 {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
-/* Animation utilities */
+/* ── Animações de scroll ── */
 .animate-on-scroll {
   @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
 }
@@ -242,51 +170,64 @@ h6 {
   @apply opacity-100 translate-y-0;
 }
 
-/* Focus styles for accessibility */
+/* ── Acessibilidade ── */
 .focus-visible\:ring-brand:focus-visible {
-  @apply ring-2 ring-accent ring-offset-2;
+  @apply ring-2 ring-primary ring-offset-2;
 }
 
-/* Custom scrollbar */
+/* ── Scrollbar customizado ── */
 .scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--muted)) transparent;
 }
-
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+.scrollbar-thin::-webkit-scrollbar { width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background-color: hsl(var(--muted));
   border-radius: 3px;
 }
-
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background-color: hsl(var(--muted-foreground));
 }
 
-/* Text selection */
+/* ── Seleção de texto ── */
 ::selection {
-  background-color: hsla(var(--accent), 0.2);
+  background-color: hsl(var(--primary) / 0.15);
   color: hsl(var(--foreground));
 }
 
-/* Image optimization */
+/* ── Imagens ── */
 img {
   @apply max-w-full h-auto;
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
+/* ── Gradientes de texto (utilitários de marca) ── */
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--color-sapphire-500), var(--color-emerald-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-  *,
-  *::before,
-  *::after {
+.bg-brand-gradient {
+  background: linear-gradient(135deg, var(--color-sapphire-500), var(--color-emerald-500));
+}
+
+.text-success-gradient {
+  background: linear-gradient(135deg, var(--color-emerald-500), var(--color-sapphire-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Skeleton / Loading ── */
+.loading-skeleton {
+  @apply animate-pulse bg-muted rounded;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -294,12 +235,9 @@ img {
   }
 }
 
-/* Print styles */
+/* ── Print ── */
 @media print {
-  .no-print {
-    display: none !important;
-  }
-
+  .no-print { display: none !important; }
   * {
     -webkit-print-color-adjust: exact !important;
     color-adjust: exact !important;
@@ -307,88 +245,18 @@ img {
   }
 }
 
-/* High contrast mode support */
+/* ── High contrast ── */
 @media (prefers-contrast: high) {
-
-  .btn-primary,
-  .btn-secondary,
-  .btn-outline {
+  .btn-primary, .btn-secondary, .btn-outline {
     @apply border-2;
   }
 }
 
-/* Loading states */
-.loading-skeleton {
-  @apply animate-pulse bg-muted rounded;
-}
-
-/* Revolutionary Utility Classes for Ultimate Brand Consistency */
-.text-brand-gradient {
-  background: linear-gradient(135deg, hsl(var(--brand-sapphire)), hsl(var(--brand-emerald)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.bg-brand-gradient {
-  background: linear-gradient(135deg, hsl(var(--brand-sapphire)), hsl(var(--brand-emerald)));
-}
-
-.bg-success-gradient {
-  background: linear-gradient(135deg, hsl(var(--brand-emerald)), hsl(var(--brand-sapphire)));
-}
-
-.text-success-gradient {
-  background: linear-gradient(135deg, hsl(var(--brand-emerald)), hsl(var(--brand-sapphire)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Revolutionary DPO2U Authority Elements */
-.authority-badge {
-  @apply inline-flex items-center px-3 py-1 text-xs font-semibold bg-brand-sapphire-50 text-brand-platinum-800 rounded-full border border-brand-sapphire-200;
-}
-
-/* Revolutionary Enhanced Brand Colors - Using DPO2U Design Tokens */
-.text-brand-primary {
-  color: var(--dpo2u-blue);
-}
-
-.bg-brand-primary {
-  background-color: var(--dpo2u-blue);
-}
-
-.text-brand-success {
-  color: var(--dpo2u-emerald);
-}
-
-.bg-brand-success {
-  background-color: var(--dpo2u-emerald);
-}
-
-.text-brand-innovation {
-  color: var(--dpo2u-ocean);
-}
-
-.bg-brand-innovation {
-  background-color: var(--dpo2u-ocean);
-}
-
-.shadow-brand {
-  box-shadow: 0 4px 6px -1px hsla(var(--brand-platinum), 0.1), 0 2px 4px -1px hsla(var(--brand-platinum), 0.06);
-}
-
-.shadow-brand-strong {
-  box-shadow: 0 10px 15px -3px hsla(var(--brand-sapphire), 0.1), 0 4px 6px -2px hsla(var(--brand-sapphire), 0.05);
-}
-
-/* Container queries support */
+/* ── Container queries ── */
 @supports (container-type: inline-size) {
   .container-card {
     container-type: inline-size;
   }
-
   @container (max-width: 400px) {
     .container-card .card-content {
       @apply p-4;

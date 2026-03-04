@@ -1,36 +1,27 @@
 import type { Config } from 'tailwindcss';
 
-/**
- * DPO2U Design System — Tailwind Config Unificado
- *
- * Cores primárias:
- *   brand-blue   → #006dff  (ações primárias, links)
- *   brand-green  → #00d494  (sucesso, destaques)
- *   brand-purple → #7C3AED  (accent, premium)
- *   brand-gray   → #0f172a  (texto, fundos escuros)
- */
 const config: Config = {
 	content: [
-		'./src/**/*.{js,ts,jsx,tsx,mdx}',
-		'./index.html',
+		'./src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
+		'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
 	darkMode: ['class'],
 	theme: {
 		extend: {
 			colors: {
 				brand: {
-					/* Sapphire = alias para brand-blue (fundo escuro e hero) */
 					sapphire: {
-						'50':  '#e6f0fb',
-						'100': '#bfd7f3',
-						'200': '#99bdec',
-						'300': '#4d94e0',
-						'400': '#1a72d9',
-						'500': '#006dff',   /* DPO2U Primary Blue */
-						'600': '#005fe0',
-						'700': '#004fc0',
-						'800': '#1e293b',   /* Fundo escuro (slate-800) */
-						'900': '#0f172a',   /* Fundo mais escuro (slate-900) */
+						'50': '#f0f7ff',
+						'100': '#e0efff',
+						'200': '#c7e4ff',
+						'300': '#a5d4ff',
+						'400': '#84c5ff',
+						'500': '#4F46E5', /* LEANN Enhanced: DPO2U primary blue */
+						'600': '#4338CA', /* LEANN Enhanced: darker blue */
+						'700': '#3730A3',
+						'800': '#312E81',
+						'900': '#1E1B4B'
 					},
 					platinum: {
 						'50': '#fcfcfd',
@@ -93,59 +84,38 @@ const config: Config = {
 						'900': '#18181b'
 					}
 				},
-				/* ── Variáveis semânticas shadcn/Radix (usam CSS vars) ── */
-				background: 'hsl(var(--background))',
-				foreground: 'hsl(var(--foreground))',
-				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))',
-				},
-				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))',
-				},
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))',
+					'50': '#eff6ff',
+					'500': '#0066CC',
+					'900': '#003366',
+					DEFAULT: '#0066CC',
+					foreground: '#ffffff'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))',
-				},
-				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))',
+					DEFAULT: '#10b981',
+					foreground: '#ffffff'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))',
+					DEFAULT: '#a855f7',
+					foreground: '#ffffff'
 				},
-				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))',
+				muted: {
+					DEFAULT: '#f1f5f9',
+					foreground: '#334155'
 				},
-				border: 'hsl(var(--border))',
-				input: 'hsl(var(--input))',
-				ring: 'hsl(var(--ring))',
-				chart: {
-					'1': 'hsl(var(--chart-1))',
-					'2': 'hsl(var(--chart-2))',
-					'3': 'hsl(var(--chart-3))',
-					'4': 'hsl(var(--chart-4))',
-					'5': 'hsl(var(--chart-5))',
-				},
-				/* ── Tokens de marca DPO2U ── */
+				background: '#ffffff',
+				foreground: '#0f172a',
 				'brand-blue': {
-					'50':  '#e6f0fb',
-					'100': '#bfd7f3',
-					'200': '#99bdec',
-					'300': '#4d94e0',
-					'400': '#1a72d9',
-					'500': '#006dff',   /* DPO2U Primary Blue */
-					'600': '#005fe0',
-					'700': '#004fc0',
-					'800': '#003fa0',
-					'900': '#002f80',
+					'50': '#f2f7fd',
+					'100': '#e6f0fb',
+					'200': '#bfd7f3',
+					'300': '#99bdec',
+					'400': '#3385d9',
+					'500': '#0066CC',
+					'600': '#005bb8',
+					'700': '#004c99',
+					'800': '#003a73',
+					'900': '#00264d'
 				},
 				'brand-green': {
 					'50': '#ecfdf5',
@@ -160,16 +130,16 @@ const config: Config = {
 					'900': '#004430'
 				},
 				'brand-purple': {
-					'50':  '#faf5ff',
-					'100': '#f3e8ff',
-					'200': '#e9d5ff',
-					'300': '#d8b4fe',
-					'400': '#c084fc',
-					'500': '#7C3AED',   /* DPO2U Purple */
-					'600': '#6D28D9',
-					'700': '#6B21A8',
-					'800': '#581C87',
-					'900': '#4C1D95',
+					'50': '#f5f3ff',
+					'100': '#ede9fe',
+					'200': '#ddd6fe',
+					'300': '#c4b5fd',
+					'400': '#a78bfa',
+					'500': '#6b46c1',
+					'600': '#5b3aa7',
+					'700': '#4c2f8c',
+					'800': '#3d2471',
+					'900': '#2e1a57'
 				},
 				'brand-gray': {
 					'50': '#f8fafc',
@@ -183,9 +153,9 @@ const config: Config = {
 					'800': '#1e293b',
 					'900': '#0f172a'
 				},
-				/* Sobrescrever gray padrão (evitar aparência marrom) */
+				// Sobrescrever gray padrão do Tailwind para evitar aparência marrom
 				gray: {
-					'50':  '#f8fafc',
+					'50': '#f8fafc',
 					'100': '#f1f5f9',
 					'200': '#e2e8f0',
 					'300': '#cbd5e1',
@@ -193,14 +163,15 @@ const config: Config = {
 					'500': '#64748b',
 					'600': '#475569',
 					'700': '#334155',
-					'800': '#1e293b',
-					'900': '#0f172a',
+					'800': '#0f172a',  // Mudado de #1e293b para #0f172a (evita aparência marrom)
+					'900': '#0f172a'  // Substituído de #111827 (que aparenta marrom) para #0f172a
 				},
-				'brand-text-dark': '#0f172a',
-				success: '#00d494',
+				// Cor para textos escuros - usada em títulos
+				'brand-text-dark': '#0f172a',  // Azul muito escuro (não aparenta marrom)
+				success: '#10b981',
 				warning: '#f59e0b',
-				error:   '#ef4444',
-				info:    '#006dff'
+				error: '#ef4444',
+				info: '#3b82f6'
 			},
 			fontFamily: {
 				display: [
@@ -320,16 +291,13 @@ const config: Config = {
 				'gradient-tech': 'linear-gradient(135deg, #006dff 0%, #0369a1 100%)',
 				'gradient-success': 'linear-gradient(135deg, #00d494 0%, #00b377 100%)',
 				'gradient-card': 'linear-gradient(145deg, #fcfcfd 0%, #f8fafc 100%)',
-				'gradient-dark':    'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-				'gradient-purple':  'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)'
+				'gradient-dark': 'linear-gradient(135deg, #18181b 0%, #27272a 100%)'
 			},
 			boxShadow: {
-				card:        '0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04)',
-				'card-hover':'0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05)',
-				hero:        '0 25px 50px -12px rgba(0,0,0,0.25)',
-				subtle:      '0 1px 2px 0 rgba(0,0,0,0.05)',
-				brand:       '0 4px 14px 0 rgba(0,109,255,0.15)',
-				'brand-lg':  '0 8px 24px 0 rgba(0,109,255,0.2)'
+				card: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+				'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+				hero: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+				subtle: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
 			},
 			borderRadius: {
 				xl: '0.75rem',

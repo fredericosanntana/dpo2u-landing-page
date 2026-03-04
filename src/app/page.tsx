@@ -188,21 +188,21 @@ export default function HomePage() {
       </AnimatedSection>
 
       {/* Sobre Nós Section */}
-      <AnimatedSection id="about" className="section-padding bg-white dark:bg-slate-900">
+      <AnimatedSection id="about" className="section-padding bg-white dark:bg-brand-gray-900">
         <div className="container mx-auto container-padding">
           <motion.div variants={fadeInUp} className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-slate-100 rounded-full mb-6">
-              <Users className="h-4 w-4 text-slate-600 mr-2" />
-              <span className="text-sm font-medium text-slate-600">Por que DPO2U?</span>
+            <div className="inline-flex items-center px-4 py-2 bg-brand-gray-100 rounded-full mb-6 border border-brand-gray-200">
+              <Users className="h-4 w-4 text-brand-gray-600 mr-2" />
+              <span className="text-sm font-medium text-brand-gray-600">Por que DPO2U?</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text-dark mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-gray-900 mb-6 leading-tight">
               Sua Empresa, Sua Infraestrutura,{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+              <span className="text-brand-gradient">
                 Sua Inteligência Artificial
               </span>
             </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed font-light">
-              Não alugue inteligência, possua a sua. Nós montamos uma <span className="font-medium text-brand-text-dark">Stack de IA completa</span> diretamente em seus servidores (VPS), garantindo que seus dados sensíveis nunca saiam do seu controle, enquanto você aproveita o poder da transformação digital.
+            <p className="text-lg text-brand-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
+              Não alugue inteligência, possua a sua. Nós montamos uma <span className="font-medium text-brand-gray-900">Stack de IA completa</span> diretamente em seus servidores (VPS), garantindo que seus dados sensíveis nunca saiam do seu controle, enquanto você aproveita o poder da transformação digital.
             </p>
           </motion.div>
 
@@ -235,10 +235,10 @@ export default function HomePage() {
               <motion.div key={index} variants={fadeInUp}>
                 <Card variant="brand" hover className="text-center h-full">
                   <item.icon className="h-12 w-12 text-brand-blue-500 mx-auto mb-4" />
-                  <h3 className="text-lg font-serif font-semibold text-brand-gray-800 mb-2">
+                  <h3 className="text-lg font-display font-semibold text-brand-gray-900 mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-brand-gray-600">
                     {item.description}
                   </p>
                 </Card>
@@ -249,25 +249,25 @@ export default function HomePage() {
       </AnimatedSection>
 
       {/* ROI Calculator */}
-      <AnimatedSection id="roi" className="section-padding bg-gradient-to-br from-brand-sapphire-50 via-white to-brand-emerald-50">
+      <AnimatedSection id="roi" className="section-padding bg-gradient-to-br from-brand-blue-50 via-white to-brand-green-50">
         <div className="container mx-auto container-padding">
           <ROICalculator />
         </div>
       </AnimatedSection>
 
       {/* Technical Architecture Dashboard */}
-      <AnimatedSection id="architecture-dashboard" className="bg-slate-900">
+      <AnimatedSection id="architecture-dashboard" className="bg-brand-gray-900">
         <TechnicalArchitectureDashboard />
       </AnimatedSection>
 
       {/* Benefits Section */}
-      <AnimatedSection id="benefits" className="section-padding bg-gray-50 dark:bg-slate-900">
+      <AnimatedSection id="benefits" className="section-padding bg-brand-gray-50 dark:bg-brand-gray-900">
         <div className="container mx-auto container-padding">
           <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 mb-6">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-gray-900 mb-6">
               Impacto da Soberania Digital
             </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl text-brand-gray-700 max-w-3xl mx-auto">
               Benefícios reais de internalizar sua infraestrutura de IA e dados
             </p>
           </motion.div>
@@ -276,24 +276,24 @@ export default function HomePage() {
             variants={staggerContainer}
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
-            {[
+              {[
               {
                 title: 'Redução de Custos',
                 stats: '-60% TCO',
                 description: 'em comparação com soluções SaaS proprietárias',
-                color: 'text-green-600',
+                color: 'text-brand-green-600',
               },
               {
                 title: 'Segurança de Dados',
                 stats: '100% Privado',
                 description: 'nenhum dado sensível exposto a terceiros',
-                color: 'text-blue-600',
+                color: 'text-brand-blue-600',
               },
               {
                 title: 'Velocidade de Deploy',
                 stats: '72 horas',
                 description: 'para setup completo da infraestrutura',
-                color: 'text-purple-600',
+                color: 'text-brand-purple-600',
               },
               {
                 title: 'Conformidade',
@@ -304,13 +304,13 @@ export default function HomePage() {
             ].map((benefit, index) => (
               <motion.div key={index} variants={fadeInUp}>
                 <Card variant="brand" className="text-center h-full">
-                  <h3 className="text-lg font-serif font-semibold text-brand-gray-800 mb-2">
+                  <h3 className="text-lg font-display font-semibold text-brand-gray-900 mb-2">
                     {benefit.title}
                   </h3>
                   <p className={`text-3xl font-bold mb-2 ${benefit.color}`}>
                     {benefit.stats}
                   </p>
-                  <p className="text-gray-600 text-sm">
+                  <p className="text-brand-gray-600 text-sm">
                     {benefit.description}
                   </p>
                 </Card>
@@ -324,16 +324,16 @@ export default function HomePage() {
       <FAQSection />
 
       {/* Technology Showcase Section */}
-      <AnimatedSection id="technology" className="section-padding bg-gradient-to-b from-white to-slate-50">
+      <AnimatedSection id="technology" className="section-padding bg-gradient-to-b from-white to-brand-gray-50">
         <div className="container mx-auto container-padding">
           <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 mb-6">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-gray-900 mb-6">
               Tecnologia de Ponta para{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+              <span className="text-brand-gradient">
                 Resultados Reais
               </span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-gray-600 max-w-3xl mx-auto">
               Nossa Stack de IA está em produção, demonstrando capacidades técnicas
               avançadas e entregando automação empresarial mensurável
             </p>
@@ -349,42 +349,48 @@ export default function HomePage() {
                 description: 'Arquitetura híbrida 4-níveis rodando 24/7 com 145+ agentes especializados disponíveis para coordenação dinâmica.',
                 metrics: ['12+ agentes ativos simultâneos', '99.97% uptime sistema', '847 req/min throughput'],
                 icon: <Brain className="h-8 w-8" />,
-                color: 'blue'
+                dotColor: 'bg-brand-blue-500',
+                gradientFrom: 'from-brand-blue-500',
+                gradientTo: 'to-brand-blue-600',
               },
               {
                 title: 'Performance Enterprise Validada',
                 description: 'Métricas reais de sistema em produção demonstrando capacidade enterprise-grade com monitoramento contínuo.',
                 metrics: ['120ms latência média', '67% memory efficiency', 'API response <250ms'],
                 icon: <Activity className="h-8 w-8" />,
-                color: 'emerald'
+                dotColor: 'bg-brand-green-500',
+                gradientFrom: 'from-brand-green-500',
+                gradientTo: 'to-brand-green-600',
               },
               {
                 title: 'Tecnologia Comprovada',
                 description: 'Stack técnico robusto integrando OpenAI MCP, Claude Code, LEANN e Session Manager com alta disponibilidade.',
                 metrics: ['OpenAI GPT-4o + o3-mini', 'LEANN 2.856+ docs indexados', 'Zero-loss context preservation'],
                 icon: <Shield className="h-8 w-8" />,
-                color: 'purple'
+                dotColor: 'bg-brand-purple-500',
+                gradientFrom: 'from-brand-purple-500',
+                gradientTo: 'to-brand-purple-600',
               },
             ].map((item, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 rounded-2xl mb-6`}>
-                    {React.cloneElement(item.icon, { className: "h-8 w-8 text-white" })}
+                <Card className="h-full p-6 hover:shadow-card-hover transition-shadow">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${item.gradientFrom} ${item.gradientTo} rounded-2xl mb-6`}>
+                    {React.cloneElement(item.icon, { className: 'h-8 w-8 text-white' })}
                   </div>
 
-                  <h3 className="text-xl font-serif font-bold text-brand-gray-800 mb-4">
+                  <h3 className="text-xl font-display font-bold text-brand-gray-900 mb-4">
                     {item.title}
                   </h3>
 
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <p className="text-brand-gray-600 mb-6 leading-relaxed">
                     {item.description}
                   </p>
 
                   <div className="space-y-3">
                     {item.metrics.map((metric, idx) => (
                       <div key={idx} className="flex items-center text-sm">
-                        <div className={`w-2 h-2 bg-${item.color}-500 rounded-full mr-3 flex-shrink-0`}></div>
-                        <span className="text-gray-700">{metric}</span>
+                        <div className={`w-2 h-2 ${item.dotColor} rounded-full mr-3 flex-shrink-0`}></div>
+                        <span className="text-brand-gray-700">{metric}</span>
                       </div>
                     ))}
                   </div>
@@ -395,12 +401,12 @@ export default function HomePage() {
 
           {/* Real System Status */}
           <motion.div variants={fadeInUp} className="mt-16">
-            <Card className="p-8 bg-gradient-to-r from-slate-50 to-blue-50 border border-slate-200">
+            <Card className="p-8 bg-gradient-to-r from-brand-gray-50 to-brand-blue-50 border border-brand-gray-200">
               <div className="text-center">
-                <h3 className="text-2xl font-serif font-bold text-brand-gray-800 mb-4">
+                <h3 className="text-2xl font-display font-bold text-brand-gray-900 mb-4">
                   Sistema Live - Métricas Reais
                 </h3>
-                <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                <p className="text-brand-gray-600 mb-6 max-w-2xl mx-auto">
                   Acompanhe em tempo real as métricas da nossa infraestrutura em produção.
                   Dados atualizados automaticamente a cada 2 segundos.
                 </p>
@@ -420,17 +426,17 @@ export default function HomePage() {
         </div>
       </AnimatedSection>
 
-      {/* Featured Stack Section */}
-      <AnimatedSection id="technology" className="section-padding bg-gradient-to-b from-white to-slate-50">
+      {/* Featured Stack Section — id único: stack-tecnologica */}
+      <AnimatedSection id="stack-tecnologica" className="section-padding bg-gradient-to-b from-white to-brand-gray-50">
         <div className="container mx-auto container-padding">
           <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 mb-6">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-gray-900 mb-6">
               Stack Tecnológica de{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+              <span className="text-brand-gradient">
                 Classe Mundial
               </span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-gray-600 max-w-3xl mx-auto">
               Implementamos e configuramos as melhores ferramentas open-source para criar sua fundação de IA privada.
             </p>
           </motion.div>
@@ -445,42 +451,48 @@ export default function HomePage() {
                 description: 'Gateway moderno e seguro que gerencia todo o tráfego de entrada, garantindo criptografia SSL automática e roteamento inteligente para seus serviços.',
                 metrics: ['Gestão automática de Certificados', 'Load Balancing', 'Security Headers'],
                 icon: <Shield className="h-8 w-8" />,
-                color: 'blue'
+                dotColor: 'bg-brand-blue-500',
+                gradientFrom: 'from-brand-blue-500',
+                gradientTo: 'to-brand-blue-600',
               },
               {
                 title: 'Gitea - Version Control',
                 description: 'Sua própria plataforma de código. Hospede, revise e gerencie seus repositórios de IA com total privacidade e sem limites de usuários.',
                 metrics: ['Git Privado', 'CI/CD Pipelines Integrados', 'Zero custo por usuário'],
                 icon: <Database className="h-8 w-8" />,
-                color: 'emerald'
+                dotColor: 'bg-brand-green-500',
+                gradientFrom: 'from-brand-green-500',
+                gradientTo: 'to-brand-green-600',
               },
               {
                 title: 'Next.js & Python API',
                 description: 'Frontend de alta performance e Backend robusto em Python/FastAPI para servir seus modelos de IA e aplicações de negócio.',
                 metrics: ['Server Side Rendering', 'FastAPI Async Performance', 'TypeSafe'],
                 icon: <Activity className="h-8 w-8" />,
-                color: 'purple'
+                dotColor: 'bg-brand-purple-500',
+                gradientFrom: 'from-brand-purple-500',
+                gradientTo: 'to-brand-purple-600',
               },
             ].map((item, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 rounded-2xl mb-6`}>
-                    {React.cloneElement(item.icon, { className: "h-8 w-8 text-white" })}
+                <Card className="h-full p-6 hover:shadow-card-hover transition-shadow">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br ${item.gradientFrom} ${item.gradientTo} rounded-2xl mb-6`}>
+                    {React.cloneElement(item.icon, { className: 'h-8 w-8 text-white' })}
                   </div>
 
-                  <h3 className="text-xl font-serif font-bold text-brand-gray-800 mb-4">
+                  <h3 className="text-xl font-display font-bold text-brand-gray-900 mb-4">
                     {item.title}
                   </h3>
 
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <p className="text-brand-gray-600 mb-6 leading-relaxed">
                     {item.description}
                   </p>
 
                   <div className="space-y-3">
                     {item.metrics.map((metric, idx) => (
                       <div key={idx} className="flex items-center text-sm">
-                        <div className={`w-2 h-2 bg-${item.color}-500 rounded-full mr-3 flex-shrink-0`}></div>
-                        <span className="text-gray-700">{metric}</span>
+                        <div className={`w-2 h-2 ${item.dotColor} rounded-full mr-3 flex-shrink-0`}></div>
+                        <span className="text-brand-gray-700">{metric}</span>
                       </div>
                     ))}
                   </div>
@@ -509,14 +521,14 @@ export default function HomePage() {
               <span className="text-sm font-medium text-emerald-400">Transformação Digital Segura</span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 leading-tight text-white">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-6 leading-tight text-white">
               Pronto para assumir o controle da{' '}
-              <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-green-400 to-brand-blue-400 bg-clip-text text-transparent">
                 sua tecnologia?
               </span>
             </h2>
 
-            <p className="text-lg md:text-xl mb-8 text-slate-300 font-light leading-relaxed">
+            <p className="text-lg md:text-xl mb-8 text-brand-gray-300 font-light leading-relaxed">
               Entregamos sua infraestrutura de IA configurada, segura e pronta para escalar.
             </p>
 
