@@ -12,7 +12,7 @@ const fadeInUp = {
 
 export default function OrchestrationFinalSection() {
   return (
-    <section id="roadmap-implementacao" className="bg-gray-50 dark:bg-slate-900 section-padding">
+    <section id="roadmap-implementacao" className="bg-brand-gray-50 dark:bg-brand-chrome-900 section-padding">
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div
@@ -29,7 +29,7 @@ export default function OrchestrationFinalSection() {
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 leading-tight">
             Sua Stack de IA Privada: Roadmap de Entrega em 72h
           </h2>
-          <p className="text-gray-600 mt-4 max-w-3xl mx-auto">
+          <p className="text-brand-gray-600 mt-4 max-w-3xl mx-auto">
             Transformamos seus servidores em uma potência de Inteligência Artificial com soberania total de dados.
             Do zero ao "Hello World" da sua IA corporativa em apenas 3 dias.
           </p>
@@ -48,7 +48,7 @@ export default function OrchestrationFinalSection() {
                   <item.icon className="h-5 w-5 text-primary mt-1" />
                   <div>
                     <h3 className="text-lg font-semibold text-brand-gray-800">{item.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+                    <p className="text-sm text-brand-gray-600 mt-1">{item.desc}</p>
                   </div>
                 </div>
               </Card>
@@ -62,9 +62,9 @@ export default function OrchestrationFinalSection() {
             <Card variant="elevated" padding="lg" hover>
               <div className="flex items-center gap-3 mb-3">
                 <Server className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-slate-800">O Que Entregamos (Deliverables)</h3>
+                <h3 className="text-lg font-semibold text-brand-chrome-800">O Que Entregamos (Deliverables)</h3>
               </div>
-              <ul className="list-none space-y-2 text-slate-700">
+              <ul className="list-none space-y-2 text-brand-platinum-800">
                 <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>VPS Hardening</strong> — Configuração de segurança militar em seu servidor</span></li>
                 <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>Stack Core</strong> — Docker Swarm/Compose, Traefik Proxy, Portainer</span></li>
                 <li className="flex items-start gap-2"><span className="mt-1.5 h-2 w-2 rounded-full bg-primary" /><span><strong>DevTools Privados</strong> — Gitea (Git), Registry Privado, CI/CD Actions</span></li>
@@ -77,9 +77,9 @@ export default function OrchestrationFinalSection() {
             <Card variant="elevated" padding="lg" hover>
               <div className="flex items-center gap-3 mb-3">
                 <Shield className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-slate-800">Garantias do Projeto</h3>
+                <h3 className="text-lg font-semibold text-brand-chrome-800">Garantias do Projeto</h3>
               </div>
-              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+              <ul className="list-disc pl-6 text-brand-platinum-800 space-y-2">
                 <li>Zero dependência externa (Lock-in Free)</li>
                 <li>Auditoria de código e segurança inclusa</li>
                 <li>Treinamento "Hand-over" para sua equipe de TI</li>
@@ -91,7 +91,7 @@ export default function OrchestrationFinalSection() {
 
         {/* Call to Action */}
         <motion.div variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="mt-10 text-center">
-          <p className="text-sm text-gray-600 mb-4">Próximos passos: Agende uma call técnica para avaliarmos sua infraestrutura atual.</p>
+          <p className="text-sm text-brand-gray-600 mb-4">Próximos passos: Agende uma call técnica para avaliarmos sua infraestrutura atual.</p>
           <a href="#contact" className="inline-flex items-center px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:opacity-95 transition">
             <Target className="h-4 w-4 mr-2" /> Agendar Avaliação Técnica
           </a>

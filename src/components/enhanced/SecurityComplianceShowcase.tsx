@@ -329,7 +329,7 @@ const SecurityComplianceShowcase: React.FC = () => {
       case 'certified': 
       case 'excellent':
       case 'active':
-        return 'text-emerald-600 bg-emerald-50 border-emerald-200';
+        return 'text-brand-emerald-600 bg-brand-emerald-50 border-brand-emerald-200';
       case 'in-progress':
       case 'good': 
       case 'monitoring':
@@ -340,7 +340,7 @@ const SecurityComplianceShowcase: React.FC = () => {
       case 'critical': 
         return 'text-red-600 bg-red-50 border-red-200';
       default:
-        return 'text-slate-600 bg-slate-50 border-slate-200';
+        return 'text-brand-platinum-700 bg-brand-platinum-100 border-brand-platinum-300';
     }
   };
 
@@ -366,14 +366,14 @@ const SecurityComplianceShowcase: React.FC = () => {
 
   const getTrendIcon = (trend: string) => {
     switch (trend) {
-      case 'up': return <TrendingUp className="h-3 w-3 text-emerald-500" />;
+      case 'up': return <TrendingUp className="h-3 w-3 text-brand-emerald-500" />;
       case 'down': return <TrendingUp className="h-3 w-3 text-red-500 rotate-180" />;
-      default: return <BarChart3 className="h-3 w-3 text-slate-500" />;
+      default: return <BarChart3 className="h-3 w-3 text-brand-platinum-600" />;
     }
   };
 
   return (
-    <section className="section-padding bg-slate-900 text-white">
+    <section className="section-padding bg-brand-chrome-900 text-white">
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div
@@ -392,7 +392,7 @@ const SecurityComplianceShowcase: React.FC = () => {
               Security
             </span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+          <p className="text-xl text-brand-platinum-400 max-w-3xl mx-auto">
             Full LGPD/GDPR compliance, international certifications and 24/7 monitoring
             by security specialists
           </p>
@@ -400,7 +400,7 @@ const SecurityComplianceShowcase: React.FC = () => {
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-12">
-          <div className="flex items-center space-x-2 bg-slate-800 rounded-lg p-2">
+          <div className="flex items-center space-x-2 bg-brand-chrome-800 rounded-lg p-2">
             {[
               { key: 'frameworks', label: 'Compliance', icon: FileCheck },
               { key: 'metrics', label: 'Metrics', icon: Activity },
@@ -414,8 +414,8 @@ const SecurityComplianceShowcase: React.FC = () => {
                   onClick={() => setSelectedTab(tab.key as any)}
                   className={`flex items-center gap-2 ${
                     selectedTab === tab.key 
-                      ? 'bg-slate-700 text-white' 
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-brand-platinum-800 text-white' 
+                      : 'text-brand-platinum-500 hover:text-white'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -438,7 +438,7 @@ const SecurityComplianceShowcase: React.FC = () => {
               className="space-y-6"
             >
               {complianceFrameworks.map((framework, idx) => (
-                <Card key={framework.name} className="p-6 bg-slate-800 border-slate-700">
+                <Card key={framework.name} className="p-6 bg-brand-chrome-800 border-brand-platinum-800">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
@@ -450,19 +450,19 @@ const SecurityComplianceShowcase: React.FC = () => {
                           </div>
                         </Badge>
                         {framework.certificate && (
-                          <Badge variant="outline" className="text-slate-300 border-slate-500">
+                          <Badge variant="outline" className="text-brand-platinum-400 border-brand-platinum-600">
                             {framework.certificate}
                           </Badge>
                         )}
                       </div>
-                      <p className="text-slate-300 mb-4">{framework.description}</p>
+                      <p className="text-brand-platinum-400 mb-4">{framework.description}</p>
                     </div>
                     <div className="text-right">
                       <div className="text-2xl font-bold text-brand-emerald-400">
                         {framework.score}%
                       </div>
                       {framework.lastAudit && (
-                        <div className="text-sm text-slate-500">
+                        <div className="text-sm text-brand-platinum-600">
                           Last audit: {framework.lastAudit}
                         </div>
                       )}
@@ -471,22 +471,22 @@ const SecurityComplianceShowcase: React.FC = () => {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="text-sm font-medium text-slate-200 mb-3">Key Requirements:</h4>
+                      <h4 className="text-sm font-medium text-brand-platinum-300 mb-3">Key Requirements:</h4>
                       <div className="space-y-2">
                         {framework.requirements.map((req, i) => (
                           <div key={i} className="flex items-start gap-2">
-                            <CheckCircle className="h-4 w-4 text-emerald-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-slate-300">{req}</span>
+                            <CheckCircle className="h-4 w-4 text-brand-emerald-400 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-brand-platinum-400">{req}</span>
                           </div>
                         ))}
                       </div>
                     </div>
                     <div className="flex items-center justify-center">
                       {framework.status === 'certified' && (
-                        <div className="text-center p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
-                          <Shield className="h-12 w-12 text-emerald-400 mx-auto mb-2" />
-                          <div className="text-sm font-medium text-emerald-300">Certified</div>
-                          <div className="text-xs text-slate-400">Valid through 2025</div>
+                        <div className="text-center p-6 bg-brand-emerald-500/10 border border-brand-emerald-500/20 rounded-lg">
+                          <Shield className="h-12 w-12 text-brand-emerald-400 mx-auto mb-2" />
+                          <div className="text-sm font-medium text-brand-emerald-300">Certified</div>
+                          <div className="text-xs text-brand-platinum-500">Valid through 2025</div>
                         </div>
                       )}
                     </div>
@@ -495,8 +495,8 @@ const SecurityComplianceShowcase: React.FC = () => {
                   {framework.score < 100 && (
                     <div className="mt-4">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm text-slate-300">Compliance Progress</span>
-                        <span className="text-sm text-slate-300">{framework.score}%</span>
+                        <span className="text-sm text-brand-platinum-400">Compliance Progress</span>
+                        <span className="text-sm text-brand-platinum-400">{framework.score}%</span>
                       </div>
                       <Progress value={framework.score} className="h-2" />
                     </div>
@@ -517,11 +517,11 @@ const SecurityComplianceShowcase: React.FC = () => {
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {liveMetrics.map((metric, idx) => (
-                <Card key={metric.name} className="p-6 bg-slate-800 border-slate-700">
+                <Card key={metric.name} className="p-6 bg-brand-chrome-800 border-brand-platinum-800">
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <h3 className="font-semibold text-white mb-1">{metric.name}</h3>
-                      <p className="text-sm text-slate-400">{metric.description}</p>
+                      <p className="text-sm text-brand-platinum-500">{metric.description}</p>
                     </div>
                     <div className="flex items-center gap-1">
                       {getTrendIcon(metric.trend)}
@@ -537,7 +537,7 @@ const SecurityComplianceShowcase: React.FC = () => {
                     </Badge>
                   </div>
                   
-                  <div className="text-xs text-slate-500">
+                  <div className="text-xs text-brand-platinum-600">
                     Updated: {metric.lastUpdated}
                   </div>
                 </Card>
@@ -582,11 +582,11 @@ const SecurityComplianceShowcase: React.FC = () => {
                       className="grid md:grid-cols-2 gap-6"
                     >
                       {category.features.map((feature, idx) => (
-                        <Card key={feature.name} className="p-6 bg-slate-800 border-slate-700">
+                        <Card key={feature.name} className="p-6 bg-brand-chrome-800 border-brand-platinum-800">
                           <div className="flex items-start justify-between mb-4">
                             <div>
                               <h4 className="font-semibold text-white mb-2">{feature.name}</h4>
-                              <p className="text-sm text-slate-300 mb-3">{feature.description}</p>
+                              <p className="text-sm text-brand-platinum-400 mb-3">{feature.description}</p>
                             </div>
                             <Badge className={`${getStatusColor(feature.status)}`}>
                               {feature.status}
@@ -595,7 +595,7 @@ const SecurityComplianceShowcase: React.FC = () => {
 
                           <div className="space-y-3">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-slate-400">Implementation:</span>
+                              <span className="text-sm text-brand-platinum-500">Implementation:</span>
                               <span className="text-sm text-white font-medium">
                                 {feature.implementation}
                               </span>
@@ -603,7 +603,7 @@ const SecurityComplianceShowcase: React.FC = () => {
                             
                             <div>
                               <div className="flex justify-between items-center mb-2">
-                                <span className="text-sm text-slate-400">Coverage:</span>
+                                <span className="text-sm text-brand-platinum-500">Coverage:</span>
                                 <span className="text-sm text-white font-medium">
                                   {feature.coverage}%
                                 </span>
@@ -631,7 +631,7 @@ const SecurityComplianceShowcase: React.FC = () => {
             <h3 className="text-2xl font-bold text-white mb-4">
               Complete Security Documentation
             </h3>
-            <p className="text-lg text-slate-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-lg text-brand-platinum-400 mb-6 max-w-2xl mx-auto">
               Access security policies, certificates, audit reports and
               detailed technical documentation
             </p>
@@ -641,11 +641,11 @@ const SecurityComplianceShowcase: React.FC = () => {
                 <Download className="h-4 w-4 mr-2" />
                 Security Whitepaper
               </Button>
-              <Button variant="outline" className="border-slate-500 text-white hover:bg-slate-700">
+              <Button variant="outline" className="border-brand-platinum-600 text-white hover:bg-brand-platinum-800">
                 <FileCheck className="h-4 w-4 mr-2" />
                 Compliance Reports
               </Button>
-              <Button variant="outline" className="border-slate-500 text-white hover:bg-slate-700">
+              <Button variant="outline" className="border-brand-platinum-600 text-white hover:bg-brand-platinum-800">
                 <ExternalLink className="h-4 w-4 mr-2" />
                 Audit Certificates
               </Button>

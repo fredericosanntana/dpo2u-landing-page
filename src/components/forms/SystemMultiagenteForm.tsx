@@ -143,14 +143,14 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
 
   if (isSuccess) {
     return (
-      <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-white to-emerald-50 border-emerald-200/50 shadow-2xl">
+      <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-white to-brand-emerald-50 border-brand-emerald-200/50 shadow-2xl">
         <CardContent className="p-12 text-center">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", duration: 0.6 }}
           >
-            <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-20 h-20 bg-gradient-to-br from-brand-emerald-500 to-brand-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-10 w-10 text-white" />
             </div>
           </motion.div>
@@ -160,32 +160,32 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">
+            <h3 className="text-3xl font-bold text-brand-gray-900 mb-4">
               Diagnostic Scheduled!
             </h3>
-            <p className="text-gray-600 text-lg mb-6">
+            <p className="text-brand-gray-600 text-lg mb-6">
               Our solutions architects will contact you within <strong>2 hours</strong> to schedule your personalized analysis.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="bg-white/80 rounded-lg p-4">
-                <Clock className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                <div className="text-sm font-medium text-gray-900">Analysis in 72h</div>
-                <div className="text-xs text-gray-600">Complete diagnostic</div>
+                <Clock className="h-6 w-6 text-brand-emerald-600 mx-auto mb-2" />
+                <div className="text-sm font-medium text-brand-gray-900">Analysis in 72h</div>
+                <div className="text-xs text-brand-gray-600">Complete diagnostic</div>
               </div>
               <div className="bg-white/80 rounded-lg p-4">
-                <Brain className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                <div className="text-sm font-medium text-gray-900">AI Roadmap</div>
-                <div className="text-xs text-gray-600">Custom implementation</div>
+                <Brain className="h-6 w-6 text-brand-emerald-600 mx-auto mb-2" />
+                <div className="text-sm font-medium text-brand-gray-900">AI Roadmap</div>
+                <div className="text-xs text-brand-gray-600">Custom implementation</div>
               </div>
               <div className="bg-white/80 rounded-lg p-4">
-                <Activity className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                <div className="text-sm font-medium text-gray-900">Live Demo</div>
-                <div className="text-xs text-gray-600">Production system</div>
+                <Activity className="h-6 w-6 text-brand-emerald-600 mx-auto mb-2" />
+                <div className="text-sm font-medium text-brand-gray-900">Live Demo</div>
+                <div className="text-xs text-brand-gray-600">Production system</div>
               </div>
             </div>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-brand-gray-500">
               In the meantime, you can monitor our system in real time on the dashboard above.
             </p>
           </motion.div>
@@ -195,8 +195,8 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-white to-slate-50 border-slate-200/50 shadow-2xl">
-      <CardHeader className="text-center pb-6 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-t-lg">
+    <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-white to-brand-platinum-100 border-brand-platinum-300/50 shadow-2xl">
+      <CardHeader className="text-center pb-6 bg-gradient-to-br from-brand-chrome-900 to-brand-chrome-800 text-white rounded-t-lg">
         <div className="flex justify-center mb-4">
           <Badge variant="secondary" size="xl" className="px-6 py-2 bg-white/20 text-white border-white/30">
             <Brain className="h-5 w-5 mr-2" />
@@ -208,7 +208,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
           Intelligent Digital Transformation
         </CardTitle>
 
-        <p className="text-slate-300 text-lg">
+        <p className="text-brand-platinum-400 text-lg">
           Personalized assessment in <strong>72h</strong> + Implementation roadmap + AI platform demo
         </p>
 
@@ -221,17 +221,17 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
           ].map(({ step, label, icon: Icon }) => (
             <div key={step} className="flex flex-col items-center">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${step <= currentStep
-                ? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white'
-                : 'bg-white/20 text-slate-400'
+                ? 'bg-gradient-to-br from-brand-emerald-500 to-brand-emerald-600 text-white'
+                : 'bg-white/20 text-brand-platinum-500'
                 }`}>
                 <Icon className="h-4 w-4" />
               </div>
-              <div className={`text-xs mt-1 transition-all duration-300 ${step <= currentStep ? 'text-emerald-300' : 'text-slate-400'
+              <div className={`text-xs mt-1 transition-all duration-300 ${step <= currentStep ? 'text-brand-emerald-300' : 'text-brand-platinum-500'
                 }`}>
                 {label}
               </div>
               {step < 3 && (
-                <div className={`h-1 w-12 mt-2 rounded-full transition-all duration-300 ${step < currentStep ? 'bg-emerald-400' : 'bg-white/20'
+                <div className={`h-1 w-12 mt-2 rounded-full transition-all duration-300 ${step < currentStep ? 'bg-brand-emerald-400' : 'bg-white/20'
                   }`} />
               )}
             </div>
@@ -248,8 +248,8 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
               {currentStep === 1 && (
                 <motion.div key="step1" {...fadeInUp} className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Executive Profile</h3>
-                    <p className="text-gray-600">Information to personalize your analysis</p>
+                    <h3 className="text-xl font-semibold text-brand-gray-900 mb-2">Executive Profile</h3>
+                    <p className="text-brand-gray-600">Information to personalize your analysis</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -258,14 +258,14 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       name="nome"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center text-gray-700 font-medium">
-                            <User className="h-4 w-4 mr-2 text-slate-600" />
+                          <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                            <User className="h-4 w-4 mr-2 text-brand-platinum-700" />
                             Full Name
                           </FormLabel>
                           <FormControl>
                             <Input
                               placeholder="Your full name"
-                              className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                              className="border-brand-gray-300 focus:border-brand-emerald-500 focus:ring-brand-emerald-500"
                               {...field}
                             />
                           </FormControl>
@@ -279,14 +279,14 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       name="cargo"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center text-gray-700 font-medium">
-                            <Briefcase className="h-4 w-4 mr-2 text-slate-600" />
+                          <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                            <Briefcase className="h-4 w-4 mr-2 text-brand-platinum-700" />
                             Position/Role
                           </FormLabel>
                           <FormControl>
                             <Input
                               placeholder="CEO, CTO, COO, Director, etc."
-                              className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                              className="border-brand-gray-300 focus:border-brand-emerald-500 focus:ring-brand-emerald-500"
                               {...field}
                             />
                           </FormControl>
@@ -302,14 +302,14 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center text-gray-700 font-medium">
-                            <Mail className="h-4 w-4 mr-2 text-slate-600" />
+                          <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                            <Mail className="h-4 w-4 mr-2 text-brand-platinum-700" />
                             Corporate Email
                           </FormLabel>
                           <FormControl>
                             <Input
                               placeholder="email@company.com"
-                              className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                              className="border-brand-gray-300 focus:border-brand-emerald-500 focus:ring-brand-emerald-500"
                               {...field}
                             />
                           </FormControl>
@@ -323,14 +323,14 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       name="telefone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center text-gray-700 font-medium">
-                            <Phone className="h-4 w-4 mr-2 text-slate-600" />
+                          <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                            <Phone className="h-4 w-4 mr-2 text-brand-platinum-700" />
                             Phone
                           </FormLabel>
                           <FormControl>
                             <Input
                               placeholder="+1 (555) 000-0000"
-                              className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                              className="border-brand-gray-300 focus:border-brand-emerald-500 focus:ring-brand-emerald-500"
                               {...field}
                             />
                           </FormControl>
@@ -346,8 +346,8 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
               {currentStep === 2 && (
                 <motion.div key="step2" {...fadeInUp} className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Company Profile</h3>
-                    <p className="text-gray-600">To size the right solution for you</p>
+                    <h3 className="text-xl font-semibold text-brand-gray-900 mb-2">Company Profile</h3>
+                    <p className="text-brand-gray-600">To size the right solution for you</p>
                   </div>
 
                   <FormField
@@ -355,14 +355,14 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                     name="empresa"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center text-gray-700 font-medium">
-                          <Building2 className="h-4 w-4 mr-2 text-slate-600" />
+                        <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                          <Building2 className="h-4 w-4 mr-2 text-brand-platinum-700" />
                           Company Name
                         </FormLabel>
                         <FormControl>
                           <Input
                             placeholder="Your company name"
-                            className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                            className="border-brand-gray-300 focus:border-brand-emerald-500 focus:ring-brand-emerald-500"
                             {...field}
                           />
                         </FormControl>
@@ -380,7 +380,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                           <FormLabel>Industry</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="border-gray-300 focus:border-emerald-500">
+                              <SelectTrigger className="border-brand-gray-300 focus:border-brand-emerald-500">
                                 <SelectValue placeholder="Select your industry" />
                               </SelectTrigger>
                             </FormControl>
@@ -407,13 +407,13 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       name="funcionarios"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center text-gray-700 font-medium">
-                            <Users className="h-4 w-4 mr-2 text-slate-600" />
+                          <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                            <Users className="h-4 w-4 mr-2 text-brand-platinum-700" />
                             Company Size
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="border-gray-300 focus:border-emerald-500">
+                              <SelectTrigger className="border-brand-gray-300 focus:border-brand-emerald-500">
                                 <SelectValue placeholder="Number of employees" />
                               </SelectTrigger>
                             </FormControl>
@@ -437,8 +437,8 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
               {currentStep === 3 && (
                 <motion.div key="step3" {...fadeInUp} className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Requirements & Goals</h3>
-                    <p className="text-gray-600">To create the ideal implementation roadmap</p>
+                    <h3 className="text-xl font-semibold text-brand-gray-900 mb-2">Requirements & Goals</h3>
+                    <p className="text-brand-gray-600">To create the ideal implementation roadmap</p>
                   </div>
 
                   <FormField
@@ -446,13 +446,13 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                     name="principal_desafio"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="flex items-center text-gray-700 font-medium">
-                          <Target className="h-4 w-4 mr-2 text-slate-600" />
+                        <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                          <Target className="h-4 w-4 mr-2 text-brand-platinum-700" />
                           Main Business Challenge
                         </FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
-                            <SelectTrigger className="border-gray-300 focus:border-emerald-500">
+                            <SelectTrigger className="border-brand-gray-300 focus:border-brand-emerald-500">
                               <SelectValue placeholder="What is your biggest challenge?" />
                             </SelectTrigger>
                           </FormControl>
@@ -479,13 +479,13 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       name="urgencia"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center text-gray-700 font-medium">
-                            <Clock className="h-4 w-4 mr-2 text-slate-600" />
+                          <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                            <Clock className="h-4 w-4 mr-2 text-brand-platinum-700" />
                             Implementation Timeline
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="border-gray-300 focus:border-emerald-500">
+                              <SelectTrigger className="border-brand-gray-300 focus:border-brand-emerald-500">
                                 <SelectValue placeholder="When do you need to implement?" />
                               </SelectTrigger>
                             </FormControl>
@@ -508,13 +508,13 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       name="investimento"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="flex items-center text-gray-700 font-medium">
-                            <DollarSign className="h-4 w-4 mr-2 text-slate-600" />
+                          <FormLabel className="flex items-center text-brand-gray-700 font-medium">
+                            <DollarSign className="h-4 w-4 mr-2 text-brand-platinum-700" />
                             Monthly Investment
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="border-gray-300 focus:border-emerald-500">
+                              <SelectTrigger className="border-brand-gray-300 focus:border-brand-emerald-500">
                                 <SelectValue placeholder="Available budget" />
                               </SelectTrigger>
                             </FormControl>
@@ -537,7 +537,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
             </AnimatePresence>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between pt-8 border-t border-gray-200">
+            <div className="flex justify-between pt-8 border-t border-brand-gray-200">
               {currentStep > 1 && (
                 <Button
                   type="button"
@@ -553,7 +553,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                 <Button
                   type="button"
                   onClick={nextStep}
-                  className="flex items-center ml-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white"
+                  className="flex items-center ml-auto bg-gradient-to-r from-brand-emerald-600 to-brand-emerald-700 hover:from-brand-emerald-700 hover:to-brand-emerald-800 text-white"
                 >
                   Continue
                   <ArrowRight className="h-4 w-4 ml-2" />
@@ -562,7 +562,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="ml-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white text-lg px-8 py-3"
+                  className="ml-auto bg-gradient-to-r from-brand-emerald-600 to-brand-emerald-700 hover:from-brand-emerald-700 hover:to-brand-emerald-800 text-white text-lg px-8 py-3"
                 >
                   {isSubmitting ? (
                     <>
@@ -582,28 +582,28 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
         </Form>
 
         {/* Trust Indicators */}
-        <div className="mt-8 pt-6 border-t border-gray-200 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-lg p-4">
+        <div className="mt-8 pt-6 border-t border-brand-gray-200 bg-gradient-to-r from-brand-emerald-50 to-brand-sapphire-50 rounded-lg p-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center mb-2">
+              <div className="w-12 h-12 bg-gradient-to-br from-brand-emerald-500 to-brand-emerald-600 rounded-full flex items-center justify-center mb-2">
                 <Shield className="h-6 w-6 text-white" />
               </div>
-              <div className="text-sm font-medium text-gray-900">100% Free</div>
-              <div className="text-xs text-gray-600">No commitment</div>
+              <div className="text-sm font-medium text-brand-gray-900">100% Free</div>
+              <div className="text-xs text-brand-gray-600">No commitment</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-2">
+              <div className="w-12 h-12 bg-gradient-to-br from-brand-sapphire-500 to-brand-sapphire-600 rounded-full flex items-center justify-center mb-2">
                 <Clock className="h-6 w-6 text-white" />
               </div>
-              <div className="text-sm font-medium text-gray-900">Response in 2h</div>
-              <div className="text-xs text-gray-600">Express service</div>
+              <div className="text-sm font-medium text-brand-gray-900">Response in 2h</div>
+              <div className="text-xs text-brand-gray-600">Express service</div>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-2">
+              <div className="w-12 h-12 bg-gradient-to-br from-brand-purple-500 to-brand-purple-600 rounded-full flex items-center justify-center mb-2">
                 <Star className="h-6 w-6 text-white" />
               </div>
-              <div className="text-sm font-medium text-gray-900">Guaranteed ROI</div>
-              <div className="text-xs text-gray-600">400% proven</div>
+              <div className="text-sm font-medium text-brand-gray-900">Guaranteed ROI</div>
+              <div className="text-xs text-brand-gray-600">400% proven</div>
             </div>
           </div>
         </div>

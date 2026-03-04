@@ -44,28 +44,28 @@ interface MetricCardProps {
 
 const colorClasses = {
   blue: {
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/20',
-    icon: 'text-blue-500',
-    progress: 'bg-blue-500'
+    bg: 'bg-brand-sapphire-500/10',
+    border: 'border-brand-sapphire-500/20',
+    icon: 'text-brand-sapphire-500',
+    progress: 'bg-brand-sapphire-500'
   },
   green: {
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/20',
-    icon: 'text-emerald-500',
-    progress: 'bg-emerald-500'
+    bg: 'bg-brand-emerald-500/10',
+    border: 'border-brand-emerald-500/20',
+    icon: 'text-brand-emerald-500',
+    progress: 'bg-brand-emerald-500'
   },
   purple: {
-    bg: 'bg-purple-500/10',
-    border: 'border-purple-500/20',
-    icon: 'text-purple-500',
-    progress: 'bg-purple-500'
+    bg: 'bg-brand-purple-500/10',
+    border: 'border-brand-purple-500/20',
+    icon: 'text-brand-purple-500',
+    progress: 'bg-brand-purple-500'
   },
   orange: {
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/20',
-    icon: 'text-emerald-500',
-    progress: 'bg-emerald-500'
+    bg: 'bg-brand-emerald-500/10',
+    border: 'border-brand-emerald-500/20',
+    icon: 'text-brand-emerald-500',
+    progress: 'bg-brand-emerald-500'
   },
   red: {
     bg: 'bg-red-500/10',
@@ -74,10 +74,10 @@ const colorClasses = {
     progress: 'bg-red-500'
   },
   slate: {
-    bg: 'bg-slate-500/10',
-    border: 'border-slate-500/20',
-    icon: 'text-slate-400',
-    progress: 'bg-slate-500'
+    bg: 'bg-brand-platinum-600/10',
+    border: 'border-brand-platinum-600/20',
+    icon: 'text-brand-platinum-500',
+    progress: 'bg-brand-platinum-600'
   }
 };
 
@@ -98,7 +98,7 @@ function MetricCard({
     <Card className={`${classes.bg} ${classes.border} border backdrop-blur-sm hover:bg-opacity-80 transition-all duration-300 group`}>
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-sm font-medium text-slate-300">{title}</CardTitle>
+          <CardTitle className="text-sm font-medium text-brand-platinum-400">{title}</CardTitle>
           <div className={`p-2 rounded-lg ${classes.bg} group-hover:scale-110 transition-transform duration-200`}>
             <Icon className={`h-4 w-4 ${classes.icon}`} />
           </div>
@@ -109,13 +109,13 @@ function MetricCard({
           <div>
             <div className="text-2xl font-bold text-white mb-1">{value}</div>
             {subtitle && (
-              <p className="text-xs text-slate-400">{subtitle}</p>
+              <p className="text-xs text-brand-platinum-500">{subtitle}</p>
             )}
           </div>
 
           {progress !== undefined && (
             <div>
-              <div className="flex justify-between text-xs text-slate-400 mb-1">
+              <div className="flex justify-between text-xs text-brand-platinum-500 mb-1">
                 <span>Utilização</span>
                 <span>{progress}%</span>
               </div>
@@ -131,8 +131,8 @@ function MetricCard({
             )}
 
             {trend && trendValue && (
-              <div className={`flex items-center space-x-1 text-xs ${trend === 'up' ? 'text-emerald-400' :
-                  trend === 'down' ? 'text-red-400' : 'text-slate-400'
+              <div className={`flex items-center space-x-1 text-xs ${trend === 'up' ? 'text-brand-emerald-400' :
+                  trend === 'down' ? 'text-red-400' : 'text-brand-platinum-500'
                 }`}>
                 {trend === 'up' ? (
                   <TrendingUp className="h-3 w-3" />
@@ -151,23 +151,23 @@ function MetricCard({
 
 function MetricCardSkeleton() {
   return (
-    <Card className="bg-slate-800/50 border-slate-700/50">
+    <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <Skeleton className="h-4 w-20 bg-slate-700" />
-          <Skeleton className="h-8 w-8 rounded-lg bg-slate-700" />
+          <Skeleton className="h-4 w-20 bg-brand-platinum-800" />
+          <Skeleton className="h-8 w-8 rounded-lg bg-brand-platinum-800" />
         </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
           <div>
-            <Skeleton className="h-6 w-16 bg-slate-700 mb-1" />
-            <Skeleton className="h-3 w-24 bg-slate-700" />
+            <Skeleton className="h-6 w-16 bg-brand-platinum-800 mb-1" />
+            <Skeleton className="h-3 w-24 bg-brand-platinum-800" />
           </div>
-          <Skeleton className="h-2 w-full bg-slate-700 rounded-full" />
+          <Skeleton className="h-2 w-full bg-brand-platinum-800 rounded-full" />
           <div className="flex justify-between">
-            <Skeleton className="h-4 w-12 bg-slate-700 rounded" />
-            <Skeleton className="h-4 w-10 bg-slate-700 rounded" />
+            <Skeleton className="h-4 w-12 bg-brand-platinum-800 rounded" />
+            <Skeleton className="h-4 w-10 bg-brand-platinum-800 rounded" />
           </div>
         </div>
       </CardContent>
@@ -206,10 +206,10 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
       <div className="space-y-6">
         <div>
           <div className="flex items-center space-x-2 mb-4">
-            <Skeleton className="h-5 w-5 bg-slate-700" />
-            <Skeleton className="h-6 w-32 bg-slate-700" />
+            <Skeleton className="h-5 w-5 bg-brand-platinum-800" />
+            <Skeleton className="h-6 w-32 bg-brand-platinum-800" />
           </div>
-          <Skeleton className="h-4 w-64 bg-slate-700 mb-6" />
+          <Skeleton className="h-4 w-64 bg-brand-platinum-800 mb-6" />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -225,10 +225,10 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
     <div className="space-y-6">
       <div>
         <div className="flex items-center space-x-2 mb-2">
-          <Activity className="h-5 w-5 text-purple-400" />
+          <Activity className="h-5 w-5 text-brand-purple-400" />
           <h2 className="text-xl font-semibold text-white">Visão Geral do Sistema</h2>
         </div>
-        <p className="text-slate-400">
+        <p className="text-brand-platinum-500">
           Métricas em tempo real dos componentes principais do sistema multiagente
         </p>
       </div>
@@ -335,46 +335,46 @@ export default function MetricsOverview({ metrics, loading }: MetricsOverviewPro
       </div>
 
       {/* Quick Actions */}
-      <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+      <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="text-white flex items-center space-x-2">
             <Zap className="h-5 w-5 text-yellow-400" />
             <span>Status dos Serviços</span>
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-brand-platinum-500">
             Monitoramento dos componentes críticos
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-              <span className="text-sm text-slate-300">API Gateway</span>
-              <Badge variant="outline" className="text-xs text-emerald-400 border-emerald-500/30">
+              <div className="w-2 h-2 rounded-full bg-brand-emerald-500 animate-pulse"></div>
+              <span className="text-sm text-brand-platinum-400">API Gateway</span>
+              <Badge variant="outline" className="text-xs text-brand-emerald-400 border-brand-emerald-500/30">
                 Online
               </Badge>
             </div>
 
             <div className="flex items-center space-x-2">
               <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
-              <span className="text-sm text-slate-300">LEANN Service</span>
+              <span className="text-sm text-brand-platinum-400">LEANN Service</span>
               <Badge variant="outline" className="text-xs text-amber-400 border-amber-500/30">
                 Degraded
               </Badge>
             </div>
 
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-              <span className="text-sm text-slate-300">Task Master</span>
-              <Badge variant="outline" className="text-xs text-emerald-400 border-emerald-500/30">
+              <div className="w-2 h-2 rounded-full bg-brand-emerald-500 animate-pulse"></div>
+              <span className="text-sm text-brand-platinum-400">Task Master</span>
+              <Badge variant="outline" className="text-xs text-brand-emerald-400 border-brand-emerald-500/30">
                 Online
               </Badge>
             </div>
 
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-              <span className="text-sm text-slate-300">Auto-Healing</span>
-              <Badge variant="outline" className="text-xs text-emerald-400 border-emerald-500/30">
+              <div className="w-2 h-2 rounded-full bg-brand-emerald-500 animate-pulse"></div>
+              <span className="text-sm text-brand-platinum-400">Auto-Healing</span>
+              <Badge variant="outline" className="text-xs text-brand-emerald-400 border-brand-emerald-500/30">
                 Active
               </Badge>
             </div>

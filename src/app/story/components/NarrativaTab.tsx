@@ -53,11 +53,11 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-green-500/10 to-green-500/5 border-green-500/20">
+        <Card className="bg-gradient-to-br from-brand-emerald-500/10 to-brand-emerald-500/5 border-brand-emerald-500/20">
           <CardContent className="p-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-green-500/10 rounded-lg">
-                <Users className="h-6 w-6 text-green-500" />
+              <div className="p-2 bg-brand-emerald-500/10 rounded-lg">
+                <Users className="h-6 w-6 text-brand-emerald-500" />
               </div>
               <div>
                 <div className="text-2xl font-bold">{summary.active_agents}/{summary.total_agents}</div>
@@ -87,7 +87,7 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
             <p className="text-sm leading-relaxed text-foreground/80">
               No coração do sistema DPO2U pulsa uma inteligência artificial distribuída. Com{' '}
               <span className="font-semibold text-primary">{summary.total_agents} agentes especializados</span>,
-              dos quais <span className="font-semibold text-green-600">{summary.active_agents} estão ativos</span>,
+              dos quais <span className="font-semibold text-brand-emerald-600">{summary.active_agents} estão ativos</span>,
               o sistema mantém uma taxa de auto-cura impressionante de{' '}
               <span className="font-semibold text-primary">{auto_healing.success_rate}%</span>.
             </p>
@@ -104,7 +104,7 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
               O LEANN, nosso sistema de busca semântica, indexou{' '}
               <span className="font-semibold text-secondary">{services.leann?.notes_count || 0} documentos</span>,
               criando uma rede neural de conhecimento. O Zettelkasten expandiu com{' '}
-              <span className="font-semibold text-green-600">{zettelkasten.notes_count} notas interconectadas</span>
+              <span className="font-semibold text-brand-emerald-600">{zettelkasten.notes_count} notas interconectadas</span>
               {zettelkasten.daily_growth > 0 && (
                 <span> (+{zettelkasten.daily_growth} hoje)</span>
               )}.
@@ -136,22 +136,22 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
               </div>
             </div>
             <p className="text-sm leading-relaxed text-foreground/80">
-              Há <span className="font-semibold text-blue-600">{formatUptime(summary.uptime_hours)}</span> o sistema opera
+              Há <span className="font-semibold text-brand-sapphire-600">{formatUptime(summary.uptime_hours)}</span> o sistema opera
               ininterruptamente, processando <span className="font-semibold">{system.processes} processos</span> com
-              saúde classificada como <Badge variant="outline" className="text-green-600">{summary.system_health}</Badge>.
+              saúde classificada como <Badge variant="outline" className="text-brand-emerald-600">{summary.system_health}</Badge>.
             </p>
           </section>
 
           <section className="space-y-3">
             <div className="flex items-center gap-2">
-              <Badge variant="secondary" className="bg-purple-500/10 text-purple-500">
+              <Badge variant="secondary" className="bg-brand-purple-500/10 text-brand-purple-500">
                 Capítulo IV: A Evolução Contínua
               </Badge>
               <div className="flex-1 h-px bg-border" />
             </div>
             <p className="text-sm leading-relaxed text-foreground/80">
               Cada interação alimenta o aprendizado coletivo. Com{' '}
-              <span className="font-semibold text-purple-600">{summary.tasks_completed_today} tarefas completadas hoje</span>,
+              <span className="font-semibold text-brand-purple-600">{summary.tasks_completed_today} tarefas completadas hoje</span>,
               o sistema evolui continuamente, refinando padrões de decisão e elevando sua eficiência operacional.
               Esta narrativa se reescreve a cada ciclo, uma sinfonia de código e inteligência.
             </p>
@@ -183,7 +183,7 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4" />
             <span className="text-sm font-medium">Auto-Heal</span>
-            <span className="text-sm font-semibold text-green-600">{auto_healing.success_rate}%</span>
+            <span className="text-sm font-semibold text-brand-emerald-600">{auto_healing.success_rate}%</span>
           </div>
         </Card>
 
@@ -191,7 +191,7 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
           <div className="flex items-center gap-2">
             <Database className="h-4 w-4" />
             <span className="text-sm font-medium">Conectado</span>
-            <div className="w-2 h-2 bg-green-500 rounded-full" />
+            <div className="w-2 h-2 bg-brand-emerald-500 rounded-full" />
           </div>
         </Card>
       </div>

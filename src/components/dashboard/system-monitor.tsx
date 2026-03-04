@@ -187,7 +187,7 @@ const AlertsPanel: React.FC<{ alerts: any[] }> = ({ alerts = [] }) => {
       case 'warning':
         return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
       default:
-        return <CheckCircle className="h-4 w-4 text-blue-500" />;
+        return <CheckCircle className="h-4 w-4 text-brand-sapphire-500" />;
     }
   };
 
@@ -203,18 +203,18 @@ const AlertsPanel: React.FC<{ alerts: any[] }> = ({ alerts = [] }) => {
       </CardHeader>
       <CardContent>
         {prioritizedAlerts.length === 0 ? (
-          <div className="flex items-center justify-center py-4 text-gray-500">
-            <CheckCircle className="h-5 w-5 mr-2 text-green-500" />
+          <div className="flex items-center justify-center py-4 text-brand-gray-500">
+            <CheckCircle className="h-5 w-5 mr-2 text-brand-emerald-500" />
             <span className="text-sm">Sistema estável</span>
           </div>
         ) : (
           <div className="space-y-2 max-h-32 overflow-y-auto">
             {prioritizedAlerts.map((alert) => (
-              <div key={alert.id} className="flex items-start space-x-2 p-2 rounded bg-gray-50">
+              <div key={alert.id} className="flex items-start space-x-2 p-2 rounded bg-brand-gray-50">
                 {getAlertIcon(alert.type)}
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-gray-800 line-clamp-2">{alert.message}</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-brand-gray-800 line-clamp-2">{alert.message}</p>
+                  <p className="text-xs text-brand-gray-500 mt-1">
                     {formatDistanceToNow(new Date(alert.timestamp), { 
                       addSuffix: true,
                       locale: ptBR 
@@ -318,7 +318,7 @@ export const SystemMonitor: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Controls */}
-      <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-white/20 backdrop-blur-sm">
+      <Card className="bg-gradient-to-r from-brand-purple-50 to-indigo-50 border border-white/20 backdrop-blur-sm">
         <CardHeader className="pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center space-x-2">
@@ -365,7 +365,7 @@ export const SystemMonitor: React.FC = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between text-sm text-gray-600">
+          <div className="flex items-center justify-between text-sm text-brand-gray-600">
             <div className="flex items-center space-x-1">
               <Clock className="h-4 w-4" />
               <span>
@@ -440,27 +440,27 @@ export const SystemMonitor: React.FC = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600">
+              <div className="text-3xl font-bold text-brand-emerald-600">
                 {data?.health?.services ? 
                   Object.values(data.health.services).filter(Boolean).length : 0
                 }
                 /{data?.health?.services ? Object.keys(data.health.services).length : 0}
               </div>
-              <p className="text-sm text-gray-600 mt-1">Serviços Ativos</p>
+              <p className="text-sm text-brand-gray-600 mt-1">Serviços Ativos</p>
             </div>
             
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600">
+              <div className="text-3xl font-bold text-brand-sapphire-600">
                 {data?.agents?.filter(a => a.status === 'online').length || 0}
               </div>
-              <p className="text-sm text-gray-600 mt-1">Agentes Online</p>
+              <p className="text-sm text-brand-gray-600 mt-1">Agentes Online</p>
             </div>
             
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600">
+              <div className="text-3xl font-bold text-brand-purple-600">
                 {data?.health?.latency_ms || 0}ms
               </div>
-              <p className="text-sm text-gray-600 mt-1">Latência API</p>
+              <p className="text-sm text-brand-gray-600 mt-1">Latência API</p>
             </div>
           </div>
         </CardContent>

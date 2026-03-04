@@ -141,7 +141,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
                   <Clock className="mr-2 h-4 w-4" />
                   <span>Auto (Time)</span>
                   {autoThemeEnabled && (
-                    <Zap className="ml-auto h-3 w-3 text-brand-green-500" />
+                    <Zap className="ml-auto h-3 w-3 text-brand-emerald-500" />
                   )}
                 </DropdownMenuItem>
               </>

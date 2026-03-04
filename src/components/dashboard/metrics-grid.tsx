@@ -50,13 +50,13 @@ const MetricCard: React.FC<MetricCardProps> = ({
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'healthy':
-        return 'text-green-600 bg-green-50 border-green-200';
+        return 'text-brand-emerald-600 bg-brand-emerald-50 border-brand-emerald-200';
       case 'warning':
         return 'text-yellow-600 bg-yellow-50 border-yellow-200';
       case 'error':
         return 'text-red-600 bg-red-50 border-red-200';
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+        return 'text-brand-gray-600 bg-brand-gray-50 border-brand-gray-200';
     }
   };
 
@@ -76,7 +76,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
   const getTrendIcon = (trend: string) => {
     switch (trend) {
       case 'up':
-        return <TrendingUp className="h-3 w-3 text-green-500" />;
+        return <TrendingUp className="h-3 w-3 text-brand-emerald-500" />;
       case 'down':
         return <TrendingUp className="h-3 w-3 text-red-500 rotate-180" />;
       default:
@@ -91,22 +91,22 @@ const MetricCard: React.FC<MetricCardProps> = ({
       className
     )}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-gray-700">
+        <CardTitle className="text-sm font-medium text-brand-gray-700">
           {title}
         </CardTitle>
         <div className="flex items-center space-x-2">
-          <Icon className="h-4 w-4 text-gray-500" />
+          <Icon className="h-4 w-4 text-brand-gray-500" />
           {getStatusIcon(status)}
         </div>
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between">
           <div className="flex items-baseline space-x-1">
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-2xl font-bold text-brand-gray-900">
               {value}
             </div>
             {unit && (
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-brand-gray-500">
                 {unit}
               </div>
             )}
@@ -122,10 +122,10 @@ const MetricCard: React.FC<MetricCardProps> = ({
                 "h-2",
                 progress > 80 ? 'text-red-500' :
                 progress > 60 ? 'text-yellow-500' :
-                'text-green-500'
+                'text-brand-emerald-500'
               )}
             />
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
+            <div className="flex justify-between text-xs text-brand-gray-500 mt-1">
               <span>0%</span>
               <span>100%</span>
             </div>
@@ -133,7 +133,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
         )}
         
         {description && (
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-brand-gray-500 mt-2">
             {description}
           </p>
         )}
@@ -151,7 +151,7 @@ const StatusBadge: React.FC<{
       case 'healthy':
         return { 
           label: 'Sistema Operacional', 
-          className: 'bg-green-100 text-green-800 border-green-200' 
+          className: 'bg-brand-emerald-100 text-brand-emerald-800 border-brand-emerald-200' 
         };
       case 'degraded':
         return { 
@@ -166,7 +166,7 @@ const StatusBadge: React.FC<{
       default:
         return { 
           label: 'Status Desconhecido', 
-          className: 'bg-gray-100 text-gray-800 border-gray-200' 
+          className: 'bg-brand-gray-100 text-brand-gray-800 border-brand-gray-200' 
         };
     }
   };
@@ -181,31 +181,31 @@ const StatusBadge: React.FC<{
       <div className="grid grid-cols-3 gap-2 text-xs">
         <div className={cn(
           'flex items-center space-x-1 p-1 rounded',
-          services.leann ? 'text-green-600' : 'text-red-600'
+          services.leann ? 'text-brand-emerald-600' : 'text-red-600'
         )}>
           <div className={cn(
             'w-2 h-2 rounded-full',
-            services.leann ? 'bg-green-500' : 'bg-red-500'
+            services.leann ? 'bg-brand-emerald-500' : 'bg-red-500'
           )} />
           <span>LEANN</span>
         </div>
         <div className={cn(
           'flex items-center space-x-1 p-1 rounded',
-          services.orchestrator ? 'text-green-600' : 'text-red-600'
+          services.orchestrator ? 'text-brand-emerald-600' : 'text-red-600'
         )}>
           <div className={cn(
             'w-2 h-2 rounded-full',
-            services.orchestrator ? 'bg-green-500' : 'bg-red-500'
+            services.orchestrator ? 'bg-brand-emerald-500' : 'bg-red-500'
           )} />
           <span>Orchestrator</span>
         </div>
         <div className={cn(
           'flex items-center space-x-1 p-1 rounded',
-          services.docker ? 'text-green-600' : 'text-red-600'
+          services.docker ? 'text-brand-emerald-600' : 'text-red-600'
         )}>
           <div className={cn(
             'w-2 h-2 rounded-full',
-            services.docker ? 'bg-green-500' : 'bg-red-500'
+            services.docker ? 'bg-brand-emerald-500' : 'bg-red-500'
           )} />
           <span>Docker</span>
         </div>
@@ -235,10 +235,10 @@ export const MetricsGrid: React.FC = () => {
         {[...Array(8)].map((_, i) => (
           <Card key={i} className="animate-pulse">
             <CardHeader className="space-y-0 pb-2">
-              <div className="h-4 bg-gray-200 rounded w-3/4" />
+              <div className="h-4 bg-brand-gray-200 rounded w-3/4" />
             </CardHeader>
             <CardContent>
-              <div className="h-8 bg-gray-200 rounded w-1/2" />
+              <div className="h-8 bg-brand-gray-200 rounded w-1/2" />
             </CardContent>
           </Card>
         ))}
@@ -253,7 +253,7 @@ export const MetricsGrid: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* System Status Overview */}
-      <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border border-white/20 backdrop-blur-sm">
+      <Card className="bg-gradient-to-r from-brand-purple-50 to-indigo-50 border border-white/20 backdrop-blur-sm">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <Activity className="h-5 w-5" />

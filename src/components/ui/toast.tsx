@@ -40,10 +40,10 @@ const toastVariants = cva(
     variants: {
       variant: {
         default: "bg-white/95 border-brand-gray-200/50 text-brand-gray-800 p-6",
-        success: "bg-gradient-to-r from-brand-green-50 to-emerald-50 border-brand-green-200/50 text-brand-green-800 p-6",
+        success: "bg-gradient-to-r from-brand-emerald-50 to-brand-emerald-50 border-brand-emerald-200/50 text-brand-emerald-800 p-6",
         error: "bg-gradient-to-r from-red-50 to-pink-50 border-red-200/50 text-red-800 p-6",
         warning: "bg-gradient-to-r from-brand-emerald-50 to-brand-sapphire-50 border-brand-emerald-200/50 text-brand-emerald-800 p-6",
-        info: "bg-gradient-to-r from-brand-sapphire-50 to-blue-50 border-brand-sapphire-200/50 text-brand-sapphire-800 p-6",
+        info: "bg-gradient-to-r from-brand-sapphire-50 to-brand-sapphire-50 border-brand-sapphire-200/50 text-brand-sapphire-800 p-6",
         premium: "bg-gradient-to-br from-white to-brand-platinum-50 border-brand-sapphire-200/30 text-brand-gray-800 p-8 shadow-hero",
         luxury: "bg-gradient-to-br from-brand-chrome-50 to-white border-brand-chrome-200/50 text-brand-chrome-800 p-8 shadow-hero",
         glassmorphism: "bg-white/80 backdrop-blur-xl border-white/20 text-brand-gray-800 p-6",
@@ -79,7 +79,7 @@ const ToastAction = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex h-9 shrink-0 items-center justify-center rounded-xl border bg-white/80 backdrop-blur-sm px-4 text-sm font-semibold transition-all duration-200 hover:bg-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-sapphire-500 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 shadow-sm",
-      "group-[.success]:border-brand-green-200 group-[.success]:text-brand-green-700 group-[.success]:hover:bg-brand-green-50",
+      "group-[.success]:border-brand-emerald-200 group-[.success]:text-brand-emerald-700 group-[.success]:hover:bg-brand-emerald-50",
       "group-[.error]:border-red-200 group-[.error]:text-red-700 group-[.error]:hover:bg-red-50",
       "group-[.warning]:border-brand-emerald-200 group-[.warning]:text-brand-emerald-700 group-[.warning]:hover:bg-brand-emerald-50",
       "group-[.info]:border-brand-sapphire-200 group-[.info]:text-brand-sapphire-700 group-[.info]:hover:bg-brand-sapphire-50",
@@ -115,7 +115,7 @@ const titleVariants = cva(
     variants: {
       variant: {
         default: "text-base text-brand-gray-800",
-        success: "text-lg text-brand-green-800 font-bold",
+        success: "text-lg text-brand-emerald-800 font-bold",
         error: "text-lg text-red-800 font-bold",
         warning: "text-lg text-brand-emerald-800 font-bold",
         info: "text-lg text-brand-sapphire-800 font-bold",
@@ -149,7 +149,7 @@ const descriptionVariants = cva(
     variants: {
       variant: {
         default: "text-brand-gray-600",
-        success: "text-brand-green-700",
+        success: "text-brand-emerald-700",
         error: "text-red-700",
         warning: "text-brand-emerald-700",
         info: "text-brand-sapphire-700",

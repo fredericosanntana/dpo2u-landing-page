@@ -49,8 +49,8 @@ interface SystemChartsProps {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg p-3 shadow-lg">
-        <p className="text-slate-300 text-sm mb-2">
+      <div className="bg-brand-chrome-800/95 backdrop-blur-sm border border-brand-platinum-800 rounded-lg p-3 shadow-lg">
+        <p className="text-brand-platinum-400 text-sm mb-2">
           {new Date(label).toLocaleString('pt-BR', {
             hour: '2-digit',
             minute: '2-digit',
@@ -64,7 +64,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
               className="w-3 h-3 rounded-full" 
               style={{ backgroundColor: entry.color }}
             />
-            <span className="text-slate-300 text-sm">
+            <span className="text-brand-platinum-400 text-sm">
               {entry.name}: {entry.value}{entry.unit || ''}
             </span>
           </div>
@@ -77,15 +77,15 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 function ChartSkeleton() {
   return (
-    <Card className="bg-slate-800/50 border-slate-700/50">
+    <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <Skeleton className="h-5 w-32 bg-slate-700" />
-          <Skeleton className="h-8 w-20 bg-slate-700" />
+          <Skeleton className="h-5 w-32 bg-brand-platinum-800" />
+          <Skeleton className="h-8 w-20 bg-brand-platinum-800" />
         </div>
       </CardHeader>
       <CardContent>
-        <Skeleton className="h-64 w-full bg-slate-700 rounded-lg" />
+        <Skeleton className="h-64 w-full bg-brand-platinum-800 rounded-lg" />
       </CardContent>
     </Card>
   );
@@ -156,10 +156,10 @@ export default function SystemCharts({
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-white flex items-center space-x-2">
-            <Activity className="h-5 w-5 text-emerald-400" />
+            <Activity className="h-5 w-5 text-brand-emerald-400" />
             <span>Gráficos do Sistema</span>
           </h2>
-          <p className="text-slate-400 text-sm mt-1">
+          <p className="text-brand-platinum-500 text-sm mt-1">
             Visualização de dados e métricas de performance em tempo real
           </p>
         </div>
@@ -169,7 +169,7 @@ export default function SystemCharts({
             variant="outline" 
             size="sm" 
             onClick={() => onExport?.(activeTab)}
-            className="text-slate-300 border-slate-600 hover:bg-slate-700"
+            className="text-brand-platinum-400 border-brand-platinum-700 hover:bg-brand-platinum-800"
           >
             <Download className="h-4 w-4 mr-2" />
             Exportar
@@ -178,17 +178,17 @@ export default function SystemCharts({
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 bg-slate-800/50 border-slate-700">
-          <TabsTrigger value="performance" className="text-slate-300 data-[state=active]:text-white">
+        <TabsList className="grid w-full grid-cols-4 bg-brand-chrome-800/50 border-brand-platinum-800">
+          <TabsTrigger value="performance" className="text-brand-platinum-400 data-[state=active]:text-white">
             Performance
           </TabsTrigger>
-          <TabsTrigger value="resources" className="text-slate-300 data-[state=active]:text-white">
+          <TabsTrigger value="resources" className="text-brand-platinum-400 data-[state=active]:text-white">
             Recursos
           </TabsTrigger>
-          <TabsTrigger value="agents" className="text-slate-300 data-[state=active]:text-white">
+          <TabsTrigger value="agents" className="text-brand-platinum-400 data-[state=active]:text-white">
             Agentes
           </TabsTrigger>
-          <TabsTrigger value="distribution" className="text-slate-300 data-[state=active]:text-white">
+          <TabsTrigger value="distribution" className="text-brand-platinum-400 data-[state=active]:text-white">
             Distribuição
           </TabsTrigger>
         </TabsList>
@@ -196,14 +196,14 @@ export default function SystemCharts({
         <TabsContent value="performance" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Response Time Chart */}
-            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+            <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Clock className="h-5 w-5 text-blue-400" />
+                    <Clock className="h-5 w-5 text-brand-sapphire-400" />
                     <span>Tempo de Resposta</span>
                   </div>
-                  <Badge variant="outline" className="text-xs text-blue-400 border-blue-500/30">
+                  <Badge variant="outline" className="text-xs text-brand-sapphire-400 border-brand-sapphire-500/30">
                     ms
                   </Badge>
                 </CardTitle>
@@ -239,14 +239,14 @@ export default function SystemCharts({
             </Card>
 
             {/* Tasks Completed Chart */}
-            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+            <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Zap className="h-5 w-5 text-purple-400" />
+                    <Zap className="h-5 w-5 text-brand-purple-400" />
                     <span>Tarefas Concluídas</span>
                   </div>
-                  <Badge variant="outline" className="text-xs text-purple-400 border-purple-500/30">
+                  <Badge variant="outline" className="text-xs text-brand-purple-400 border-brand-purple-500/30">
                     por hora
                   </Badge>
                 </CardTitle>
@@ -285,10 +285,10 @@ export default function SystemCharts({
         <TabsContent value="resources" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* CPU & Memory Usage */}
-            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+            <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
-                  <Cpu className="h-5 w-5 text-emerald-400" />
+                  <Cpu className="h-5 w-5 text-brand-emerald-400" />
                   <span>Uso de Recursos</span>
                 </CardTitle>
               </CardHeader>
@@ -332,7 +332,7 @@ export default function SystemCharts({
             </Card>
 
             {/* Resource Usage Bar Chart */}
-            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+            <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
                   <HardDrive className="h-5 w-5 text-orange-400" />
@@ -381,7 +381,7 @@ export default function SystemCharts({
         <TabsContent value="agents" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Active Agents Over Time */}
-            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+            <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
                   <Users className="h-5 w-5 text-cyan-400" />
@@ -418,10 +418,10 @@ export default function SystemCharts({
             </Card>
 
             {/* Top Performing Agents */}
-            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+            <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
-                  <TrendingUp className="h-5 w-5 text-green-400" />
+                  <TrendingUp className="h-5 w-5 text-brand-emerald-400" />
                   <span>Agentes Mais Eficientes</span>
                 </CardTitle>
               </CardHeader>
@@ -435,9 +435,9 @@ export default function SystemCharts({
                         <div className="flex items-center space-x-3">
                           <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${
                             index === 0 ? 'bg-yellow-500/20 text-yellow-400' :
-                            index === 1 ? 'bg-gray-400/20 text-gray-400' :
+                            index === 1 ? 'bg-brand-gray-400/20 text-brand-gray-400' :
                             index === 2 ? 'bg-orange-500/20 text-orange-400' :
-                            'bg-slate-600/20 text-slate-400'
+                            'bg-brand-platinum-700/20 text-brand-platinum-500'
                           }`}>
                             #{index + 1}
                           </div>
@@ -445,19 +445,19 @@ export default function SystemCharts({
                             <div className="text-white text-sm font-medium">
                               {agent.displayName}
                             </div>
-                            <div className="text-slate-400 text-xs">
+                            <div className="text-brand-platinum-500 text-xs">
                               {agent.category}
                             </div>
                           </div>
                         </div>
                         <div className="text-right">
                           <div className={`font-bold ${
-                            agent.successRate >= 95 ? 'text-emerald-400' :
+                            agent.successRate >= 95 ? 'text-brand-emerald-400' :
                             agent.successRate >= 85 ? 'text-amber-400' : 'text-red-400'
                           }`}>
                             {agent.successRate}%
                           </div>
-                          <div className="text-xs text-slate-400">{agent.avgResponseTime}s avg</div>
+                          <div className="text-xs text-brand-platinum-500">{agent.avgResponseTime}s avg</div>
                         </div>
                       </div>
                     ))}
@@ -470,10 +470,10 @@ export default function SystemCharts({
         <TabsContent value="distribution" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Agent Status Distribution */}
-            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+            <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
-                  <Activity className="h-5 w-5 text-emerald-400" />
+                  <Activity className="h-5 w-5 text-brand-emerald-400" />
                   <span>Status dos Agentes</span>
                 </CardTitle>
               </CardHeader>
@@ -505,7 +505,7 @@ export default function SystemCharts({
                         className="w-3 h-3 rounded-full" 
                         style={{ backgroundColor: entry.color }}
                       />
-                      <span className="text-slate-300 text-sm">
+                      <span className="text-brand-platinum-400 text-sm">
                         {entry.name}: {entry.value}
                       </span>
                     </div>
@@ -515,10 +515,10 @@ export default function SystemCharts({
             </Card>
 
             {/* Category Distribution */}
-            <Card className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
+            <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-blue-400" />
+                  <Users className="h-5 w-5 text-brand-sapphire-400" />
                   <span>Distribuição por Categoria</span>
                 </CardTitle>
               </CardHeader>
@@ -529,12 +529,12 @@ export default function SystemCharts({
                     return (
                       <div key={index} className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-slate-300 text-sm">{category.name}</span>
-                          <span className="text-slate-400 text-sm">
+                          <span className="text-brand-platinum-400 text-sm">{category.name}</span>
+                          <span className="text-brand-platinum-500 text-sm">
                             {category.value} ({percentage}%)
                           </span>
                         </div>
-                        <div className="w-full bg-slate-700 rounded-full h-2">
+                        <div className="w-full bg-brand-platinum-800 rounded-full h-2">
                           <div 
                             className="h-2 rounded-full transition-all duration-500"
                             style={{ 

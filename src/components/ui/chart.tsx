@@ -52,9 +52,9 @@ const brandColors = {
   get light() {
     return [
       getColor('--color-sapphire-100'),
-      getColor('--color-emerald-100'),
-      getColor('--color-purple-100'),
-      getColor('--color-emerald-50'),
+      getColor('--color-brand-emerald-100'),
+      getColor('--color-brand-purple-100'),
+      getColor('--color-brand-emerald-50'),
       getColor('--color-ocean-100')
     ];
   }

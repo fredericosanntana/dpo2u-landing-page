@@ -102,7 +102,7 @@ export default function StoryPage() {
 
           {/* Status de Conexão */}
           <div className="flex items-center gap-4">
-            <Badge className="bg-green-500/10 text-green-600 border-green-500/20">
+            <Badge className="bg-brand-emerald-500/10 text-brand-emerald-600 border-brand-emerald-500/20">
               <CheckCircle2 className="h-3 w-3 mr-1" />
               Conectado
             </Badge>
@@ -137,11 +137,11 @@ export default function StoryPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-green-500/10 to-green-500/5 border-green-500/20">
+          <Card className="bg-gradient-to-br from-brand-emerald-500/10 to-brand-emerald-500/5 border-brand-emerald-500/20">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-green-500/10 rounded-lg">
-                  <Activity className="h-5 w-5 text-green-500" />
+                <div className="p-2 bg-brand-emerald-500/10 rounded-lg">
+                  <Activity className="h-5 w-5 text-brand-emerald-500" />
                 </div>
                 <div>
                   <div className="text-lg font-bold">{data.summary.active_agents}/{data.summary.total_agents}</div>
@@ -154,8 +154,8 @@ export default function StoryPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-500/10 rounded-lg">
-                  <Activity className="h-5 w-5 text-blue-500" />
+                <div className="p-2 bg-brand-sapphire-500/10 rounded-lg">
+                  <Activity className="h-5 w-5 text-brand-sapphire-500" />
                 </div>
                 <div>
                   <div className="text-lg font-bold">{data.system.cpu.percent.toFixed(1)}%</div>
@@ -168,8 +168,8 @@ export default function StoryPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-500/10 rounded-lg">
-                  <Activity className="h-5 w-5 text-purple-500" />
+                <div className="p-2 bg-brand-purple-500/10 rounded-lg">
+                  <Activity className="h-5 w-5 text-brand-purple-500" />
                 </div>
                 <div>
                   <div className="text-lg font-bold">{data.system.memory.percent.toFixed(1)}%</div>

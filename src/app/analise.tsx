@@ -104,7 +104,7 @@ export default function AnalysisPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+        <div className="min-h-screen bg-brand-platinum-100 dark:bg-brand-chrome-900">
             <Header />
 
             {/* Header Section */}
@@ -137,21 +137,21 @@ export default function AnalysisPage() {
                         <Card className="sticky top-24 p-6 shadow-xl border-t-4 border-t-brand-emerald-500">
                             <StepIndicator currentStep={currentStep} totalSteps={6} stepTitles={STEP_TITLES} orientation="vertical" />
 
-                            <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
-                                <h4 className="font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
+                            <div className="mt-8 pt-6 border-t border-brand-gray-100 dark:border-brand-gray-800">
+                                <h4 className="font-semibold text-brand-gray-800 dark:text-white mb-4 flex items-center">
                                     <CheckCircle className="h-4 w-4 mr-2 text-brand-emerald-500" />
                                     Resumo do Progresso
                                 </h4>
-                                <div className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
+                                <div className="space-y-3 text-sm text-brand-gray-600 dark:text-brand-gray-400">
                                     <div className="flex justify-between">
                                         <span>Empresa</span>
-                                        <span className={currentStep > 1 ? "text-green-600 font-bold" : ""}>{currentStep > 1 ? "100%" : "Processando..."}</span>
+                                        <span className={currentStep > 1 ? "text-brand-emerald-600 font-bold" : ""}>{currentStep > 1 ? "100%" : "Processando..."}</span>
                                     </div>
                                     <div className="flex justify-between">
                                         <span>Inventário</span>
-                                        <span className={currentStep > 2 ? "text-green-600 font-bold" : ""}>{currentStep > 2 ? "100%" : "Pendente"}</span>
+                                        <span className={currentStep > 2 ? "text-brand-emerald-600 font-bold" : ""}>{currentStep > 2 ? "100%" : "Pendente"}</span>
                                     </div>
-                                    <div className="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                                    <div className="w-full bg-brand-gray-200 rounded-full h-1.5 mt-2">
                                         <div
                                             className="bg-brand-emerald-500 h-1.5 rounded-full transition-all duration-500"
                                             style={{ width: `${((currentStep - 1) / 6) * 100}%` }}
@@ -176,7 +176,7 @@ export default function AnalysisPage() {
                                 {renderStep()}
                             </motion.div>
 
-                            <div className="mt-12 pt-6 border-t border-gray-100 dark:border-gray-800">
+                            <div className="mt-12 pt-6 border-t border-brand-gray-100 dark:border-brand-gray-800">
                                 <NavigationButtons
                                     currentStep={currentStep}
                                     totalSteps={6}

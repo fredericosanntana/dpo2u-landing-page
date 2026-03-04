@@ -62,14 +62,14 @@ const expertise = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
       <Header />
 
       {/* Hero */}
-      <AnimatedSection className="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950">
+      <AnimatedSection className="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-chrome-900">
         <div className="absolute inset-0">
           <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-brand-sapphire-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }}></div>
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-600/8 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand-purple-600/8 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
@@ -82,9 +82,9 @@ export default function AboutPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-white">
                 Frederico Santana
               </h1>
-              <p className="text-xl md:text-2xl text-slate-300 leading-relaxed font-light mb-8">
+              <p className="text-xl md:text-2xl text-brand-platinum-400 leading-relaxed font-light mb-8">
                 Building the bridge between{' '}
-                <span className="text-purple-400 font-medium">autonomous AI agents</span> and{' '}
+                <span className="text-brand-purple-400 font-medium">autonomous AI agents</span> and{' '}
                 <span className="text-brand-sapphire-400 font-medium">zero-knowledge privacy</span>.
                 One person. Six AI agents. Twelve smart contracts.
               </p>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                 href="https://github.com/fredericosanntana"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-5 py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-300 transition-colors"
+                className="inline-flex items-center px-5 py-2.5 bg-brand-chrome-800 hover:bg-brand-platinum-800 rounded-xl text-brand-platinum-400 transition-colors"
               >
                 <Github className="h-5 w-5 mr-2" />
                 GitHub
@@ -104,7 +104,7 @@ export default function AboutPage() {
                 href="https://x.com/fredsanntana"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-5 py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-300 transition-colors"
+                className="inline-flex items-center px-5 py-2.5 bg-brand-chrome-800 hover:bg-brand-platinum-800 rounded-xl text-brand-platinum-400 transition-colors"
               >
                 <Twitter className="h-5 w-5 mr-2" />
                 X / Twitter
@@ -113,7 +113,7 @@ export default function AboutPage() {
                 href="https://www.linkedin.com/in/fredericosantana/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-5 py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-300 transition-colors"
+                className="inline-flex items-center px-5 py-2.5 bg-brand-chrome-800 hover:bg-brand-platinum-800 rounded-xl text-brand-platinum-400 transition-colors"
               >
                 <Linkedin className="h-5 w-5 mr-2" />
                 LinkedIn
@@ -131,13 +131,13 @@ export default function AboutPage() {
       </AnimatedSection>
 
       {/* Builder Credentials — Stats Grid */}
-      <AnimatedSection className="py-24 bg-slate-900">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
               Builder <span className="text-brand-sapphire-400">Credentials</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-2xl mx-auto">
               Numbers that speak louder than resumes.
             </p>
           </div>
@@ -145,11 +145,11 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {stats.map((stat, idx) => (
               <motion.div key={stat.label} variants={fadeInUp}>
-                <Card className="p-6 bg-slate-800/50 border-slate-700 text-center">
+                <Card className="p-6 bg-brand-chrome-800/50 border-brand-platinum-800 text-center">
                   <stat.icon className={`h-8 w-8 mx-auto mb-4 ${
-                    stat.color === 'purple' ? 'text-purple-400' :
+                    stat.color === 'purple' ? 'text-brand-purple-400' :
                     stat.color === 'blue' ? 'text-brand-sapphire-400' :
-                    'text-emerald-400'
+                    'text-brand-emerald-400'
                   }`} />
                   <div className="text-3xl font-bold text-white mb-2">
                     <AnimatedCounter
@@ -159,7 +159,7 @@ export default function AboutPage() {
                       suffix={stat.suffix}
                     />
                   </div>
-                  <p className="text-slate-400 text-sm">{stat.label}</p>
+                  <p className="text-brand-platinum-500 text-sm">{stat.label}</p>
                 </Card>
               </motion.div>
             ))}
@@ -168,24 +168,24 @@ export default function AboutPage() {
       </AnimatedSection>
 
       {/* Technical Expertise */}
-      <AnimatedSection className="py-24 bg-slate-950">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-              Technical <span className="text-purple-400">Expertise</span>
+              Technical <span className="text-brand-purple-400">Expertise</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {expertise.map((area, idx) => (
               <motion.div key={area.title} variants={fadeInUp}>
-                <Card className="h-full p-8 bg-slate-800/30 border-slate-700">
-                  <area.icon className="h-10 w-10 text-purple-400 mb-6" />
+                <Card className="h-full p-8 bg-brand-chrome-800/30 border-brand-platinum-800">
+                  <area.icon className="h-10 w-10 text-brand-purple-400 mb-6" />
                   <h3 className="text-xl font-bold text-white mb-4">{area.title}</h3>
                   <ul className="space-y-3">
                     {area.skills.map((skill) => (
-                      <li key={skill} className="flex items-center text-slate-400 text-sm">
-                        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-3 flex-shrink-0" />
+                      <li key={skill} className="flex items-center text-brand-platinum-500 text-sm">
+                        <div className="w-1.5 h-1.5 bg-brand-purple-400 rounded-full mr-3 flex-shrink-0" />
                         {skill}
                       </li>
                     ))}
@@ -198,7 +198,7 @@ export default function AboutPage() {
       </AnimatedSection>
 
       {/* Publications */}
-      <AnimatedSection className="py-24 bg-slate-900">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
@@ -228,15 +228,15 @@ export default function AboutPage() {
               },
             ].map((pub, idx) => (
               <motion.div key={pub.title} variants={fadeInUp}>
-                <Card className="p-6 bg-slate-800/50 border-slate-700 hover:border-brand-sapphire-500/30 transition-all">
+                <Card className="p-6 bg-brand-chrome-800/50 border-brand-platinum-800 hover:border-brand-sapphire-500/30 transition-all">
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="font-bold text-white">{pub.title}</h3>
-                    <span className="text-xs text-slate-500 flex-shrink-0 ml-4">{pub.year}</span>
+                    <span className="text-xs text-brand-platinum-600 flex-shrink-0 ml-4">{pub.year}</span>
                   </div>
                   <span className="inline-block text-xs px-2 py-1 bg-brand-sapphire-500/10 text-brand-sapphire-300 rounded mb-3">
                     {pub.type}
                   </span>
-                  <p className="text-slate-400 text-sm">{pub.description}</p>
+                  <p className="text-brand-platinum-500 text-sm">{pub.description}</p>
                 </Card>
               </motion.div>
             ))}
@@ -245,22 +245,22 @@ export default function AboutPage() {
       </AnimatedSection>
 
       {/* One Person Unicorn */}
-      <AnimatedSection className="py-24 bg-slate-950">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div variants={fadeInUp}>
-              <Bot className="h-16 w-16 text-purple-400 mx-auto mb-8" />
+              <Bot className="h-16 w-16 text-brand-purple-400 mx-auto mb-8" />
             </motion.div>
             <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-              The One-Person <span className="text-purple-400">Unicorn</span>
+              The One-Person <span className="text-brand-purple-400">Unicorn</span>
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-lg text-slate-300 mb-8 leading-relaxed max-w-3xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-lg text-brand-platinum-400 mb-8 leading-relaxed max-w-3xl mx-auto">
               DPO2U isn't a team of 50 — it's one founder amplified by six autonomous AI agents,
               each with distinct capabilities and on-chain identities. The agents handle compliance audits,
               content generation, treasury operations, knowledge management, and infrastructure — 24/7,
               with 99.9% uptime.
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-slate-400 mb-12 max-w-2xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-brand-platinum-500 mb-12 max-w-2xl mx-auto">
               This is not a pitch deck philosophy. The agents are live, the contracts are deployed,
               the tests are passing, and the ZK proofs are verifiable. Built in public, every step of the way.
             </motion.p>
@@ -271,12 +271,12 @@ export default function AboutPage() {
                 { name: 'Agent Factory', model: 'Opus', color: 'text-pink-400' },
                 { name: 'Knowledge Manager', model: 'Sonnet', color: 'text-cyan-400' },
                 { name: 'Content Creator', model: 'Sonnet', color: 'text-yellow-400' },
-                { name: 'DeFi Ops', model: 'Sonnet', color: 'text-green-400' },
-                { name: 'Docker/VPS Ops', model: 'Sonnet', color: 'text-blue-400' },
+                { name: 'DeFi Ops', model: 'Sonnet', color: 'text-brand-emerald-400' },
+                { name: 'Docker/VPS Ops', model: 'Sonnet', color: 'text-brand-sapphire-400' },
               ].map((agent) => (
-                <Card key={agent.name} className="p-4 bg-slate-800/50 border-slate-700">
+                <Card key={agent.name} className="p-4 bg-brand-chrome-800/50 border-brand-platinum-800">
                   <div className={`text-sm font-semibold ${agent.color} mb-1`}>{agent.name}</div>
-                  <div className="text-xs text-slate-500">Claude {agent.model}</div>
+                  <div className="text-xs text-brand-platinum-600">Claude {agent.model}</div>
                 </Card>
               ))}
             </motion.div>
@@ -285,12 +285,12 @@ export default function AboutPage() {
       </AnimatedSection>
 
       {/* Contact CTA */}
-      <AnimatedSection className="py-24 bg-gradient-to-r from-brand-sapphire-900/30 via-slate-900 to-purple-900/30 text-center">
+      <AnimatedSection className="py-24 bg-gradient-to-r from-brand-sapphire-900/30 via-brand-chrome-900 to-brand-purple-900/30 text-center">
         <div className="container mx-auto px-4">
           <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
             Let's Build Together
           </motion.h2>
-          <motion.p variants={fadeInUp} className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+          <motion.p variants={fadeInUp} className="text-lg text-brand-platinum-400 mb-8 max-w-2xl mx-auto">
             Interested in Midnight Network integration, AI compliance systems,
             or the "Compliance as Protocol" thesis? I'd love to connect.
           </motion.p>
@@ -307,7 +307,7 @@ export default function AboutPage() {
             <Button
               variant="outline"
               size="xl"
-              className="border-2 border-purple-400/30 text-purple-300 hover:bg-purple-500/10"
+              className="border-2 border-brand-purple-400/30 text-brand-purple-300 hover:bg-brand-purple-500/10"
               onClick={() => window.open('https://github.com/fredericosanntana', '_blank')}
             >
               <Github className="h-5 w-5 mr-2" />

@@ -100,12 +100,12 @@ const LiveSystemStatusDashboard: React.FC = () => {
               </div>
               <div>
                 <div className="text-white font-semibold">Private Infrastructure</div>
-                <div className="text-xs text-gray-400">Real-Time Monitoring</div>
+                <div className="text-xs text-brand-gray-400">Real-Time Monitoring</div>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-              <div className="text-xs text-emerald-400 font-medium">ONLINE</div>
+              <div className="w-2 h-2 rounded-full bg-brand-emerald-400 animate-pulse"></div>
+              <div className="text-xs text-brand-emerald-400 font-medium">ONLINE</div>
             </div>
           </div>
 
@@ -118,41 +118,41 @@ const LiveSystemStatusDashboard: React.FC = () => {
               transition={{ duration: 3, repeat: Infinity }}
             >
               <div className="flex items-center justify-between mb-2">
-                <div className="text-blue-300 text-sm font-medium">CPU Load</div>
-                <Cpu className="h-4 w-4 text-blue-400" />
+                <div className="text-brand-sapphire-300 text-sm font-medium">CPU Load</div>
+                <Cpu className="h-4 w-4 text-brand-sapphire-400" />
               </div>
               <div className="text-2xl font-bold text-white">{systemStatus.infrastructure.cpu_usage}%</div>
-              <div className="text-xs text-blue-300">4 vCores Active</div>
+              <div className="text-xs text-brand-sapphire-300">4 vCores Active</div>
             </motion.div>
 
             {/* Latency */}
             <motion.div
-              className="bg-emerald-900/40 rounded-xl p-4 border border-emerald-500/30"
+              className="bg-brand-emerald-900/40 rounded-xl p-4 border border-brand-emerald-500/30"
             >
               <div className="flex items-center justify-between mb-2">
-                <div className="text-emerald-300 text-sm font-medium">API Latency</div>
-                <Zap className="h-4 w-4 text-emerald-400" />
+                <div className="text-brand-emerald-300 text-sm font-medium">API Latency</div>
+                <Zap className="h-4 w-4 text-brand-emerald-400" />
               </div>
               <div className="text-2xl font-bold text-white">{systemStatus.system.latency}ms</div>
-              <div className="text-xs text-emerald-300">p99 response</div>
+              <div className="text-xs text-brand-emerald-300">p99 response</div>
             </motion.div>
           </div>
 
           {/* Docker Status */}
-          <div className="bg-slate-800/40 rounded-xl p-4 border border-slate-600/30 mb-4">
+          <div className="bg-brand-chrome-800/40 rounded-xl p-4 border border-brand-platinum-700/30 mb-4">
             <div className="flex items-center justify-between mb-2">
-              <div className="text-slate-300 text-sm font-medium">Docker Containers</div>
-              <Box className="h-4 w-4 text-slate-400" />
+              <div className="text-brand-platinum-400 text-sm font-medium">Docker Containers</div>
+              <Box className="h-4 w-4 text-brand-platinum-500" />
             </div>
             <div className="flex items-center space-x-4">
               <div>
                 <div className="text-xl font-bold text-white max-w-[60px]">{systemStatus.infrastructure.containers_active}</div>
-                <div className="text-xs text-slate-400">Services</div>
+                <div className="text-xs text-brand-platinum-500">Services</div>
               </div>
               <div className="flex-1">
-                <div className="bg-slate-700/50 rounded-full h-2 overflow-hidden">
+                <div className="bg-brand-platinum-800/50 rounded-full h-2 overflow-hidden">
                   <motion.div
-                    className="bg-gradient-to-r from-blue-500 to-emerald-500 h-full rounded-full"
+                    className="bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 h-full rounded-full"
                     style={{ width: '100%' }}
                   />
                 </div>
@@ -183,8 +183,8 @@ const LiveSystemStatusDashboard: React.FC = () => {
 
           {/* System Info Footer */}
           <div className="absolute bottom-6 right-6 text-right">
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">System Health</div>
-            <div className="flex items-center justify-end space-x-1 text-emerald-400/80 text-xs">
+            <div className="text-[10px] text-brand-platinum-600 uppercase tracking-wider mb-1">System Health</div>
+            <div className="flex items-center justify-end space-x-1 text-brand-emerald-400/80 text-xs">
               <CheckCircle className="h-3 w-3" />
               <span>All Systems Operational</span>
             </div>

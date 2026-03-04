@@ -44,7 +44,7 @@ export default function NavigationButtons({
                     type="button"
                     onClick={onSubmit}
                     disabled={!isValid || isSubmitting}
-                    className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700"
+                    className="flex items-center gap-2 bg-brand-emerald-600 hover:bg-brand-emerald-700"
                 >
                     {isSubmitting ? (
                         <>

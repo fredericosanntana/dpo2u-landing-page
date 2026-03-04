@@ -148,7 +148,7 @@ export default function EnhancedHeroSection() {
                 <Star className="h-3 w-3 mr-2 fill-current" />
                 Consultoria estratégica sem custo
               </Badge>
-              <div className="text-slate-400 text-sm">
+              <div className="text-brand-platinum-500 text-sm">
                 • Avaliação personalizada • Resultados em 72h
               </div>
             </motion.div>
@@ -166,7 +166,7 @@ export default function EnhancedHeroSection() {
                   {/* Enhanced Header with badges */}
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-brand-green-500 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-brand-emerald-500 rounded-lg flex items-center justify-center">
                         <Shield className="h-5 w-5 text-white" />
                       </div>
                       <div>
@@ -185,27 +185,27 @@ export default function EnhancedHeroSection() {
                   {/* Enhanced Content */}
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-emerald-500/15 rounded-xl p-4 border border-emerald-500/25">
+                      <div className="bg-brand-emerald-500/15 rounded-xl p-4 border border-brand-emerald-500/25">
                         <div className="flex items-center justify-between mb-2">
-                          <div className="text-emerald-300 text-sm font-medium">Compliance Score</div>
+                          <div className="text-brand-emerald-300 text-sm font-medium">Compliance Score</div>
                           <Badge variant="status-completed" size="sm">Active</Badge>
                         </div>
                         <div className="text-2xl font-bold text-white">99.8%</div>
                       </div>
-                      <div className="bg-blue-500/15 rounded-xl p-4 border border-blue-500/25">
+                      <div className="bg-brand-sapphire-500/15 rounded-xl p-4 border border-brand-sapphire-500/25">
                         <div className="flex items-center justify-between mb-2">
-                          <div className="text-blue-300 text-sm font-medium">Risk Level</div>
+                          <div className="text-brand-sapphire-300 text-sm font-medium">Risk Level</div>
                           <Badge variant="success" size="sm">Low</Badge>
                         </div>
                         <div className="text-2xl font-bold text-white">Mínimo</div>
                       </div>
                     </div>
                     
-                    <div className="bg-slate-500/15 rounded-xl p-4 border border-slate-500/25">
-                      <div className="text-slate-300 text-sm mb-2 font-medium">Status IA</div>
+                    <div className="bg-brand-platinum-600/15 rounded-xl p-4 border border-brand-platinum-600/25">
+                      <div className="text-brand-platinum-400 text-sm mb-2 font-medium">Status IA</div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          <Brain className="h-4 w-4 text-blue-400 animate-pulse" />
+                          <Brain className="h-4 w-4 text-brand-sapphire-400 animate-pulse" />
                           <div className="text-white text-sm">Monitoramento ativo</div>
                         </div>
                         <Badge variant="info" size="sm">145 Agentes</Badge>

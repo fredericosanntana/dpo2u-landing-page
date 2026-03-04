@@ -57,16 +57,16 @@ const phases: Phase[] = [
 ];
 
 const statusConfig = {
-  complete: { icon: Check, color: 'text-emerald-400', bg: 'bg-emerald-500/20', border: 'border-emerald-500/30' },
-  'in-progress': { icon: Clock, color: 'text-purple-400', bg: 'bg-purple-500/20', border: 'border-purple-500/30' },
-  planned: { icon: CircleDot, color: 'text-slate-500', bg: 'bg-slate-700/30', border: 'border-slate-600/30' },
+  complete: { icon: Check, color: 'text-brand-emerald-400', bg: 'bg-brand-emerald-500/20', border: 'border-brand-emerald-500/30' },
+  'in-progress': { icon: Clock, color: 'text-brand-purple-400', bg: 'bg-brand-purple-500/20', border: 'border-brand-purple-500/30' },
+  planned: { icon: CircleDot, color: 'text-brand-platinum-600', bg: 'bg-brand-platinum-800/30', border: 'border-brand-platinum-700/30' },
 };
 
 export default function BuildTimeline() {
   return (
     <div className="relative">
       {/* Connecting line */}
-      <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-emerald-500/50 via-purple-500/50 to-slate-600/30 hidden md:block" />
+      <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-brand-emerald-500/50 via-brand-purple-500/50 to-brand-platinum-700/30 hidden md:block" />
 
       <div className="space-y-8">
         {phases.map((phase, idx) => {
@@ -90,11 +90,11 @@ export default function BuildTimeline() {
                   {phase.phase} — {phase.status === 'complete' ? 'Complete' : phase.status === 'in-progress' ? 'In Progress' : 'Planned'}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-1">{phase.title}</h3>
-                <p className="text-slate-400 text-sm mb-3">{phase.description}</p>
+                <p className="text-brand-platinum-500 text-sm mb-3">{phase.description}</p>
                 <ul className={`space-y-1 ${isEven ? 'md:ml-auto' : ''}`}>
                   {phase.items.map((item) => (
-                    <li key={item} className={`text-xs text-slate-500 flex items-center gap-2 ${isEven ? 'md:justify-end' : ''}`}>
-                      <div className={`w-1.5 h-1.5 rounded-full ${phase.status === 'complete' ? 'bg-emerald-400' : phase.status === 'in-progress' ? 'bg-purple-400' : 'bg-slate-600'}`} />
+                    <li key={item} className={`text-xs text-brand-platinum-600 flex items-center gap-2 ${isEven ? 'md:justify-end' : ''}`}>
+                      <div className={`w-1.5 h-1.5 rounded-full ${phase.status === 'complete' ? 'bg-brand-emerald-400' : phase.status === 'in-progress' ? 'bg-brand-purple-400' : 'bg-brand-platinum-700'}`} />
                       {item}
                     </li>
                   ))}

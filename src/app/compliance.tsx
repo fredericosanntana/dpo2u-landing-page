@@ -9,13 +9,13 @@ import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 export default function CompliancePage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
       <Header />
 
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-slate-900 via-slate-900 to-brand-sapphire-950"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-sapphire-950"></div>
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-sapphire-600/20 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand-emerald-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }}></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/grid.svg')] opacity-[0.03]"></div>
@@ -49,7 +49,7 @@ export default function CompliancePage() {
               variants={fadeInUp}
               initial="initial"
               animate="animate"
-              className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto font-light leading-relaxed"
+              className="text-xl md:text-2xl text-brand-platinum-400 mb-12 max-w-3xl mx-auto font-light leading-relaxed"
             >
               Ditch the spreadsheets. Our AI agents analyze 32 control points and generate
               all legal and technical documentation in minutes. Compliance scores verifiable
@@ -85,7 +85,7 @@ export default function CompliancePage() {
               variants={fadeInUp}
               initial="initial"
               animate="animate"
-              className="mt-8 text-sm text-slate-500 font-medium"
+              className="mt-8 text-sm text-brand-platinum-600 font-medium"
             >
               <span className="text-brand-emerald-400">&check;</span> No credit card required &nbsp;
               <span className="text-brand-emerald-400">&check;</span> Instant results &nbsp;
@@ -96,15 +96,15 @@ export default function CompliancePage() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-24 relative bg-slate-950">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+      <section className="py-24 relative bg-brand-chrome-900">
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-chrome-900"></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 text-white leading-tight">
               The Most Complete <span className="text-brand-emerald-400">Compliance Kit</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-2xl mx-auto">
               AI analyzes 32 control points and generates legally valid, customized documents
               with optional ZK on-chain verification.
             </p>
@@ -163,7 +163,7 @@ export default function CompliancePage() {
                   <h3 className="text-2xl font-serif font-bold mb-3 text-white group-hover:text-brand-emerald-300 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-slate-400 group-hover:text-slate-300 leading-relaxed">{item.desc}</p>
+                  <p className="text-brand-platinum-500 group-hover:text-brand-platinum-400 leading-relaxed">{item.desc}</p>
                 </Card>
               </motion.div>
             ))}
@@ -172,7 +172,7 @@ export default function CompliancePage() {
       </section>
 
       {/* How it works */}
-      <section className="py-24 bg-slate-900 border-t border-white/5">
+      <section className="py-24 bg-brand-chrome-900 border-t border-white/5">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -181,7 +181,7 @@ export default function CompliancePage() {
               </div>
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8 text-white leading-tight">
                 From Zero to Compliant <br />
-                <span className="text-slate-500">in 3 Steps</span>
+                <span className="text-brand-platinum-600">in 3 Steps</span>
               </h2>
               <div className="space-y-10">
                 {[
@@ -190,12 +190,12 @@ export default function CompliancePage() {
                   { step: '03', title: 'Instant Delivery', desc: 'Receive your complete compliance kit — editable, legally valid, and ready to implement.' },
                 ].map((step, idx) => (
                   <div key={idx} className="flex gap-6 group">
-                    <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-serif font-bold text-slate-600 group-hover:text-brand-emerald-400 group-hover:border-brand-emerald-500/30 transition-all">
+                    <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-serif font-bold text-brand-platinum-700 group-hover:text-brand-emerald-400 group-hover:border-brand-emerald-500/30 transition-all">
                       {step.step}
                     </div>
                     <div>
                       <h3 className="text-xl font-bold mb-2 text-white group-hover:text-brand-emerald-300 transition-colors">{step.title}</h3>
-                      <p className="text-slate-400 group-hover:text-slate-300">{step.desc}</p>
+                      <p className="text-brand-platinum-500 group-hover:text-brand-platinum-400">{step.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -203,13 +203,13 @@ export default function CompliancePage() {
             </div>
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-brand-emerald-500 to-brand-sapphire-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <div className="relative aspect-square md:aspect-video bg-slate-950 rounded-2xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center">
+              <div className="relative aspect-square md:aspect-video bg-brand-chrome-900 rounded-2xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center">
                 <div className="text-center p-8">
                   <div className="w-24 h-24 mx-auto bg-brand-emerald-500/10 rounded-full flex items-center justify-center mb-4 animate-pulse">
                     <Lock className="h-10 w-10 text-brand-emerald-400" />
                   </div>
-                  <p className="text-slate-300 font-serif text-lg">Generating Documents...</p>
-                  <div className="w-48 h-1 bg-slate-800 rounded-full mx-auto mt-4 overflow-hidden">
+                  <p className="text-brand-platinum-400 font-serif text-lg">Generating Documents...</p>
+                  <div className="w-48 h-1 bg-brand-chrome-800 rounded-full mx-auto mt-4 overflow-hidden">
                     <div className="h-full bg-brand-emerald-500 w-2/3 animate-[shimmer_2s_infinite]"></div>
                   </div>
                 </div>
@@ -228,13 +228,13 @@ export default function CompliancePage() {
           <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-8">
             Protect Your Business Today
           </h2>
-          <p className="text-slate-300 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-brand-platinum-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
             Join modern companies that chose DPO2U's automated compliance —
             with ZK proofs that make your compliance status verifiable on-chain.
           </p>
           <Button
             size="xl"
-            className="bg-white text-brand-sapphire-900 hover:bg-slate-100 font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
+            className="bg-white text-brand-sapphire-900 hover:bg-brand-platinum-200 font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
             onClick={() => window.location.href = '/analise'}
           >
             Start Compliance Assessment

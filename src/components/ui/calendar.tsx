@@ -264,7 +264,7 @@ const getEventColor = (type: CalendarEvent['type']) => {
     case 'call':
       return 'bg-brand-emerald-500';
     case 'consultation':
-      return 'bg-purple-500';
+      return 'bg-brand-purple-500';
     case 'training':
       return 'bg-brand-sapphire-500';
     case 'deadline':

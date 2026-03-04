@@ -190,7 +190,7 @@ const MetricsTable: React.FC<MetricsTableProps> = ({
   const getTrendIcon = (trend: 'up' | 'down' | 'stable') => {
     switch (trend) {
       case 'up':
-        return <TrendingUp className="h-4 w-4 text-brand-green-500" />;
+        return <TrendingUp className="h-4 w-4 text-brand-emerald-500" />;
       case 'down':
         return <TrendingDown className="h-4 w-4 text-red-500" />;
       default:
@@ -201,7 +201,7 @@ const MetricsTable: React.FC<MetricsTableProps> = ({
   const getStatusColor = (status: 'success' | 'warning' | 'danger') => {
     switch (status) {
       case 'success':
-        return 'text-brand-green-600 font-semibold';
+        return 'text-brand-emerald-600 font-semibold';
       case 'warning':
         return 'text-brand-emerald-600 font-semibold';
       case 'danger':
@@ -266,7 +266,7 @@ const MetricsTable: React.FC<MetricsTableProps> = ({
                     {row.change !== undefined && (
                       <span className={`text-sm font-medium ${
                         row.change > 0 
-                          ? 'text-brand-green-600' 
+                          ? 'text-brand-emerald-600' 
                           : row.change < 0 
                             ? 'text-red-600' 
                             : 'text-brand-gray-500'

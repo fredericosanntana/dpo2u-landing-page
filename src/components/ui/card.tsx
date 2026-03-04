@@ -12,7 +12,7 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
   
   const cardVariants = {
     default: "bg-card text-card-foreground border shadow-sm",
-    elevated: "bg-white shadow-card hover:shadow-card-hover border border-gray-200",
+    elevated: "bg-white shadow-card hover:shadow-card-hover border border-brand-gray-200",
     outlined: "bg-transparent border-2 border-brand-gray-200",
     brand: "bg-gradient-card border border-brand-gray-100 shadow-brand",
     premium: "bg-gradient-to-br from-white/95 to-brand-platinum-50/80 border border-brand-sapphire-200/30 shadow-xl backdrop-blur-sm",
@@ -80,8 +80,8 @@ const CardDescription = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
 }>(({ className, variant = 'default', ...props }, ref) => {
   const descriptionVariants = {
     default: "text-sm text-muted-foreground",
-    muted: "text-sm text-slate-500 leading-relaxed",
-    brand: "text-base text-gray-600 leading-relaxed font-light"
+    muted: "text-sm text-brand-platinum-600 leading-relaxed",
+    brand: "text-base text-brand-gray-600 leading-relaxed font-light"
   };
 
   return (
@@ -155,7 +155,7 @@ const ServiceCard = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
           {features.map((feature, idx) => (
             <div key={idx} className="flex items-start space-x-3">
               <div className={`w-2 h-2 bg-gradient-to-br ${gradient || 'from-brand-sapphire-500 to-brand-emerald-500'} rounded-full mt-2 flex-shrink-0`} />
-              <span className="text-sm text-gray-700">{feature}</span>
+              <span className="text-sm text-brand-gray-700">{feature}</span>
             </div>
           ))}
         </div>

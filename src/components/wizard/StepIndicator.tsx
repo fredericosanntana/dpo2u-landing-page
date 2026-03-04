@@ -50,8 +50,8 @@ export default function StepIndicator({
                             <div className={clsx(
                                 "font-medium transition-colors",
                                 isVertical ? "text-left text-sm" : "text-center text-xs sm:text-sm px-2",
-                                step === currentStep ? "text-primary font-bold" : "text-gray-500",
-                                step < currentStep && "text-gray-700 dark:text-gray-300"
+                                step === currentStep ? "text-primary font-bold" : "text-brand-gray-500",
+                                step < currentStep && "text-brand-gray-700 dark:text-brand-gray-300"
                             )}>
                                 {stepTitles[index]}
                             </div>
@@ -60,7 +60,7 @@ export default function StepIndicator({
                             {isVertical && index < totalSteps - 1 && (
                                 <div className={clsx(
                                     "absolute top-10 left-5 w-0.5 h-[calc(100%-10px)] -translate-x-1/2",
-                                    step < currentStep ? "bg-primary" : "bg-gray-200 dark:bg-gray-700"
+                                    step < currentStep ? "bg-primary" : "bg-brand-gray-200 dark:bg-brand-gray-700"
                                 )}></div>
                             )}
                         </div>

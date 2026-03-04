@@ -57,11 +57,11 @@ export default function ERC8004Page() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
       <Header />
 
       {/* Hero Section */}
-      <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-brand-sapphire-950">
+      <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-sapphire-950">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand-sapphire-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }}></div>
@@ -90,7 +90,7 @@ export default function ERC8004Page() {
 
             <motion.p
               variants={fadeInUp}
-              className="text-xl md:text-2xl mb-12 text-slate-300 leading-relaxed font-light"
+              className="text-xl md:text-2xl mb-12 text-brand-platinum-400 leading-relaxed font-light"
             >
               A revolutionary Ethereum standard enabling AI agents to operate with{' '}
               <span className="text-amber-400 font-medium">complete financial autonomy</span>.
@@ -117,7 +117,7 @@ export default function ERC8004Page() {
               </Button>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="mt-12 flex flex-wrap justify-center gap-8 text-sm text-slate-400">
+            <motion.div variants={fadeInUp} className="mt-12 flex flex-wrap justify-center gap-8 text-sm text-brand-platinum-500">
               {[
                 'Base Chain Mainnet',
                 '70+ Tests Passing',
@@ -125,7 +125,7 @@ export default function ERC8004Page() {
                 'Audited',
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-emerald-400" />
+                  <Check className="h-4 w-4 text-brand-emerald-400" />
                   {item}
                 </div>
               ))}
@@ -135,53 +135,53 @@ export default function ERC8004Page() {
       </AnimatedSection>
 
       {/* Architecture Section */}
-      <AnimatedSection className="section-padding bg-slate-900 text-white">
+      <AnimatedSection className="section-padding bg-brand-chrome-900 text-white">
         <div className="container mx-auto container-padding">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
               <span className="text-amber-400">ERC-8004</span> Architecture
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               Four interconnected smart contracts that bring autonomous agents to life.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-4 gap-6 items-center">
-            <Card className="bg-slate-800 border-slate-700 p-6 text-center">
+            <Card className="bg-brand-chrome-800 border-brand-platinum-800 p-6 text-center">
               <div className="w-16 h-16 bg-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Wallet className="h-8 w-8 text-amber-400" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-white">Treasury</h3>
-              <p className="text-slate-400 text-xs">Manages agent funds with multi-sig and security controls</p>
+              <p className="text-brand-platinum-500 text-xs">Manages agent funds with multi-sig and security controls</p>
             </Card>
 
-            <Card className="bg-slate-800 border-brand-sapphire-500/50 p-6 text-center ring-2 ring-brand-sapphire-500/20">
+            <Card className="bg-brand-chrome-800 border-brand-sapphire-500/50 p-6 text-center ring-2 ring-brand-sapphire-500/20">
               <div className="w-16 h-16 bg-brand-sapphire-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Coins className="h-8 w-8 text-brand-sapphire-400" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-white">DPO2UToken</h3>
-              <p className="text-slate-400 text-xs">Native ERC-20 token with integrated governance</p>
+              <p className="text-brand-platinum-500 text-xs">Native ERC-20 token with integrated governance</p>
             </Card>
 
-            <Card className="bg-slate-800 border-slate-700 p-6 text-center">
-              <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Network className="h-8 w-8 text-emerald-400" />
+            <Card className="bg-brand-chrome-800 border-brand-platinum-800 p-6 text-center">
+              <div className="w-16 h-16 bg-brand-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Network className="h-8 w-8 text-brand-emerald-400" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-white">AgentRegistry</h3>
-              <p className="text-slate-400 text-xs">Decentralized agent registry with profiles and metadata</p>
+              <p className="text-brand-platinum-500 text-xs">Decentralized agent registry with profiles and metadata</p>
             </Card>
 
-            <Card className="bg-slate-800 border-slate-700 p-6 text-center">
-              <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="h-8 w-8 text-purple-400" />
+            <Card className="bg-brand-chrome-800 border-brand-platinum-800 p-6 text-center">
+              <div className="w-16 h-16 bg-brand-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Zap className="h-8 w-8 text-brand-purple-400" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-white">SwapExecutor</h3>
-              <p className="text-slate-400 text-xs">Executes automatic swaps via Uniswap V3 for self-funding</p>
+              <p className="text-brand-platinum-500 text-xs">Executes automatic swaps via Uniswap V3 for self-funding</p>
             </Card>
           </div>
 
           {/* Flow Diagram */}
-          <div className="mt-16 bg-slate-950 rounded-xl p-8 border border-slate-800">
+          <div className="mt-16 bg-brand-chrome-900 rounded-xl p-8 border border-brand-chrome-800">
             <h3 className="text-center text-xl font-bold mb-8 text-amber-400">Self-Funding Flow</h3>
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
               {[
@@ -194,15 +194,15 @@ export default function ERC8004Page() {
                 <React.Fragment key={step.label}>
                   {idx > 0 && (
                     <>
-                      <ArrowRight className="h-6 w-6 text-slate-600 hidden md:block" />
-                      <ArrowRight className="h-6 w-6 text-slate-600 md:hidden rotate-90" />
+                      <ArrowRight className="h-6 w-6 text-brand-platinum-700 hidden md:block" />
+                      <ArrowRight className="h-6 w-6 text-brand-platinum-700 md:hidden rotate-90" />
                     </>
                   )}
                   <div className="flex flex-col items-center gap-2">
                     <div className={`w-12 h-12 bg-${step.color}-500/20 rounded-full flex items-center justify-center`}>
                       <step.icon className={`h-6 w-6 text-${step.color}-400`} />
                     </div>
-                    <span className="text-sm text-slate-300">{step.label}</span>
+                    <span className="text-sm text-brand-platinum-400">{step.label}</span>
                   </div>
                 </React.Fragment>
               ))}
@@ -212,13 +212,13 @@ export default function ERC8004Page() {
       </AnimatedSection>
 
       {/* Features Grid */}
-      <AnimatedSection className="section-padding bg-slate-950">
+      <AnimatedSection className="section-padding bg-brand-chrome-900">
         <div className="container mx-auto container-padding">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
               Pioneering <span className="text-amber-400">Features</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               Exclusive capabilities that define the new standard for autonomous agents.
             </p>
           </div>
@@ -263,12 +263,12 @@ export default function ERC8004Page() {
               },
             ].map((feature, idx) => (
               <motion.div key={idx} variants={fadeInUp}>
-                <Card className="h-full p-6 hover:shadow-lg transition-all bg-slate-900 border-slate-800 hover:border-amber-500/30">
+                <Card className="h-full p-6 hover:shadow-lg transition-all bg-brand-chrome-900 border-brand-chrome-800 hover:border-amber-500/30">
                   <div className="flex items-start justify-between mb-4">
                     <h3 className="text-lg font-bold text-white">{feature.title}</h3>
                     <feature.icon className={`h-5 w-5 text-${feature.color}-400`} />
                   </div>
-                  <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+                  <p className="text-brand-platinum-500 text-sm leading-relaxed">{feature.desc}</p>
                 </Card>
               </motion.div>
             ))}
@@ -277,22 +277,22 @@ export default function ERC8004Page() {
       </AnimatedSection>
 
       {/* ZK Compliance Dashboard */}
-      <AnimatedSection className="section-padding bg-slate-900 border-t border-b border-slate-800">
+      <AnimatedSection className="section-padding bg-brand-chrome-900 border-t border-b border-brand-chrome-800">
         <div className="container mx-auto container-padding">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
               <span className="text-brand-sapphire-400">Zero-Knowledge</span> On-Chain Verification
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               The ERC-8004 Agent attests and queries compliance without exposing PII,
               validating proofs directly from the Midnight Ledger while operating on Base Chain.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <Card className="bg-slate-950 border-brand-sapphire-500/30 overflow-hidden shadow-2xl relative">
+            <Card className="bg-brand-chrome-900 border-brand-sapphire-500/30 overflow-hidden shadow-2xl relative">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-sapphire-600/10 blur-[80px] rounded-full pointer-events-none"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-600/10 blur-[80px] rounded-full pointer-events-none"></div>
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-emerald-600/10 blur-[80px] rounded-full pointer-events-none"></div>
 
               <div className="p-8 relative z-10">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
@@ -301,7 +301,7 @@ export default function ERC8004Page() {
                       <Fingerprint className="h-6 w-6 text-brand-sapphire-400 mr-2" />
                       ZK-SNARK Payload Generator
                     </h3>
-                    <p className="text-slate-400 text-sm">Circuit: getComplianceStatus.zkir (k=9, rows=305)<br />Type: Halo2</p>
+                    <p className="text-brand-platinum-500 text-sm">Circuit: getComplianceStatus.zkir (k=9, rows=305)<br />Type: Halo2</p>
                   </div>
                   <Button
                     onClick={runZKSimulation}
@@ -314,44 +314,44 @@ export default function ERC8004Page() {
                   </Button>
                 </div>
 
-                <div className="bg-slate-900 rounded-lg p-6 font-mono text-sm border border-slate-800 min-h-[180px] flex flex-col justify-center">
+                <div className="bg-brand-chrome-900 rounded-lg p-6 font-mono text-sm border border-brand-chrome-800 min-h-[180px] flex flex-col justify-center">
                   {zkStatus === 'idle' && (
-                    <div className="text-slate-500 text-center flex flex-col items-center">
+                    <div className="text-brand-platinum-600 text-center flex flex-col items-center">
                       <Shield className="h-12 w-12 mb-4 opacity-20" />
                       <span>No proof submitted. Click to compile.</span>
                     </div>
                   )}
                   {zkStatus === 'generating' && (
-                    <div className="space-y-3 text-slate-300">
+                    <div className="space-y-3 text-brand-platinum-400">
                       <p className="text-amber-400">🔄 [Agent Auditor] Analyzing rules dpo2u/lgpd/v1...</p>
                       <p className="animate-pulse">Compiling public parameters (score, agent_did)...</p>
-                      <p className="text-emerald-400 mt-2">↳ Generating Commitment Hash from IPFS Document.</p>
+                      <p className="text-brand-emerald-400 mt-2">↳ Generating Commitment Hash from IPFS Document.</p>
                     </div>
                   )}
                   {zkStatus === 'broadcasting' && (
-                    <div className="space-y-3 text-slate-300">
-                      <p className="text-emerald-400">✅ Proof generated locally in 8ms</p>
+                    <div className="space-y-3 text-brand-platinum-400">
+                      <p className="text-brand-emerald-400">✅ Proof generated locally in 8ms</p>
                       <p className="text-brand-sapphire-400">📡 Broadcasting halo2 SNARK via Midnight Network RPC...</p>
-                      <p className="animate-pulse text-slate-400">Waiting for Ledger confirmation (Compact v0.29)...</p>
+                      <p className="animate-pulse text-brand-platinum-500">Waiting for Ledger confirmation (Compact v0.29)...</p>
                     </div>
                   )}
                   {zkStatus === 'verified' && zkData && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
-                      <div className="flex items-center text-emerald-400 font-bold text-lg mb-2">
+                      <div className="flex items-center text-brand-emerald-400 font-bold text-lg mb-2">
                         <Check className="h-6 w-6 mr-2" />
                         MIDNIGHT INTEGRATION TEST (PHASE 2) PASSED!
                       </div>
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-slate-800/50 p-3 rounded">
-                          <span className="text-slate-500 block text-xs mb-1">On-Chain Status</span>
+                        <div className="bg-brand-chrome-800/50 p-3 rounded">
+                          <span className="text-brand-platinum-600 block text-xs mb-1">On-Chain Status</span>
                           <span className="text-white text-lg">Compliant (Score: {zkData.score})</span>
                         </div>
-                        <div className="bg-slate-800/50 p-3 rounded overflow-hidden">
-                          <span className="text-slate-500 block text-xs mb-1">Doc CID (Lighthouse)</span>
+                        <div className="bg-brand-chrome-800/50 p-3 rounded overflow-hidden">
+                          <span className="text-brand-platinum-600 block text-xs mb-1">Doc CID (Lighthouse)</span>
                           <span className="text-brand-sapphire-300 text-xs break-all">{zkData.cid}</span>
                         </div>
-                        <div className="bg-slate-800/50 p-3 rounded col-span-2 overflow-hidden">
-                          <span className="text-slate-500 block text-xs mb-1">Proof URL Payload</span>
+                        <div className="bg-brand-chrome-800/50 p-3 rounded col-span-2 overflow-hidden">
+                          <span className="text-brand-platinum-600 block text-xs mb-1">Proof URL Payload</span>
                           <span className="text-amber-300/80 text-xs break-all">midnight://attestation/{zkData.proofHash}</span>
                         </div>
                       </div>
@@ -365,14 +365,14 @@ export default function ERC8004Page() {
       </AnimatedSection>
 
       {/* Technical Specs */}
-      <AnimatedSection className="section-padding bg-slate-900 text-white">
+      <AnimatedSection className="section-padding bg-brand-chrome-900 text-white">
         <div className="container mx-auto container-padding">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
                 Technical <span className="text-amber-400">Specifications</span>
               </h2>
-              <p className="text-lg text-slate-300 mb-8">
+              <p className="text-lg text-brand-platinum-400 mb-8">
                 Built with security and performance best practices for Mainnet deployment.
               </p>
 
@@ -385,8 +385,8 @@ export default function ERC8004Page() {
                   { label: 'Network', value: 'Base Chain (L2)' },
                   { label: 'Test Coverage', value: '70+ Test Cases' },
                 ].map((spec, idx) => (
-                  <div key={idx} className="flex items-center justify-between py-3 border-b border-slate-800">
-                    <span className="text-slate-400">{spec.label}</span>
+                  <div key={idx} className="flex items-center justify-between py-3 border-b border-brand-chrome-800">
+                    <span className="text-brand-platinum-500">{spec.label}</span>
                     <span className="text-amber-400 font-mono font-semibold">{spec.value}</span>
                   </div>
                 ))}
@@ -403,14 +403,14 @@ export default function ERC8004Page() {
               </Button>
             </div>
 
-            <div className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
-              <div className="flex items-center px-4 py-2 bg-slate-900 border-b border-slate-800">
+            <div className="bg-brand-chrome-900 rounded-xl overflow-hidden border border-brand-chrome-800 shadow-2xl">
+              <div className="flex items-center px-4 py-2 bg-brand-chrome-900 border-b border-brand-chrome-800">
                 <div className="flex space-x-2">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-brand-emerald-500"></div>
                 </div>
-                <span className="ml-4 text-xs text-slate-500 font-mono">ERC8004Agent.sol</span>
+                <span className="ml-4 text-xs text-brand-platinum-600 font-mono">ERC8004Agent.sol</span>
               </div>
               <div className="p-6 overflow-x-auto">
                 <pre className="text-xs md:text-sm font-mono text-amber-400 pointer-events-none select-none">
@@ -446,13 +446,13 @@ contract DPO2UToken is ERC20, AccessControl {
       </AnimatedSection>
 
       {/* Base Chain Integration */}
-      <AnimatedSection className="section-padding bg-slate-950">
+      <AnimatedSection className="section-padding bg-brand-chrome-900">
         <div className="container mx-auto container-padding">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
-              <span className="text-blue-400">Base Chain</span> Integration
+              <span className="text-brand-sapphire-400">Base Chain</span> Integration
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               Deployed on Base Chain to leverage low fees and high performance.
             </p>
           </div>
@@ -464,15 +464,15 @@ contract DPO2UToken is ERC20, AccessControl {
               { title: 'SwapRouter', address: '0x2626664c2603336E57B271c5C0b26F421741e481', desc: 'Uniswap V3 SwapRouter', icon: Network },
             ].map((contract, idx) => (
               <motion.div key={idx} variants={fadeInUp}>
-                <Card className="h-full p-6 bg-slate-900 border-slate-800">
+                <Card className="h-full p-6 bg-brand-chrome-900 border-brand-chrome-800">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                      <contract.icon className="h-5 w-5 text-blue-400" />
+                    <div className="w-10 h-10 bg-brand-sapphire-500/20 rounded-lg flex items-center justify-center">
+                      <contract.icon className="h-5 w-5 text-brand-sapphire-400" />
                     </div>
                     <h3 className="font-bold text-white">{contract.title}</h3>
                   </div>
-                  <p className="font-mono text-xs text-slate-500 mb-2 break-all">{contract.address}</p>
-                  <p className="text-sm text-slate-400">{contract.desc}</p>
+                  <p className="font-mono text-xs text-brand-platinum-600 mb-2 break-all">{contract.address}</p>
+                  <p className="text-sm text-brand-platinum-500">{contract.desc}</p>
                 </Card>
               </motion.div>
             ))}
@@ -481,7 +481,7 @@ contract DPO2UToken is ERC20, AccessControl {
       </AnimatedSection>
 
       {/* FAQ */}
-      <AnimatedSection className="section-padding bg-slate-900">
+      <AnimatedSection className="section-padding bg-brand-chrome-900">
         <div className="container mx-auto container-padding">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-white text-center mb-12">
             Frequently Asked <span className="text-amber-400">Questions</span>
@@ -491,12 +491,12 @@ contract DPO2UToken is ERC20, AccessControl {
       </AnimatedSection>
 
       {/* CTA Final */}
-      <AnimatedSection className="py-24 bg-gradient-to-r from-amber-900/30 via-slate-900 to-brand-sapphire-900/30 text-center">
+      <AnimatedSection className="py-24 bg-gradient-to-r from-amber-900/30 via-brand-chrome-900 to-brand-sapphire-900/30 text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-8">
             Build the Future of Autonomous Agents
           </h2>
-          <p className="text-lg text-slate-300 mb-12 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-platinum-400 mb-12 max-w-2xl mx-auto">
             Join the ERC-8004 revolution and create agents that operate with complete financial autonomy.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">

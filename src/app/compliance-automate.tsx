@@ -30,13 +30,13 @@ const AnimatedSection: React.FC<{
 
 export default function ComplianceAutomatePage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
       <Header />
 
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-slate-900 via-slate-900 to-brand-sapphire-950"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-sapphire-950"></div>
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-emerald-600/20 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand-sapphire-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }}></div>
         </div>
@@ -49,7 +49,7 @@ export default function ComplianceAutomatePage() {
               animate="animate"
               className="inline-flex items-center px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-4 backdrop-blur-md"
             >
-              <span className="text-xs font-mono text-slate-400 mr-2">01</span>
+              <span className="text-xs font-mono text-brand-platinum-500 mr-2">01</span>
               <Shield className="h-4 w-4 text-brand-emerald-400 mr-2" />
               <span className="text-sm font-semibold text-brand-emerald-300 tracking-wide uppercase">Compliance Engine</span>
             </motion.div>
@@ -70,7 +70,7 @@ export default function ComplianceAutomatePage() {
               variants={fadeInUp}
               initial="initial"
               animate="animate"
-              className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto font-light leading-relaxed"
+              className="text-xl md:text-2xl text-brand-platinum-400 mb-12 max-w-3xl mx-auto font-light leading-relaxed"
             >
               AI agents analyze <span className="text-brand-emerald-400 font-medium">32 control points</span> and generate
               all legal and technical documentation — policies, DPIAs, audit checklists —
@@ -106,7 +106,7 @@ export default function ComplianceAutomatePage() {
               variants={fadeInUp}
               initial="initial"
               animate="animate"
-              className="mt-8 text-sm text-slate-500 font-medium"
+              className="mt-8 text-sm text-brand-platinum-600 font-medium"
             >
               <span className="text-brand-emerald-400">&check;</span> No credit card required &nbsp;
               <span className="text-brand-emerald-400">&check;</span> Instant results &nbsp;
@@ -117,15 +117,15 @@ export default function ComplianceAutomatePage() {
       </section>
 
       {/* Output Artifacts */}
-      <section className="py-24 relative bg-slate-950">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+      <section className="py-24 relative bg-brand-chrome-900">
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-chrome-900"></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 text-white leading-tight">
               What the Engine <span className="text-brand-emerald-400">Generates</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-2xl mx-auto">
               AI analyzes 32 control points and produces legally valid, customized documents
               stored on IPFS with content-addressable CIDs.
             </p>
@@ -144,27 +144,27 @@ export default function ComplianceAutomatePage() {
                 title: 'Privacy Policy',
                 desc: 'Custom-generated with specific clauses for your sector, data collection type, and legal basis.',
                 output: 'policy.json → IPFS CID',
-                bgClass: 'bg-blue-500/10',
-                borderClass: 'border-blue-500/20',
-                textClass: 'text-blue-400',
+                bgClass: 'bg-brand-sapphire-500/10',
+                borderClass: 'border-brand-sapphire-500/20',
+                textClass: 'text-brand-sapphire-400',
               },
               {
                 icon: Lock,
                 title: 'Terms of Use',
                 desc: 'Clear usage rules protecting intellectual property and outlining responsibilities.',
                 output: 'terms.json → IPFS CID',
-                bgClass: 'bg-emerald-500/10',
-                borderClass: 'border-emerald-500/20',
-                textClass: 'text-emerald-400',
+                bgClass: 'bg-brand-emerald-500/10',
+                borderClass: 'border-brand-emerald-500/20',
+                textClass: 'text-brand-emerald-400',
               },
               {
                 icon: Activity,
                 title: 'DPIA Report',
                 desc: 'Complete Data Protection Impact Assessment for high-risk data processing activities.',
                 output: 'dpia.json → IPFS CID',
-                bgClass: 'bg-purple-500/10',
-                borderClass: 'border-purple-500/20',
-                textClass: 'text-purple-400',
+                bgClass: 'bg-brand-purple-500/10',
+                borderClass: 'border-brand-purple-500/20',
+                textClass: 'text-brand-purple-400',
               },
               {
                 icon: Shield,
@@ -202,7 +202,7 @@ export default function ComplianceAutomatePage() {
                   <h3 className="text-2xl font-serif font-bold mb-3 text-white group-hover:text-brand-emerald-300 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-slate-400 group-hover:text-slate-300 leading-relaxed mb-3">{item.desc}</p>
+                  <p className="text-brand-platinum-500 group-hover:text-brand-platinum-400 leading-relaxed mb-3">{item.desc}</p>
                   <p className="text-xs font-mono text-brand-emerald-400/70">{item.output}</p>
                 </Card>
               </motion.div>
@@ -212,7 +212,7 @@ export default function ComplianceAutomatePage() {
       </section>
 
       {/* How it works */}
-      <section className="py-24 bg-slate-900 border-t border-white/5">
+      <section className="py-24 bg-brand-chrome-900 border-t border-white/5">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -221,7 +221,7 @@ export default function ComplianceAutomatePage() {
               </div>
               <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8 text-white leading-tight">
                 From Zero to Compliant <br />
-                <span className="text-slate-500">in 3 Steps</span>
+                <span className="text-brand-platinum-600">in 3 Steps</span>
               </h2>
               <div className="space-y-10">
                 {[
@@ -230,12 +230,12 @@ export default function ComplianceAutomatePage() {
                   { step: '03', title: 'Instant Delivery', desc: 'Receive your complete compliance kit — all documents stored on IPFS with content-addressable CIDs.' },
                 ].map((step, idx) => (
                   <div key={idx} className="flex gap-6 group">
-                    <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-serif font-bold text-slate-600 group-hover:text-brand-emerald-400 group-hover:border-brand-emerald-500/30 transition-all">
+                    <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-serif font-bold text-brand-platinum-700 group-hover:text-brand-emerald-400 group-hover:border-brand-emerald-500/30 transition-all">
                       {step.step}
                     </div>
                     <div>
                       <h3 className="text-xl font-bold mb-2 text-white group-hover:text-brand-emerald-300 transition-colors">{step.title}</h3>
-                      <p className="text-slate-400 group-hover:text-slate-300">{step.desc}</p>
+                      <p className="text-brand-platinum-500 group-hover:text-brand-platinum-400">{step.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -244,18 +244,18 @@ export default function ComplianceAutomatePage() {
 
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-brand-emerald-500 to-brand-sapphire-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-              <div className="relative bg-slate-950 rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-8">
+              <div className="relative bg-brand-chrome-900 rounded-2xl border border-white/10 overflow-hidden shadow-2xl p-8">
                 <div className="space-y-4 font-mono text-sm">
-                  <div className="text-emerald-400">{">"} Processing company data...</div>
-                  <div className="text-slate-400">Analyzing 32 control points</div>
-                  <div className="text-slate-400">Cross-referencing LGPD Art. 7-11</div>
-                  <div className="text-blue-400">Generating privacy_policy.json</div>
-                  <div className="text-blue-400">Generating dpia_report.json</div>
-                  <div className="text-blue-400">Generating security_policy.json</div>
-                  <div className="text-purple-400">Uploading to IPFS/Lighthouse...</div>
-                  <div className="text-emerald-400">CID: bafybeig...k2mq</div>
+                  <div className="text-brand-emerald-400">{">"} Processing company data...</div>
+                  <div className="text-brand-platinum-500">Analyzing 32 control points</div>
+                  <div className="text-brand-platinum-500">Cross-referencing LGPD Art. 7-11</div>
+                  <div className="text-brand-sapphire-400">Generating privacy_policy.json</div>
+                  <div className="text-brand-sapphire-400">Generating dpia_report.json</div>
+                  <div className="text-brand-sapphire-400">Generating security_policy.json</div>
+                  <div className="text-brand-purple-400">Uploading to IPFS/Lighthouse...</div>
+                  <div className="text-brand-emerald-400">CID: bafybeig...k2mq</div>
                   <div className="text-amber-400">Score: 87/100 — Ready for ZK proof</div>
-                  <div className="mt-4 text-emerald-400 font-bold">
+                  <div className="mt-4 text-brand-emerald-400 font-bold">
                     ✓ Compliance kit ready. Next → AI Brain (MCP)
                   </div>
                 </div>
@@ -266,18 +266,18 @@ export default function ComplianceAutomatePage() {
       </section>
 
       {/* Where it fits in the flow */}
-      <AnimatedSection className="py-20 bg-slate-950 border-t border-white/5">
+      <AnimatedSection className="py-20 bg-brand-chrome-900 border-t border-white/5">
         <div className="container mx-auto px-4">
           <motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-3xl font-serif font-bold text-white mb-4">
               Product <span className="text-brand-emerald-400">01</span> in the Pipeline
             </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
+            <p className="text-brand-platinum-500 max-w-2xl mx-auto">
               The Compliance Engine is the entry point. Documents flow to the AI Brain for programmatic processing.
             </p>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="max-w-3xl mx-auto bg-slate-900 rounded-xl p-6 border border-slate-800">
+          <motion.div variants={fadeInUp} className="max-w-3xl mx-auto bg-brand-chrome-900 rounded-xl p-6 border border-brand-chrome-800">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
               {[
                 { label: 'Compliance Engine', active: true, icon: FileText },
@@ -286,16 +286,16 @@ export default function ComplianceAutomatePage() {
                 { label: 'Agents', active: false, icon: Database },
               ].map((step, idx) => (
                 <React.Fragment key={step.label}>
-                  {idx > 0 && <ArrowRight className="h-5 w-5 text-slate-600 hidden md:block flex-shrink-0" />}
+                  {idx > 0 && <ArrowRight className="h-5 w-5 text-brand-platinum-700 hidden md:block flex-shrink-0" />}
                   <div className="flex flex-col items-center gap-2">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${
                       step.active
                         ? 'bg-brand-emerald-500/20 border-brand-emerald-500/50'
-                        : 'bg-slate-800 border-slate-700'
+                        : 'bg-brand-chrome-800 border-brand-platinum-800'
                     }`}>
-                      <step.icon className={`h-6 w-6 ${step.active ? 'text-brand-emerald-400' : 'text-slate-500'}`} />
+                      <step.icon className={`h-6 w-6 ${step.active ? 'text-brand-emerald-400' : 'text-brand-platinum-600'}`} />
                     </div>
-                    <span className={`text-sm font-medium ${step.active ? 'text-brand-emerald-400' : 'text-slate-500'}`}>
+                    <span className={`text-sm font-medium ${step.active ? 'text-brand-emerald-400' : 'text-brand-platinum-600'}`}>
                       {step.label}
                     </span>
                   </div>
@@ -315,14 +315,14 @@ export default function ComplianceAutomatePage() {
           <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-8">
             Protect Your Business Today
           </h2>
-          <p className="text-slate-300 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-brand-platinum-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
             Start with a free diagnostic and get your compliance kit in minutes.
             Next step: connect it to the AI Brain for programmatic verification.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="xl"
-              className="bg-white text-brand-sapphire-900 hover:bg-slate-100 font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
+              className="bg-white text-brand-sapphire-900 hover:bg-brand-platinum-200 font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
               onClick={() => window.location.href = '/analise'}
             >
               Start Compliance Assessment

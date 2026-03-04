@@ -143,19 +143,19 @@ const StatItem: React.FC<StatItemProps> = ({
 }) => {
   const colorClasses = {
     blue: {
-      bg: 'bg-gradient-to-br from-brand-sapphire-50 to-blue-50',
+      bg: 'bg-gradient-to-br from-brand-sapphire-50 to-brand-sapphire-50',
       icon: 'text-brand-sapphire-600',
       counter: 'text-brand-sapphire-700'
     },
     green: {
-      bg: 'bg-gradient-to-br from-brand-emerald-50 to-green-50',
+      bg: 'bg-gradient-to-br from-brand-emerald-50 to-brand-emerald-50',
       icon: 'text-brand-emerald-600',
       counter: 'text-brand-emerald-700'
     },
     purple: {
-      bg: 'bg-gradient-to-br from-purple-50 to-violet-50',
-      icon: 'text-purple-600',
-      counter: 'text-purple-700'
+      bg: 'bg-gradient-to-br from-brand-purple-50 to-violet-50',
+      icon: 'text-brand-purple-600',
+      counter: 'text-brand-purple-700'
     },
     orange: {
       bg: 'bg-gradient-to-br from-brand-emerald-50 to-brand-sapphire-50',
@@ -185,7 +185,7 @@ const StatItem: React.FC<StatItemProps> = ({
             size="lg"
             className={colors.counter}
           />
-          <p className="mt-2 text-sm font-medium text-gray-600">{label}</p>
+          <p className="mt-2 text-sm font-medium text-brand-gray-600">{label}</p>
         </div>
         {Icon && (
           <div className="flex-shrink-0">

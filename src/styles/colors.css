@@ -17,10 +17,10 @@
     --color-sapphire-100: #e0efff;
     --color-sapphire-200: #c7e4ff;
     --color-sapphire-300: #a5d4ff;
-    --color-sapphire-400: #84c5ff;
-    --color-sapphire-500: #4F46E5;
+    --color-sapphire-400: #5ca8ff;
+    --color-sapphire-500: #006dff;
     /* DPO2U Primary Blue */
-    --color-sapphire-600: #4338CA;
+    --color-sapphire-600: #005ce6;
     --color-sapphire-700: #3730A3;
     --color-sapphire-800: #312E81;
     --color-sapphire-900: #1E1B4B;
@@ -184,7 +184,7 @@
      CORES RGBA (para transparência)
      ============================================ */
 
-    --color-sapphire-rgb: 79, 70, 229;
+    --color-sapphire-rgb: 0, 109, 255;
     --color-emerald-rgb: 0, 212, 148;
     --color-purple-rgb: 124, 58, 237;
     --color-ocean-rgb: 74, 144, 226;

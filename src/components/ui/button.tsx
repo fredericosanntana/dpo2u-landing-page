@@ -26,8 +26,8 @@ const buttonVariants = cva(
         luxury: "bg-gradient-to-r from-brand-platinum-400 to-brand-chrome-500 text-brand-gray-900 hover:from-brand-platinum-500 hover:to-brand-chrome-600 shadow-xl font-semibold",
         
         // CTA variants for landing page
-        'cta-primary': "bg-gradient-to-r from-emerald-500 to-blue-600 hover:from-emerald-600 hover:to-blue-700 text-white shadow-2xl hover:shadow-3xl transform hover:scale-[1.05] transition-all duration-300 font-bold border-0",
-        'cta-secondary': "border-2 border-slate-500/50 text-slate-200 hover:bg-slate-700 hover:text-white hover:border-slate-400 backdrop-blur-md bg-slate-800/20 font-medium transition-all duration-300"
+        'cta-primary': "bg-gradient-to-r from-brand-emerald-500 to-brand-sapphire-600 hover:from-brand-emerald-600 hover:to-brand-sapphire-700 text-white shadow-2xl hover:shadow-3xl transform hover:scale-[1.05] transition-all duration-300 font-bold border-0",
+        'cta-secondary': "border-2 border-brand-platinum-600/50 text-brand-platinum-300 hover:bg-brand-platinum-800 hover:text-white hover:border-brand-platinum-500 backdrop-blur-md bg-brand-chrome-800/20 font-medium transition-all duration-300"
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -67,13 +67,13 @@ const sdkPackages = [
 
 export default function MidnightPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
       <Header />
 
       {/* Hero */}
-      <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-slate-900 via-purple-950/20 to-slate-900">
+      <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-purple-950/20 to-brand-chrome-900">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-purple-500/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand-sapphire-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }}></div>
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]"></div>
         </div>
@@ -82,10 +82,10 @@ export default function MidnightPage() {
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               variants={fadeInUp}
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-500/20 to-brand-sapphire-500/20 rounded-full border border-purple-400/30 mb-8 backdrop-blur-sm"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-brand-purple-500/20 to-brand-sapphire-500/20 rounded-full border border-brand-purple-400/30 mb-8 backdrop-blur-sm"
             >
-              <Shield className="h-5 w-5 text-purple-400 mr-3" />
-              <span className="text-base font-semibold text-purple-300">Midnight Network Integration</span>
+              <Shield className="h-5 w-5 text-brand-purple-400 mr-3" />
+              <span className="text-base font-semibold text-brand-purple-300">Midnight Network Integration</span>
             </motion.div>
 
             <motion.h1
@@ -93,17 +93,17 @@ export default function MidnightPage() {
               className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold mb-8 leading-tight text-white"
             >
               Compliance as Protocol <br />
-              <span className="bg-gradient-to-r from-purple-400 via-brand-sapphire-400 to-brand-emerald-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-purple-400 via-brand-sapphire-400 to-brand-emerald-400 bg-clip-text text-transparent">
                 on Midnight Network
               </span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="text-xl md:text-2xl mb-12 text-slate-300 leading-relaxed font-light"
+              className="text-xl md:text-2xl mb-12 text-brand-platinum-400 leading-relaxed font-light"
             >
               Zero-knowledge proofs meet autonomous AI agents.
-              <span className="text-purple-400 font-medium"> Privacy compliance becomes a cryptographic on-chain asset</span> —
+              <span className="text-brand-purple-400 font-medium"> Privacy compliance becomes a cryptographic on-chain asset</span> —
               verifiable by anyone, readable by no one.
             </motion.p>
 
@@ -111,7 +111,7 @@ export default function MidnightPage() {
               <Button
                 variant="primary"
                 size="xl"
-                className="bg-purple-600 hover:bg-purple-500 text-white font-bold px-12"
+                className="bg-brand-purple-600 hover:bg-brand-purple-500 text-white font-bold px-12"
                 onClick={() => document.getElementById('zk-demo')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 <Fingerprint className="h-5 w-5 mr-2" />
@@ -120,7 +120,7 @@ export default function MidnightPage() {
               <Button
                 variant="outline"
                 size="xl"
-                className="border-2 border-purple-400/30 text-purple-300 hover:bg-purple-500/10 hover:text-purple-200 backdrop-blur-md bg-purple-900/20 font-bold px-12"
+                className="border-2 border-brand-purple-400/30 text-brand-purple-300 hover:bg-brand-purple-500/10 hover:text-brand-purple-200 backdrop-blur-md bg-brand-purple-900/20 font-bold px-12"
                 onClick={() => window.open('https://github.com/fredericosanntana', '_blank')}
               >
                 <Code className="h-5 w-5 mr-2" />
@@ -133,12 +133,12 @@ export default function MidnightPage() {
               className="mt-12 flex flex-wrap justify-center gap-6 text-sm"
             >
               {[
-                { label: 'Phase 2 Complete', color: 'text-emerald-400' },
-                { label: '5 Compact Contracts', color: 'text-purple-400' },
+                { label: 'Phase 2 Complete', color: 'text-brand-emerald-400' },
+                { label: '5 Compact Contracts', color: 'text-brand-purple-400' },
                 { label: '2 SDK Bugs Fixed', color: 'text-amber-400' },
                 { label: '27+ SDK Packages', color: 'text-brand-sapphire-400' },
               ].map((badge) => (
-                <div key={badge.label} className="flex items-center gap-2 text-slate-400">
+                <div key={badge.label} className="flex items-center gap-2 text-brand-platinum-500">
                   <Check className={`h-4 w-4 ${badge.color}`} />
                   <span>{badge.label}</span>
                 </div>
@@ -149,13 +149,13 @@ export default function MidnightPage() {
       </AnimatedSection>
 
       {/* Why Midnight */}
-      <AnimatedSection className="py-24 bg-slate-900">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-              Why <span className="text-purple-400">Midnight</span>?
+              Why <span className="text-brand-purple-400">Midnight</span>?
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               Midnight Network provides the cryptographic infrastructure
               that makes privacy compliance provable without exposing sensitive data.
             </p>
@@ -183,12 +183,12 @@ export default function MidnightPage() {
               },
             ].map((item, idx) => (
               <motion.div key={idx} variants={fadeInUp}>
-                <Card className="h-full p-8 bg-slate-800/50 border-slate-700 hover:border-purple-500/30 transition-all">
+                <Card className="h-full p-8 bg-brand-chrome-800/50 border-brand-platinum-800 hover:border-brand-purple-500/30 transition-all">
                   <div className={`w-14 h-14 bg-${item.color}-500/20 rounded-xl flex items-center justify-center mb-6`}>
                     <item.icon className={`h-7 w-7 text-${item.color}-400`} />
                   </div>
                   <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                  <p className="text-slate-400 leading-relaxed">{item.description}</p>
+                  <p className="text-brand-platinum-500 leading-relaxed">{item.description}</p>
                 </Card>
               </motion.div>
             ))}
@@ -197,18 +197,18 @@ export default function MidnightPage() {
       </AnimatedSection>
 
       {/* Architecture Diagram */}
-      <AnimatedSection className="py-24 bg-slate-950">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-              Architecture <span className="text-purple-400">Flow</span>
+              Architecture <span className="text-brand-purple-400">Flow</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               From AI audit to public attestation — every step is private until proven.
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto bg-slate-900 rounded-xl p-8 border border-slate-800">
+          <div className="max-w-5xl mx-auto bg-brand-chrome-900 rounded-xl p-8 border border-brand-chrome-800">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center">
               {[
                 { label: 'AI Agent Audit', icon: '🤖', sublabel: 'MCP Server' },
@@ -221,16 +221,16 @@ export default function MidnightPage() {
                 <React.Fragment key={step.label}>
                   {idx > 0 && (
                     <>
-                      <ArrowRight className="h-5 w-5 text-purple-500/50 hidden md:block flex-shrink-0" />
-                      <ArrowRight className="h-5 w-5 text-purple-500/50 md:hidden rotate-90 flex-shrink-0" />
+                      <ArrowRight className="h-5 w-5 text-brand-purple-500/50 hidden md:block flex-shrink-0" />
+                      <ArrowRight className="h-5 w-5 text-brand-purple-500/50 md:hidden rotate-90 flex-shrink-0" />
                     </>
                   )}
                   <div className="flex flex-col items-center gap-2 min-w-[100px]">
-                    <div className="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center text-2xl border border-purple-500/20">
+                    <div className="w-14 h-14 bg-brand-purple-500/10 rounded-xl flex items-center justify-center text-2xl border border-brand-purple-500/20">
                       {step.icon}
                     </div>
                     <span className="text-sm font-medium text-white">{step.label}</span>
-                    <span className="text-xs text-slate-500">{step.sublabel}</span>
+                    <span className="text-xs text-brand-platinum-600">{step.sublabel}</span>
                   </div>
                 </React.Fragment>
               ))}
@@ -240,13 +240,13 @@ export default function MidnightPage() {
       </AnimatedSection>
 
       {/* Compact Contracts */}
-      <AnimatedSection className="py-24 bg-slate-900">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-              <span className="text-purple-400">Compact</span> Contracts
+              <span className="text-brand-purple-400">Compact</span> Contracts
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               5 smart contracts written in Compact — Midnight's TypeScript-like DSL for
               privacy-preserving programs that generate ZK circuits automatically.
             </p>
@@ -257,13 +257,13 @@ export default function MidnightPage() {
       </AnimatedSection>
 
       {/* SDK Integration */}
-      <AnimatedSection className="py-24 bg-slate-950">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-              SDK <span className="text-purple-400">Integration</span>
+              SDK <span className="text-brand-purple-400">Integration</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               27+ @midnight-ntwrk packages integrated, with 2 critical bugs discovered and fixed during development.
             </p>
           </div>
@@ -276,7 +276,7 @@ export default function MidnightPage() {
                   <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">Bug Fix #1</Badge>
                 </div>
                 <h3 className="font-bold text-white mb-2 text-sm">Failed to clone intent</h3>
-                <p className="text-slate-400 text-xs mb-3">
+                <p className="text-brand-platinum-500 text-xs mb-3">
                   wallet-sdk signRecipe hardcodes 'pre-proof' marker but proved transactions use 'proof'.
                   Fixed by manually signing with correct markers.
                 </p>
@@ -289,7 +289,7 @@ export default function MidnightPage() {
                   <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">Bug Fix #2</Badge>
                 </div>
                 <h3 className="font-bold text-white mb-2 text-sm">Invalid network ID</h3>
-                <p className="text-slate-400 text-xs mb-3">
+                <p className="text-brand-platinum-500 text-xs mb-3">
                   Network module initializes with 'undeployed' but scripts never called setNetworkId.
                   Fixed by adding explicit initialization.
                 </p>
@@ -304,9 +304,9 @@ export default function MidnightPage() {
               {sdkPackages.map((pkg) => (
                 <span
                   key={pkg}
-                  className="inline-flex items-center px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-lg text-xs font-mono text-purple-300 hover:bg-purple-500/20 transition-colors"
+                  className="inline-flex items-center px-3 py-1.5 bg-brand-purple-500/10 border border-brand-purple-500/20 rounded-lg text-xs font-mono text-brand-purple-300 hover:bg-brand-purple-500/20 transition-colors"
                 >
-                  <Package className="h-3 w-3 mr-1.5 text-purple-400" />
+                  <Package className="h-3 w-3 mr-1.5 text-brand-purple-400" />
                   {pkg.replace('@midnight-ntwrk/', '')}
                 </span>
               ))}
@@ -315,17 +315,17 @@ export default function MidnightPage() {
 
           {/* Code Snippet */}
           <div className="max-w-3xl mx-auto mt-12">
-            <div className="bg-slate-900 rounded-xl overflow-hidden border border-slate-800">
-              <div className="flex items-center px-4 py-2 bg-slate-800 border-b border-slate-700">
+            <div className="bg-brand-chrome-900 rounded-xl overflow-hidden border border-brand-chrome-800">
+              <div className="flex items-center px-4 py-2 bg-brand-chrome-800 border-b border-brand-platinum-800">
                 <div className="flex space-x-2">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-brand-emerald-500"></div>
                 </div>
-                <span className="ml-4 text-xs text-slate-500 font-mono">deploy-registry.ts</span>
+                <span className="ml-4 text-xs text-brand-platinum-600 font-mono">deploy-registry.ts</span>
               </div>
               <div className="p-6 overflow-x-auto">
-                <pre className="text-xs md:text-sm font-mono text-purple-300">
+                <pre className="text-xs md:text-sm font-mono text-brand-purple-300">
 {`import { setNetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import { createWalletAndMidnightProvider } from './lib/wallet-setup';
 
@@ -351,13 +351,13 @@ console.log('Contract:', contract.address);
       </AnimatedSection>
 
       {/* ZK Demo */}
-      <AnimatedSection id="zk-demo" className="py-24 bg-slate-900 border-t border-b border-purple-500/10">
+      <AnimatedSection id="zk-demo" className="py-24 bg-brand-chrome-900 border-t border-b border-brand-purple-500/10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
-              Interactive <span className="text-purple-400">ZK Proof</span> Demo
+              Interactive <span className="text-brand-purple-400">ZK Proof</span> Demo
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               Experience the full flow: AI audit → compile circuit → generate proof → submit to Midnight → verify on-chain.
             </p>
           </div>
@@ -369,13 +369,13 @@ console.log('Contract:', contract.address);
       </AnimatedSection>
 
       {/* Roadmap */}
-      <AnimatedSection className="py-24 bg-slate-950">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-              Build <span className="text-purple-400">Timeline</span>
+              Build <span className="text-brand-purple-400">Timeline</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               A transparent roadmap from research to mainnet — built in public, one phase at a time.
             </p>
           </div>
@@ -387,11 +387,11 @@ console.log('Contract:', contract.address);
       </AnimatedSection>
 
       {/* Tech Specs */}
-      <AnimatedSection className="py-24 bg-slate-900">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-              Technical <span className="text-purple-400">Specifications</span>
+              Technical <span className="text-brand-purple-400">Specifications</span>
             </h2>
           </div>
 
@@ -414,10 +414,10 @@ console.log('Contract:', contract.address);
                 <motion.div
                   key={idx}
                   variants={fadeInUp}
-                  className="flex items-center justify-between py-3 border-b border-slate-800"
+                  className="flex items-center justify-between py-3 border-b border-brand-chrome-800"
                 >
-                  <span className="text-slate-400 text-sm">{spec.label}</span>
-                  <span className="text-purple-400 font-mono font-semibold text-sm">{spec.value}</span>
+                  <span className="text-brand-platinum-500 text-sm">{spec.label}</span>
+                  <span className="text-brand-purple-400 font-mono font-semibold text-sm">{spec.value}</span>
                 </motion.div>
               ))}
             </div>
@@ -426,18 +426,18 @@ console.log('Contract:', contract.address);
       </AnimatedSection>
 
       {/* Whitepaper CTA */}
-      <AnimatedSection className="py-24 bg-gradient-to-r from-purple-900/30 via-slate-900 to-brand-sapphire-900/30 text-center">
+      <AnimatedSection className="py-24 bg-gradient-to-r from-brand-purple-900/30 via-brand-chrome-900 to-brand-sapphire-900/30 text-center">
         <div className="container mx-auto px-4">
           <motion.div variants={fadeInUp}>
-            <BookOpen className="h-12 w-12 text-purple-400 mx-auto mb-6" />
+            <BookOpen className="h-12 w-12 text-brand-purple-400 mx-auto mb-6" />
           </motion.div>
           <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
             Read the Whitepaper
           </motion.h2>
-          <motion.p variants={fadeInUp} className="text-lg text-slate-300 mb-4 max-w-2xl mx-auto">
+          <motion.p variants={fadeInUp} className="text-lg text-brand-platinum-400 mb-4 max-w-2xl mx-auto">
             &ldquo;DPO2U: Compliance as Protocol&rdquo; — Version 1.1
           </motion.p>
-          <motion.p variants={fadeInUp} className="text-slate-400 mb-8 max-w-2xl mx-auto">
+          <motion.p variants={fadeInUp} className="text-brand-platinum-500 mb-8 max-w-2xl mx-auto">
             How MCP + IPFS + ERC-8004 + Midnight ZK-SNARKs transform privacy compliance
             from a reactive PDF-based model into a cryptographic on-chain asset.
           </motion.p>
@@ -445,7 +445,7 @@ console.log('Contract:', contract.address);
             <Button
               variant="primary"
               size="xl"
-              className="bg-purple-600 hover:bg-purple-500 text-white font-bold px-12"
+              className="bg-brand-purple-600 hover:bg-brand-purple-500 text-white font-bold px-12"
               onClick={() => window.open('mailto:contato@dpo2u.com.br?subject=Whitepaper%20Request', '_blank')}
             >
               <BookOpen className="h-5 w-5 mr-2" />
@@ -454,7 +454,7 @@ console.log('Contract:', contract.address);
             <Button
               variant="outline"
               size="xl"
-              className="border-2 border-purple-400/30 text-purple-300 hover:bg-purple-500/10"
+              className="border-2 border-brand-purple-400/30 text-brand-purple-300 hover:bg-brand-purple-500/10"
               onClick={() => window.open('https://github.com/fredericosanntana', '_blank')}
             >
               <ExternalLink className="h-5 w-5 mr-2" />

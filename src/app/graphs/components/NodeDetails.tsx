@@ -37,9 +37,9 @@ export default function NodeDetails({
 }: NodeDetailsProps) {
   if (!selectedNodeId || !nodeData) {
     return (
-      <Card className="h-full bg-slate-900/50 border-white/10 backdrop-blur">
+      <Card className="h-full bg-brand-chrome-900/50 border-white/10 backdrop-blur">
         <CardContent className="flex items-center justify-center h-full">
-          <div className="text-center text-gray-400">
+          <div className="text-center text-brand-gray-400">
             <FileText className="h-12 w-12 mx-auto mb-4 opacity-50" />
             <p>Selecione uma nota no grafo</p>
             <p className="text-sm mt-2">para ver os detalhes</p>
@@ -62,20 +62,20 @@ export default function NodeDetails({
 
   const getTypeColor = (type: string) => {
     const colors = {
-      project: 'bg-purple-500/20 text-purple-200 border-purple-500/30',
+      project: 'bg-brand-purple-500/20 text-brand-purple-200 border-brand-purple-500/30',
       area: 'bg-cyan-500/20 text-cyan-200 border-cyan-500/30',
-      resource: 'bg-emerald-500/20 text-emerald-200 border-emerald-500/30',
+      resource: 'bg-brand-emerald-500/20 text-brand-emerald-200 border-brand-emerald-500/30',
       permanent: 'bg-amber-500/20 text-amber-200 border-amber-500/30',
-      reference: 'bg-gray-500/20 text-gray-200 border-gray-500/30'
+      reference: 'bg-brand-gray-500/20 text-brand-gray-200 border-brand-gray-500/30'
     }
-    return colors[type as keyof typeof colors] || 'bg-gray-500/20 text-gray-200 border-gray-500/30'
+    return colors[type as keyof typeof colors] || 'bg-brand-gray-500/20 text-brand-gray-200 border-brand-gray-500/30'
   }
 
   const getSentimentIcon = (sentiment: string) => {
     switch (sentiment) {
-      case 'positive': return <Heart className="h-4 w-4 text-green-400" />
+      case 'positive': return <Heart className="h-4 w-4 text-brand-emerald-400" />
       case 'negative': return <Frown className="h-4 w-4 text-red-400" />
-      default: return <Meh className="h-4 w-4 text-gray-400" />
+      default: return <Meh className="h-4 w-4 text-brand-gray-400" />
     }
   }
 
@@ -105,7 +105,7 @@ export default function NodeDetails({
         transition={{ duration: 0.3 }}
         className="h-full"
       >
-        <Card className="h-full bg-slate-900/50 border-white/10 backdrop-blur">
+        <Card className="h-full bg-brand-chrome-900/50 border-white/10 backdrop-blur">
           <CardHeader className="pb-4">
             <div className="flex items-start gap-3">
               <div className="text-2xl">{getTypeIcon(nodeData.type)}</div>
@@ -120,7 +120,7 @@ export default function NodeDetails({
                   {nodeData.sentiment && (
                     <div className="flex items-center gap-1">
                       {getSentimentIcon(nodeData.sentiment.sentiment)}
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-brand-gray-400">
                         {(nodeData.sentiment.polarity * 100).toFixed(0)}%
                       </span>
                     </div>
@@ -135,7 +135,7 @@ export default function NodeDetails({
               <div className="space-y-6">
                 {/* Metrics */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-slate-800/50 rounded-lg p-3">
+                  <div className="bg-brand-chrome-800/50 rounded-lg p-3">
                     <div className="flex items-center gap-2 text-cyan-400">
                       <Link className="h-4 w-4" />
                       <span className="text-sm font-medium">Conexões</span>
@@ -145,8 +145,8 @@ export default function NodeDetails({
                     </div>
                   </div>
 
-                  <div className="bg-slate-800/50 rounded-lg p-3">
-                    <div className="flex items-center gap-2 text-purple-400">
+                  <div className="bg-brand-chrome-800/50 rounded-lg p-3">
+                    <div className="flex items-center gap-2 text-brand-purple-400">
                       <BarChart3 className="h-4 w-4" />
                       <span className="text-sm font-medium">Tamanho</span>
                     </div>
@@ -165,14 +165,14 @@ export default function NodeDetails({
                   
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-400">Caminho:</span>
+                      <span className="text-brand-gray-400">Caminho:</span>
                       <span className="text-white font-mono text-xs truncate ml-2" title={nodeData.path}>
                         {nodeData.path}
                       </span>
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-gray-400">Criado em:</span>
+                      <span className="text-brand-gray-400">Criado em:</span>
                       <span className="text-white">
                         {formatDate(nodeData.created)}
                       </span>
@@ -195,7 +195,7 @@ export default function NodeDetails({
                         <Badge
                           key={index}
                           variant="outline"
-                          className="text-xs bg-slate-800/50 border-white/20 text-gray-300 hover:bg-white/10 transition-colors"
+                          className="text-xs bg-brand-chrome-800/50 border-white/20 text-brand-gray-300 hover:bg-white/10 transition-colors"
                         >
                           {concept}
                         </Badge>
@@ -203,7 +203,7 @@ export default function NodeDetails({
                       {nodeData.concepts.length > 10 && (
                         <Badge
                           variant="outline"
-                          className="text-xs bg-slate-800/50 border-white/20 text-gray-400"
+                          className="text-xs bg-brand-chrome-800/50 border-white/20 text-brand-gray-400"
                         >
                           +{nodeData.concepts.length - 10} mais
                         </Badge>
@@ -229,22 +229,22 @@ export default function NodeDetails({
                           <Button
                             key={connectionId}
                             variant="ghost"
-                            className="w-full justify-start text-left h-auto p-2 bg-slate-800/30 hover:bg-slate-700/50 border border-white/10"
+                            className="w-full justify-start text-left h-auto p-2 bg-brand-chrome-800/30 hover:bg-brand-platinum-800/50 border border-white/10"
                             onClick={() => onNodeSelect(connectionId)}
                           >
                             <div className="flex items-center gap-2 w-full">
-                              <div className="w-2 h-2 rounded-full bg-gray-400" />
+                              <div className="w-2 h-2 rounded-full bg-brand-gray-400" />
                               <span className="text-sm text-white truncate">
                                 {connectionId.substring(0, 12)}...
                               </span>
-                              <ExternalLink className="h-3 w-3 text-gray-400 ml-auto flex-shrink-0" />
+                              <ExternalLink className="h-3 w-3 text-brand-gray-400 ml-auto flex-shrink-0" />
                             </div>
                           </Button>
                         )
                       })}
                       
                       {connections.length > 8 && (
-                        <div className="text-xs text-gray-400 text-center py-2">
+                        <div className="text-xs text-brand-gray-400 text-center py-2">
                           +{connections.length - 8} conexões adicionais
                         </div>
                       )}
@@ -264,7 +264,7 @@ export default function NodeDetails({
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">Polaridade:</span>
+                          <span className="text-brand-gray-400">Polaridade:</span>
                           <div className="flex items-center gap-2">
                             {getSentimentIcon(nodeData.sentiment.sentiment)}
                             <span className="text-white">
@@ -279,7 +279,7 @@ export default function NodeDetails({
                         />
                         
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-400">Subjetividade:</span>
+                          <span className="text-brand-gray-400">Subjetividade:</span>
                           <span className="text-white">
                             {(nodeData.sentiment.subjectivity * 100).toFixed(1)}%
                           </span>

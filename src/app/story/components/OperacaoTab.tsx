@@ -63,10 +63,10 @@ const getServiceIcon = (serviceName: string) => {
 // Status color
 const getStatusColor = (status: string) => {
   switch (status) {
-    case 'online': return 'text-green-600 bg-green-500/10 border-green-500/20';
+    case 'online': return 'text-brand-emerald-600 bg-brand-emerald-500/10 border-brand-emerald-500/20';
     case 'offline': return 'text-red-600 bg-red-500/10 border-red-500/20';
     case 'error': return 'text-orange-600 bg-orange-500/10 border-orange-500/20';
-    default: return 'text-gray-600 bg-gray-500/10 border-gray-500/20';
+    default: return 'text-brand-gray-600 bg-brand-gray-500/10 border-brand-gray-500/20';
   }
 };
 
@@ -91,7 +91,7 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
-              <Cpu className="h-4 w-4 text-blue-500" />
+              <Cpu className="h-4 w-4 text-brand-sapphire-500" />
               CPU
             </CardTitle>
           </CardHeader>
@@ -124,7 +124,7 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
-              <MemoryStick className="h-4 w-4 text-green-500" />
+              <MemoryStick className="h-4 w-4 text-brand-emerald-500" />
               Memória
             </CardTitle>
           </CardHeader>
@@ -153,7 +153,7 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
-              <HardDrive className="h-4 w-4 text-purple-500" />
+              <HardDrive className="h-4 w-4 text-brand-purple-500" />
               Disco
             </CardTitle>
           </CardHeader>
@@ -225,7 +225,7 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
               const statusColor = getStatusColor(service.status);
               
               return (
-                <Card key={serviceName} className={`p-4 border ${statusColor.includes('green') ? 'border-green-500/20' : statusColor.includes('red') ? 'border-red-500/20' : 'border-orange-500/20'}`}>
+                <Card key={serviceName} className={`p-4 border ${statusColor.includes('green') ? 'border-brand-emerald-500/20' : statusColor.includes('red') ? 'border-red-500/20' : 'border-orange-500/20'}`}>
                   <div className="space-y-3">
                     {/* Header */}
                     <div className="flex items-center justify-between">
@@ -265,7 +265,7 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
                       {service.running !== undefined && (
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">Executando:</span>
-                          <span className="text-green-600">{service.running}</span>
+                          <span className="text-brand-emerald-600">{service.running}</span>
                         </div>
                       )}
                       
@@ -279,7 +279,7 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
                       {service.https_status && (
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">HTTPS:</span>
-                          <span className={service.https_status === 'working' ? 'text-green-600' : 'text-red-600'}>
+                          <span className={service.https_status === 'working' ? 'text-brand-emerald-600' : 'text-red-600'}>
                             {service.https_status}
                           </span>
                         </div>
@@ -311,7 +311,7 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
-              <Clock className="h-4 w-4 text-blue-500" />
+              <Clock className="h-4 w-4 text-brand-sapphire-500" />
               Uptime
             </CardTitle>
           </CardHeader>
@@ -326,7 +326,7 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
-              <Activity className="h-4 w-4 text-green-500" />
+              <Activity className="h-4 w-4 text-brand-emerald-500" />
               Processos
             </CardTitle>
           </CardHeader>
@@ -339,12 +339,12 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-green-500" />
+              <CheckCircle className="h-4 w-4 text-brand-emerald-500" />
               Saúde Geral
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Badge className={`text-sm ${summary.system_health === 'excellent' ? 'bg-green-500/10 text-green-600' : 'bg-orange-500/10 text-orange-600'}`}>
+            <Badge className={`text-sm ${summary.system_health === 'excellent' ? 'bg-brand-emerald-500/10 text-brand-emerald-600' : 'bg-orange-500/10 text-orange-600'}`}>
               {summary.system_health}
             </Badge>
             <div className="text-xs text-muted-foreground mt-1">
@@ -362,17 +362,17 @@ export function OperacaoTab({ data }: OperacaoTabProps) {
         <CardContent>
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm">
-              <CheckCircle className="h-4 w-4 text-green-500" />
+              <CheckCircle className="h-4 w-4 text-brand-emerald-500" />
               <span className="text-muted-foreground">{new Date().toLocaleTimeString()}</span>
               <span>Sistema operando normalmente - CPU: {system.cpu.percent.toFixed(1)}%</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <Activity className="h-4 w-4 text-blue-500" />
+              <Activity className="h-4 w-4 text-brand-sapphire-500" />
               <span className="text-muted-foreground">{new Date(Date.now() - 60000).toLocaleTimeString()}</span>
               <span>Auto-refresh completo - {summary.active_agents} agentes online</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <Database className="h-4 w-4 text-purple-500" />
+              <Database className="h-4 w-4 text-brand-purple-500" />
               <span className="text-muted-foreground">{new Date(Date.now() - 120000).toLocaleTimeString()}</span>
               <span>LEANN sincronizado - {services.leann?.notes_count || 0} documentos indexados</span>
             </div>

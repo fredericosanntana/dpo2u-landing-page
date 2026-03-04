@@ -23,14 +23,14 @@ const staggerContainer = {
 
 export default function LgpdKitPage() {
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
+        <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
             <Header />
 
             {/* Hero Section */}
             <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20">
                 {/* Premium Background Effects */}
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-slate-900 via-slate-900 to-brand-sapphire-950"></div>
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-sapphire-950"></div>
                     {/* Floating Orbs */}
                     <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-sapphire-600/20 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
                     <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand-emerald-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }}></div>
@@ -65,7 +65,7 @@ export default function LgpdKitPage() {
                             variants={fadeInUp}
                             initial="initial"
                             animate="animate"
-                            className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto font-light leading-relaxed"
+                            className="text-xl md:text-2xl text-brand-platinum-400 mb-12 max-w-3xl mx-auto font-light leading-relaxed"
                         >
                             Abandone planilhas complexas. Utilize nossa tecnologia de agentes IA para gerar toda a documentação jurídica e técnica do seu negócio em minutos.
                         </motion.p>
@@ -97,7 +97,7 @@ export default function LgpdKitPage() {
                             variants={fadeInUp}
                             initial="initial"
                             animate="animate"
-                            className="mt-8 text-sm text-slate-500 font-medium"
+                            className="mt-8 text-sm text-brand-platinum-600 font-medium"
                         >
                             <span className="text-brand-emerald-400">✓</span> Sem cartão de crédito necessário &nbsp;
                             <span className="text-brand-emerald-400">✓</span> Resultado imediato
@@ -107,15 +107,15 @@ export default function LgpdKitPage() {
             </section>
 
             {/* Features Grid - Glassmorphism */}
-            <section className="py-24 relative bg-slate-950">
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+            <section className="py-24 relative bg-brand-chrome-900">
+                <div className="absolute inset-0 bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-chrome-900"></div>
 
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="text-center mb-20">
                         <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 text-white leading-tight">
                             O Kit de Compliance <span className="text-brand-emerald-400">Mais Completo</span>
                         </h2>
-                        <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                        <p className="text-lg text-brand-platinum-500 max-w-2xl mx-auto">
                             Nossa IA analisa 32 pontos de controle e gera documentos personalizados juridicamente válidos.
                         </p>
                     </div>
@@ -171,7 +171,7 @@ export default function LgpdKitPage() {
                                         <item.icon className={`h-7 w-7 text-${item.color}-400 group-hover:text-${item.color}-300`} />
                                     </div>
                                     <h3 className="text-2xl font-serif font-bold mb-3 text-white group-hover:text-brand-emerald-300 transition-colors">{item.title}</h3>
-                                    <p className="text-slate-400 group-hover:text-slate-300 leading-relaxed">{item.desc}</p>
+                                    <p className="text-brand-platinum-500 group-hover:text-brand-platinum-400 leading-relaxed">{item.desc}</p>
                                 </Card>
                             </motion.div>
                         ))}
@@ -180,7 +180,7 @@ export default function LgpdKitPage() {
             </section>
 
             {/* How it works - Dark Elegant */}
-            <section className="py-24 bg-slate-900 border-t border-white/5">
+            <section className="py-24 bg-brand-chrome-900 border-t border-white/5">
                 <div className="container mx-auto px-4">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div>
@@ -189,7 +189,7 @@ export default function LgpdKitPage() {
                             </div>
                             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8 text-white leading-tight">
                                 Do Zero ao Compliance <br />
-                                <span className="text-slate-500">em 3 Passos</span>
+                                <span className="text-brand-platinum-600">em 3 Passos</span>
                             </h2>
                             <div className="space-y-10">
                                 {[
@@ -198,12 +198,12 @@ export default function LgpdKitPage() {
                                     { step: '03', title: 'Entrega Imediata', desc: 'Receba seu kit completo editável e pronto para implementação.' }
                                 ].map((step, idx) => (
                                     <div key={idx} className="flex gap-6 group">
-                                        <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-serif font-bold text-slate-600 group-hover:text-brand-emerald-400 group-hover:border-brand-emerald-500/30 transition-all">
+                                        <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-serif font-bold text-brand-platinum-700 group-hover:text-brand-emerald-400 group-hover:border-brand-emerald-500/30 transition-all">
                                             {step.step}
                                         </div>
                                         <div>
                                             <h3 className="text-xl font-bold mb-2 text-white group-hover:text-brand-emerald-300 transition-colors">{step.title}</h3>
-                                            <p className="text-slate-400 group-hover:text-slate-300">{step.desc}</p>
+                                            <p className="text-brand-platinum-500 group-hover:text-brand-platinum-400">{step.desc}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -211,14 +211,14 @@ export default function LgpdKitPage() {
                         </div>
                         <div className="relative group">
                             <div className="absolute -inset-1 bg-gradient-to-r from-brand-emerald-500 to-brand-sapphire-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                            <div className="relative aspect-square md:aspect-video bg-slate-950 rounded-2xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center">
+                            <div className="relative aspect-square md:aspect-video bg-brand-chrome-900 rounded-2xl border border-white/10 overflow-hidden shadow-2xl flex items-center justify-center">
                                 {/* Abstract UI representation */}
                                 <div className="text-center p-8">
                                     <div className="w-24 h-24 mx-auto bg-brand-emerald-500/10 rounded-full flex items-center justify-center mb-4 animate-pulse">
                                         <Lock className="h-10 w-10 text-brand-emerald-400" />
                                     </div>
-                                    <p className="text-slate-300 font-serif text-lg">Gerando Documentos...</p>
-                                    <div className="w-48 h-1 bg-slate-800 rounded-full mx-auto mt-4 overflow-hidden">
+                                    <p className="text-brand-platinum-400 font-serif text-lg">Gerando Documentos...</p>
+                                    <div className="w-48 h-1 bg-brand-chrome-800 rounded-full mx-auto mt-4 overflow-hidden">
                                         <div className="h-full bg-brand-emerald-500 w-2/3 animate-[shimmer_2s_infinite]"></div>
                                     </div>
                                 </div>
@@ -237,18 +237,18 @@ export default function LgpdKitPage() {
                     <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-8">
                         Proteja Sua Empresa Hoje
                     </h2>
-                    <p className="text-slate-300 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-brand-platinum-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
                         Junte-se a empresas modernas que escolheram a segurança jurídica automática do DPO2U.
                     </p>
                     <Button
                         size="xl"
-                        className="bg-white text-brand-sapphire-900 hover:bg-slate-100 font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
+                        className="bg-white text-brand-sapphire-900 hover:bg-brand-platinum-200 font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
                         onClick={() => window.location.href = '/analise'}
                     >
                         Começar Adequação
                         <ArrowRight className="ml-3 h-6 w-6" />
                     </Button>
-                    <p className="mt-8 text-slate-500 text-sm">Garantia de 7 dias ou seu dinheiro de volta</p>
+                    <p className="mt-8 text-brand-platinum-600 text-sm">Garantia de 7 dias ou seu dinheiro de volta</p>
                 </div>
             </section>
 

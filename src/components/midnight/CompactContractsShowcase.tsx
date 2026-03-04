@@ -135,23 +135,23 @@ export default function CompactContractsShowcase() {
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {contracts.map((contract, idx) => (
         <motion.div key={contract.name} variants={fadeInUp}>
-          <Card className="h-full bg-slate-800/50 border-slate-700 hover:border-purple-500/40 transition-all overflow-hidden">
+          <Card className="h-full bg-brand-chrome-800/50 border-brand-platinum-800 hover:border-brand-purple-500/40 transition-all overflow-hidden">
             <div className="p-6">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <FileCode2 className="h-5 w-5 text-purple-400" />
+                <div className="w-10 h-10 bg-brand-purple-500/20 rounded-lg flex items-center justify-center">
+                  <FileCode2 className="h-5 w-5 text-brand-purple-400" />
                 </div>
                 <div>
                   <h3 className="font-bold text-white text-sm">{contract.name}</h3>
-                  <p className="text-xs text-purple-300">.compact</p>
+                  <p className="text-xs text-brand-purple-300">.compact</p>
                 </div>
               </div>
-              <p className="text-slate-400 text-sm mb-3">{contract.description}</p>
-              <p className="text-slate-500 text-xs mb-4">{contract.purpose}</p>
+              <p className="text-brand-platinum-500 text-sm mb-3">{contract.description}</p>
+              <p className="text-brand-platinum-600 text-xs mb-4">{contract.purpose}</p>
 
               <button
                 onClick={() => setExpanded(expanded === idx ? null : idx)}
-                className="flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 transition-colors"
+                className="flex items-center gap-1 text-xs text-brand-purple-400 hover:text-brand-purple-300 transition-colors"
               >
                 {expanded === idx ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
                 {expanded === idx ? 'Hide Code' : 'View Code'}
@@ -163,10 +163,10 @@ export default function CompactContractsShowcase() {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className="border-t border-slate-700"
+                className="border-t border-brand-platinum-800"
               >
-                <div className="bg-slate-950 p-4 overflow-x-auto">
-                  <pre className="text-xs font-mono text-purple-300 whitespace-pre">
+                <div className="bg-brand-chrome-900 p-4 overflow-x-auto">
+                  <pre className="text-xs font-mono text-brand-purple-300 whitespace-pre">
                     {contract.code}
                   </pre>
                 </div>

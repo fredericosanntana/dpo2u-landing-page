@@ -43,7 +43,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
       status: 'active',
       metrics: ['Security analysis', 'Hardware sizing', 'Data mapping'],
       cta: 'Start Diagnostic',
-      gradient: 'from-blue-600 to-indigo-600'
+      gradient: 'from-brand-sapphire-600 to-indigo-600'
     },
     {
       id: 'architecture',
@@ -53,7 +53,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
       status: 'upcoming',
       metrics: ['Source code delivery', 'CI/CD environment', 'SSL & Firewall'],
       cta: 'View Base Architecture',
-      gradient: 'from-purple-600 to-pink-600'
+      gradient: 'from-brand-purple-600 to-pink-600'
     },
     {
       id: 'implementation',
@@ -63,7 +63,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
       status: 'upcoming',
       metrics: ['Deploy in 72h', 'Automated testing', 'API Documentation'],
       cta: 'Schedule Deploy',
-      gradient: 'from-emerald-600 to-teal-600'
+      gradient: 'from-brand-emerald-600 to-teal-600'
     },
     {
       id: 'optimization',
@@ -110,33 +110,33 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-blue-200 mb-6"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-brand-sapphire-50 to-brand-purple-50 rounded-full border border-brand-sapphire-200 mb-6"
             >
-              <RocketLaunchIcon className="h-5 w-5 text-blue-600 mr-3" />
-              <span className="font-medium text-blue-800">Digital Sovereignty Journey</span>
+              <RocketLaunchIcon className="h-5 w-5 text-brand-sapphire-600 mr-3" />
+              <span className="font-medium text-brand-sapphire-800">Digital Sovereignty Journey</span>
             </motion.div>
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6"
+              className="text-4xl md:text-5xl font-serif font-bold text-brand-gray-900 mb-6"
             >
-              From Zero to <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Your Own Stack</span> in 4 Steps
+              From Zero to <span className="bg-gradient-to-r from-brand-sapphire-600 to-brand-purple-600 bg-clip-text text-transparent">Your Own Stack</span> in 4 Steps
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              className="text-xl text-brand-gray-600 max-w-3xl mx-auto"
             >
               Structured process to ensure your AI infrastructure is running on your own VPS in 72h.
             </motion.p>
 
             <button
               onClick={onClose}
-              className="absolute top-0 right-0 text-gray-400 hover:text-gray-600 transition-colors p-2"
+              className="absolute top-0 right-0 text-brand-gray-400 hover:text-brand-gray-600 transition-colors p-2"
             >
               <XMarkIcon className="w-6 h-6" />
             </button>
@@ -150,14 +150,14 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${index <= currentStep
                         ? `bg-gradient-to-r ${step.gradient} text-white shadow-lg`
-                        : 'bg-gray-200 text-gray-400'
+                        : 'bg-brand-gray-200 text-brand-gray-400'
                       }`}
                   >
                     {step.icon}
                   </div>
                   {index < journeySteps.length - 1 && (
                     <div
-                      className={`w-16 h-1 mx-4 transition-all duration-500 ${index < currentStep ? 'bg-gradient-to-r from-blue-500 to-purple-500' : 'bg-gray-200'
+                      className={`w-16 h-1 mx-4 transition-all duration-500 ${index < currentStep ? 'bg-gradient-to-r from-brand-sapphire-500 to-brand-purple-500' : 'bg-brand-gray-200'
                         }`}
                     />
                   )}
@@ -165,10 +165,10 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
               ))}
             </div>
 
-            <div className="flex justify-between text-sm text-gray-600">
+            <div className="flex justify-between text-sm text-brand-gray-600">
               {journeySteps.map((step, index) => (
                 <div key={step.id} className="text-center" style={{ width: '12rem' }}>
-                  <span className={`font-medium ${index === currentStep ? 'text-blue-600' : ''}`}>
+                  <span className={`font-medium ${index === currentStep ? 'text-brand-sapphire-600' : ''}`}>
                     {step.title}
                   </span>
                 </div>
@@ -184,7 +184,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 border border-gray-200 shadow-xl mb-8"
+              className="bg-gradient-to-br from-white to-brand-gray-50 rounded-3xl p-8 border border-brand-gray-200 shadow-xl mb-8"
             >
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 {/* Content */}
@@ -194,11 +194,11 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
                     <span className="ml-2 font-medium">Step {currentStep + 1}</span>
                   </div>
 
-                  <h3 className="text-3xl font-serif font-bold text-gray-900 mb-4">
+                  <h3 className="text-3xl font-serif font-bold text-brand-gray-900 mb-4">
                     {currentJourneyStep.title}
                   </h3>
 
-                  <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                  <p className="text-lg text-brand-gray-600 mb-6 leading-relaxed">
                     {currentJourneyStep.description}
                   </p>
 
@@ -207,7 +207,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
                     {currentJourneyStep.metrics.map((metric, index) => (
                       <div key={index} className="flex items-center">
                         <div className={`w-3 h-3 bg-gradient-to-r ${currentJourneyStep.gradient} rounded-full mr-3`} />
-                        <span className="text-gray-700 font-medium">{metric}</span>
+                        <span className="text-brand-gray-700 font-medium">{metric}</span>
                       </div>
                     ))}
                   </div>
@@ -231,7 +231,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
                   {/* Animated Elements */}
                   {isAnimating && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-32 h-32 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+                      <div className="w-32 h-32 border-4 border-brand-sapphire-500/20 border-t-brand-sapphire-500 rounded-full animate-spin" />
                     </div>
                   )}
                 </div>
@@ -256,7 +256,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
                 <button
                   key={index}
                   onClick={() => setCurrentStep(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-200 ${index === currentStep ? 'bg-blue-600' : 'bg-gray-300'
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${index === currentStep ? 'bg-brand-sapphire-600' : 'bg-brand-gray-300'
                     }`}
                 />
               ))}
@@ -273,29 +273,29 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
           </div>
 
           {/* ROI Summary */}
-          <div className="mt-12 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-2xl p-8 border border-emerald-200">
+          <div className="mt-12 bg-gradient-to-r from-brand-emerald-50 to-brand-sapphire-50 rounded-2xl p-8 border border-brand-emerald-200">
             <div className="text-center">
-              <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl font-serif font-bold text-brand-gray-900 mb-4">
                 Expected Results
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-brand-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
                     -60%
                   </div>
-                  <div className="text-gray-600">Cost Reduction (TCO)</div>
+                  <div className="text-brand-gray-600">Cost Reduction (TCO)</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-brand-sapphire-600 to-brand-purple-600 bg-clip-text text-transparent mb-2">
                     72h
                   </div>
-                  <div className="text-gray-600">Full Implementation</div>
+                  <div className="text-brand-gray-600">Full Implementation</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-brand-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
                     100%
                   </div>
-                  <div className="text-gray-600">Intellectual Property</div>
+                  <div className="text-brand-gray-600">Intellectual Property</div>
                 </div>
               </div>
             </div>

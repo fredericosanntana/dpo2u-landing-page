@@ -198,16 +198,16 @@ const PersonaButton: React.FC<{
       onClick={onClick}
       className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${isActive
           ? `border-transparent bg-gradient-to-r ${content.gradient} text-white shadow-lg scale-105`
-          : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md text-gray-700'
+          : 'border-brand-gray-200 bg-white hover:border-brand-gray-300 hover:shadow-md text-brand-gray-700'
         }`}
     >
       <div className="flex items-center space-x-3">
         <Icon className={`h-6 w-6 ${isActive ? 'text-white' : content.color}`} />
         <div className="text-left">
-          <div className={`font-semibold ${isActive ? 'text-white' : 'text-gray-800'}`}>
+          <div className={`font-semibold ${isActive ? 'text-white' : 'text-brand-gray-800'}`}>
             {persona.toUpperCase()}
           </div>
-          <div className={`text-sm ${isActive ? 'text-white/80' : 'text-gray-500'}`}>
+          <div className={`text-sm ${isActive ? 'text-white/80' : 'text-brand-gray-500'}`}>
             {content.title.replace('Para o ', '')}
           </div>
         </div>
@@ -225,11 +225,11 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
     className="space-y-8"
   >
     {/* Hero Section */}
-    <Card className="p-8 bg-gradient-to-r from-white to-gray-50 border-2 border-gray-100">
+    <Card className="p-8 bg-gradient-to-r from-white to-brand-gray-50 border-2 border-brand-gray-100">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">{content.title}</h3>
-          <p className="text-lg text-gray-600 mb-6">{content.subtitle}</p>
+          <h3 className="text-2xl font-bold text-brand-gray-800 mb-2">{content.title}</h3>
+          <p className="text-lg text-brand-gray-600 mb-6">{content.subtitle}</p>
 
           {/* Key Benefits */}
           <div className="grid md:grid-cols-3 gap-4 mb-6">
@@ -238,7 +238,7 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
                 <div className={`text-2xl font-bold ${benefit.color} mb-1`}>
                   {benefit.metric}
                 </div>
-                <div className="text-sm text-gray-600">{benefit.description}</div>
+                <div className="text-sm text-brand-gray-600">{benefit.description}</div>
               </div>
             ))}
           </div>
@@ -255,7 +255,7 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
             <Button
               variant="outline"
               size="lg"
-              className={`border-2 ${content.color.replace('text-', 'border-')} hover:bg-gray-50`}
+              className={`border-2 ${content.color.replace('text-', 'border-')} hover:bg-brand-gray-50`}
             >
               <Users className="h-5 w-5 mr-2" />
               {content.ctaSecondary}
@@ -278,10 +278,10 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
       {content.priorities.map((priority, index) => (
         <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
           <priority.icon className={`h-10 w-10 ${content.color} mb-4`} />
-          <h4 className="text-lg font-semibold text-gray-800 mb-2">
+          <h4 className="text-lg font-semibold text-brand-gray-800 mb-2">
             {priority.title}
           </h4>
-          <p className="text-gray-600 text-sm leading-relaxed">
+          <p className="text-brand-gray-600 text-sm leading-relaxed">
             {priority.description}
           </p>
         </Card>
@@ -290,17 +290,17 @@ const ContentSection: React.FC<{ content: PersonaContent }> = ({ content }) => (
 
     {/* Concerns & Solutions */}
     <Card className="p-8">
-      <h4 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+      <h4 className="text-xl font-semibold text-brand-gray-800 mb-6 flex items-center">
         <CheckCircle className={`h-6 w-6 ${content.color} mr-3`} />
         Dúvidas Estratégicas
       </h4>
       <div className="space-y-6">
         {content.concerns.map((item, index) => (
-          <div key={index} className="border-l-4 border-gray-200 pl-4">
-            <div className="font-medium text-gray-800 mb-2">
+          <div key={index} className="border-l-4 border-brand-gray-200 pl-4">
+            <div className="font-medium text-brand-gray-800 mb-2">
               ❓ {item.concern}
             </div>
-            <div className={`text-sm ${content.color} bg-gray-50 p-3 rounded-lg`}>
+            <div className={`text-sm ${content.color} bg-brand-gray-50 p-3 rounded-lg`}>
               ✅ {item.solution}
             </div>
           </div>
@@ -327,14 +327,14 @@ export default function PersonaToggle() {
             <Users className="h-4 w-4 text-brand-ocean-600 mr-2" />
             <span className="text-sm font-medium text-brand-ocean-700">Conteúdo Personalizado</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 mb-6">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 mb-6">
             Impacto{' '}
             <span className="bg-gradient-to-r from-brand-ocean-600 to-brand-purple-600 bg-clip-text text-transparent">
               Estratégico
             </span>{' '}
             para Lideranças
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-brand-gray-600 max-w-3xl mx-auto">
             Entenda como a adoção de uma Stack de IA Própria transforma os objetivos da sua área
           </p>
         </motion.div>
@@ -367,11 +367,11 @@ export default function PersonaToggle() {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <Card className="p-8 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+          <Card className="p-8 bg-gradient-to-r from-brand-gray-800 to-brand-gray-900 text-white">
             <h3 className="text-2xl font-semibold mb-4">
               Pronto para assumir o controle?
             </h3>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-brand-gray-300 mb-6 max-w-2xl mx-auto">
               Agende uma demonstração personalizada focada nas prioridades de {activePersona.toUpperCase()} e veja o ROI da soberania digital.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -385,7 +385,7 @@ export default function PersonaToggle() {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-white text-white hover:bg-white hover:text-gray-800"
+                className="border-white text-white hover:bg-white hover:text-brand-gray-800"
               >
                 Falar com Especialista
                 <ArrowRight className="h-4 w-4 ml-2" />

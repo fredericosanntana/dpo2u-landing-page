@@ -114,7 +114,7 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
           LGPD Digital Transformation
         </CardTitle>
 
-        <p className="text-slate-600 text-lg mt-2">
+        <p className="text-brand-platinum-700 text-lg mt-2">
           Complete diagnostic + Custom roadmap + Platform demo
         </p>
 
@@ -126,7 +126,7 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
               className={`h-2 w-16 rounded-full transition-all duration-300 ${
                 step <= currentStep 
                   ? 'bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500' 
-                  : 'bg-gray-200'
+                  : 'bg-brand-gray-200'
               }`}
             />
           ))}
@@ -447,15 +447,15 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
         <div className="mt-8 pt-6 border-t border-brand-gray-200">
           <div className="flex flex-wrap justify-center gap-4 text-sm text-brand-gray-600">
             <div className="flex items-center">
-              <CheckCircle className="h-4 w-4 text-brand-green-500 mr-2" />
+              <CheckCircle className="h-4 w-4 text-brand-emerald-500 mr-2" />
               <span>100% free consultation</span>
             </div>
             <div className="flex items-center">
-              <CheckCircle className="h-4 w-4 text-brand-green-500 mr-2" />
+              <CheckCircle className="h-4 w-4 text-brand-emerald-500 mr-2" />
               <span>Response within 2h</span>
             </div>
             <div className="flex items-center">
-              <CheckCircle className="h-4 w-4 text-brand-green-500 mr-2" />
+              <CheckCircle className="h-4 w-4 text-brand-emerald-500 mr-2" />
               <span>No commitment</span>
             </div>
           </div>

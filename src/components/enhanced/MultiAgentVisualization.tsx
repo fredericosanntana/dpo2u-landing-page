@@ -192,16 +192,16 @@ const AgentNode: React.FC<{ agent: Agent; onClick?: () => void }> = ({ agent, on
         {/* Status indicator */}
         <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full border-2 border-white ${
           agent.status === 'processing' ? 'bg-yellow-400' :
-          agent.status === 'success' ? 'bg-green-400' :
-          agent.status === 'coordinating' ? 'bg-blue-400' :
-          'bg-gray-400'
+          agent.status === 'success' ? 'bg-brand-emerald-400' :
+          agent.status === 'coordinating' ? 'bg-brand-sapphire-400' :
+          'bg-brand-gray-400'
         }`} />
       </div>
       
       {/* Tooltip */}
       <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg p-2 min-w-max opacity-0 hover:opacity-100 transition-opacity z-10">
-        <div className="text-xs font-semibold text-gray-800">{agent.name}</div>
-        <div className="text-xs text-gray-600">{agent.description}</div>
+        <div className="text-xs font-semibold text-brand-gray-800">{agent.name}</div>
+        <div className="text-xs text-brand-gray-600">{agent.description}</div>
       </div>
     </motion.div>
   );
@@ -267,7 +267,7 @@ export default function MultiAgentVisualization() {
   }, [isPlaying]);
 
   return (
-    <section className="section-padding bg-gradient-to-br from-gray-50 to-white dark:from-slate-900 dark:to-slate-900">
+    <section className="section-padding bg-gradient-to-br from-brand-gray-50 to-white dark:from-brand-chrome-900 dark:to-brand-chrome-900">
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div
@@ -276,18 +276,18 @@ export default function MultiAgentVisualization() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center px-4 py-2 bg-brand-sapphire-100 rounded-full mb-6 dark:bg-slate-800">
+          <div className="inline-flex items-center px-4 py-2 bg-brand-sapphire-100 rounded-full mb-6 dark:bg-brand-chrome-800">
             <Network className="h-4 w-4 text-brand-sapphire-600 mr-2" />
-            <span className="text-sm font-medium text-brand-sapphire-700 dark:text-slate-200">Sistema Multiagentes — Live Production</span>
+            <span className="text-sm font-medium text-brand-sapphire-700 dark:text-brand-platinum-300">Sistema Multiagentes — Live Production</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-800 dark:text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 dark:text-white mb-6">
             Veja a{' '}
             <span className="bg-gradient-to-r from-brand-sapphire-600 to-brand-emerald-600 bg-clip-text text-transparent">
               Orquestração Inteligente
             </span>{' '}
             em Ação
           </h2>
-          <p className="text-xl text-gray-600 dark:text-slate-300 max-w-3xl mx-auto">
+          <p className="text-xl text-brand-gray-600 dark:text-brand-platinum-400 max-w-3xl mx-auto">
             Arquitetura híbrida de 4 níveis coordenando agentes especializados para máxima eficiência empresarial
           </p>
         </motion.div>
@@ -297,7 +297,7 @@ export default function MultiAgentVisualization() {
           <div className="lg:col-span-2">
             <Card className="p-6 h-[500px] relative overflow-hidden">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-800">Arquitetura Multiagente</h3>
+                <h3 className="text-lg font-semibold text-brand-gray-800">Arquitetura Multiagente</h3>
                 <Button
                   variant="outline"
                   size="sm"
@@ -375,14 +375,14 @@ export default function MultiAgentVisualization() {
           {/* Métricas em Tempo Real */}
           <div className="space-y-6">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+              <h3 className="text-lg font-semibold text-brand-gray-800 mb-4 flex items-center">
                 <TrendingUp className="h-5 w-5 text-brand-emerald-500 mr-2" />
                 Métricas ao Vivo
               </h3>
               
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Tarefas Processando</span>
+                  <span className="text-sm text-brand-gray-600">Tarefas Processando</span>
                   <motion.span 
                     className="text-xl font-bold text-brand-sapphire-600"
                     key={metrics.tasksProcessing}
@@ -395,7 +395,7 @@ export default function MultiAgentVisualization() {
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Ganho Eficiência</span>
+                  <span className="text-sm text-brand-gray-600">Ganho Eficiência</span>
                   <motion.span 
                     className="text-xl font-bold text-brand-emerald-600"
                     key={metrics.efficiency}
@@ -408,7 +408,7 @@ export default function MultiAgentVisualization() {
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Redução Custos</span>
+                  <span className="text-sm text-brand-gray-600">Redução Custos</span>
                   <motion.span 
                     className="text-xl font-bold text-brand-purple-600"
                     key={metrics.costReduction.toFixed(0)}
@@ -421,7 +421,7 @@ export default function MultiAgentVisualization() {
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Tempo Economizado</span>
+                  <span className="text-sm text-brand-gray-600">Tempo Economizado</span>
                   <motion.span 
                     className="text-xl font-bold text-brand-ocean-600"
                     key={metrics.timeSaved}
@@ -445,18 +445,18 @@ export default function MultiAgentVisualization() {
                   transition={{ duration: 0.3 }}
                 >
                   <Card className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                    <h3 className="text-lg font-semibold text-brand-gray-800 mb-2 flex items-center">
                       <Shield className="h-5 w-5 text-brand-sapphire-500 mr-2" />
                       {selectedAgent.name}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4">{selectedAgent.description}</p>
+                    <p className="text-sm text-brand-gray-600 mb-4">{selectedAgent.description}</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-medium">Nível {selectedAgent.level}</span>
                       <span className={`px-2 py-1 rounded-full ${
                         selectedAgent.status === 'processing' ? 'bg-yellow-100 text-yellow-700' :
-                        selectedAgent.status === 'success' ? 'bg-green-100 text-green-700' :
-                        selectedAgent.status === 'coordinating' ? 'bg-blue-100 text-blue-700' :
-                        'bg-gray-100 text-gray-700'
+                        selectedAgent.status === 'success' ? 'bg-brand-emerald-100 text-brand-emerald-700' :
+                        selectedAgent.status === 'coordinating' ? 'bg-brand-sapphire-100 text-brand-sapphire-700' :
+                        'bg-brand-gray-100 text-brand-gray-700'
                       }`}>
                         {selectedAgent.status === 'processing' ? 'Processando' :
                          selectedAgent.status === 'success' ? 'Concluído' :

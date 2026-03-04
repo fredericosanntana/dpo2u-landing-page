@@ -33,9 +33,9 @@ import { useGraphData, useGraphFilters, useNodeSelection } from '@/hooks/useGrap
 const GraphVisualization = React.lazy(() => import('./components/GraphVisualization'))
 
 const GraphVisualizationLoader = () => (
-  <div className="h-full flex items-center justify-center bg-slate-900/20 rounded-lg border border-white/10">
+  <div className="h-full flex items-center justify-center bg-brand-chrome-900/20 rounded-lg border border-white/10">
     <div className="text-center">
-      <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+      <div className="w-8 h-8 border-4 border-brand-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
       <p className="text-white">Carregando visualização...</p>
     </div>
   </div>
@@ -168,7 +168,7 @@ export default function GraphsPage() {
     <div className="h-full flex flex-col">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
         <div className="p-4 border-b border-white/10">
-          <TabsList className="grid w-full grid-cols-3 bg-slate-800/50">
+          <TabsList className="grid w-full grid-cols-3 bg-brand-chrome-800/50">
             <TabsTrigger value="filters" className="text-xs">Filtros</TabsTrigger>
             <TabsTrigger value="stats" className="text-xs">Stats</TabsTrigger>
             <TabsTrigger value="suggestions" className="text-xs">IA</TabsTrigger>
@@ -221,32 +221,32 @@ export default function GraphsPage() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-brand-chrome-900 via-purple-950 to-brand-chrome-900 relative overflow-hidden">
         {/* Header */}
         <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative z-10 border-b border-white/10 bg-slate-900/50 backdrop-blur"
+          className="relative z-10 border-b border-white/10 bg-brand-chrome-900/50 backdrop-blur"
         >
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-purple-500/20 rounded-lg">
-                    <Brain className="h-6 w-6 text-purple-400" />
+                  <div className="p-2 bg-brand-purple-500/20 rounded-lg">
+                    <Brain className="h-6 w-6 text-brand-purple-400" />
                   </div>
                   <div>
                     <h1 className="text-2xl font-bold text-white">
                       Zettelkasten Knowledge Graph
                     </h1>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-brand-gray-400">
                       Explore conexões de conhecimento em tempo real
                     </p>
                   </div>
                 </div>
 
                 <div className="hidden md:flex items-center gap-2">
-                  <Badge variant="outline" className="bg-purple-500/20 text-purple-200 border-purple-500/30">
+                  <Badge variant="outline" className="bg-brand-purple-500/20 text-brand-purple-200 border-brand-purple-500/30">
                     {filteredData.nodes.length} notas
                   </Badge>
                   <Badge variant="outline" className="bg-cyan-500/20 text-cyan-200 border-cyan-500/30">
@@ -263,7 +263,7 @@ export default function GraphsPage() {
                       size="icon"
                       onClick={handleRefresh}
                       disabled={graphLoading}
-                      className="text-gray-400 hover:text-white"
+                      className="text-brand-gray-400 hover:text-white"
                     >
                       <RefreshCw className={`h-4 w-4 ${graphLoading ? 'animate-spin' : ''}`} />
                     </Button>
@@ -277,7 +277,7 @@ export default function GraphsPage() {
                       variant="ghost"
                       size="icon"
                       onClick={handleShare}
-                      className="text-gray-400 hover:text-white"
+                      className="text-brand-gray-400 hover:text-white"
                     >
                       <Share2 className="h-4 w-4" />
                     </Button>
@@ -291,7 +291,7 @@ export default function GraphsPage() {
                       variant="ghost"
                       size="icon"
                       onClick={handleExport}
-                      className="text-gray-400 hover:text-white"
+                      className="text-brand-gray-400 hover:text-white"
                     >
                       <Download className="h-4 w-4" />
                     </Button>
@@ -305,12 +305,12 @@ export default function GraphsPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="md:hidden text-gray-400 hover:text-white"
+                      className="md:hidden text-brand-gray-400 hover:text-white"
                     >
                       <Menu className="h-4 w-4" />
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="left" className="w-80 bg-slate-900/95 border-white/10">
+                  <SheetContent side="left" className="w-80 bg-brand-chrome-900/95 border-white/10">
                     {sidebarContent}
                   </SheetContent>
                 </Sheet>
@@ -367,10 +367,10 @@ export default function GraphsPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-slate-900/80 backdrop-blur z-50 flex items-center justify-center"
+              className="absolute inset-0 bg-brand-chrome-900/80 backdrop-blur z-50 flex items-center justify-center"
             >
               <div className="text-center">
-                <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                <div className="w-8 h-8 border-4 border-brand-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
                 <p className="text-white">Carregando grafo de conhecimento...</p>
               </div>
             </motion.div>

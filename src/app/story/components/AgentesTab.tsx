@@ -58,14 +58,14 @@ const getDomainColor = (domain: string, name: string) => {
   const lowerName = name.toLowerCase();
   
   if (lowerDomain.includes('security') || lowerName.includes('security')) return 'bg-red-500/10 text-red-500 border-red-500/20';
-  if (lowerDomain.includes('code') || lowerName.includes('code')) return 'bg-blue-500/10 text-blue-500 border-blue-500/20';
-  if (lowerDomain.includes('deploy') || lowerName.includes('deploy')) return 'bg-green-500/10 text-green-500 border-green-500/20';
-  if (lowerDomain.includes('design') || lowerName.includes('design')) return 'bg-purple-500/10 text-purple-500 border-purple-500/20';
+  if (lowerDomain.includes('code') || lowerName.includes('code')) return 'bg-brand-sapphire-500/10 text-brand-sapphire-500 border-brand-sapphire-500/20';
+  if (lowerDomain.includes('deploy') || lowerName.includes('deploy')) return 'bg-brand-emerald-500/10 text-brand-emerald-500 border-brand-emerald-500/20';
+  if (lowerDomain.includes('design') || lowerName.includes('design')) return 'bg-brand-purple-500/10 text-brand-purple-500 border-brand-purple-500/20';
   if (lowerDomain.includes('content') || lowerName.includes('content')) return 'bg-orange-500/10 text-orange-500 border-orange-500/20';
   if (lowerDomain.includes('orchestrat') || lowerName.includes('orchestrat')) return 'bg-primary/10 text-primary border-primary/20';
   if (lowerDomain.includes('performance') || lowerName.includes('performance')) return 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20';
   
-  return 'bg-slate-500/10 text-slate-500 border-slate-500/20';
+  return 'bg-brand-platinum-600/10 text-brand-platinum-600 border-brand-platinum-600/20';
 };
 
 // Formatar nome do agente
@@ -122,9 +122,9 @@ export function AgentesTab({ data }: AgentesTabProps) {
         
         <Card className="p-4">
           <div className="flex items-center gap-2">
-            <Activity className="h-5 w-5 text-green-500" />
+            <Activity className="h-5 w-5 text-brand-emerald-500" />
             <div>
-              <div className="text-2xl font-bold text-green-600">{summary.active_agents}</div>
+              <div className="text-2xl font-bold text-brand-emerald-600">{summary.active_agents}</div>
               <div className="text-sm text-muted-foreground">Online</div>
             </div>
           </div>
@@ -142,9 +142,9 @@ export function AgentesTab({ data }: AgentesTabProps) {
         
         <Card className="p-4">
           <div className="flex items-center gap-2">
-            <Clock className="h-5 w-5 text-blue-500" />
+            <Clock className="h-5 w-5 text-brand-sapphire-500" />
             <div>
-              <div className="text-2xl font-bold text-blue-600">{summary.tasks_completed_today}</div>
+              <div className="text-2xl font-bold text-brand-sapphire-600">{summary.tasks_completed_today}</div>
               <div className="text-sm text-muted-foreground">Tarefas Hoje</div>
             </div>
           </div>
@@ -154,7 +154,7 @@ export function AgentesTab({ data }: AgentesTabProps) {
       {/* Filtros */}
       <div className="flex flex-wrap gap-2">
         <Button variant="outline" size="sm">
-          <Circle className="h-4 w-4 mr-1 fill-green-500 text-green-500" />
+          <Circle className="h-4 w-4 mr-1 fill-brand-emerald-500 text-brand-emerald-500" />
           Online ({activeAgents.length})
         </Button>
         <Button variant="outline" size="sm">
@@ -173,7 +173,7 @@ export function AgentesTab({ data }: AgentesTabProps) {
             <Card 
               key={agent.name} 
               className={`relative transition-all hover:shadow-md ${
-                agent.status === 'online' ? 'ring-1 ring-green-500/20' : 'ring-1 ring-red-500/20'
+                agent.status === 'online' ? 'ring-1 ring-brand-emerald-500/20' : 'ring-1 ring-red-500/20'
               }`}
             >
               <CardHeader className="pb-3">
@@ -183,7 +183,7 @@ export function AgentesTab({ data }: AgentesTabProps) {
                   </div>
                   <Badge 
                     variant={agent.status === 'online' ? 'default' : 'secondary'}
-                    className={agent.status === 'online' ? 'bg-green-500/10 text-green-600' : 'bg-red-500/10 text-red-600'}
+                    className={agent.status === 'online' ? 'bg-brand-emerald-500/10 text-brand-emerald-600' : 'bg-red-500/10 text-red-600'}
                   >
                     {agent.status}
                   </Badge>
@@ -269,7 +269,7 @@ export function AgentesTab({ data }: AgentesTabProps) {
                         <div
                           key={agent.name}
                           className={`w-2 h-2 rounded-full ${
-                            agent.status === 'online' ? 'bg-green-500' : 'bg-red-500'
+                            agent.status === 'online' ? 'bg-brand-emerald-500' : 'bg-red-500'
                           }`}
                           title={formatAgentName(agent.name)}
                         />

@@ -33,23 +33,23 @@ const AnimatedSection: React.FC<{
 
 export default function PrivateStackPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
       <Header />
 
       {/* Hero */}
-      <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-slate-900 via-cyan-950/20 to-slate-900">
+      <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-cyan-950/20 to-brand-chrome-900">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }}></div>
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }}></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand-purple-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }}></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               variants={fadeInUp}
-              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full border border-cyan-400/30 mb-4 backdrop-blur-sm"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500/20 to-brand-purple-500/20 rounded-full border border-cyan-400/30 mb-4 backdrop-blur-sm"
             >
-              <span className="text-xs font-mono text-slate-400 mr-2">05</span>
+              <span className="text-xs font-mono text-brand-platinum-500 mr-2">05</span>
               <Lock className="h-5 w-5 text-cyan-400 mr-3" />
               <span className="text-base font-semibold text-cyan-300">Private AI Stack</span>
             </motion.div>
@@ -59,14 +59,14 @@ export default function PrivateStackPage() {
               className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold mb-8 leading-tight text-white"
             >
               The Security Layer <br />
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-cyan-400 via-brand-sapphire-400 to-brand-purple-400 bg-clip-text text-transparent">
                 That Closes the Loop
               </span>
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="text-xl md:text-2xl mb-12 text-slate-300 leading-relaxed font-light"
+              className="text-xl md:text-2xl mb-12 text-brand-platinum-400 leading-relaxed font-light"
             >
               FHE + LEANN + on-chain security.
               <span className="text-cyan-400 font-medium"> The doughnuts economy</span> — where the outer boundary
@@ -97,13 +97,13 @@ export default function PrivateStackPage() {
       </AnimatedSection>
 
       {/* Doughnuts Economy — Full Explanation */}
-      <AnimatedSection className="py-24 bg-slate-900">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
               The <span className="text-cyan-400">Doughnuts Economy</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               Kate Raworth's Doughnut Economics applied to data privacy. A safe operating space
               for companies between technological boundaries and human rights.
             </p>
@@ -119,15 +119,15 @@ export default function PrivateStackPage() {
                 </div>
 
                 {/* Middle Ring (Safe Zone) */}
-                <div className="border-2 border-emerald-500/30 rounded-full p-8 bg-emerald-500/5">
+                <div className="border-2 border-brand-emerald-500/30 rounded-full p-8 bg-brand-emerald-500/5">
                   <div className="text-center mb-4">
-                    <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Safe Zone — Compliant Companies</span>
+                    <span className="text-xs font-bold text-brand-emerald-400 uppercase tracking-widest">Safe Zone — Compliant Companies</span>
                   </div>
 
                   {/* Inner Ring */}
-                  <div className="border-2 border-blue-500/30 rounded-full p-6 bg-blue-500/5 text-center">
-                    <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Inner Boundary — Human Rights</span>
-                    <p className="text-slate-400 text-sm mt-2">
+                  <div className="border-2 border-brand-sapphire-500/30 rounded-full p-6 bg-brand-sapphire-500/5 text-center">
+                    <span className="text-xs font-bold text-brand-sapphire-400 uppercase tracking-widest">Inner Boundary — Human Rights</span>
+                    <p className="text-brand-platinum-500 text-sm mt-2">
                       LGPD Art. 16 erasure, data portability, transparency,
                       consent, non-discrimination
                     </p>
@@ -140,12 +140,12 @@ export default function PrivateStackPage() {
           {/* Three Boundaries Explained */}
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <motion.div variants={fadeInUp}>
-              <Card className="p-8 h-full bg-slate-800/50 border-red-500/30">
+              <Card className="p-8 h-full bg-brand-chrome-800/50 border-red-500/30">
                 <div className="w-14 h-14 bg-red-500/10 rounded-xl flex items-center justify-center mb-6">
                   <Shield className="h-7 w-7 text-red-400" />
                 </div>
                 <h3 className="text-xl font-bold text-red-400 mb-3">Outer Boundary</h3>
-                <p className="text-slate-400 leading-relaxed mb-4">
+                <p className="text-brand-platinum-500 leading-relaxed mb-4">
                   The technological ceiling that no one can breach.
                 </p>
                 <ul className="space-y-2">
@@ -155,7 +155,7 @@ export default function PrivateStackPage() {
                     'Fully Homomorphic Encryption (FHE)',
                     'Content-addressable storage (IPFS CIDs)',
                   ].map((item, idx) => (
-                    <li key={idx} className="flex items-start text-sm text-slate-400">
+                    <li key={idx} className="flex items-start text-sm text-brand-platinum-500">
                       <Check className="h-4 w-4 text-red-400 mr-2 mt-0.5 flex-shrink-0" />
                       {item}
                     </li>
@@ -165,12 +165,12 @@ export default function PrivateStackPage() {
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <Card className="p-8 h-full bg-slate-800/50 border-emerald-500/30 ring-2 ring-emerald-500/20">
-                <div className="w-14 h-14 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6">
-                  <Check className="h-7 w-7 text-emerald-400" />
+              <Card className="p-8 h-full bg-brand-chrome-800/50 border-brand-emerald-500/30 ring-2 ring-brand-emerald-500/20">
+                <div className="w-14 h-14 bg-brand-emerald-500/10 rounded-xl flex items-center justify-center mb-6">
+                  <Check className="h-7 w-7 text-brand-emerald-400" />
                 </div>
-                <h3 className="text-xl font-bold text-emerald-400 mb-3">Safe Zone</h3>
-                <p className="text-slate-400 leading-relaxed mb-4">
+                <h3 className="text-xl font-bold text-brand-emerald-400 mb-3">Safe Zone</h3>
+                <p className="text-brand-platinum-500 leading-relaxed mb-4">
                   Where companies thrive — compliant, protected, productive.
                 </p>
                 <ul className="space-y-2">
@@ -180,8 +180,8 @@ export default function PrivateStackPage() {
                     'Self-funding agent economics',
                     'Continuous AI-powered monitoring',
                   ].map((item, idx) => (
-                    <li key={idx} className="flex items-start text-sm text-slate-400">
-                      <Check className="h-4 w-4 text-emerald-400 mr-2 mt-0.5 flex-shrink-0" />
+                    <li key={idx} className="flex items-start text-sm text-brand-platinum-500">
+                      <Check className="h-4 w-4 text-brand-emerald-400 mr-2 mt-0.5 flex-shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -190,12 +190,12 @@ export default function PrivateStackPage() {
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <Card className="p-8 h-full bg-slate-800/50 border-blue-500/30">
-                <div className="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6">
-                  <Users className="h-7 w-7 text-blue-400" />
+              <Card className="p-8 h-full bg-brand-chrome-800/50 border-brand-sapphire-500/30">
+                <div className="w-14 h-14 bg-brand-sapphire-500/10 rounded-xl flex items-center justify-center mb-6">
+                  <Users className="h-7 w-7 text-brand-sapphire-400" />
                 </div>
-                <h3 className="text-xl font-bold text-blue-400 mb-3">Inner Boundary</h3>
-                <p className="text-slate-400 leading-relaxed mb-4">
+                <h3 className="text-xl font-bold text-brand-sapphire-400 mb-3">Inner Boundary</h3>
+                <p className="text-brand-platinum-500 leading-relaxed mb-4">
                   The social foundation protecting data subjects' rights.
                 </p>
                 <ul className="space-y-2">
@@ -205,8 +205,8 @@ export default function PrivateStackPage() {
                     'Transparency & clear consent',
                     'Non-discrimination in processing',
                   ].map((item, idx) => (
-                    <li key={idx} className="flex items-start text-sm text-slate-400">
-                      <Check className="h-4 w-4 text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
+                    <li key={idx} className="flex items-start text-sm text-brand-platinum-500">
+                      <Check className="h-4 w-4 text-brand-sapphire-400 mr-2 mt-0.5 flex-shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -218,7 +218,7 @@ export default function PrivateStackPage() {
       </AnimatedSection>
 
       {/* FHE Section */}
-      <AnimatedSection className="py-24 bg-slate-950">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div>
@@ -228,7 +228,7 @@ export default function PrivateStackPage() {
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
                 Compute on <span className="text-cyan-400">Encrypted Data</span>
               </h2>
-              <p className="text-lg text-slate-300 mb-8">
+              <p className="text-lg text-brand-platinum-400 mb-8">
                 FHE allows DPO2U to perform compliance analytics, risk assessments, and
                 audit scoring on encrypted data — without ever decrypting it.
               </p>
@@ -239,7 +239,7 @@ export default function PrivateStackPage() {
                   'Encrypted reporting via MCP encryptedreporting tool',
                   'Powered by OpenFHE library (open-source)',
                 ].map((item, idx) => (
-                  <li key={idx} className="flex items-start text-slate-400">
+                  <li key={idx} className="flex items-start text-brand-platinum-500">
                     <Lock className="h-5 w-5 text-cyan-400 mr-3 mt-0.5 flex-shrink-0" />
                     {item}
                   </li>
@@ -247,14 +247,14 @@ export default function PrivateStackPage() {
               </ul>
             </div>
 
-            <div className="bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
-              <div className="flex items-center px-4 py-2 bg-slate-800 border-b border-slate-700">
+            <div className="bg-brand-chrome-900 rounded-xl overflow-hidden border border-brand-chrome-800 shadow-2xl">
+              <div className="flex items-center px-4 py-2 bg-brand-chrome-800 border-b border-brand-platinum-800">
                 <div className="flex space-x-2">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-brand-emerald-500"></div>
                 </div>
-                <span className="ml-4 text-xs text-slate-500 font-mono">fhe-compliance.ts</span>
+                <span className="ml-4 text-xs text-brand-platinum-600 font-mono">fhe-compliance.ts</span>
               </div>
               <div className="p-6 overflow-x-auto">
                 <pre className="text-xs md:text-sm font-mono text-cyan-400 pointer-events-none select-none">
@@ -286,30 +286,30 @@ await postToMidnight(score.overall);`}
       </AnimatedSection>
 
       {/* LEANN Section */}
-      <AnimatedSection className="py-24 bg-slate-900">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <div className="order-2 lg:order-1">
-              <Card className="bg-slate-800 border-slate-700 p-8">
+              <Card className="bg-brand-chrome-800 border-brand-platinum-800 p-8">
                 <h3 className="text-xl font-bold text-white mb-6 flex items-center">
                   <Database className="h-6 w-6 text-cyan-400 mr-3" />
                   LEANN Search Example
                 </h3>
                 <div className="space-y-4 font-mono text-sm">
-                  <div className="bg-slate-900 p-3 rounded">
-                    <span className="text-slate-500">query:</span>
+                  <div className="bg-brand-chrome-900 p-3 rounded">
+                    <span className="text-brand-platinum-600">query:</span>
                     <span className="text-cyan-400"> "LGPD compliance data retention"</span>
                   </div>
-                  <div className="bg-slate-900 p-3 rounded">
-                    <span className="text-slate-500">model:</span>
-                    <span className="text-emerald-400"> all-MiniLM-L6-v2 (384 dims)</span>
+                  <div className="bg-brand-chrome-900 p-3 rounded">
+                    <span className="text-brand-platinum-600">model:</span>
+                    <span className="text-brand-emerald-400"> all-MiniLM-L6-v2 (384 dims)</span>
                   </div>
-                  <div className="bg-slate-900 p-3 rounded">
-                    <span className="text-slate-500">backend:</span>
-                    <span className="text-purple-400"> HNSW (compact + recompute)</span>
+                  <div className="bg-brand-chrome-900 p-3 rounded">
+                    <span className="text-brand-platinum-600">backend:</span>
+                    <span className="text-brand-purple-400"> HNSW (compact + recompute)</span>
                   </div>
-                  <div className="bg-slate-900 p-3 rounded">
-                    <span className="text-slate-500">results:</span>
+                  <div className="bg-brand-chrome-900 p-3 rounded">
+                    <span className="text-brand-platinum-600">results:</span>
                     <span className="text-amber-400"> 5 relevant documents in 12ms</span>
                   </div>
                 </div>
@@ -323,7 +323,7 @@ await postToMidnight(score.overall);`}
               <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
                 LEANN <span className="text-cyan-400">Knowledge Base</span>
               </h2>
-              <p className="text-lg text-slate-300 mb-8">
+              <p className="text-lg text-brand-platinum-400 mb-8">
                 Semantic search over encrypted knowledge base. LEANN indexes compliance documents,
                 regulations, and case law for instant retrieval by AI agents.
               </p>
@@ -334,7 +334,7 @@ await postToMidnight(score.overall);`}
                   'Sentence-transformers for semantic understanding',
                   'Privacy-preserving: data stays on your infrastructure',
                 ].map((item, idx) => (
-                  <li key={idx} className="flex items-start text-slate-400">
+                  <li key={idx} className="flex items-start text-brand-platinum-500">
                     <Database className="h-5 w-5 text-cyan-400 mr-3 mt-0.5 flex-shrink-0" />
                     {item}
                   </li>
@@ -346,13 +346,13 @@ await postToMidnight(score.overall);`}
       </AnimatedSection>
 
       {/* Full Architecture — All 5 Products */}
-      <AnimatedSection className="py-24 bg-slate-950">
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
               The <span className="text-cyan-400">Complete</span> Stack
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               Product 05 closes the loop. All 5 products work as one integrated, self-funding,
               privacy-preserving compliance system.
             </p>
@@ -362,16 +362,16 @@ await postToMidnight(score.overall);`}
             {/* Full pipeline */}
             <div className="grid md:grid-cols-5 gap-4 mb-12">
               {[
-                { num: '01', name: 'Compliance Engine', icon: FileText, href: '/compliance-automate', hoverBorder: 'hover:border-emerald-500/50', ringClass: '', bgClass: 'bg-emerald-500/20', textClass: 'text-emerald-400' },
-                { num: '02', name: 'AI Brain', icon: Brain, href: '/mcp-brain', hoverBorder: 'hover:border-blue-500/50', ringClass: '', bgClass: 'bg-blue-500/20', textClass: 'text-blue-400' },
-                { num: '03', name: 'ZK Protocol', icon: Fingerprint, href: '/midnight-protocol', hoverBorder: 'hover:border-purple-500/50', ringClass: '', bgClass: 'bg-purple-500/20', textClass: 'text-purple-400' },
+                { num: '01', name: 'Compliance Engine', icon: FileText, href: '/compliance-automate', hoverBorder: 'hover:border-brand-emerald-500/50', ringClass: '', bgClass: 'bg-brand-emerald-500/20', textClass: 'text-brand-emerald-400' },
+                { num: '02', name: 'AI Brain', icon: Brain, href: '/mcp-brain', hoverBorder: 'hover:border-brand-sapphire-500/50', ringClass: '', bgClass: 'bg-brand-sapphire-500/20', textClass: 'text-brand-sapphire-400' },
+                { num: '03', name: 'ZK Protocol', icon: Fingerprint, href: '/midnight-protocol', hoverBorder: 'hover:border-brand-purple-500/50', ringClass: '', bgClass: 'bg-brand-purple-500/20', textClass: 'text-brand-purple-400' },
                 { num: '04', name: 'Self-Funding', icon: Coins, href: '/self-funding-agent', hoverBorder: 'hover:border-amber-500/50', ringClass: '', bgClass: 'bg-amber-500/20', textClass: 'text-amber-400' },
                 { num: '05', name: 'Private Stack', icon: Lock, href: '/private-stack', hoverBorder: 'hover:border-cyan-500/50', ringClass: 'ring-2 ring-cyan-500/30', bgClass: 'bg-cyan-500/20', textClass: 'text-cyan-400' },
               ].map((product, idx) => (
                 <React.Fragment key={product.num}>
                   <a href={product.href} className="block group">
-                    <Card className={`p-4 text-center h-full bg-slate-900 border-slate-800 ${product.hoverBorder} transition-all ${product.ringClass}`}>
-                      <div className="text-xs font-mono text-slate-500 mb-2">{product.num}</div>
+                    <Card className={`p-4 text-center h-full bg-brand-chrome-900 border-brand-chrome-800 ${product.hoverBorder} transition-all ${product.ringClass}`}>
+                      <div className="text-xs font-mono text-brand-platinum-600 mb-2">{product.num}</div>
                       <div className={`w-10 h-10 mx-auto ${product.bgClass} rounded-lg flex items-center justify-center mb-2 group-hover:scale-110 transition-transform`}>
                         <product.icon className={`h-5 w-5 ${product.textClass}`} />
                       </div>
@@ -383,7 +383,7 @@ await postToMidnight(score.overall);`}
             </div>
 
             {/* How 05 closes the loop */}
-            <Card className="bg-slate-900 border-cyan-500/20 p-8">
+            <Card className="bg-brand-chrome-900 border-cyan-500/20 p-8">
               <h3 className="text-xl font-bold text-cyan-400 mb-4 text-center">How Product 05 Closes the Doughnut</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -391,7 +391,7 @@ await postToMidnight(score.overall);`}
                     <Shield className="h-4 w-4 text-red-400 mr-2" />
                     Outer Boundary (Security)
                   </h4>
-                  <ul className="space-y-2 text-sm text-slate-400">
+                  <ul className="space-y-2 text-sm text-brand-platinum-500">
                     <li className="flex items-start">
                       <span className="text-cyan-400 mr-2">→</span>
                       FHE ensures data is encrypted even during computation
@@ -412,10 +412,10 @@ await postToMidnight(score.overall);`}
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white mb-3 flex items-center">
-                    <Users className="h-4 w-4 text-blue-400 mr-2" />
+                    <Users className="h-4 w-4 text-brand-sapphire-400 mr-2" />
                     Inner Boundary (Rights)
                   </h4>
-                  <ul className="space-y-2 text-sm text-slate-400">
+                  <ul className="space-y-2 text-sm text-brand-platinum-500">
                     <li className="flex items-start">
                       <span className="text-cyan-400 mr-2">→</span>
                       Product 01 generates LGPD-compliant policies
@@ -441,12 +441,12 @@ await postToMidnight(score.overall);`}
       </AnimatedSection>
 
       {/* CTA */}
-      <AnimatedSection className="py-24 bg-gradient-to-r from-cyan-900/30 via-slate-900 to-purple-900/30 text-center">
+      <AnimatedSection className="py-24 bg-gradient-to-r from-cyan-900/30 via-brand-chrome-900 to-brand-purple-900/30 text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-8">
             The Stack Is Complete
           </h2>
-          <p className="text-lg text-slate-300 mb-12 max-w-2xl mx-auto">
+          <p className="text-lg text-brand-platinum-400 mb-12 max-w-2xl mx-auto">
             5 products, 1 mission: self-funding, privacy-preserving, on-chain compliance.
             Start with a free diagnostic or explore from Product 01.
           </p>

@@ -38,9 +38,9 @@ const AnimatedSection: React.FC<{
 };
 
 const colorMap: Record<string, { borderL: string; bg: string; text: string }> = {
-  emerald: { borderL: 'border-l-emerald-500', bg: 'bg-emerald-500/10', text: 'text-emerald-500' },
-  blue: { borderL: 'border-l-blue-500', bg: 'bg-blue-500/10', text: 'text-blue-500' },
-  purple: { borderL: 'border-l-purple-500', bg: 'bg-purple-500/10', text: 'text-purple-500' },
+  emerald: { borderL: 'border-l-brand-emerald-500', bg: 'bg-brand-emerald-500/10', text: 'text-brand-emerald-500' },
+  blue: { borderL: 'border-l-brand-sapphire-500', bg: 'bg-brand-sapphire-500/10', text: 'text-brand-sapphire-500' },
+  purple: { borderL: 'border-l-brand-purple-500', bg: 'bg-brand-purple-500/10', text: 'text-brand-purple-500' },
   amber: { borderL: 'border-l-amber-500', bg: 'bg-amber-500/10', text: 'text-amber-500' },
 };
 
@@ -97,10 +97,10 @@ export default function HomePage() {
             <div className="text-white">
               <motion.div
                 variants={fadeInUp}
-                className="inline-flex items-center px-4 py-2 bg-slate-100 dark:bg-slate-800/80 rounded-full border border-slate-200 dark:border-slate-700/50 mb-8"
+                className="inline-flex items-center px-4 py-2 bg-brand-platinum-200 dark:bg-brand-chrome-800/80 rounded-full border border-brand-platinum-300 dark:border-brand-platinum-800/50 mb-8"
               >
                 <Fingerprint className="h-4 w-4 text-primary mr-2" />
-                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Powered by Midnight Network</span>
+                <span className="text-sm font-semibold text-brand-platinum-800 dark:text-brand-platinum-400">Powered by Midnight Network</span>
               </motion.div>
 
               <h1 className="sr-only">DPO2U — Compliance as a Protocol</h1>
@@ -120,7 +120,7 @@ export default function HomePage() {
 
               <motion.p
                 variants={fadeInUp}
-                className="text-lg md:text-xl mb-10 text-slate-600 dark:text-slate-400 leading-relaxed font-light"
+                className="text-lg md:text-xl mb-10 text-brand-platinum-700 dark:text-brand-platinum-500 leading-relaxed font-light"
               >
                 DPO2U fuses <span className="text-brand-sapphire-600 dark:text-brand-sapphire-400 font-medium">Zero-Knowledge Proofs</span>,{' '}
                 <span className="text-brand-emerald-600 dark:text-brand-emerald-400 font-medium">Autonomous Agents</span>, and{' '}
@@ -142,7 +142,7 @@ export default function HomePage() {
                 <Button
                   variant="outline"
                   size="xl"
-                  className="border-2 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-bold text-lg px-8 py-6 rounded-xl transition-all"
+                  className="border-2 border-brand-platinum-400 dark:border-brand-platinum-800 text-brand-platinum-800 dark:text-brand-platinum-400 hover:bg-brand-platinum-100 dark:hover:bg-brand-chrome-800 font-bold text-lg px-8 py-6 rounded-xl transition-all"
                   onClick={() => {
                     trackCTA('get_in_touch', 'hero');
                     window.location.href = 'mailto:contato@dpo2u.com.br';
@@ -152,7 +152,7 @@ export default function HomePage() {
                 </Button>
               </motion.div>
 
-              <motion.p variants={fadeInUp} className="mt-8 text-sm text-slate-500 font-light flex items-center">
+              <motion.p variants={fadeInUp} className="mt-8 text-sm text-brand-platinum-600 font-light flex items-center">
                 <Star className="h-4 w-4 mr-2 text-amber-500" />
                 Live on Midnight Testnet &middot; ZK-SNARKs &middot; MCP Server Protocol
               </motion.p>
@@ -169,20 +169,20 @@ export default function HomePage() {
       {/* ============================================= */}
       {/* 2. PROBLEM / SOLUTION                         */}
       {/* ============================================= */}
-      <AnimatedSection className="py-20 bg-slate-50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+      <AnimatedSection className="py-20 bg-brand-platinum-100 dark:bg-brand-chrome-900/50 border-y border-brand-platinum-300 dark:border-brand-chrome-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <motion.div variants={fadeInUp} className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-chrome-900 dark:text-white mb-6">
                 Redefining the Cost of <span className="text-brand-sapphire-500">Trust</span>
               </h2>
             </motion.div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <motion.div variants={fadeInUp}>
-                <Card className="p-8 h-full border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center">
-                    <FileText className="h-5 w-5 mr-3 text-slate-500" /> Traditional Compliance
+                <Card className="p-8 h-full border-brand-platinum-300 dark:border-brand-chrome-800 bg-white dark:bg-brand-chrome-900 shadow-sm">
+                  <h3 className="text-xl font-bold text-brand-chrome-800 dark:text-brand-platinum-300 mb-6 flex items-center">
+                    <FileText className="h-5 w-5 mr-3 text-brand-platinum-600" /> Traditional Compliance
                   </h3>
                   <ul className="space-y-4">
                     {[
@@ -191,8 +191,8 @@ export default function HomePage() {
                       'Exposes sensitive data during manual audits',
                       'Siloed inside the company, hard to prove externally',
                     ].map((item, idx) => (
-                      <li key={idx} className="flex items-start text-sm text-slate-600 dark:text-slate-400">
-                        <span className="text-slate-400 mr-3 mt-0.5">✕</span>
+                      <li key={idx} className="flex items-start text-sm text-brand-platinum-700 dark:text-brand-platinum-500">
+                        <span className="text-brand-platinum-500 mr-3 mt-0.5">✕</span>
                         {item}
                       </li>
                     ))}
@@ -215,7 +215,7 @@ export default function HomePage() {
                       'Proves compliance without ever exposing raw data',
                       'Self-funding mechanism: $NIGHT payments fuel $DUST gas',
                     ].map((item, idx) => (
-                      <li key={idx} className="flex items-start text-sm text-slate-700 dark:text-slate-300">
+                      <li key={idx} className="flex items-start text-sm text-brand-platinum-800 dark:text-brand-platinum-400">
                         <Check className="h-4 w-4 text-brand-emerald-500 mr-3 mt-0.5 flex-shrink-0" />
                         {item}
                       </li>
@@ -234,10 +234,10 @@ export default function HomePage() {
       <AnimatedSection id="architecture" className="py-24 bg-white dark:bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-chrome-900 dark:text-white mb-6">
               The <span className="text-brand-sapphire-500">4-Layer</span> Ecosystem
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-700 dark:text-brand-platinum-500 max-w-3xl mx-auto">
               DPO2U is not a SaaS. It is an infrastructure stack built on Midnight, where AI and cryptography converge to make compliance verifiable and self-sustaining.
             </p>
           </motion.div>
@@ -247,22 +247,22 @@ export default function HomePage() {
               const colors = colorMap[layer.color];
               return (
                 <motion.div key={layer.num} variants={fadeInUp}>
-                  <Card className={`p-8 h-full border-l-4 ${colors.borderL} bg-white dark:bg-slate-900/50 border-t border-r border-b border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300`}>
+                  <Card className={`p-8 h-full border-l-4 ${colors.borderL} bg-white dark:bg-brand-chrome-900/50 border-t border-r border-b border-brand-platinum-200 dark:border-brand-chrome-800 hover:shadow-xl transition-all duration-300`}>
                     <div className="flex items-center justify-between mb-6">
                       <div className={`w-14 h-14 ${colors.bg} rounded-2xl flex items-center justify-center`}>
                         <layer.icon className={`h-7 w-7 ${colors.text}`} />
                       </div>
-                      <span className="text-sm font-mono font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-4 py-1.5 rounded-full">
+                      <span className="text-sm font-mono font-bold text-brand-platinum-600 dark:text-brand-platinum-500 bg-brand-platinum-200 dark:bg-brand-chrome-800 px-4 py-1.5 rounded-full">
                         {layer.num}
                       </span>
                     </div>
-                    <h3 className="text-2xl font-serif font-bold text-slate-900 dark:text-white mb-2">
+                    <h3 className="text-2xl font-serif font-bold text-brand-chrome-900 dark:text-white mb-2">
                       {layer.name}
                     </h3>
                     <p className={`text-sm font-semibold mb-4 ${colors.text}`}>
                       {layer.tagline}
                     </p>
-                    <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-light">
+                    <p className="text-base text-brand-platinum-700 dark:text-brand-platinum-500 leading-relaxed font-light">
                       {layer.description}
                     </p>
                   </Card>
@@ -276,13 +276,13 @@ export default function HomePage() {
       {/* ============================================= */}
       {/* 4. TECHNICAL ARCHITECTURE DASHBOARD           */}
       {/* ============================================= */}
-      <AnimatedSection className="py-20 bg-slate-900 text-white">
+      <AnimatedSection className="py-20 bg-brand-chrome-900 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
               Protocol <span className="text-brand-sapphire-400">Telemetry</span>
             </h2>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+            <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
               Live view of the ZK-Attestation pipeline across the network.
             </p>
           </motion.div>
@@ -295,52 +295,52 @@ export default function HomePage() {
       {/* ============================================= */}
       {/* 5. MINIMAL TOKEN ECONOMICS                    */}
       {/* ============================================= */}
-      <AnimatedSection className="py-24 bg-slate-50 dark:bg-slate-900/30">
+      <AnimatedSection className="py-24 bg-brand-platinum-100 dark:bg-brand-chrome-900/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <motion.div variants={fadeInUp} className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-chrome-900 dark:text-white mb-6">
                 Self-Funding <span className="text-amber-500">Economics</span>
               </h2>
-              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              <p className="text-lg text-brand-platinum-700 dark:text-brand-platinum-500 max-w-2xl mx-auto">
                 A dual-token model engineered so the protocol pays for its own zero-knowledge computation and monitoring.
               </p>
             </motion.div>
 
             <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-8">
-              <Card className="p-8 bg-white dark:bg-slate-900 border border-amber-100 dark:border-amber-900/30 shadow-sm relative overflow-hidden">
+              <Card className="p-8 bg-white dark:bg-brand-chrome-900 border border-amber-100 dark:border-amber-900/30 shadow-sm relative overflow-hidden">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-xl">
                     <Coins className="h-8 w-8 text-amber-500" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">$NIGHT</h3>
+                    <h3 className="text-2xl font-bold text-brand-chrome-900 dark:text-white">$NIGHT</h3>
                     <p className="text-sm font-medium text-amber-600 dark:text-amber-500">Value & Fee Token</p>
                   </div>
                 </div>
-                <p className="text-base text-slate-600 dark:text-slate-400 mb-6 font-light leading-relaxed">
+                <p className="text-base text-brand-platinum-700 dark:text-brand-platinum-500 mb-6 font-light leading-relaxed">
                   The primary native asset. Clients pay for automated compliance cycles in $NIGHT via the PaymentGateway compact contract.
                 </p>
-                <div className="flex justify-between items-center text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-4">
+                <div className="flex justify-between items-center text-sm text-brand-platinum-600 dark:text-brand-platinum-500 border-t border-brand-platinum-200 dark:border-brand-chrome-800 pt-4">
                   <span>Supply: 24B</span>
                   <span>Distributes 40/60 to Agents</span>
                 </div>
               </Card>
 
-              <Card className="p-8 bg-white dark:bg-slate-900 border border-purple-100 dark:border-purple-900/30 shadow-sm relative overflow-hidden">
+              <Card className="p-8 bg-white dark:bg-brand-chrome-900 border border-brand-purple-100 dark:border-brand-purple-900/30 shadow-sm relative overflow-hidden">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
-                    <Zap className="h-8 w-8 text-purple-500" />
+                  <div className="p-3 bg-brand-purple-100 dark:bg-brand-purple-900/30 rounded-xl">
+                    <Zap className="h-8 w-8 text-brand-purple-500" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">tDUST</h3>
-                    <p className="text-sm font-medium text-purple-600 dark:text-purple-500">Privacy Gas Token</p>
+                    <h3 className="text-2xl font-bold text-brand-chrome-900 dark:text-white">tDUST</h3>
+                    <p className="text-sm font-medium text-brand-purple-600 dark:text-brand-purple-500">Privacy Gas Token</p>
                   </div>
                 </div>
-                <p className="text-base text-slate-600 dark:text-slate-400 mb-6 font-light leading-relaxed">
+                <p className="text-base text-brand-platinum-700 dark:text-brand-platinum-500 mb-6 font-light leading-relaxed">
                   Non-transferable execution token on Midnight. Agents swap $NIGHT to acquire tDUST to pay for ZK-circuit executions and state changes.
                 </p>
-                <div className="flex justify-between items-center text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-4">
+                <div className="flex justify-between items-center text-sm text-brand-platinum-600 dark:text-brand-platinum-500 border-t border-brand-platinum-200 dark:border-brand-chrome-800 pt-4">
                   <span>Use: ZK Attestations</span>
                   <span>Decays over time</span>
                 </div>
@@ -353,15 +353,15 @@ export default function HomePage() {
       {/* ============================================= */}
       {/* 6. INTEGRATION & ROI                          */}
       {/* ============================================= */}
-      <AnimatedSection className="py-20 bg-white dark:bg-background border-y border-slate-200 dark:border-slate-800">
+      <AnimatedSection className="py-20 bg-white dark:bg-background border-y border-brand-platinum-300 dark:border-brand-chrome-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
               <motion.div variants={fadeInUp} className="mb-8">
-                <h2 className="text-3xl font-serif font-bold text-slate-900 dark:text-white mb-4">
+                <h2 className="text-3xl font-serif font-bold text-brand-chrome-900 dark:text-white mb-4">
                   Integration API
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-brand-platinum-700 dark:text-brand-platinum-500">
                   Connect DPO2U with your existing infrastructure securely.
                 </p>
               </motion.div>
@@ -369,10 +369,10 @@ export default function HomePage() {
             </div>
             <div>
               <motion.div variants={fadeInUp} className="mb-8">
-                <h2 className="text-3xl font-serif font-bold text-slate-900 dark:text-white mb-4">
+                <h2 className="text-3xl font-serif font-bold text-brand-chrome-900 dark:text-white mb-4">
                   Cost Efficiency
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-brand-platinum-700 dark:text-brand-platinum-500">
                   Calculate the direct ROI of protocol-based compliance.
                 </p>
               </motion.div>
@@ -385,10 +385,10 @@ export default function HomePage() {
       {/* ============================================= */}
       {/* 7. FAQ                                        */}
       {/* ============================================= */}
-      <AnimatedSection className="py-20 bg-slate-50 dark:bg-slate-900/30">
+      <AnimatedSection className="py-20 bg-brand-platinum-100 dark:bg-brand-chrome-900/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={fadeInUp} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-chrome-900 dark:text-white mb-6">
               Developer <span className="text-brand-sapphire-500">FAQ</span>
             </h2>
           </motion.div>
@@ -401,7 +401,7 @@ export default function HomePage() {
       {/* ============================================= */}
       {/* 8. CTA FINAL                                  */}
       {/* ============================================= */}
-      <AnimatedSection className="py-24 bg-slate-900 text-white relative overflow-hidden">
+      <AnimatedSection className="py-24 bg-brand-chrome-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/[0.02]"></div>
 
         <div className="container mx-auto text-center relative z-10">
@@ -410,7 +410,7 @@ export default function HomePage() {
             <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-white">
               Initialize Your Node
             </h2>
-            <p className="text-xl mb-10 text-slate-400 font-light">
+            <p className="text-xl mb-10 text-brand-platinum-500 font-light">
               Join the testnet and start generating ZK-attestations today.
             </p>
 
@@ -426,7 +426,7 @@ export default function HomePage() {
               <Button
                 variant="outline"
                 size="xl"
-                className="border-2 border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white px-10 py-6 rounded-xl transition-all"
+                className="border-2 border-brand-platinum-700 text-brand-platinum-400 hover:bg-brand-chrome-800 hover:text-white px-10 py-6 rounded-xl transition-all"
                 onClick={() => window.location.href = '/midnight-protocol'}
               >
                 Read Docs

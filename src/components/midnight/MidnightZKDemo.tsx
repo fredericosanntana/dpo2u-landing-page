@@ -49,25 +49,25 @@ export default function MidnightZKDemo() {
   };
 
   return (
-    <Card className="bg-slate-950 border-purple-500/30 overflow-hidden shadow-2xl relative">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 blur-[80px] rounded-full pointer-events-none"></div>
+    <Card className="bg-brand-chrome-900 border-brand-purple-500/30 overflow-hidden shadow-2xl relative">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-brand-purple-600/10 blur-[80px] rounded-full pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-sapphire-600/10 blur-[80px] rounded-full pointer-events-none"></div>
 
       <div className="p-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
           <div className="flex-1">
             <h3 className="text-xl font-bold text-white mb-2 flex items-center">
-              <Fingerprint className="h-6 w-6 text-purple-400 mr-2" />
+              <Fingerprint className="h-6 w-6 text-brand-purple-400 mr-2" />
               Interactive ZK Proof Demo
             </h3>
-            <p className="text-slate-400 text-sm">
+            <p className="text-brand-platinum-500 text-sm">
               Compact compiler 0.29.0 &middot; Halo2 circuit &middot; k=9, rows=305
             </p>
           </div>
           <Button
             onClick={runSimulation}
             disabled={status !== 'idle' && status !== 'verified'}
-            className="bg-purple-600 hover:bg-purple-500 text-white min-w-[200px]"
+            className="bg-brand-purple-600 hover:bg-brand-purple-500 text-white min-w-[200px]"
           >
             {status === 'idle' ? (
               <>
@@ -100,15 +100,15 @@ export default function MidnightZKDemo() {
                 <div
                   className={`h-1 rounded-full mb-2 transition-all duration-500 ${
                     s === 'done'
-                      ? 'bg-emerald-400'
+                      ? 'bg-brand-emerald-400'
                       : s === 'active'
-                      ? 'bg-purple-400 animate-pulse'
-                      : 'bg-slate-700'
+                      ? 'bg-brand-purple-400 animate-pulse'
+                      : 'bg-brand-platinum-800'
                   }`}
                 />
                 <span
                   className={`text-xs ${
-                    s === 'done' ? 'text-emerald-400' : s === 'active' ? 'text-purple-400' : 'text-slate-600'
+                    s === 'done' ? 'text-brand-emerald-400' : s === 'active' ? 'text-brand-purple-400' : 'text-brand-platinum-700'
                   }`}
                 >
                   {step.label}
@@ -119,63 +119,63 @@ export default function MidnightZKDemo() {
         </div>
 
         {/* Terminal output */}
-        <div className="bg-slate-900 rounded-lg p-6 font-mono text-sm border border-slate-800 min-h-[220px] flex flex-col justify-center">
+        <div className="bg-brand-chrome-900 rounded-lg p-6 font-mono text-sm border border-brand-chrome-800 min-h-[220px] flex flex-col justify-center">
           {status === 'idle' && (
-            <div className="text-slate-500 text-center flex flex-col items-center">
+            <div className="text-brand-platinum-600 text-center flex flex-col items-center">
               <Shield className="h-12 w-12 mb-4 opacity-20" />
               <span>Ready to generate ZK compliance proof. Click &quot;Run ZK Audit&quot; to start.</span>
             </div>
           )}
           {status === 'auditing' && (
-            <div className="space-y-2 text-slate-300">
-              <p className="text-purple-400">$ midnight-audit --schema dpo2u/lgpd/v1</p>
+            <div className="space-y-2 text-brand-platinum-400">
+              <p className="text-brand-purple-400">$ midnight-audit --schema dpo2u/lgpd/v1</p>
               <p className="animate-pulse">Analyzing compliance rules against policy document...</p>
-              <p className="text-slate-500">→ Loading ComplianceRegistry.compact</p>
+              <p className="text-brand-platinum-600">→ Loading ComplianceRegistry.compact</p>
             </div>
           )}
           {status === 'compiling' && (
-            <div className="space-y-2 text-slate-300">
-              <p className="text-emerald-400">✓ Audit complete — 15 rules evaluated</p>
-              <p className="text-purple-400">$ compactc --circuit getComplianceStatus</p>
+            <div className="space-y-2 text-brand-platinum-400">
+              <p className="text-brand-emerald-400">✓ Audit complete — 15 rules evaluated</p>
+              <p className="text-brand-purple-400">$ compactc --circuit getComplianceStatus</p>
               <p className="animate-pulse">Compiling Halo2 circuit (k=9)...</p>
-              <p className="text-slate-500">→ Generating .zkir payload</p>
+              <p className="text-brand-platinum-600">→ Generating .zkir payload</p>
             </div>
           )}
           {status === 'proving' && (
-            <div className="space-y-2 text-slate-300">
-              <p className="text-emerald-400">✓ Circuit compiled — 305 rows</p>
-              <p className="text-purple-400">$ proof-server generate --port 6300</p>
+            <div className="space-y-2 text-brand-platinum-400">
+              <p className="text-brand-emerald-400">✓ Circuit compiled — 305 rows</p>
+              <p className="text-brand-purple-400">$ proof-server generate --port 6300</p>
               <p className="animate-pulse">Generating ZK-SNARK proof...</p>
-              <p className="text-slate-500">→ Private inputs: company_data, policy_hash</p>
-              <p className="text-slate-500">→ Public outputs: score, agent_did</p>
+              <p className="text-brand-platinum-600">→ Private inputs: company_data, policy_hash</p>
+              <p className="text-brand-platinum-600">→ Public outputs: score, agent_did</p>
             </div>
           )}
           {status === 'submitting' && (
-            <div className="space-y-2 text-slate-300">
-              <p className="text-emerald-400">✓ Proof generated in 8ms</p>
-              <p className="text-purple-400">$ midnight-submit --network preprod</p>
+            <div className="space-y-2 text-brand-platinum-400">
+              <p className="text-brand-emerald-400">✓ Proof generated in 8ms</p>
+              <p className="text-brand-purple-400">$ midnight-submit --network preprod</p>
               <p className="animate-pulse">Broadcasting to Midnight Ledger via wss://rpc.preprod.midnight.network...</p>
-              <p className="text-slate-500">→ Contract: {CONTRACT_ADDRESS.slice(0, 16)}...</p>
+              <p className="text-brand-platinum-600">→ Contract: {CONTRACT_ADDRESS.slice(0, 16)}...</p>
             </div>
           )}
           {status === 'verified' && proofData && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
-              <div className="flex items-center text-emerald-400 font-bold text-lg mb-2">
+              <div className="flex items-center text-brand-emerald-400 font-bold text-lg mb-2">
                 <Check className="h-6 w-6 mr-2" />
                 ZK PROOF VERIFIED ON MIDNIGHT LEDGER
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-slate-800/50 p-3 rounded">
-                  <span className="text-slate-500 block text-xs mb-1">Compliance Score</span>
+                <div className="bg-brand-chrome-800/50 p-3 rounded">
+                  <span className="text-brand-platinum-600 block text-xs mb-1">Compliance Score</span>
                   <span className="text-white text-lg">{proofData.score}/100 — Compliant</span>
                 </div>
-                <div className="bg-slate-800/50 p-3 rounded">
-                  <span className="text-slate-500 block text-xs mb-1">Timestamp</span>
+                <div className="bg-brand-chrome-800/50 p-3 rounded">
+                  <span className="text-brand-platinum-600 block text-xs mb-1">Timestamp</span>
                   <span className="text-white text-sm">{proofData.timestamp}</span>
                 </div>
-                <div className="bg-slate-800/50 p-3 rounded col-span-1 md:col-span-2 overflow-hidden">
-                  <span className="text-slate-500 block text-xs mb-1">Contract Address</span>
-                  <span className="text-purple-300 text-xs break-all font-mono">{CONTRACT_ADDRESS}</span>
+                <div className="bg-brand-chrome-800/50 p-3 rounded col-span-1 md:col-span-2 overflow-hidden">
+                  <span className="text-brand-platinum-600 block text-xs mb-1">Contract Address</span>
+                  <span className="text-brand-purple-300 text-xs break-all font-mono">{CONTRACT_ADDRESS}</span>
                 </div>
               </div>
             </motion.div>

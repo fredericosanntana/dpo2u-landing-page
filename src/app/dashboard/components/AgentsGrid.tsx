@@ -61,35 +61,35 @@ const categoryIcons = {
 
 const statusColors = {
   online: {
-    bg: 'bg-emerald-500/20',
-    text: 'text-emerald-400',
-    border: 'border-emerald-500/30',
-    dot: 'bg-emerald-500'
+    bg: 'bg-brand-emerald-500/20',
+    text: 'text-brand-emerald-400',
+    border: 'border-brand-emerald-500/30',
+    dot: 'bg-brand-emerald-500'
   },
   busy: {
-    bg: 'bg-emerald-500/20',
-    text: 'text-emerald-400',
-    border: 'border-emerald-500/30',
-    dot: 'bg-emerald-500'
+    bg: 'bg-brand-emerald-500/20',
+    text: 'text-brand-emerald-400',
+    border: 'border-brand-emerald-500/30',
+    dot: 'bg-brand-emerald-500'
   },
   offline: {
-    bg: 'bg-slate-500/20',
-    text: 'text-slate-400',
-    border: 'border-slate-500/30',
-    dot: 'bg-slate-500'
+    bg: 'bg-brand-platinum-600/20',
+    text: 'text-brand-platinum-500',
+    border: 'border-brand-platinum-600/30',
+    dot: 'bg-brand-platinum-600'
   },
   maintenance: {
-    bg: 'bg-blue-500/20',
-    text: 'text-blue-400',
-    border: 'border-blue-500/30',
-    dot: 'bg-blue-500'
+    bg: 'bg-brand-sapphire-500/20',
+    text: 'text-brand-sapphire-400',
+    border: 'border-brand-sapphire-500/30',
+    dot: 'bg-brand-sapphire-500'
   }
 };
 
 const categoryColors = {
-  coordination: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
-  architecture: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
-  development: 'bg-green-500/10 text-green-400 border-green-500/30',
+  coordination: 'bg-brand-purple-500/10 text-brand-purple-400 border-brand-purple-500/30',
+  architecture: 'bg-brand-sapphire-500/10 text-brand-sapphire-400 border-brand-sapphire-500/30',
+  development: 'bg-brand-emerald-500/10 text-brand-emerald-400 border-brand-emerald-500/30',
   security: 'bg-red-500/10 text-red-400 border-red-500/30',
   operations: 'bg-orange-500/10 text-orange-400 border-orange-500/30',
   documentation: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
@@ -104,13 +104,13 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
   const categoryStyle = categoryColors[agent.category];
 
   const getPerformanceColor = (rate: number) => {
-    if (rate >= 95) return 'text-emerald-400';
+    if (rate >= 95) return 'text-brand-emerald-400';
     if (rate >= 85) return 'text-amber-400';
     return 'text-red-400';
   };
 
   return (
-    <Card className="group bg-slate-800/50 border-slate-700/50 hover:bg-slate-800/70 hover:border-slate-600/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+    <Card className="group bg-brand-chrome-800/50 border-brand-platinum-800/50 hover:bg-brand-chrome-800/70 hover:border-brand-platinum-700/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
@@ -133,7 +133,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
           <Button
             variant="ghost"
             size="sm"
-            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-slate-400 hover:text-white"
+            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-brand-platinum-500 hover:text-white"
             onClick={() => onAction?.('configure')}
           >
             <MoreVertical className="h-4 w-4" />
@@ -142,7 +142,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <CardDescription className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+        <CardDescription className="text-xs text-brand-platinum-500 line-clamp-2 leading-relaxed">
           {agent.description}
         </CardDescription>
 
@@ -156,14 +156,14 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div>
-              <span className="text-slate-400">Taxa de Sucesso</span>
+              <span className="text-brand-platinum-500">Taxa de Sucesso</span>
               <div className={`font-semibold ${getPerformanceColor(agent.successRate)}`}>
                 {agent.successRate}%
               </div>
             </div>
             <div>
-              <span className="text-slate-400">Tempo Médio</span>
-              <div className="font-semibold text-slate-300">
+              <span className="text-brand-platinum-500">Tempo Médio</span>
+              <div className="font-semibold text-brand-platinum-400">
                 {agent.avgResponseTime}s
               </div>
             </div>
@@ -171,14 +171,14 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
 
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div>
-              <span className="text-slate-400">Tarefas</span>
-              <div className="font-semibold text-slate-300">
+              <span className="text-brand-platinum-500">Tarefas</span>
+              <div className="font-semibold text-brand-platinum-400">
                 {agent.tasksCompleted.toLocaleString()}
               </div>
             </div>
             <div>
-              <span className="text-slate-400">Versão</span>
-              <div className="font-semibold text-slate-300">
+              <span className="text-brand-platinum-500">Versão</span>
+              <div className="font-semibold text-brand-platinum-400">
                 v{agent.version}
               </div>
             </div>
@@ -187,32 +187,32 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
 
         <div className="space-y-2">
           <div className="flex justify-between items-center text-xs">
-            <span className="text-slate-400 flex items-center space-x-1">
+            <span className="text-brand-platinum-500 flex items-center space-x-1">
               <Cpu className="h-3 w-3" />
               <span>CPU</span>
             </span>
-            <span className="text-slate-300">{agent.resources.cpu}%</span>
+            <span className="text-brand-platinum-400">{agent.resources.cpu}%</span>
           </div>
           <Progress value={agent.resources.cpu} className="h-1" />
 
           <div className="flex justify-between items-center text-xs">
-            <span className="text-slate-400 flex items-center space-x-1">
+            <span className="text-brand-platinum-500 flex items-center space-x-1">
               <HardDrive className="h-3 w-3" />
               <span>Memória</span>
             </span>
-            <span className="text-slate-300">{agent.resources.memory}%</span>
+            <span className="text-brand-platinum-400">{agent.resources.memory}%</span>
           </div>
           <Progress value={agent.resources.memory} className="h-1" />
         </div>
 
         <div>
-          <div className="text-xs text-slate-400 mb-2">Capacidades</div>
+          <div className="text-xs text-brand-platinum-500 mb-2">Capacidades</div>
           <div className="flex flex-wrap gap-1">
             {agent.capabilities.slice(0, 2).map((capability, index) => (
               <Badge
                 key={index}
                 variant="secondary"
-                className="text-[10px] px-1.5 py-0.5 bg-slate-700/50 text-slate-300 border-slate-600"
+                className="text-[10px] px-1.5 py-0.5 bg-brand-platinum-800/50 text-brand-platinum-400 border-brand-platinum-700"
               >
                 {capability.replace('_', ' ')}
               </Badge>
@@ -220,7 +220,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
             {agent.capabilities.length > 2 && (
               <Badge
                 variant="secondary"
-                className="text-[10px] px-1.5 py-0.5 bg-slate-700/50 text-slate-300 border-slate-600"
+                className="text-[10px] px-1.5 py-0.5 bg-brand-platinum-800/50 text-brand-platinum-400 border-brand-platinum-700"
               >
                 +{agent.capabilities.length - 2}
               </Badge>
@@ -233,7 +233,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
             <Button
               size="sm"
               variant="outline"
-              className="flex-1 text-xs border-slate-600 hover:bg-slate-700"
+              className="flex-1 text-xs border-brand-platinum-700 hover:bg-brand-platinum-800"
               onClick={() => onAction?.('stop')}
             >
               <Pause className="h-3 w-3 mr-1" />
@@ -243,7 +243,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
             <Button
               size="sm"
               variant="outline"
-              className="flex-1 text-xs border-slate-600 hover:bg-slate-700"
+              className="flex-1 text-xs border-brand-platinum-700 hover:bg-brand-platinum-800"
               onClick={() => onAction?.('start')}
             >
               <Play className="h-3 w-3 mr-1" />
@@ -254,7 +254,7 @@ function AgentCard({ agent, onAction }: { agent: Agent; onAction?: (action: stri
           <Button
             size="sm"
             variant="ghost"
-            className="text-xs text-slate-400 hover:text-white hover:bg-slate-700"
+            className="text-xs text-brand-platinum-500 hover:text-white hover:bg-brand-platinum-800"
             onClick={() => onAction?.('configure')}
           >
             <Settings className="h-3 w-3" />
@@ -330,32 +330,32 @@ export default function AgentsGrid({
     return (
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row gap-4">
-          <Skeleton className="h-10 flex-1 bg-slate-700" />
-          <Skeleton className="h-10 w-32 bg-slate-700" />
-          <Skeleton className="h-10 w-32 bg-slate-700" />
-          <Skeleton className="h-10 w-32 bg-slate-700" />
+          <Skeleton className="h-10 flex-1 bg-brand-platinum-800" />
+          <Skeleton className="h-10 w-32 bg-brand-platinum-800" />
+          <Skeleton className="h-10 w-32 bg-brand-platinum-800" />
+          <Skeleton className="h-10 w-32 bg-brand-platinum-800" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
-            <Card key={i} className="bg-slate-800/50 border-slate-700/50">
+            <Card key={i} className="bg-brand-chrome-800/50 border-brand-platinum-800/50">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <Skeleton className="h-8 w-8 rounded-lg bg-slate-700" />
+                    <Skeleton className="h-8 w-8 rounded-lg bg-brand-platinum-800" />
                     <div className="space-y-1">
-                      <Skeleton className="h-4 w-24 bg-slate-700" />
-                      <Skeleton className="h-3 w-16 bg-slate-700" />
+                      <Skeleton className="h-4 w-24 bg-brand-platinum-800" />
+                      <Skeleton className="h-3 w-16 bg-brand-platinum-800" />
                     </div>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Skeleton className="h-10 w-full bg-slate-700" />
-                <Skeleton className="h-5 w-20 bg-slate-700 rounded" />
+                <Skeleton className="h-10 w-full bg-brand-platinum-800" />
+                <Skeleton className="h-5 w-20 bg-brand-platinum-800 rounded" />
                 <div className="grid grid-cols-2 gap-3">
-                  <Skeleton className="h-8 bg-slate-700" />
-                  <Skeleton className="h-8 bg-slate-700" />
+                  <Skeleton className="h-8 bg-brand-platinum-800" />
+                  <Skeleton className="h-8 bg-brand-platinum-800" />
                 </div>
               </CardContent>
             </Card>
@@ -369,26 +369,26 @@ export default function AgentsGrid({
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-brand-platinum-500" />
           <Input
             placeholder="Buscar agentes..."
             value={filters.search}
             onChange={(e) => handleFilterChange('search', e.target.value)}
-            className="pl-10 bg-slate-800/50 border-slate-700 text-white placeholder-slate-400 focus:border-purple-500"
+            className="pl-10 bg-brand-chrome-800/50 border-brand-platinum-800 text-white placeholder-brand-platinum-500 focus:border-brand-purple-500"
           />
         </div>
 
         <Select value={filters.status} onValueChange={(value) => handleFilterChange('status', value)}>
-          <SelectTrigger className="w-32 bg-slate-800/50 border-slate-700 text-white">
+          <SelectTrigger className="w-32 bg-brand-chrome-800/50 border-brand-platinum-800 text-white">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
-          <SelectContent className="bg-slate-800 border-slate-700">
-            <SelectItem value="all" className="text-white hover:bg-slate-700">Todos</SelectItem>
+          <SelectContent className="bg-brand-chrome-800 border-brand-platinum-800">
+            <SelectItem value="all" className="text-white hover:bg-brand-platinum-800">Todos</SelectItem>
             {statuses.map(status => (
               <SelectItem
                 key={status}
                 value={status}
-                className="text-white hover:bg-slate-700 capitalize"
+                className="text-white hover:bg-brand-platinum-800 capitalize"
               >
                 {status}
               </SelectItem>
@@ -396,7 +396,7 @@ export default function AgentsGrid({
           </SelectContent>
         </Select>
 
-        <div className="flex border border-slate-700 rounded-lg overflow-hidden bg-slate-800/50">
+        <div className="flex border border-brand-platinum-800 rounded-lg overflow-hidden bg-brand-chrome-800/50">
           <Button
             variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
             size="sm"
@@ -416,7 +416,7 @@ export default function AgentsGrid({
         </div>
       </div>
 
-      <div className="flex justify-between items-center text-sm text-slate-400">
+      <div className="flex justify-between items-center text-sm text-brand-platinum-500">
         <span>
           {filteredAndSortedAgents.length} de {agents.length} agentes
           {filters.search && ` • Busca: "${filters.search}"`}
@@ -439,11 +439,11 @@ export default function AgentsGrid({
           ))}
         </div>
       ) : (
-        <Card className="bg-slate-800/50 border-slate-700/50">
+        <Card className="bg-brand-chrome-800/50 border-brand-platinum-800/50">
           <CardContent className="flex flex-col items-center justify-center py-12">
-            <Users className="h-12 w-12 text-slate-500 mb-4" />
+            <Users className="h-12 w-12 text-brand-platinum-600 mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">Nenhum agente encontrado</h3>
-            <p className="text-slate-400 text-center">
+            <p className="text-brand-platinum-500 text-center">
               Tente ajustar os filtros ou o termo de busca.
             </p>
           </CardContent>
