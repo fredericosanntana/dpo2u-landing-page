@@ -40,11 +40,11 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 
 const consultoriaFormSchema = z.object({
-  nome: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
-  email: z.string().email('Email inválido'),
-  telefone: z.string().min(10, 'Telefone deve ter pelo menos 10 dígitos'),
-  empresa: z.string().min(2, 'Nome da empresa obrigatório'),
-  cargo: z.string().min(2, 'Cargo obrigatório'),
+  nome: z.string().min(2, 'Name must have at least 2 characters'),
+  email: z.string().email('Invalid email'),
+  telefone: z.string().min(10, 'Phone must have at least 10 digits'),
+  empresa: z.string().min(2, 'Company name is required'),
+  cargo: z.string().min(2, 'Position is required'),
   segmento: z.string(),
   funcionarios: z.string(),
   desafio: z.string(),
@@ -83,14 +83,14 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
   async function onSubmit(values: ConsultoriaFormValues) {
     setIsSubmitting(true);
     
-    // Simulação de envio
+    // Simulate API submission
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     console.log('Form submitted:', values);
     
     toast({
-      title: "Consultoria Agendada! 🎉",
-      description: "Entraremos em contato em até 2h para agendar sua consultoria gratuita.",
+      title: "Consultation Scheduled!",
+      description: "We will contact you within 2h to schedule your free consultation.",
     });
     
     setIsSubmitting(false);
@@ -106,16 +106,16 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
         <div className="flex justify-center mb-4">
           <Badge variant="glassmorphism" size="xl" className="px-6 py-2">
             <Sparkles className="h-5 w-5 mr-2" />
-            Consultoria Executive Gratuita
+            Free Executive Consultation
           </Badge>
         </div>
-        
+
         <CardTitle className="text-3xl font-serif font-bold bg-gradient-to-r from-brand-sapphire-600 to-brand-emerald-600 bg-clip-text text-transparent">
-          Transformação Digital LGPD
+          LGPD Digital Transformation
         </CardTitle>
-        
+
         <p className="text-slate-600 text-lg mt-2">
-          Diagnóstico completo + Roadmap personalizado + Demo da plataforma
+          Complete diagnostic + Custom roadmap + Platform demo
         </p>
 
         {/* Progress Bar */}
@@ -137,7 +137,7 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             
-            {/* Step 1: Informações Pessoais */}
+            {/* Step 1: Personal Information */}
             {currentStep === 1 && (
               <motion.div {...fadeInUp} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -148,11 +148,11 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                       <FormItem>
                         <FormLabel className="flex items-center text-brand-gray-700 font-medium">
                           <User className="h-4 w-4 mr-2" />
-                          Nome Completo
+                          Full Name
                         </FormLabel>
                         <FormControl>
-                          <Input 
-                            placeholder="Seu nome completo" 
+                          <Input
+                            placeholder="Your full name" 
                             className="border-brand-gray-300 focus:border-brand-sapphire-500" 
                             {...field} 
                           />
@@ -169,10 +169,10 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                       <FormItem>
                         <FormLabel className="flex items-center text-brand-gray-700 font-medium">
                           <Shield className="h-4 w-4 mr-2" />
-                          Cargo/Função
+                          Position/Role
                         </FormLabel>
                         <FormControl>
-                          <Input 
+                          <Input
                             placeholder="CEO, CTO, DPO, etc." 
                             className="border-brand-gray-300 focus:border-brand-sapphire-500"
                             {...field} 
@@ -192,11 +192,11 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                       <FormItem>
                         <FormLabel className="flex items-center text-brand-gray-700 font-medium">
                           <Mail className="h-4 w-4 mr-2" />
-                          Email Corporativo
+                          Corporate Email
                         </FormLabel>
                         <FormControl>
-                          <Input 
-                            placeholder="email@empresa.com" 
+                          <Input
+                            placeholder="email@company.com" 
                             className="border-brand-gray-300 focus:border-brand-sapphire-500"
                             {...field} 
                           />
@@ -213,11 +213,11 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                       <FormItem>
                         <FormLabel className="flex items-center text-brand-gray-700 font-medium">
                           <Phone className="h-4 w-4 mr-2" />
-                          Telefone
+                          Phone
                         </FormLabel>
                         <FormControl>
-                          <Input 
-                            placeholder="(11) 99999-9999" 
+                          <Input
+                            placeholder="+1 (555) 000-0000" 
                             className="border-brand-gray-300 focus:border-brand-sapphire-500"
                             {...field} 
                           />
@@ -230,7 +230,7 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
               </motion.div>
             )}
 
-            {/* Step 2: Informações da Empresa */}
+            {/* Step 2: Company Information */}
             {currentStep === 2 && (
               <motion.div {...fadeInUp} className="space-y-4">
                 <FormField
@@ -240,11 +240,11 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                     <FormItem>
                       <FormLabel className="flex items-center text-brand-gray-700 font-medium">
                         <Building2 className="h-4 w-4 mr-2" />
-                        Nome da Empresa
+                        Company Name
                       </FormLabel>
                       <FormControl>
-                        <Input 
-                          placeholder="Nome da sua empresa" 
+                        <Input
+                          placeholder="Your company name" 
                           className="border-brand-gray-300 focus:border-brand-sapphire-500"
                           {...field} 
                         />
@@ -260,22 +260,22 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                     name="segmento"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Segmento</FormLabel>
+                        <FormLabel>Industry</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="border-brand-gray-300 focus:border-brand-sapphire-500">
-                              <SelectValue placeholder="Selecione o segmento" />
+                              <SelectValue placeholder="Select your industry" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
                             <SelectItem value="fintech">Fintech</SelectItem>
-                            <SelectItem value="saude">Saúde</SelectItem>
-                            <SelectItem value="educacao">Educação</SelectItem>
+                            <SelectItem value="saude">Healthcare</SelectItem>
+                            <SelectItem value="educacao">Education</SelectItem>
                             <SelectItem value="ecommerce">E-commerce</SelectItem>
-                            <SelectItem value="tecnologia">Tecnologia</SelectItem>
-                            <SelectItem value="servicos">Serviços</SelectItem>
-                            <SelectItem value="industria">Indústria</SelectItem>
-                            <SelectItem value="outro">Outro</SelectItem>
+                            <SelectItem value="tecnologia">Technology</SelectItem>
+                            <SelectItem value="servicos">Services</SelectItem>
+                            <SelectItem value="industria">Manufacturing</SelectItem>
+                            <SelectItem value="outro">Other</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -290,20 +290,20 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                       <FormItem>
                         <FormLabel className="flex items-center text-brand-gray-700 font-medium">
                           <Users className="h-4 w-4 mr-2" />
-                          Nº de Funcionários
+                          Number of Employees
                         </FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="border-brand-gray-300 focus:border-brand-sapphire-500">
-                              <SelectValue placeholder="Tamanho da empresa" />
+                              <SelectValue placeholder="Company size" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="1-10">1-10 funcionários</SelectItem>
-                            <SelectItem value="11-50">11-50 funcionários</SelectItem>
-                            <SelectItem value="51-200">51-200 funcionários</SelectItem>
-                            <SelectItem value="201-500">201-500 funcionários</SelectItem>
-                            <SelectItem value="500+">500+ funcionários</SelectItem>
+                            <SelectItem value="1-10">1-10 employees</SelectItem>
+                            <SelectItem value="11-50">11-50 employees</SelectItem>
+                            <SelectItem value="51-200">51-200 employees</SelectItem>
+                            <SelectItem value="201-500">201-500 employees</SelectItem>
+                            <SelectItem value="500+">500+ employees</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -314,7 +314,7 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
               </motion.div>
             )}
 
-            {/* Step 3: Necessidades e Orçamento */}
+            {/* Step 3: Requirements and Budget */}
             {currentStep === 3 && (
               <motion.div {...fadeInUp} className="space-y-4">
                 <FormField
@@ -322,21 +322,21 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                   name="desafio"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Principal Desafio LGPD</FormLabel>
+                      <FormLabel>Main LGPD Challenge</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="border-brand-gray-300 focus:border-brand-sapphire-500">
-                            <SelectValue placeholder="Qual seu maior desafio?" />
+                            <SelectValue placeholder="What is your biggest challenge?" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="compliance">Conformidade total LGPD</SelectItem>
-                          <SelectItem value="dpo">Necessito de DPO especializado</SelectItem>
-                          <SelectItem value="automacao">Automação de processos</SelectItem>
-                          <SelectItem value="auditoria">Auditoria de compliance</SelectItem>
-                          <SelectItem value="treinamento">Treinamento das equipes</SelectItem>
-                          <SelectItem value="documentacao">Documentação e políticas</SelectItem>
-                          <SelectItem value="incidentes">Gestão de incidentes</SelectItem>
+                          <SelectItem value="compliance">Full LGPD compliance</SelectItem>
+                          <SelectItem value="dpo">Need a specialized DPO</SelectItem>
+                          <SelectItem value="automacao">Process automation</SelectItem>
+                          <SelectItem value="auditoria">Compliance audit</SelectItem>
+                          <SelectItem value="treinamento">Team training</SelectItem>
+                          <SelectItem value="documentacao">Documentation & policies</SelectItem>
+                          <SelectItem value="incidentes">Incident management</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -350,19 +350,19 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                     name="urgencia"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Urgência</FormLabel>
+                        <FormLabel>Urgency</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="border-brand-gray-300 focus:border-brand-sapphire-500">
-                              <SelectValue placeholder="Quando precisar implementar?" />
+                              <SelectValue placeholder="When do you need to implement?" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="imediato">Imediato (esta semana)</SelectItem>
-                            <SelectItem value="30-dias">Próximos 30 dias</SelectItem>
-                            <SelectItem value="3-meses">Próximos 3 meses</SelectItem>
-                            <SelectItem value="6-meses">Próximos 6 meses</SelectItem>
-                            <SelectItem value="planejamento">Ainda em planejamento</SelectItem>
+                            <SelectItem value="imediato">Immediate (this week)</SelectItem>
+                            <SelectItem value="30-dias">Next 30 days</SelectItem>
+                            <SelectItem value="3-meses">Next 3 months</SelectItem>
+                            <SelectItem value="6-meses">Next 6 months</SelectItem>
+                            <SelectItem value="planejamento">Still planning</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -375,19 +375,19 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                     name="orcamento"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Orçamento Mensal</FormLabel>
+                        <FormLabel>Monthly Budget</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="border-brand-gray-300 focus:border-brand-sapphire-500">
-                              <SelectValue placeholder="Investimento disponível" />
+                              <SelectValue placeholder="Available investment" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="5k-10k">R$ 5.000 - R$ 10.000</SelectItem>
-                            <SelectItem value="10k-25k">R$ 10.000 - R$ 25.000</SelectItem>
-                            <SelectItem value="25k-50k">R$ 25.000 - R$ 50.000</SelectItem>
-                            <SelectItem value="50k+">R$ 50.000+</SelectItem>
-                            <SelectItem value="personalizado">Orçamento personalizado</SelectItem>
+                            <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
+                            <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
+                            <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
+                            <SelectItem value="50k+">$50,000+</SelectItem>
+                            <SelectItem value="personalizado">Custom budget</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -407,34 +407,34 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
                   onClick={prevStep}
                   className="flex items-center"
                 >
-                  Voltar
+                  Back
                 </Button>
               )}
-              
+
               {currentStep < 3 ? (
-                <Button 
-                  type="button" 
-                  variant="brand" 
+                <Button
+                  type="button"
+                  variant="brand"
                   onClick={nextStep}
                   className="flex items-center ml-auto"
                 >
-                  Próximo
+                  Next
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
               ) : (
-                <Button 
-                  type="submit" 
-                  variant="cta-primary" 
+                <Button
+                  type="submit"
+                  variant="cta-primary"
                   size="lg"
                   loading={isSubmitting}
                   className="ml-auto"
                 >
                   {isSubmitting ? (
-                    'Agendando...'
+                    'Scheduling...'
                   ) : (
                     <>
                       <CheckCircle className="h-5 w-5 mr-2" />
-                      Agendar Consultoria Gratuita
+                      Schedule Free Consultation
                     </>
                   )}
                 </Button>
@@ -448,15 +448,15 @@ export default function ConsultoriaForm({ onClose }: { onClose?: () => void }) {
           <div className="flex flex-wrap justify-center gap-4 text-sm text-brand-gray-600">
             <div className="flex items-center">
               <CheckCircle className="h-4 w-4 text-brand-green-500 mr-2" />
-              <span>Consultoria 100% gratuita</span>
+              <span>100% free consultation</span>
             </div>
             <div className="flex items-center">
               <CheckCircle className="h-4 w-4 text-brand-green-500 mr-2" />
-              <span>Resposta em até 2h</span>
+              <span>Response within 2h</span>
             </div>
             <div className="flex items-center">
               <CheckCircle className="h-4 w-4 text-brand-green-500 mr-2" />
-              <span>Sem compromisso</span>
+              <span>No commitment</span>
             </div>
           </div>
         </div>

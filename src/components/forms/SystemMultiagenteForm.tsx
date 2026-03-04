@@ -47,11 +47,11 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 
 const systemMultiagenteFormSchema = z.object({
-  nome: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
-  email: z.string().email('Email inválido'),
-  telefone: z.string().min(10, 'Telefone deve ter pelo menos 10 dígitos'),
-  empresa: z.string().min(2, 'Nome da empresa obrigatório'),
-  cargo: z.string().min(2, 'Cargo obrigatório'),
+  nome: z.string().min(2, 'Name must have at least 2 characters'),
+  email: z.string().email('Invalid email'),
+  telefone: z.string().min(10, 'Phone must have at least 10 digits'),
+  empresa: z.string().min(2, 'Company name is required'),
+  cargo: z.string().min(2, 'Position is required'),
   segmento: z.string(),
   funcionarios: z.string(),
   principal_desafio: z.string(),
@@ -93,16 +93,16 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
     setIsSubmitting(true);
 
     try {
-      // Simulação de envio para API
+      // Simulate API submission
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      console.log('Sistema Multiagente Form submitted:', values);
+      console.log('Multi-Agent System Form submitted:', values);
 
       setIsSuccess(true);
 
       toast({
-        title: "🚀 Diagnóstico Agendado com Sucesso!",
-        description: "Nossa equipe especializada entrará em contato em até 2 horas para agendar sua análise personalizada.",
+        title: "Diagnostic Scheduled Successfully!",
+        description: "Our specialized team will contact you within 2 hours to schedule your personalized analysis.",
       });
 
       // Auto close after success
@@ -112,8 +112,8 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
 
     } catch (error) {
       toast({
-        title: "Erro no envio",
-        description: "Tente novamente ou entre em contato conosco diretamente.",
+        title: "Submission error",
+        description: "Please try again or contact us directly.",
         variant: "destructive"
       });
     } finally {
@@ -161,32 +161,32 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
             transition={{ delay: 0.3 }}
           >
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Diagnóstico Agendado! 🎉
+              Diagnostic Scheduled!
             </h3>
             <p className="text-gray-600 text-lg mb-6">
-              Nossa equipe de arquitetos de soluções entrará em contato em <strong>até 2 horas</strong> para agendar sua análise personalizada.
+              Our solutions architects will contact you within <strong>2 hours</strong> to schedule your personalized analysis.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="bg-white/80 rounded-lg p-4">
                 <Clock className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                <div className="text-sm font-medium text-gray-900">Análise em 72h</div>
-                <div className="text-xs text-gray-600">Diagnóstico completo</div>
+                <div className="text-sm font-medium text-gray-900">Analysis in 72h</div>
+                <div className="text-xs text-gray-600">Complete diagnostic</div>
               </div>
               <div className="bg-white/80 rounded-lg p-4">
                 <Brain className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                <div className="text-sm font-medium text-gray-900">Roadmap IA</div>
-                <div className="text-xs text-gray-600">Implementação personalizada</div>
+                <div className="text-sm font-medium text-gray-900">AI Roadmap</div>
+                <div className="text-xs text-gray-600">Custom implementation</div>
               </div>
               <div className="bg-white/80 rounded-lg p-4">
                 <Activity className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                <div className="text-sm font-medium text-gray-900">Demo Live</div>
-                <div className="text-xs text-gray-600">Sistema em produção</div>
+                <div className="text-sm font-medium text-gray-900">Live Demo</div>
+                <div className="text-xs text-gray-600">Production system</div>
               </div>
             </div>
 
             <p className="text-sm text-gray-500">
-              Enquanto isso, você pode acompanhar nosso sistema em tempo real no dashboard acima.
+              In the meantime, you can monitor our system in real time on the dashboard above.
             </p>
           </motion.div>
         </CardContent>
@@ -200,24 +200,24 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
         <div className="flex justify-center mb-4">
           <Badge variant="secondary" size="xl" className="px-6 py-2 bg-white/20 text-white border-white/30">
             <Brain className="h-5 w-5 mr-2" />
-            Diagnóstico de Infraestrutura
+            Infrastructure Diagnostic
           </Badge>
         </div>
 
         <CardTitle className="text-3xl font-serif font-bold mb-4">
-          Transformação Digital Inteligente
+          Intelligent Digital Transformation
         </CardTitle>
 
         <p className="text-slate-300 text-lg">
-          Avaliação personalizada em <strong>72h</strong> + Roadmap de implementação + Demo da plataforma IA
+          Personalized assessment in <strong>72h</strong> + Implementation roadmap + AI platform demo
         </p>
 
         {/* Enhanced Progress Bar */}
         <div className="flex justify-center mt-6 space-x-2">
           {[
-            { step: 1, label: 'Perfil', icon: User },
-            { step: 2, label: 'Empresa', icon: Building2 },
-            { step: 3, label: 'Necessidades', icon: Target }
+            { step: 1, label: 'Profile', icon: User },
+            { step: 2, label: 'Company', icon: Building2 },
+            { step: 3, label: 'Requirements', icon: Target }
           ].map(({ step, label, icon: Icon }) => (
             <div key={step} className="flex flex-col items-center">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${step <= currentStep
@@ -244,12 +244,12 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 
             <AnimatePresence mode="wait">
-              {/* Step 1: Perfil Executivo */}
+              {/* Step 1: Executive Profile */}
               {currentStep === 1 && (
                 <motion.div key="step1" {...fadeInUp} className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Perfil Executivo</h3>
-                    <p className="text-gray-600">Informações para personalizar sua análise</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Executive Profile</h3>
+                    <p className="text-gray-600">Information to personalize your analysis</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -260,11 +260,11 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                         <FormItem>
                           <FormLabel className="flex items-center text-gray-700 font-medium">
                             <User className="h-4 w-4 mr-2 text-slate-600" />
-                            Nome Completo
+                            Full Name
                           </FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="Seu nome completo"
+                              placeholder="Your full name"
                               className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
                               {...field}
                             />
@@ -281,11 +281,11 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                         <FormItem>
                           <FormLabel className="flex items-center text-gray-700 font-medium">
                             <Briefcase className="h-4 w-4 mr-2 text-slate-600" />
-                            Cargo/Função
+                            Position/Role
                           </FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="CEO, CTO, COO, Diretor, etc."
+                              placeholder="CEO, CTO, COO, Director, etc."
                               className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
                               {...field}
                             />
@@ -304,11 +304,11 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                         <FormItem>
                           <FormLabel className="flex items-center text-gray-700 font-medium">
                             <Mail className="h-4 w-4 mr-2 text-slate-600" />
-                            Email Corporativo
+                            Corporate Email
                           </FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="email@empresa.com"
+                              placeholder="email@company.com"
                               className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
                               {...field}
                             />
@@ -325,11 +325,11 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                         <FormItem>
                           <FormLabel className="flex items-center text-gray-700 font-medium">
                             <Phone className="h-4 w-4 mr-2 text-slate-600" />
-                            WhatsApp
+                            Phone
                           </FormLabel>
                           <FormControl>
                             <Input
-                              placeholder="(11) 99999-9999"
+                              placeholder="+1 (555) 000-0000"
                               className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
                               {...field}
                             />
@@ -342,12 +342,12 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                 </motion.div>
               )}
 
-              {/* Step 2: Perfil da Empresa */}
+              {/* Step 2: Company Profile */}
               {currentStep === 2 && (
                 <motion.div key="step2" {...fadeInUp} className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Perfil da Empresa</h3>
-                    <p className="text-gray-600">Para dimensionar a solução adequada</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Company Profile</h3>
+                    <p className="text-gray-600">To size the right solution for you</p>
                   </div>
 
                   <FormField
@@ -357,11 +357,11 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       <FormItem>
                         <FormLabel className="flex items-center text-gray-700 font-medium">
                           <Building2 className="h-4 w-4 mr-2 text-slate-600" />
-                          Nome da Empresa
+                          Company Name
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder="Nome da sua empresa"
+                            placeholder="Your company name"
                             className="border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
                             {...field}
                           />
@@ -377,24 +377,24 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       name="segmento"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Segmento de Atuação</FormLabel>
+                          <FormLabel>Industry</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger className="border-gray-300 focus:border-emerald-500">
-                                <SelectValue placeholder="Selecione o segmento" />
+                                <SelectValue placeholder="Select your industry" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="fintech">Fintech / Serviços Financeiros</SelectItem>
-                              <SelectItem value="saude">Saúde / Healthcare</SelectItem>
-                              <SelectItem value="educacao">Educação / EdTech</SelectItem>
-                              <SelectItem value="ecommerce">E-commerce / Varejo</SelectItem>
-                              <SelectItem value="tecnologia">Tecnologia / Software</SelectItem>
-                              <SelectItem value="servicos">Serviços Empresariais</SelectItem>
-                              <SelectItem value="industria">Indústria / Manufatura</SelectItem>
-                              <SelectItem value="consultoria">Consultoria</SelectItem>
-                              <SelectItem value="juridico">Jurídico / Legal Tech</SelectItem>
-                              <SelectItem value="outro">Outro</SelectItem>
+                              <SelectItem value="fintech">Fintech / Financial Services</SelectItem>
+                              <SelectItem value="saude">Healthcare</SelectItem>
+                              <SelectItem value="educacao">Education / EdTech</SelectItem>
+                              <SelectItem value="ecommerce">E-commerce / Retail</SelectItem>
+                              <SelectItem value="tecnologia">Technology / Software</SelectItem>
+                              <SelectItem value="servicos">Business Services</SelectItem>
+                              <SelectItem value="industria">Industry / Manufacturing</SelectItem>
+                              <SelectItem value="consultoria">Consulting</SelectItem>
+                              <SelectItem value="juridico">Legal / Legal Tech</SelectItem>
+                              <SelectItem value="outro">Other</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -409,20 +409,20 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                         <FormItem>
                           <FormLabel className="flex items-center text-gray-700 font-medium">
                             <Users className="h-4 w-4 mr-2 text-slate-600" />
-                            Porte da Empresa
+                            Company Size
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger className="border-gray-300 focus:border-emerald-500">
-                                <SelectValue placeholder="Número de funcionários" />
+                                <SelectValue placeholder="Number of employees" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="startup">Startup (1-10 funcionários)</SelectItem>
-                              <SelectItem value="pequena">Pequena (11-50 funcionários)</SelectItem>
-                              <SelectItem value="media">Média (51-200 funcionários)</SelectItem>
-                              <SelectItem value="grande">Grande (201-500 funcionários)</SelectItem>
-                              <SelectItem value="enterprise">Enterprise (500+ funcionários)</SelectItem>
+                              <SelectItem value="startup">Startup (1-10 employees)</SelectItem>
+                              <SelectItem value="pequena">Small (11-50 employees)</SelectItem>
+                              <SelectItem value="media">Medium (51-200 employees)</SelectItem>
+                              <SelectItem value="grande">Large (201-500 employees)</SelectItem>
+                              <SelectItem value="enterprise">Enterprise (500+ employees)</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -433,12 +433,12 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                 </motion.div>
               )}
 
-              {/* Step 3: Necessidades e Objetivos */}
+              {/* Step 3: Requirements and Goals */}
               {currentStep === 3 && (
                 <motion.div key="step3" {...fadeInUp} className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Necessidades & Objetivos</h3>
-                    <p className="text-gray-600">Para criar o roadmap de implementação ideal</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Requirements & Goals</h3>
+                    <p className="text-gray-600">To create the ideal implementation roadmap</p>
                   </div>
 
                   <FormField
@@ -448,24 +448,24 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                       <FormItem>
                         <FormLabel className="flex items-center text-gray-700 font-medium">
                           <Target className="h-4 w-4 mr-2 text-slate-600" />
-                          Principal Desafio de Negócio
+                          Main Business Challenge
                         </FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger className="border-gray-300 focus:border-emerald-500">
-                              <SelectValue placeholder="Qual seu maior desafio atual?" />
+                              <SelectValue placeholder="What is your biggest challenge?" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="automacao-processos">Automação de processos manuais</SelectItem>
-                            <SelectItem value="compliance-lgpd">Conformidade LGPD/GDPR completa</SelectItem>
-                            <SelectItem value="eficiencia-operacional">Eficiência operacional</SelectItem>
-                            <SelectItem value="escalabilidade">Escalabilidade do negócio</SelectItem>
-                            <SelectItem value="reducao-custos">Redução de custos operacionais</SelectItem>
-                            <SelectItem value="qualidade-servicos">Melhoria na qualidade dos serviços</SelectItem>
-                            <SelectItem value="competitividade">Vantagem competitiva com IA</SelectItem>
-                            <SelectItem value="transformacao-digital">Transformação digital completa</SelectItem>
-                            <SelectItem value="gestao-dados">Gestão e proteção de dados</SelectItem>
+                            <SelectItem value="automacao-processos">Manual process automation</SelectItem>
+                            <SelectItem value="compliance-lgpd">Full LGPD/GDPR compliance</SelectItem>
+                            <SelectItem value="eficiencia-operacional">Operational efficiency</SelectItem>
+                            <SelectItem value="escalabilidade">Business scalability</SelectItem>
+                            <SelectItem value="reducao-custos">Operational cost reduction</SelectItem>
+                            <SelectItem value="qualidade-servicos">Service quality improvement</SelectItem>
+                            <SelectItem value="competitividade">Competitive advantage with AI</SelectItem>
+                            <SelectItem value="transformacao-digital">Complete digital transformation</SelectItem>
+                            <SelectItem value="gestao-dados">Data management & protection</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -481,21 +481,21 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                         <FormItem>
                           <FormLabel className="flex items-center text-gray-700 font-medium">
                             <Clock className="h-4 w-4 mr-2 text-slate-600" />
-                            Prazo para Implementação
+                            Implementation Timeline
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger className="border-gray-300 focus:border-emerald-500">
-                                <SelectValue placeholder="Quando precisa implementar?" />
+                                <SelectValue placeholder="When do you need to implement?" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="imediato">Imediato (esta semana)</SelectItem>
-                              <SelectItem value="30-dias">Próximos 30 dias</SelectItem>
-                              <SelectItem value="trimestre">Este trimestre (3 meses)</SelectItem>
-                              <SelectItem value="semestre">Este semestre (6 meses)</SelectItem>
-                              <SelectItem value="ano">Este ano</SelectItem>
-                              <SelectItem value="planejamento">Em fase de planejamento</SelectItem>
+                              <SelectItem value="imediato">Immediate (this week)</SelectItem>
+                              <SelectItem value="30-dias">Next 30 days</SelectItem>
+                              <SelectItem value="trimestre">This quarter (3 months)</SelectItem>
+                              <SelectItem value="semestre">This half (6 months)</SelectItem>
+                              <SelectItem value="ano">This year</SelectItem>
+                              <SelectItem value="planejamento">Still planning</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -510,21 +510,21 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                         <FormItem>
                           <FormLabel className="flex items-center text-gray-700 font-medium">
                             <DollarSign className="h-4 w-4 mr-2 text-slate-600" />
-                            Investimento Mensal
+                            Monthly Investment
                           </FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger className="border-gray-300 focus:border-emerald-500">
-                                <SelectValue placeholder="Budget disponível" />
+                                <SelectValue placeholder="Available budget" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="ate-10k">Até R$ 10.000/mês</SelectItem>
-                              <SelectItem value="10k-25k">R$ 10.000 - R$ 25.000/mês</SelectItem>
-                              <SelectItem value="25k-50k">R$ 25.000 - R$ 50.000/mês</SelectItem>
-                              <SelectItem value="50k-100k">R$ 50.000 - R$ 100.000/mês</SelectItem>
-                              <SelectItem value="100k-plus">R$ 100.000+/mês</SelectItem>
-                              <SelectItem value="customizado">Proposta customizada</SelectItem>
+                              <SelectItem value="ate-10k">Up to $10,000/mo</SelectItem>
+                              <SelectItem value="10k-25k">$10,000 - $25,000/mo</SelectItem>
+                              <SelectItem value="25k-50k">$25,000 - $50,000/mo</SelectItem>
+                              <SelectItem value="50k-100k">$50,000 - $100,000/mo</SelectItem>
+                              <SelectItem value="100k-plus">$100,000+/mo</SelectItem>
+                              <SelectItem value="customizado">Custom proposal</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -545,7 +545,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                   onClick={prevStep}
                   className="flex items-center"
                 >
-                  Voltar
+                  Back
                 </Button>
               )}
 
@@ -555,7 +555,7 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                   onClick={nextStep}
                   className="flex items-center ml-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white"
                 >
-                  Continuar
+                  Continue
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
               ) : (
@@ -567,12 +567,12 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
                   {isSubmitting ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Processando...
+                      Processing...
                     </>
                   ) : (
                     <>
                       <Zap className="h-5 w-5 mr-2" />
-                      Agendar Diagnóstico GRATUITO
+                      Schedule FREE Diagnostic
                     </>
                   )}
                 </Button>
@@ -588,22 +588,22 @@ export default function SystemMultiagenteForm({ onClose }: { onClose?: () => voi
               <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center mb-2">
                 <Shield className="h-6 w-6 text-white" />
               </div>
-              <div className="text-sm font-medium text-gray-900">100% Gratuito</div>
-              <div className="text-xs text-gray-600">Sem compromisso</div>
+              <div className="text-sm font-medium text-gray-900">100% Free</div>
+              <div className="text-xs text-gray-600">No commitment</div>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-2">
                 <Clock className="h-6 w-6 text-white" />
               </div>
-              <div className="text-sm font-medium text-gray-900">Resposta em 2h</div>
-              <div className="text-xs text-gray-600">Atendimento express</div>
+              <div className="text-sm font-medium text-gray-900">Response in 2h</div>
+              <div className="text-xs text-gray-600">Express service</div>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-2">
                 <Star className="h-6 w-6 text-white" />
               </div>
-              <div className="text-sm font-medium text-gray-900">ROI Garantido</div>
-              <div className="text-xs text-gray-600">400% comprovado</div>
+              <div className="text-sm font-medium text-gray-900">Guaranteed ROI</div>
+              <div className="text-xs text-gray-600">400% proven</div>
             </div>
           </div>
         </div>

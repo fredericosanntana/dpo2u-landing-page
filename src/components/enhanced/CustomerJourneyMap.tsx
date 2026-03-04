@@ -37,42 +37,42 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
   const journeySteps: JourneyStep[] = [
     {
       id: 'discovery',
-      title: 'Diagnóstico de Infraestrutura',
-      description: 'Analisamos seus dados e requisitos para dimensionar a VPS ideal e a arquitetura da sua Stack de IA.',
+      title: 'Infrastructure Diagnostic',
+      description: 'We analyze your data and requirements to size the ideal VPS and the architecture of your AI Stack.',
       icon: <ServerIcon className="w-8 h-8" />,
       status: 'active',
-      metrics: ['Análise de segurança', 'Sizing de hardware', 'Mapeamento de dados'],
-      cta: 'Iniciar Diagnóstico',
+      metrics: ['Security analysis', 'Hardware sizing', 'Data mapping'],
+      cta: 'Start Diagnostic',
       gradient: 'from-blue-600 to-indigo-600'
     },
     {
       id: 'architecture',
-      title: 'Setup da Stack Privada',
-      description: 'Provisionamento da VPS, hardening de segurança e instalação do core (Docker, Traefik, Gitea).',
+      title: 'Private Stack Setup',
+      description: 'VPS provisioning, security hardening and core installation (Docker, Traefik, Gitea).',
       icon: <CommandLineIcon className="w-8 h-8" />,
       status: 'upcoming',
-      metrics: ['Entrega do código-fonte', 'Ambiente CI/CD', 'SSL & Firewall'],
-      cta: 'Ver Arquitetura Base',
+      metrics: ['Source code delivery', 'CI/CD environment', 'SSL & Firewall'],
+      cta: 'View Base Architecture',
       gradient: 'from-purple-600 to-pink-600'
     },
     {
       id: 'implementation',
-      title: 'Deploy da Aplicação',
-      description: 'Instalação da stack de aplicação (Next.js + Python/FastAPI) e customização dos modelos.',
+      title: 'Application Deploy',
+      description: 'Application stack installation (Next.js + Python/FastAPI) and model customization.',
       icon: <RocketLaunchIcon className="w-8 h-8" />,
       status: 'upcoming',
-      metrics: ['Deploy em 72h', 'Testes automatizados', 'Documentação API'],
-      cta: 'Agendar Deploy',
+      metrics: ['Deploy in 72h', 'Automated testing', 'API Documentation'],
+      cta: 'Schedule Deploy',
       gradient: 'from-emerald-600 to-teal-600'
     },
     {
       id: 'optimization',
-      title: 'Transferência de Controle',
-      description: 'Entrega final das chaves, treinamento da equipe e início do suporte sob demanda.',
+      title: 'Control Transfer',
+      description: 'Final key handover, team training and on-demand support initiation.',
       icon: <ShieldCheckIcon className="w-8 h-8" />,
       status: 'upcoming',
-      metrics: ['100% Autonomia', 'Sem lock-in', 'Garantia de 30 dias'],
-      cta: 'Planejar Transição',
+      metrics: ['100% Autonomy', 'No lock-in', '30-day guarantee'],
+      cta: 'Plan Transition',
       gradient: 'from-orange-600 to-red-600'
     }
   ]
@@ -113,7 +113,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
               className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-blue-200 mb-6"
             >
               <RocketLaunchIcon className="h-5 w-5 text-blue-600 mr-3" />
-              <span className="font-medium text-blue-800">Jornada de Soberania Digital</span>
+              <span className="font-medium text-blue-800">Digital Sovereignty Journey</span>
             </motion.div>
 
             <motion.h2
@@ -122,7 +122,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6"
             >
-              Do Zero à <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Stack Própria</span> em 4 Etapas
+              From Zero to <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Your Own Stack</span> in 4 Steps
             </motion.h2>
 
             <motion.p
@@ -131,7 +131,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
               transition={{ delay: 0.2 }}
               className="text-xl text-gray-600 max-w-3xl mx-auto"
             >
-              Processo estruturado para garantir que você tenha sua infraestrutura de IA rodando em sua própria VPS em 72h.
+              Structured process to ensure your AI infrastructure is running on your own VPS in 72h.
             </motion.p>
 
             <button
@@ -191,7 +191,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
                 <div>
                   <div className={`inline-flex items-center px-4 py-2 bg-gradient-to-r ${currentJourneyStep.gradient} text-white rounded-full mb-6`}>
                     {currentJourneyStep.icon}
-                    <span className="ml-2 font-medium">Etapa {currentStep + 1}</span>
+                    <span className="ml-2 font-medium">Step {currentStep + 1}</span>
                   </div>
 
                   <h3 className="text-3xl font-serif font-bold text-gray-900 mb-4">
@@ -248,7 +248,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
               className="flex items-center"
             >
               <ArrowRightIcon className="w-5 h-5 mr-2 rotate-180" />
-              Anterior
+              Previous
             </Button>
 
             <div className="flex space-x-2">
@@ -267,7 +267,7 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
               disabled={currentStep === journeySteps.length - 1}
               className="flex items-center"
             >
-              Próximo
+              Next
               <ArrowRightIcon className="w-5 h-5 ml-2" />
             </Button>
           </div>
@@ -276,26 +276,26 @@ export default function CustomerJourneyMap({ onClose }: CustomerJourneyMapProps)
           <div className="mt-12 bg-gradient-to-r from-emerald-50 to-blue-50 rounded-2xl p-8 border border-emerald-200">
             <div className="text-center">
               <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
-                Resultados Esperados
+                Expected Results
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
                     -60%
                   </div>
-                  <div className="text-gray-600">de Custo (TCO)</div>
+                  <div className="text-gray-600">Cost Reduction (TCO)</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
                     72h
                   </div>
-                  <div className="text-gray-600">Implementação Total</div>
+                  <div className="text-gray-600">Full Implementation</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
                     100%
                   </div>
-                  <div className="text-gray-600">Propriedade Intelectual</div>
+                  <div className="text-gray-600">Intellectual Property</div>
                 </div>
               </div>
             </div>

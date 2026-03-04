@@ -182,8 +182,8 @@ export function PremiumDialog({
                   >
                     {[
                       { icon: Crown, text: 'Executive' },
-                      { icon: Zap, text: 'Imediato' },
-                      { icon: Star, text: 'Gratuito' }
+                      { icon: Zap, text: 'Instant' },
+                      { icon: Star, text: 'Free' }
                     ].map((feature, index) => (
                       <div
                         key={index}
@@ -232,11 +232,11 @@ export function PremiumDialog({
 export function ConsultationDialog() {
   return (
     <PremiumDialog
-      title="Diagnóstico de Infraestrutura Gratuito"
-      description="Análise completa em 72h + Roadmap personalizado + Demo da plataforma IA em produção"
+      title="Free Infrastructure Diagnostic"
+      description="Complete analysis in 72h + Custom roadmap + Live AI platform demo"
       variant="executive"
       badge={{
-        text: "100% Gratuito",
+        text: "100% Free",
         variant: "success",
         icon: Sparkles
       }}
@@ -245,13 +245,13 @@ export function ConsultationDialog() {
           variant="cta-primary"
           size="xl"
           className="group relative border-0 shadow-xl transform hover:scale-[1.02] transition-all duration-200 font-bold text-lg px-12 py-6 rounded-2xl overflow-hidden bg-gradient-to-r from-brand-emerald-500 to-brand-emerald-600 hover:from-brand-emerald-600 hover:to-brand-emerald-700 focus:outline-none focus:ring-4 focus:ring-brand-emerald-500/50"
-          aria-label="Abrir formulário para diagnóstico de infraestrutura gratuito em 72 horas"
+          aria-label="Open free infrastructure diagnostic form"
           role="button"
           tabIndex={0}
         >
           <span className="relative z-10 flex items-center">
             <Sparkles className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" aria-hidden="true" />
-            Transformar Minha Empresa AGORA
+            Get Started Now
           </span>
           <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
         </Button>
@@ -261,8 +261,8 @@ export function ConsultationDialog() {
 }
 
 export function LuxuryDialog({
-  title = "Solução Enterprise",
-  description = "Implementação completa com acompanhamento C-Level dedicado",
+  title = "Enterprise Solution",
+  description = "Complete implementation with dedicated C-Level support",
   children
 }: {
   title?: string;

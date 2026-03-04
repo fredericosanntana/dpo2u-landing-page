@@ -42,11 +42,11 @@ interface IntegrationCapability {
 const integrationCapabilities: IntegrationCapability[] = [
   {
     title: "MCP Protocol Integration",
-    description: "Model Context Protocol para integração profunda com sistemas de IA e automação empresarial",
+    description: "Model Context Protocol for deep integration with AI systems and enterprise automation",
     icon: <Brain className="h-8 w-8" />,
     status: "production",
     features: [
-      "Claude Code MCP Server ativo",
+      "Claude Code MCP Server active",
       "OpenAI MCP integration",
       "Context preservation across sessions",
       "Real-time bi-directional communication"
@@ -55,7 +55,7 @@ const integrationCapabilities: IntegrationCapability[] = [
   },
   {
     title: "RESTful API Architecture",
-    description: "APIs robustas para integração com qualquer sistema enterprise existente",
+    description: "Robust APIs for integration with any existing enterprise system",
     icon: <Network className="h-8 w-8" />,
     status: "production",
     features: [
@@ -68,7 +68,7 @@ const integrationCapabilities: IntegrationCapability[] = [
   },
   {
     title: "Agent Factory Connectors",
-    description: "Sistema de criação dinâmica de conectores especializados conforme necessidade",
+    description: "Dynamic creation system for specialized connectors as needed",
     icon: <Settings className="h-8 w-8" />,
     status: "production",
     features: [
@@ -81,7 +81,7 @@ const integrationCapabilities: IntegrationCapability[] = [
   },
   {
     title: "Enterprise Security Layer",
-    description: "Camada de segurança enterprise-grade para todas as integrações",
+    description: "Enterprise-grade security layer for all integrations",
     icon: <Shield className="h-8 w-8" />,
     status: "production",
     features: [
@@ -155,17 +155,17 @@ const IntegrationCapabilities: React.FC = () => {
         >
           <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full mb-6">
             <Puzzle className="h-4 w-4 text-blue-600 mr-2" />
-            <span className="text-sm font-medium text-blue-600">Arquitetura de Integração</span>
+            <span className="text-sm font-medium text-blue-600">Integration Architecture</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text-dark mb-6">
-            Conecte com{' '}
+            Connect with{' '}
             <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
-              Qualquer Sistema
+              Any System
             </span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Arquitetura de integração flexível baseada em MCP, APIs REST e Agent Factory
-            para conectar com sua infraestrutura existente
+            Flexible integration architecture based on MCP, REST APIs and Agent Factory
+            to connect with your existing infrastructure
           </p>
         </motion.div>
 
@@ -269,7 +269,7 @@ const IntegrationCapabilities: React.FC = () => {
 
                     {/* Features */}
                     <div className="mb-6">
-                      <h4 className="font-semibold text-gray-900 mb-3">Recursos Principais:</h4>
+                      <h4 className="font-semibold text-gray-900 mb-3">Key Features:</h4>
                       <div className="space-y-2">
                         {integrationCapabilities[selectedCapability]?.features?.map((feature, idx) => (
                           <div key={idx} className="flex items-center space-x-2">
@@ -282,7 +282,7 @@ const IntegrationCapabilities: React.FC = () => {
 
                     {/* Technical Specs */}
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-3">Especificações Técnicas:</h4>
+                      <h4 className="font-semibold text-gray-900 mb-3">Technical Specifications:</h4>
                       <div className="grid grid-cols-2 gap-2">
                         {integrationCapabilities[selectedCapability]?.techSpecs?.map((spec, idx) => (
                           <Badge key={idx} variant="secondary" className="text-xs">
@@ -322,8 +322,8 @@ const IntegrationCapabilities: React.FC = () => {
             </div>
 
             <p className="text-gray-600 mb-6">
-              APIs REST completas com documentação, exemplos de código e endpoints
-              ativos para integração com a Stack de IA em produção.
+              Complete REST APIs with documentation, code examples and active endpoints
+              for integration with the production AI Stack.
             </p>
 
             <AnimatePresence>
@@ -365,20 +365,20 @@ const IntegrationCapabilities: React.FC = () => {
         >
           <Card className="p-8 bg-gradient-to-r from-brand-sapphire-50 to-brand-emerald-50 border border-brand-sapphire-200">
             <h3 className="text-2xl font-serif font-bold text-brand-text-dark mb-4">
-              Precisa de Integração Personalizada?
+              Need a Custom Integration?
             </h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Nossa Agent Factory pode criar conectores especializados para sua infraestrutura.
-              Desenvolvimento sob medida com nossa arquitetura soberana.
+              Our Agent Factory can create specialized connectors for your infrastructure.
+              Custom development with our sovereign architecture.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-gradient-to-r from-brand-sapphire-600 to-brand-emerald-600 hover:from-brand-sapphire-700 hover:to-brand-emerald-700 text-white">
                 <Settings className="h-5 w-5 mr-2" />
-                Discutir Integração Custom
+                Discuss Custom Integration
               </Button>
               <Button variant="outline" className="border-brand-sapphire-200 text-brand-sapphire-700 hover:bg-brand-sapphire-50">
                 <Code className="h-5 w-5 mr-2" />
-                Ver Documentação API
+                View API Documentation
               </Button>
             </div>
           </Card>

@@ -153,17 +153,17 @@ const SystemArchitectureDashboard: React.FC = () => {
         >
           <div className="inline-flex items-center px-4 py-2 bg-brand-sapphire-500/20 border border-brand-sapphire-500/30 rounded-full mb-6">
             <Server className="h-4 w-4 text-brand-sapphire-400 mr-2" />
-            <span className="text-sm font-medium text-brand-sapphire-300">Infraestrutura Privada - Live Monitor</span>
+            <span className="text-sm font-medium text-brand-sapphire-300">Private Infrastructure - Live Monitor</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
             Stack
             <span className="bg-gradient-to-r from-brand-sapphire-400 to-brand-emerald-400 bg-clip-text text-transparent">
               {' '}Full-Control{' '}
             </span>
-            em Produção
+            in Production
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Visão em tempo real da sua VPS dedicada operando com máxima segurança e performance de serviços containerizados.
+            Real-time view of your dedicated VPS operating with maximum security and performance of containerized services.
           </p>
         </motion.div>
 
@@ -215,7 +215,7 @@ const SystemArchitectureDashboard: React.FC = () => {
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-lg font-semibold text-white flex items-center">
                       <Layers className="h-5 w-5 text-brand-sapphire-400 mr-2" />
-                      Arquitetura 4-Camadas
+                      4-Layer Architecture
                     </h3>
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
@@ -227,10 +227,10 @@ const SystemArchitectureDashboard: React.FC = () => {
                   <div className="relative h-96 bg-slate-900/50 rounded-lg p-4">
                     {/* Level indicators */}
                     <div className="absolute left-2 space-y-16 text-xs font-medium text-slate-400">
-                      <div>Camada 4</div>
-                      <div>Camada 3</div>
-                      <div>Camada 2</div>
-                      <div>Camada 1</div>
+                      <div>Layer 4</div>
+                      <div>Layer 3</div>
+                      <div>Layer 2</div>
+                      <div>Layer 1</div>
                     </div>
 
                     {/* Components */}

@@ -7,12 +7,12 @@ import {
   X,
   Shield,
   Brain,
+  Fingerprint,
+  Coins,
+  Lock,
   Users,
-  BarChart3,
-  Zap,
   ChevronRight,
-  ExternalLink,
-  Phone,
+  ChevronDown,
   Mail,
   type LucideIcon
 } from 'lucide-react';
@@ -34,89 +34,58 @@ interface NavItem {
   description?: string;
   icon?: LucideIcon;
   badge?: string;
-  external?: boolean;
+  highlight?: boolean;
+  num?: string;
 }
 
-const navigationItems: NavItem[] = [
+const productItems: NavItem[] = [
   {
-    title: 'Sobre a DPO2U',
-    href: '#about',
-    description: 'Pioneiros em Legal Tech + IA',
+    title: 'Compliance Engine',
+    href: '/compliance-automate',
+    description: 'Automated LGPD/GDPR compliance',
+    icon: Shield,
+    num: '01',
+  },
+  {
+    title: 'AI Compliance Brain',
+    href: '/mcp-brain',
+    description: '17 MCP tools for AI agents',
+    icon: Brain,
+    num: '02',
+  },
+  {
+    title: 'ZK Compliance Protocol',
+    href: '/midnight-protocol',
+    description: 'Zero-knowledge proofs on Midnight',
+    icon: Fingerprint,
+    num: '03',
+    highlight: true,
+    badge: 'ZK',
+  },
+  {
+    title: 'Self-Funding Agents',
+    href: '/self-funding-agent',
+    description: '$NIGHT/$DUST autonomous economics',
+    icon: Coins,
+    num: '04',
+  },
+  {
+    title: 'Private AI Stack',
+    href: '/private-stack',
+    description: 'On-chain security layer',
+    icon: Lock,
+    num: '05',
+  },
+];
+
+const otherItems: NavItem[] = [
+  {
+    title: 'About',
+    href: '/about',
+    description: 'Founder & Builder Portfolio',
     icon: Users,
   },
-  {
-    title: 'Serviços',
-    href: '#services',
-    description: 'Soluções completas LGPD/GDPR',
-    icon: Shield,
-  },
-  {
-    title: 'Benefícios',
-    href: '#benefits',
-    description: 'ROI mensurável em compliance',
-    icon: BarChart3,
-  },
-  {
-    title: 'Cases de Sucesso',
-    href: '#cases',
-    description: '+500 empresas protegidas',
-    icon: ExternalLink,
-  },
-  {
-    title: 'LGPD',
-    href: '/lgpd',
-    description: 'Princípios e consentimento',
-  },
-  {
-    title: 'Privacidade',
-    href: '/privacy',
-    description: 'Política de Privacidade',
-  },
-  {
-    title: 'Termos',
-    href: '/terms',
-    description: 'Termos de Uso',
-  },
 ];
-
-const quickActions = [
-  {
-    title: 'Consultoria Gratuita',
-    description: 'Diagnóstico completo sem custo',
-    icon: Phone,
-    action: () => console.log('Abrir modal consultoria'),
-    variant: 'cta-primary' as const,
-  },
-  {
-    title: 'Falar com Especialista',
-    description: 'Contato direto via WhatsApp',
-    icon: Mail,
-    action: () => window.open('https://wa.me/5511999999999', '_blank'),
-    variant: 'outline' as const,
-  },
-];
-
-const slideInFromRight = {
-  initial: { x: '100%', opacity: 0 },
-  animate: { 
-    x: 0, 
-    opacity: 1,
-    transition: { 
-      type: 'spring',
-      damping: 25,
-      stiffness: 200
-    }
-  },
-  exit: { 
-    x: '100%', 
-    opacity: 0,
-    transition: { 
-      type: 'spring',
-      damping: 25,
-      stiffness: 200
-    }
-  }
-};
 
 const staggerContainer = {
   animate: {
@@ -128,35 +97,29 @@ const staggerContainer = {
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
-  animate: { 
-    opacity: 1, 
+  animate: {
+    opacity: 1,
     y: 0,
-    transition: { duration: 0.3 }
+    transition: { duration: 0.3 },
   },
 };
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const [productsExpanded, setProductsExpanded] = useState(true);
 
-  const handleNavClick = (href: string, external?: boolean) => {
-    if (external) {
-      window.open(href, '_blank');
-    } else if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      element?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.href = href;
-    }
+  const handleNavClick = (href: string) => {
+    window.location.href = href;
     setIsOpen(false);
   };
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           size="icon"
-          className="md:hidden relative z-50 hover:bg-brand-sapphire-50"
+          className="lg:hidden relative z-50 hover:bg-brand-sapphire-50"
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
@@ -184,9 +147,9 @@ export default function MobileNav() {
         </Button>
       </SheetTrigger>
 
-      <SheetContent 
-        side="right" 
-        className="w-full sm:w-96 bg-gradient-to-br from-white to-brand-platinum-50 border-l border-brand-gray-200"
+      <SheetContent
+        side="right"
+        className="w-full sm:w-96 bg-gradient-to-br from-white to-brand-platinum-50 dark:from-slate-900 dark:to-slate-800 border-l border-brand-gray-200 dark:border-slate-700"
       >
         <motion.div
           initial="initial"
@@ -195,57 +158,142 @@ export default function MobileNav() {
           className="h-full flex flex-col"
         >
           {/* Header */}
-          <SheetHeader className="pb-6 border-b border-brand-gray-200">
+          <SheetHeader className="pb-6 border-b border-brand-gray-200 dark:border-slate-700">
             <motion.div variants={fadeInUp} className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-brand-sapphire-500 to-brand-emerald-500 rounded-lg flex items-center justify-center">
                 <Shield className="h-6 w-6 text-white" />
               </div>
               <div>
-                <SheetTitle className="text-xl font-serif font-bold text-brand-gray-800">
+                <SheetTitle className="text-xl font-serif font-bold text-brand-gray-800 dark:text-white">
                   DPO2U
                 </SheetTitle>
-                <SheetDescription className="text-brand-gray-600">
-                  Legal Tech + IA
+                <SheetDescription className="text-brand-gray-600 dark:text-gray-400">
+                  Private AI Stack
                 </SheetDescription>
               </div>
             </motion.div>
           </SheetHeader>
 
           {/* Navigation Items */}
-          <div className="flex-1 py-6">
+          <div className="flex-1 py-6 overflow-y-auto">
             <motion.nav variants={staggerContainer} className="space-y-2">
-              {navigationItems.map((item, index) => (
+              {/* Home */}
+              <motion.div variants={fadeInUp}>
+                <button
+                  onClick={() => handleNavClick('/')}
+                  className="w-full group flex items-center justify-between p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 hover:shadow-md transition-all duration-200 text-left"
+                >
+                  <div className="flex items-start space-x-3 flex-1">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-slate-700 dark:to-slate-600 group-hover:scale-110 transition-transform duration-200">
+                      <Shield className="h-5 w-5 text-brand-sapphire-600 dark:text-brand-sapphire-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-brand-gray-800 dark:text-white group-hover:text-brand-sapphire-600 transition-colors">
+                        DPO2U Home
+                      </h3>
+                      <p className="text-sm text-brand-gray-600 dark:text-gray-400 leading-relaxed">
+                        Company overview & products
+                      </p>
+                    </div>
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-brand-gray-400 group-hover:text-brand-sapphire-600 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0" />
+                </button>
+              </motion.div>
+
+              {/* Products Section */}
+              <motion.div variants={fadeInUp}>
+                <button
+                  onClick={() => setProductsExpanded(!productsExpanded)}
+                  className="w-full flex items-center justify-between px-4 py-3 text-left"
+                >
+                  <span className="text-xs font-bold text-brand-gray-500 dark:text-gray-500 uppercase tracking-widest">
+                    Products
+                  </span>
+                  <ChevronDown className={`h-4 w-4 text-brand-gray-400 transition-transform ${productsExpanded ? 'rotate-180' : ''}`} />
+                </button>
+
+                <AnimatePresence>
+                  {productsExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden space-y-1"
+                    >
+                      {productItems.map((item) => (
+                        <button
+                          key={item.title}
+                          onClick={() => handleNavClick(item.href)}
+                          className={`w-full group flex items-center justify-between p-3 pl-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 hover:shadow-md transition-all duration-200 text-left ${
+                            item.highlight ? 'bg-brand-purple-50 dark:bg-brand-purple-900/20 border border-brand-purple-200 dark:border-brand-purple-700' : ''
+                          }`}
+                        >
+                          <div className="flex items-start space-x-3 flex-1">
+                            {item.icon && (
+                              <div className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200 ${
+                                item.highlight
+                                  ? 'bg-gradient-to-br from-brand-purple-100 to-brand-purple-200 dark:from-brand-purple-800 dark:to-brand-purple-700'
+                                  : 'bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-slate-700 dark:to-slate-600'
+                              }`}>
+                                <item.icon className={`h-4 w-4 ${item.highlight ? 'text-brand-purple-600 dark:text-brand-purple-400' : 'text-brand-sapphire-600 dark:text-brand-sapphire-400'}`} />
+                              </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center space-x-2 mb-0.5">
+                                <span className="text-[10px] font-mono text-slate-400">{item.num}</span>
+                                <h3 className={`text-sm font-semibold transition-colors ${
+                                  item.highlight
+                                    ? 'text-brand-purple-700 dark:text-brand-purple-400'
+                                    : 'text-brand-gray-800 dark:text-white group-hover:text-brand-sapphire-600'
+                                }`}>
+                                  {item.title}
+                                </h3>
+                                {item.badge && (
+                                  <Badge variant="brand" size="sm">
+                                    {item.badge}
+                                  </Badge>
+                                )}
+                              </div>
+                              {item.description && (
+                                <p className="text-xs text-brand-gray-600 dark:text-gray-400 leading-relaxed">
+                                  {item.description}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          <ChevronRight className="h-4 w-4 text-brand-gray-400 group-hover:text-brand-sapphire-600 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0" />
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Other Links */}
+              {otherItems.map((item) => (
                 <motion.div key={item.title} variants={fadeInUp}>
                   <button
-                    onClick={() => handleNavClick(item.href, item.external)}
-                    className="w-full group flex items-center justify-between p-4 rounded-2xl hover:bg-white hover:shadow-md transition-all duration-200 text-left"
+                    onClick={() => handleNavClick(item.href)}
+                    className="w-full group flex items-center justify-between p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 hover:shadow-md transition-all duration-200 text-left"
                   >
                     <div className="flex items-start space-x-3 flex-1">
                       {item.icon && (
-                        <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                          <item.icon className="h-5 w-5 text-brand-sapphire-600" />
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-slate-700 dark:to-slate-600 group-hover:scale-110 transition-transform duration-200">
+                          <item.icon className="h-5 w-5 text-brand-sapphire-600 dark:text-brand-sapphire-400" />
                         </div>
                       )}
-                      
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <h3 className="font-semibold text-brand-gray-800 group-hover:text-brand-sapphire-600 transition-colors">
-                            {item.title}
-                          </h3>
-                          {item.badge && (
-                            <Badge variant="brand" size="sm">
-                              {item.badge}
-                            </Badge>
-                          )}
-                        </div>
+                        <h3 className="font-semibold text-brand-gray-800 dark:text-white group-hover:text-brand-sapphire-600 transition-colors">
+                          {item.title}
+                        </h3>
                         {item.description && (
-                          <p className="text-sm text-brand-gray-600 leading-relaxed">
+                          <p className="text-sm text-brand-gray-600 dark:text-gray-400 leading-relaxed">
                             {item.description}
                           </p>
                         )}
                       </div>
                     </div>
-                    
                     <ChevronRight className="h-5 w-5 text-brand-gray-400 group-hover:text-brand-sapphire-600 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0" />
                   </button>
                 </motion.div>
@@ -253,60 +301,43 @@ export default function MobileNav() {
             </motion.nav>
           </div>
 
-          {/* Quick Actions */}
-          <motion.div 
-            variants={fadeInUp} 
-            className="border-t border-brand-gray-200 pt-6 space-y-4"
+          {/* Contact CTA */}
+          <motion.div
+            variants={fadeInUp}
+            className="border-t border-brand-gray-200 dark:border-slate-700 pt-6"
           >
-            <h4 className="font-semibold text-brand-gray-800 mb-4 flex items-center">
-              <Zap className="h-4 w-4 mr-2 text-brand-emerald-500" />
-              Ações Rápidas
-            </h4>
-            
-            {quickActions.map((action, index) => (
-              <motion.div
-                key={action.title}
-                variants={fadeInUp}
-                custom={index}
-              >
-                <Button
-                  variant={action.variant}
-                  size="lg"
-                  onClick={action.action}
-                  className="w-full flex items-start space-x-3 h-auto p-4 text-left justify-start"
-                >
-                  <div className="flex-shrink-0">
-                    <action.icon className="h-5 w-5" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-semibold">{action.title}</div>
-                    <div className="text-xs opacity-75 mt-1">
-                      {action.description}
-                    </div>
-                  </div>
-                </Button>
-              </motion.div>
-            ))}
+            <Button
+              variant="primary"
+              size="lg"
+              onClick={() => {
+                window.location.href = 'mailto:contato@dpo2u.com.br';
+                setIsOpen(false);
+              }}
+              className="w-full flex items-center justify-center space-x-2"
+            >
+              <Mail className="h-5 w-5" />
+              <span>Get in Touch</span>
+            </Button>
           </motion.div>
 
           {/* Footer Info */}
-          <motion.div 
+          <motion.div
             variants={fadeInUp}
-            className="pt-4 text-center border-t border-brand-gray-200 mt-6"
+            className="pt-4 text-center border-t border-brand-gray-200 dark:border-slate-700 mt-6"
           >
             <div className="flex items-center justify-center space-x-4 text-xs text-brand-gray-500">
               <Badge variant="status-active" size="sm">
-                99.9% Uptime
+                5 Products
               </Badge>
               <Badge variant="success" size="sm">
-                ISO 27001
+                6 AI Agents
               </Badge>
               <Badge variant="premium" size="sm">
-                ANPPD
+                5 ZK Contracts
               </Badge>
             </div>
-            <p className="text-xs text-brand-gray-500 mt-2">
-              © 2025 DPO2U • Todos os direitos reservados
+            <p className="text-xs text-brand-gray-500 dark:text-gray-500 mt-2">
+              &copy; 2026 DPO2U &middot; All rights reserved
             </p>
           </motion.div>
         </motion.div>

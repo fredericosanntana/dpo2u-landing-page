@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Shield, Brain, Zap, Users, ArrowRight, Check, Star, Activity, Database, Lock, Server, Code, Terminal } from 'lucide-react';
+import { Shield, Brain, Zap, Users, ArrowRight, Check, Star, Activity, Database, Lock, Server, Code, Terminal, Fingerprint } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackCTA } from '@/lib/analytics';
 import { Card } from '@/components/ui/card';
@@ -11,20 +11,7 @@ import FAQSection from '@/components/FAQSection';
 import { ConsultationDialog } from '@/components/ui/premium-dialog';
 import DataProcessingModal from '@/components/modals/DataProcessingModal';
 import Footer from '@/components/Footer';
-
-// Animation variants (reused for consistency)
-const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-};
-
-const staggerContainer = {
-    animate: {
-        transition: {
-            staggerChildren: 0.1,
-        },
-    },
-};
+import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const AnimatedSection: React.FC<{
     children: React.ReactNode;
@@ -79,9 +66,9 @@ export default function MCPPage() {
                             variants={fadeInUp}
                             className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold mb-8 leading-tight text-white"
                         >
-                            O Cérebro da sua <br />
+                            Your Compliance <br />
                             <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent">
-                                Privacidade Digital
+                                AI Brain
                             </span>
                         </motion.h1>
 
@@ -89,8 +76,8 @@ export default function MCPPage() {
                             variants={fadeInUp}
                             className="text-xl md:text-2xl mb-12 text-brand-platinum-300 leading-relaxed font-light"
                         >
-                            Uma ponte inteligente entre sua infraestrutura local e a IA.
-                            <span className="text-brand-emerald-400 font-medium"> 17 Ferramentas especializadas</span> para auditoria, compliance e criptografia homomórfica, rodando 100% no seu servidor.
+                            An intelligent bridge between your local infrastructure and AI.
+                            <span className="text-brand-emerald-400 font-medium"> 17 Specialized Tools</span> for auditing, compliance, and homomorphic encryption, running 100% on your server.
                         </motion.p>
 
                         <motion.div
@@ -105,7 +92,7 @@ export default function MCPPage() {
                                 onClick={() => window.open('https://github.com/dpo2u/dpo2u-mcp', '_blank')}
                             >
                                 <Code className="h-5 w-5 mr-2" />
-                                Ver Documentação Técnica
+                                View Technical Documentation
                             </Button>
                         </motion.div>
                     </div>
@@ -117,10 +104,10 @@ export default function MCPPage() {
                 <div className="container mx-auto container-padding">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-                            Arquitetura <span className="text-brand-emerald-400">Zero-Trust AI</span>
+                            <span className="text-brand-emerald-400">Zero-Trust AI</span> Architecture
                         </h2>
                         <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                            Seus dados nunca saem da sua infraestrutura. O MCP Server orquestra a inteligência localmente.
+                            Your data never leaves your infrastructure. The MCP Server orchestrates intelligence locally.
                         </p>
                     </div>
 
@@ -177,24 +164,49 @@ export default function MCPPage() {
                 <div className="container mx-auto container-padding">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 dark:text-white mb-6">
-                            17 Agentes Especializados
+                            17 Specialized Tools for Privacy Compliance
                         </h2>
                         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                            Automacão completa para LGPD, GDPR e Segurança da Informação.
+                            Full automation for LGPD, GDPR, and Information Security.
                         </p>
+                    </div>
+
+                    {/* Midnight-Specific Tools - Prominent Section */}
+                    <div className="grid md:grid-cols-2 gap-6 mb-10">
+                        {[
+                            { title: 'midnight_zk_compliance_proof', desc: 'Generate Zero-Knowledge compliance proofs on Midnight blockchain. Prove regulatory adherence without exposing sensitive data, leveraging Midnight\'s native ZK capabilities for verifiable privacy.', icon: Shield, color: 'cyan' },
+                            { title: 'midnight_did_management', desc: 'Decentralized Identity management powered by Midnight. Create, verify, and revoke DIDs for data subjects and processors with on-chain privacy guarantees and selective disclosure.', icon: Fingerprint, color: 'purple' },
+                        ].map((tool, idx) => (
+                            <motion.div key={`midnight-${idx}`} variants={fadeInUp}>
+                                <Card className="h-full p-8 hover:shadow-xl transition-all border-2 border-brand-emerald-500/40 bg-gradient-to-br from-slate-50 to-emerald-50 dark:from-slate-800 dark:to-emerald-950/30 ring-1 ring-brand-emerald-500/20">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <span className="px-2 py-0.5 bg-emerald-500/10 rounded text-xs font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">Midnight</span>
+                                    </div>
+                                    <div className="flex items-start justify-between mb-4">
+                                        <h3 className="font-mono text-lg font-bold text-brand-blue-600 dark:text-brand-blue-400">
+                                            {tool.title}
+                                        </h3>
+                                        <tool.icon className={`h-6 w-6 text-${tool.color}-500`} />
+                                    </div>
+                                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        {tool.desc}
+                                    </p>
+                                </Card>
+                            </motion.div>
+                        ))}
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
-                            { title: 'auditinfrastructure', desc: 'Auditoria completa de servidores e VPS para compliance.', icon: Activity, color: 'blue' },
-                            { title: 'assessrisk', desc: 'Geração automática de DPIA/RIPD e avaliação de riscos.', icon: Shield, color: 'red' },
-                            { title: 'mapdataflow', desc: 'Mapeamento visual do fluxo de dados pessoais.', icon: Database, color: 'emerald' },
-                            { title: 'generateprivacypolicy', desc: 'Criação de políticas personalizadas e jurídicamente válidas.', icon: Code, color: 'purple' },
-                            { title: 'simulatebreach', desc: 'Simulação técnica de incidentes para teste de resiliência.', icon: Zap, color: 'orange' },
-                            { title: 'verifyconsent', desc: 'Auditoria de bases de consentimento e opt-ins.', icon: Check, color: 'green' },
-                            { title: 'encryptedreporting', desc: 'Relatórios gerados sobre dados encriptados (FHE).', icon: Lock, color: 'indigo' },
-                            { title: 'zkcomplianceproof', desc: 'Provas Zero-Knowledge de conformidade sem expor dados.', icon: Shield, color: 'cyan' },
-                            { title: 'homomorphicanalytics', desc: 'Analytics preservando privacidade total.', icon: Activity, color: 'pink' },
+                            { title: 'auditinfrastructure', desc: 'Complete server and VPS auditing for compliance.', icon: Activity, color: 'blue' },
+                            { title: 'assessrisk', desc: 'Automatic DPIA/RIPD generation and risk assessment.', icon: Shield, color: 'red' },
+                            { title: 'mapdataflow', desc: 'Visual mapping of personal data flows.', icon: Database, color: 'emerald' },
+                            { title: 'generateprivacypolicy', desc: 'Creation of customized, legally valid policies.', icon: Code, color: 'purple' },
+                            { title: 'simulatebreach', desc: 'Technical incident simulation for resilience testing.', icon: Zap, color: 'orange' },
+                            { title: 'verifyconsent', desc: 'Audit of consent bases and opt-ins.', icon: Check, color: 'green' },
+                            { title: 'encryptedreporting', desc: 'Reports generated over encrypted data (FHE).', icon: Lock, color: 'indigo' },
+                            { title: 'zkcomplianceproof', desc: 'Zero-Knowledge compliance proofs without exposing data.', icon: Shield, color: 'cyan' },
+                            { title: 'homomorphicanalytics', desc: 'Analytics preserving full privacy.', icon: Activity, color: 'pink' },
                         ].map((tool, idx) => (
                             <motion.div key={idx} variants={fadeInUp}>
                                 <Card className="h-full p-6 hover:shadow-lg transition-all border-l-4 border-l-transparent hover:border-l-brand-emerald-500">
@@ -213,7 +225,7 @@ export default function MCPPage() {
                     </div>
 
                     <div className="text-center mt-12">
-                        <p className="text-sm text-gray-500 italic">...e mais 8 ferramentas avançadas de segurança e análise.</p>
+                        <p className="text-sm text-gray-500 italic">...plus 6 more advanced security and analysis tools.</p>
                     </div>
                 </div>
             </AnimatedSection>
@@ -224,18 +236,18 @@ export default function MCPPage() {
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
                             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-                                Integração Simples
+                                Simple Integration
                             </h2>
                             <p className="text-lg text-slate-300 mb-8">
-                                Adicione ao seu Claude Desktop ou Cursor em segundos. O servidor roda localmente via Docker, expondo uma interface padrão MCP.
+                                Add it to your Claude Desktop or Cursor in seconds. The server runs locally via Docker, exposing a standard MCP interface.
                             </p>
 
                             <ul className="space-y-4 mb-8">
                                 {[
-                                    'Compatível com Claude 3.5 Sonnet',
-                                    'Compatível com Cursor IDE',
-                                    'API HTTP para integrações customizadas',
-                                    'Autenticação via API Key'
+                                    'Compatible with Claude 3.5 Sonnet',
+                                    'Compatible with Cursor IDE',
+                                    'HTTP API for custom integrations',
+                                    'API Key authentication'
                                 ].map((item, idx) => (
                                     <li key={idx} className="flex items-center text-slate-400">
                                         <Check className="h-5 w-5 text-emerald-400 mr-3" />
@@ -250,7 +262,7 @@ export default function MCPPage() {
                                 className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold"
                                 onClick={() => window.open('https://github.com/dpo2u/dpo2u-mcp', '_blank')}
                             >
-                                Ver Guia de Instalação
+                                View Installation Guide
                             </Button>
                         </div>
 
@@ -288,11 +300,11 @@ export default function MCPPage() {
                 </div>
             </AnimatedSection>
 
-            {/* CTA Final */}
+            {/* Final CTA */}
             <AnimatedSection className="py-24 bg-brand-sapphire-900 text-center">
                 <div className="container mx-auto px-4">
                     <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-8">
-                        Comece sua jornada de IA Soberana hoje
+                        Start your Sovereign AI journey today
                     </h2>
                     <ConsultationDialog />
                 </div>

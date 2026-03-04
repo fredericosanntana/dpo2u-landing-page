@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-    expose:
-      - "3000"
+    ports:
+      - "3003:3000"
     environment:
       - API_GATEWAY_URL=http://172.17.0.1:8090 # Kept for reference, though client-side calls might need these via VITE_ env vars
     labels:
@@ -26,10 +26,10 @@ services:
       # Service definition - Express listens on 3000 inside container
       - "traefik.http.services.dpo2u.loadbalancer.server.port=3000"
     networks:
-      - tweb
+      - proxy
     volumes:
       - ./public/downloads:/app/public/downloads
 
 networks:
-  tweb:
+  proxy:
     external: true

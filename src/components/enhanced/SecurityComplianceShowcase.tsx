@@ -61,17 +61,17 @@ interface SecurityFeature {
 
 const complianceFrameworks: ComplianceFramework[] = [
   {
-    name: "LGPD - Lei Geral de Proteção de Dados",
+    name: "LGPD - General Data Protection Law",
     status: "certified",
     score: 100,
     lastAudit: "2024-12-15",
-    description: "Conformidade total com a legislação brasileira de proteção de dados pessoais",
+    description: "Full compliance with Brazilian personal data protection legislation",
     requirements: [
-      "Consentimento explícito e granular",
-      "Direito ao esquecimento implementado",
-      "Portabilidade de dados automatizada", 
-      "Relatório de impacto à proteção de dados",
-      "Encarregado de dados (DPO) designado"
+      "Explicit and granular consent",
+      "Right to be forgotten implemented",
+      "Automated data portability",
+      "Data protection impact report",
+      "Designated Data Protection Officer (DPO)"
     ],
     certificate: "LGPD-2024-BR-001"
   },
@@ -80,11 +80,11 @@ const complianceFrameworks: ComplianceFramework[] = [
     status: "certified",
     score: 98,
     lastAudit: "2024-11-20", 
-    description: "Compliance total com regulamento europeu de proteção de dados",
+    description: "Full compliance with European data protection regulation",
     requirements: [
-      "Privacy by Design implementado",
+      "Privacy by Design implemented",
       "Data Protection Impact Assessment (DPIA)",
-      "Breach notification em 72h",
+      "Breach notification within 72h",
       "Right to be forgotten",
       "Data portability compliance"
     ],
@@ -95,7 +95,7 @@ const complianceFrameworks: ComplianceFramework[] = [
     status: "certified", 
     score: 97,
     lastAudit: "2024-10-30",
-    description: "Auditoria de controles de segurança, disponibilidade e confidencialidade",
+    description: "Audit of security, availability and confidentiality controls",
     requirements: [
       "Security controls framework",
       "Availability monitoring",
@@ -110,7 +110,7 @@ const complianceFrameworks: ComplianceFramework[] = [
     status: "in-progress",
     score: 85,
     lastAudit: "2024-12-01",
-    description: "Sistema de gestão de segurança da informação - certificação em andamento",
+    description: "Information security management system - certification in progress",
     requirements: [
       "Information security management system",
       "Risk assessment and treatment", 
@@ -124,7 +124,7 @@ const complianceFrameworks: ComplianceFramework[] = [
     status: "planned",
     score: 0,
     lastAudit: "",
-    description: "Padrão de segurança para processamento de cartões de pagamento - Q2 2025",
+    description: "Security standard for payment card processing - Q2 2025",
     requirements: [
       "Secure network architecture",
       "Cardholder data protection",
@@ -141,7 +141,7 @@ const securityMetrics: SecurityMetric[] = [
     value: "99.97%",
     status: "excellent", 
     trend: "stable",
-    description: "Disponibilidade do sistema nos últimos 12 meses",
+    description: "System availability over the last 12 months",
     lastUpdated: "2025-01-02 14:30:00"
   },
   {
@@ -149,7 +149,7 @@ const securityMetrics: SecurityMetric[] = [
     value: "2.3 min",
     status: "excellent",
     trend: "down", 
-    description: "Tempo médio para detecção de incidentes de segurança",
+    description: "Average time to detect security incidents",
     lastUpdated: "2025-01-02 14:25:00"
   },
   {
@@ -157,7 +157,7 @@ const securityMetrics: SecurityMetric[] = [
     value: "100%",
     status: "excellent",
     trend: "stable",
-    description: "Dados criptografados em trânsito e em repouso",
+    description: "Data encrypted in transit and at rest",
     lastUpdated: "2025-01-02 14:20:00"
   },
   {
@@ -165,7 +165,7 @@ const securityMetrics: SecurityMetric[] = [
     value: "4.2 hrs",
     status: "good",
     trend: "down",
-    description: "Tempo médio de resposta para vulnerabilidades críticas",
+    description: "Average response time for critical vulnerabilities",
     lastUpdated: "2025-01-02 13:45:00"
   },
   {
@@ -173,7 +173,7 @@ const securityMetrics: SecurityMetric[] = [
     value: "0.02%", 
     status: "excellent",
     trend: "down",
-    description: "Taxa de tentativas de autenticação falhadas",
+    description: "Rate of failed authentication attempts",
     lastUpdated: "2025-01-02 14:15:00"
   },
   {
@@ -181,7 +181,7 @@ const securityMetrics: SecurityMetric[] = [
     value: "98.7%",
     status: "excellent",
     trend: "up",
-    description: "Pontuação geral de conformidade regulatória",
+    description: "Overall regulatory compliance score",
     lastUpdated: "2025-01-02 12:00:00"
   }
 ];
@@ -192,28 +192,28 @@ const securityFeatures: SecurityFeature[] = [
     features: [
       {
         name: "AES-256 Encryption",
-        description: "Criptografia militar para dados em repouso e trânsito", 
+        description: "Military-grade encryption for data at rest and in transit", 
         implementation: "native",
         status: "active",
         coverage: 100
       },
       {
         name: "Field-Level Encryption",
-        description: "Criptografia granular para dados sensíveis específicos",
+        description: "Granular encryption for specific sensitive data",
         implementation: "native", 
         status: "active",
         coverage: 95
       },
       {
         name: "Data Masking",
-        description: "Mascaramento automático em ambientes não-produtivos",
+        description: "Automatic masking in non-production environments",
         implementation: "native",
         status: "active", 
         coverage: 90
       },
       {
         name: "Tokenization",
-        description: "Substituição de dados sensíveis por tokens seguros",
+        description: "Replacement of sensitive data with secure tokens",
         implementation: "hybrid",
         status: "active",
         coverage: 85
@@ -225,28 +225,28 @@ const securityFeatures: SecurityFeature[] = [
     features: [
       {
         name: "Multi-Factor Authentication",
-        description: "Autenticação robusta com múltiplos fatores",
+        description: "Robust authentication with multiple factors",
         implementation: "third-party",
         status: "active",
         coverage: 100
       },
       {
         name: "Role-Based Access Control",
-        description: "Controle granular baseado em funções e responsabilidades", 
+        description: "Granular control based on roles and responsibilities", 
         implementation: "native",
         status: "active",
         coverage: 98
       },
       {
         name: "Privileged Access Management",
-        description: "Gestão especializada para contas privilegiadas",
+        description: "Specialized management for privileged accounts",
         implementation: "third-party",
         status: "active",
         coverage: 95
       },
       {
         name: "Session Management",
-        description: "Controle avançado de sessões com timeout automático",
+        description: "Advanced session control with automatic timeout",
         implementation: "native",
         status: "active", 
         coverage: 100
@@ -258,28 +258,28 @@ const securityFeatures: SecurityFeature[] = [
     features: [
       {
         name: "24/7 Security Operations Center",
-        description: "Monitoramento contínuo por especialistas em segurança",
+        description: "Continuous monitoring by security specialists",
         implementation: "hybrid",
         status: "active",
         coverage: 100
       },
       {
         name: "Behavioral Analytics",
-        description: "Detecção de anomalias comportamentais usando IA",
+        description: "Behavioral anomaly detection using AI",
         implementation: "native", 
         status: "active",
         coverage: 88
       },
       {
         name: "Real-time Threat Intelligence",
-        description: "Inteligência de ameaças atualizada em tempo real",
+        description: "Real-time updated threat intelligence",
         implementation: "third-party",
         status: "active",
         coverage: 92
       },
       {
         name: "Automated Incident Response",
-        description: "Resposta automatizada para incidentes de segurança",
+        description: "Automated response for security incidents",
         implementation: "native",
         status: "active",
         coverage: 85
@@ -387,14 +387,14 @@ const SecurityComplianceShowcase: React.FC = () => {
             <span className="text-sm font-medium text-brand-emerald-300">Security & Compliance</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
-            Segurança{' '}
+            Enterprise-Grade{' '}
             <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent">
-              Enterprise-Grade
+              Security
             </span>
           </h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Conformidade total com LGPD/GDPR, certificações internacionais e monitoramento 24/7 
-            por especialistas em segurança
+            Full LGPD/GDPR compliance, international certifications and 24/7 monitoring
+            by security specialists
           </p>
         </motion.div>
 
@@ -403,8 +403,8 @@ const SecurityComplianceShowcase: React.FC = () => {
           <div className="flex items-center space-x-2 bg-slate-800 rounded-lg p-2">
             {[
               { key: 'frameworks', label: 'Compliance', icon: FileCheck },
-              { key: 'metrics', label: 'Métricas', icon: Activity },
-              { key: 'features', label: 'Recursos', icon: Lock }
+              { key: 'metrics', label: 'Metrics', icon: Activity },
+              { key: 'features', label: 'Features', icon: Lock }
             ].map((tab) => {
               const Icon = tab.icon;
               return (
@@ -629,11 +629,11 @@ const SecurityComplianceShowcase: React.FC = () => {
         >
           <Card className="p-8 bg-gradient-to-r from-brand-emerald-500/20 to-brand-sapphire-500/20 border border-brand-emerald-500/30">
             <h3 className="text-2xl font-bold text-white mb-4">
-              Documentação de Segurança Completa
+              Complete Security Documentation
             </h3>
             <p className="text-lg text-slate-300 mb-6 max-w-2xl mx-auto">
-              Acesse políticas de segurança, certificados, relatórios de auditoria e 
-              documentação técnica detalhada
+              Access security policies, certificates, audit reports and
+              detailed technical documentation
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

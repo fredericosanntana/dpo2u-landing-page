@@ -1,57 +1,34 @@
-
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Shield, Brain, Zap, Users, ArrowRight, Check, Star, Activity, Database } from 'lucide-react';
-import LiveSystemStatusDashboard from '@/components/enhanced/LiveSystemStatusDashboard';
-import ROICalculator from '@/components/enhanced/ROICalculator';
+import {
+  Shield, Brain, Zap, ArrowRight, Check, Fingerprint,
+  Coins, FileText, Database, Users, Star, Network, Layers
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { trackCTA } from '@/lib/analytics';
 import { Card } from '@/components/ui/card';
 import Header from '@/components/Header';
-import FAQSection from '@/components/FAQSection';
-import { ConsultationDialog, PremiumTrigger } from '@/components/ui/premium-dialog';
-import DataProcessingModal from '@/components/modals/DataProcessingModal';
-import CustomerJourneyMap from '@/components/enhanced/CustomerJourneyMap';
 import Footer from '@/components/Footer';
-// Enhanced Technical Components
+import { fadeInUp, staggerContainer } from '@/lib/animations';
+import LiveSystemStatusDashboard from '@/components/enhanced/LiveSystemStatusDashboard';
+import ROICalculator from '@/components/enhanced/ROICalculator';
 import TechnicalArchitectureDashboard from '@/components/enhanced/TechnicalArchitectureDashboard';
 import IntegrationCapabilities from '@/components/enhanced/IntegrationCapabilities';
-// import ArchitectureSection from '@/components/ArchitectureSection';
-// import MultiAgentVisualization from '@/components/enhanced/MultiAgentVisualization';
+import FAQSection from '@/components/FAQSection';
 
-// Animation variants
-const fadeInUp = {
-  initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-// Section wrapper with intersection observer
 const AnimatedSection: React.FC<{
   children: React.ReactNode;
   className?: string;
   id?: string;
 }> = ({ children, className = '', id }) => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   return (
     <motion.section
       ref={ref}
       id={id}
       initial="initial"
-      animate={inView ? "animate" : "initial"}
+      animate={inView ? 'animate' : 'initial'}
       variants={staggerContainer}
       className={className}
     >
@@ -60,496 +37,406 @@ const AnimatedSection: React.FC<{
   );
 };
 
-export default function HomePage() {
-  const [isDataModalOpen, setIsDataModalOpen] = React.useState(false);
-  const [showJourney, setShowJourney] = React.useState(false);
+const colorMap: Record<string, { borderL: string; bg: string; text: string }> = {
+  emerald: { borderL: 'border-l-emerald-500', bg: 'bg-emerald-500/10', text: 'text-emerald-500' },
+  blue: { borderL: 'border-l-blue-500', bg: 'bg-blue-500/10', text: 'text-blue-500' },
+  purple: { borderL: 'border-l-purple-500', bg: 'bg-purple-500/10', text: 'text-purple-500' },
+  amber: { borderL: 'border-l-amber-500', bg: 'bg-amber-500/10', text: 'text-amber-500' },
+};
 
+const architectureLayers = [
+  {
+    num: 'L1',
+    name: 'Application Layer',
+    tagline: 'Client Interface & Tools',
+    description: 'The touchpoint for businesses. The LGPD Kit Generator creates structured JSON policies, while the MCP Server exposes compliance logic to AI agents via securely verifiable tools.',
+    icon: Layers,
+    href: '/mcp-brain',
+    color: 'emerald',
+  },
+  {
+    num: 'L2',
+    name: 'Agent Layer',
+    tagline: 'Autonomous Operators',
+    description: 'Expert Agents map business models to GDPR/LGPD requirements. Auditor Agents verify evidence against standardized schemas. Monitor Agents ensure continuous compliance 24/7.',
+    icon: Network,
+    href: '/self-funding-agent',
+    color: 'blue',
+  },
+  {
+    num: 'L3',
+    name: 'Storage Layer',
+    tagline: 'Immutable Records',
+    description: 'Documents and policies are pinned to IPFS via Lighthouse. No sensitive user data is stored, only structural schemas, public policies, and proofs, accessible via permanent CIDs.',
+    icon: Database,
+    href: '/private-stack',
+    color: 'purple',
+  },
+  {
+    num: 'L4',
+    name: 'Midnight Layer',
+    tagline: 'Cryptographic Security & ZK Proofs',
+    description: 'The trust engine. Smart contracts written in Compact record zero-knowledge attestations. Ensures privacy-first verification where proofs are public but underlying data remains private.',
+    icon: Fingerprint,
+    href: '/midnight-protocol',
+    color: 'amber',
+  },
+];
+
+export default function HomePage() {
   return (
     <div className="min-h-screen">
       <Header />
-      {/* Hero Section - Secure AI Stack 2025 */}
-      <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-premium">
-        {/* Revolutionary Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-sapphire-500/10 via-brand-emerald-500/5 to-transparent"></div>
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-sapphire-500/15 rounded-full blur-3xl animate-pulse-subtle"></div>
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-emerald-500/10 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-brand-platinum-500/8 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
 
-          {/* Geometric Overlays */}
-          <div className="absolute top-20 left-20 w-32 h-32 border border-brand-sapphire-400/20 rotate-45 animate-spin" style={{ animationDuration: '20s' }}></div>
-          <div className="absolute bottom-20 right-20 w-24 h-24 border border-brand-emerald-400/20 rotate-12 animate-bounce" style={{ animationDuration: '3s' }}></div>
-        </div>
-
-        {/* Content */}
+      {/* ============================================= */}
+      {/* 1. HERO — Cleaned Up for Midnight Ecosystem   */}
+      {/* ============================================= */}
+      <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Content */}
             <div className="text-white">
               <motion.div
                 variants={fadeInUp}
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-brand-sapphire-500/20 to-brand-emerald-500/20 rounded-full border border-brand-sapphire-400/30 mb-8 backdrop-blur-sm"
+                className="inline-flex items-center px-4 py-2 bg-slate-100 dark:bg-slate-800/80 rounded-full border border-slate-200 dark:border-slate-700/50 mb-8"
               >
-                <Shield className="h-5 w-5 text-primary mr-3" />
-                <span className="text-base font-semibold text-brand-sapphire-300">Infraestrutura IA Soberana & Segura</span>
+                <Fingerprint className="h-4 w-4 text-primary mr-2" />
+                <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Powered by Midnight Network</span>
               </motion.div>
 
-              {/* SEO H1 */}
-              <h1 className="sr-only" role="banner" aria-label="DPO2U: Stack de IA Segura em VPS para Transformação Digital com Privacidade de Dados">
-                DPO2U: Stack de IA Segura em VPS para Transformação Digital com Privacidade de Dados
-              </h1>
+              <h1 className="sr-only">DPO2U — Compliance as a Protocol</h1>
 
               <motion.h2
                 variants={fadeInUp}
-                className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-8 leading-tight"
+                className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-tight"
               >
-                <span className="bg-gradient-to-r from-brand-sapphire-400 via-brand-emerald-400 to-brand-sapphire-500 bg-clip-text text-transparent">
-                  Transformação Digital
-                </span>{' '}
+                <span className="text-brand-text-dark dark:text-white">
+                  Compliance as a Protocol.
+                </span>
                 <br />
-                <span className="text-white">com sua própria</span>
-                <br />
-                <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-ocean-400 bg-clip-text text-transparent">
-                  Stack de IA Privada
+                <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent text-3xl md:text-4xl lg:text-5xl">
+                  Built for the Web3 Era.
                 </span>
               </motion.h2>
 
               <motion.p
                 variants={fadeInUp}
-                className="text-xl md:text-2xl mb-10 text-brand-platinum-300 leading-relaxed max-w-3xl font-light"
+                className="text-lg md:text-xl mb-10 text-slate-600 dark:text-slate-400 leading-relaxed font-light"
               >
-                Obtenha controle total dos seus dados. Implementamos sua <span className="text-primary font-medium">Stack de IA completa em VPS dedicada</span>:
-                <span className="text-brand-emerald-400 font-medium"> Docker, Gitea, Traefik, Next.js e Python</span>.
-                Segurança, privacidade e soberania para sua empresa escalar na era da IA.
+                DPO2U fuses <span className="text-brand-sapphire-600 dark:text-brand-sapphire-400 font-medium">Zero-Knowledge Proofs</span>,{' '}
+                <span className="text-brand-emerald-600 dark:text-brand-emerald-400 font-medium">Autonomous Agents</span>, and{' '}
+                <span className="text-amber-600 dark:text-amber-400 font-medium">Self-Funding Tokenomics</span> to transform LGPD/GDPR compliance into an on-chain, privacy-preserving asset.
               </motion.p>
 
-              {/* Key Metrics */}
-              <motion.div
-                variants={fadeInUp}
-                className="grid grid-cols-2 gap-8 mb-12 max-w-2xl"
-              >
-                <div className="text-center lg:text-left group">
-                  <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-emerald-400 to-brand-emerald-500 bg-clip-text text-transparent mb-2">100%</div>
-                  <div className="text-sm text-brand-platinum-400 font-semibold uppercase tracking-wide">Privacidade de Dados</div>
-                  <div className="w-full h-1 bg-gradient-to-r from-brand-emerald-400/50 to-transparent rounded-full mt-2 group-hover:from-brand-emerald-400 transition-all"></div>
-                </div>
-                <div className="text-center lg:text-left group">
-                  <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-brand-sapphire-400 to-brand-sapphire-500 bg-clip-text text-transparent mb-2">VPS</div>
-                  <div className="text-sm text-brand-platinum-400 font-semibold uppercase tracking-wide">Infraestrutura Soberana</div>
-                  <div className="w-full h-1 bg-gradient-to-r from-brand-sapphire-400/50 to-transparent rounded-full mt-2 group-hover:from-brand-sapphire-400 transition-all"></div>
-                </div>
-              </motion.div>
-
-              {/* CTA Buttons */}
-              <motion.div
-                variants={fadeInUp}
-                className="flex flex-col sm:flex-row gap-6"
-              >
-                <ConsultationDialog />
-
+              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  variant="primary"
+                  size="xl"
+                  className="bg-brand-sapphire-600 hover:bg-brand-sapphire-700 text-white font-bold text-lg px-8 py-6 rounded-xl transition-all shadow-md hover:shadow-lg"
+                  onClick={() => {
+                    trackCTA('explore_architecture', 'hero');
+                    document.getElementById('architecture')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  Explore Architecture
+                </Button>
                 <Button
                   variant="outline"
                   size="xl"
-                  className="relative border-2 border-brand-gray-400/50 text-brand-gray-200 hover:bg-brand-gray-700 hover:text-white hover:border-brand-gray-300 backdrop-blur-md bg-brand-gray-800/20 font-bold text-lg px-12 py-6 rounded-2xl group transition-all duration-300 overflow-hidden"
+                  className="border-2 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-bold text-lg px-8 py-6 rounded-xl transition-all"
                   onClick={() => {
-                    trackCTA('demo_interativo', 'hero');
-                    setIsDataModalOpen(true);
+                    trackCTA('get_in_touch', 'hero');
+                    window.location.href = 'mailto:contato@dpo2u.com.br';
                   }}
                 >
-                  <span className="relative z-10 flex items-center">
-                    <Brain className="h-5 w-5 mr-3 group-hover:rotate-12 transition-transform" />
-                    Conheça a Stack
-                  </span>
-                  <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"></div>
+                  Contact Ecosystem Team
                 </Button>
               </motion.div>
 
-              <motion.p
-                variants={fadeInUp}
-                className="mt-8 text-sm text-slate-400 font-light"
-              >
-                <span className="inline-flex items-center text-emerald-400 font-medium">
-                  <Star className="h-3 w-3 mr-2 fill-current" />
-                  Deploy em 72h em sua própria VPS
-                </span>
-                {' '} • Código Fonte Próprio • Sem Lock-in de Cloud • Segurança Militar
+              <motion.p variants={fadeInUp} className="mt-8 text-sm text-slate-500 font-light flex items-center">
+                <Star className="h-4 w-4 mr-2 text-amber-500" />
+                Live on Midnight Testnet &middot; ZK-SNARKs &middot; MCP Server Protocol
               </motion.p>
             </div>
 
-            {/* Right Column - System Status */}
-            <motion.div
-              variants={fadeInUp}
-              className="relative lg:block hidden"
-            >
+            <motion.div variants={fadeInUp} className="hidden lg:block relative">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/20 pointer-events-none rounded-3xl" />
               <LiveSystemStatusDashboard />
             </motion.div>
           </div>
         </div>
       </AnimatedSection>
 
-      {/* Sobre Nós Section */}
-      <AnimatedSection id="about" className="section-padding bg-white dark:bg-slate-900">
-        <div className="container mx-auto container-padding">
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-slate-100 rounded-full mb-6">
-              <Users className="h-4 w-4 text-slate-600 mr-2" />
-              <span className="text-sm font-medium text-slate-600">Por que DPO2U?</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text-dark mb-6 leading-tight">
-              Sua Empresa, Sua Infraestrutura,{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                Sua Inteligência Artificial
-              </span>
-            </h2>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed font-light">
-              Não alugue inteligência, possua a sua. Nós montamos uma <span className="font-medium text-brand-text-dark">Stack de IA completa</span> diretamente em seus servidores (VPS), garantindo que seus dados sensíveis nunca saiam do seu controle, enquanto você aproveita o poder da transformação digital.
-            </p>
-          </motion.div>
+      {/* ============================================= */}
+      {/* 2. PROBLEM / SOLUTION                         */}
+      {/* ============================================= */}
+      <AnimatedSection className="py-20 bg-slate-50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <motion.div variants={fadeInUp} className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
+                Redefining the Cost of <span className="text-brand-sapphire-500">Trust</span>
+              </h2>
+            </motion.div>
 
-          <motion.div
-            variants={staggerContainer}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
-            {[
-              {
-                icon: Shield,
-                title: 'Privacidade Absoluta',
-                description: 'Seus dados rodam no seu "Ground" seguro. Nada é compartilhado com APIs públicas sem seu consentimento explícito.',
-              },
-              {
-                icon: Zap,
-                title: 'Stack Moderna & Robusta',
-                description: 'Docker, Traefik, Gitea, Next.js, Python/FastAPI - A mesma tecnologia das Big Techs, configurada para você.',
-              },
-              {
-                icon: Users,
-                title: 'Autonomia Total',
-                description: 'Entregamos o código fonte. Você tem controle total sobre o Gitea (Git) e o ciclo de vida do software.',
-              },
-              {
-                icon: Brain,
-                title: 'Inteligência Customizada',
-                description: 'Modelos de IA ajustados ao contexto da sua empresa, rodando localmente ou via conexões seguras.',
-              },
-            ].map((item, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <Card variant="brand" hover className="text-center h-full">
-                  <item.icon className="h-12 w-12 text-brand-blue-500 mx-auto mb-4" />
-                  <h3 className="text-lg font-serif font-semibold text-brand-gray-800 mb-2">
-                    {item.title}
+            <div className="grid md:grid-cols-2 gap-8">
+              <motion.div variants={fadeInUp}>
+                <Card className="p-8 h-full border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center">
+                    <FileText className="h-5 w-5 mr-3 text-slate-500" /> Traditional Compliance
                   </h3>
-                  <p className="text-gray-600">
-                    {item.description}
-                  </p>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </AnimatedSection>
-
-      {/* ROI Calculator */}
-      <AnimatedSection id="roi" className="section-padding bg-gradient-to-br from-brand-sapphire-50 via-white to-brand-emerald-50">
-        <div className="container mx-auto container-padding">
-          <ROICalculator />
-        </div>
-      </AnimatedSection>
-
-      {/* Technical Architecture Dashboard */}
-      <AnimatedSection id="architecture-dashboard" className="bg-slate-900">
-        <TechnicalArchitectureDashboard />
-      </AnimatedSection>
-
-      {/* Benefits Section */}
-      <AnimatedSection id="benefits" className="section-padding bg-gray-50 dark:bg-slate-900">
-        <div className="container mx-auto container-padding">
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 mb-6">
-              Impacto da Soberania Digital
-            </h2>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Benefícios reais de internalizar sua infraestrutura de IA e dados
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
-            {[
-              {
-                title: 'Redução de Custos',
-                stats: '-60% TCO',
-                description: 'em comparação com soluções SaaS proprietárias',
-                color: 'text-green-600',
-              },
-              {
-                title: 'Segurança de Dados',
-                stats: '100% Privado',
-                description: 'nenhum dado sensível exposto a terceiros',
-                color: 'text-blue-600',
-              },
-              {
-                title: 'Velocidade de Deploy',
-                stats: '72 horas',
-                description: 'para setup completo da infraestrutura',
-                color: 'text-purple-600',
-              },
-              {
-                title: 'Conformidade',
-                stats: 'LGPD/GDPR',
-                description: 'compliance nativo por design',
-                color: 'text-brand-purple-600',
-              },
-            ].map((benefit, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <Card variant="brand" className="text-center h-full">
-                  <h3 className="text-lg font-serif font-semibold text-brand-gray-800 mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className={`text-3xl font-bold mb-2 ${benefit.color}`}>
-                    {benefit.stats}
-                  </p>
-                  <p className="text-gray-600 text-sm">
-                    {benefit.description}
-                  </p>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </AnimatedSection>
-
-      {/* FAQ Section */}
-      <FAQSection />
-
-      {/* Technology Showcase Section */}
-      <AnimatedSection id="technology" className="section-padding bg-gradient-to-b from-white to-slate-50">
-        <div className="container mx-auto container-padding">
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 mb-6">
-              Tecnologia de Ponta para{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                Resultados Reais
-              </span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Nossa Stack de IA está em produção, demonstrando capacidades técnicas
-              avançadas e entregando automação empresarial mensurável
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            className="grid lg:grid-cols-3 gap-8"
-          >
-            {[
-              {
-                title: 'Stack de IA em Produção',
-                description: 'Arquitetura híbrida 4-níveis rodando 24/7 com 145+ agentes especializados disponíveis para coordenação dinâmica.',
-                metrics: ['12+ agentes ativos simultâneos', '99.97% uptime sistema', '847 req/min throughput'],
-                icon: <Brain className="h-8 w-8" />,
-                color: 'blue'
-              },
-              {
-                title: 'Performance Enterprise Validada',
-                description: 'Métricas reais de sistema em produção demonstrando capacidade enterprise-grade com monitoramento contínuo.',
-                metrics: ['120ms latência média', '67% memory efficiency', 'API response <250ms'],
-                icon: <Activity className="h-8 w-8" />,
-                color: 'emerald'
-              },
-              {
-                title: 'Tecnologia Comprovada',
-                description: 'Stack técnico robusto integrando OpenAI MCP, Claude Code, LEANN e Session Manager com alta disponibilidade.',
-                metrics: ['OpenAI GPT-4o + o3-mini', 'LEANN 2.856+ docs indexados', 'Zero-loss context preservation'],
-                icon: <Shield className="h-8 w-8" />,
-                color: 'purple'
-              },
-            ].map((item, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 rounded-2xl mb-6`}>
-                    {React.cloneElement(item.icon, { className: "h-8 w-8 text-white" })}
-                  </div>
-
-                  <h3 className="text-xl font-serif font-bold text-brand-gray-800 mb-4">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {item.description}
-                  </p>
-
-                  <div className="space-y-3">
-                    {item.metrics.map((metric, idx) => (
-                      <div key={idx} className="flex items-center text-sm">
-                        <div className={`w-2 h-2 bg-${item.color}-500 rounded-full mr-3 flex-shrink-0`}></div>
-                        <span className="text-gray-700">{metric}</span>
-                      </div>
+                  <ul className="space-y-4">
+                    {[
+                      'R$264K+/year for DPO, legal, and consultants',
+                      'Static PDF reports that expire instantly',
+                      'Exposes sensitive data during manual audits',
+                      'Siloed inside the company, hard to prove externally',
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-start text-sm text-slate-600 dark:text-slate-400">
+                        <span className="text-slate-400 mr-3 mt-0.5">✕</span>
+                        {item}
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </Card>
               </motion.div>
-            ))}
+
+              <motion.div variants={fadeInUp}>
+                <Card className="p-8 h-full border-brand-emerald-200 dark:border-brand-emerald-900/30 bg-brand-emerald-50/30 dark:bg-brand-emerald-900/10 shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-4 opacity-10">
+                    <Fingerprint className="h-24 w-24 text-brand-emerald-500" />
+                  </div>
+                  <h3 className="text-xl font-bold text-brand-emerald-600 dark:text-brand-emerald-400 mb-6 flex items-center">
+                    <Shield className="h-5 w-5 mr-3" /> Protocol Compliance
+                  </h3>
+                  <ul className="space-y-4">
+                    {[
+                      'R$5K/year — Autonomous AI Agents do the heavy lifting',
+                      'Cryptographic, on-chain Zero-Knowledge attestations',
+                      'Proves compliance without ever exposing raw data',
+                      'Self-funding mechanism: $NIGHT payments fuel $DUST gas',
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-start text-sm text-slate-700 dark:text-slate-300">
+                        <Check className="h-4 w-4 text-brand-emerald-500 mr-3 mt-0.5 flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* ============================================= */}
+      {/* 3. 4-LAYER MULTI-FACETED ARCHITECTURE         */}
+      {/* ============================================= */}
+      <AnimatedSection id="architecture" className="py-24 bg-white dark:bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={fadeInUp} className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
+              The <span className="text-brand-sapphire-500">4-Layer</span> Ecosystem
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+              DPO2U is not a SaaS. It is an infrastructure stack built on Midnight, where AI and cryptography converge to make compliance verifiable and self-sustaining.
+            </p>
           </motion.div>
 
-          {/* Real System Status */}
-          <motion.div variants={fadeInUp} className="mt-16">
-            <Card className="p-8 bg-gradient-to-r from-slate-50 to-blue-50 border border-slate-200">
-              <div className="text-center">
-                <h3 className="text-2xl font-serif font-bold text-brand-gray-800 mb-4">
-                  Sistema Live - Métricas Reais
-                </h3>
-                <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                  Acompanhe em tempo real as métricas da nossa infraestrutura em produção.
-                  Dados atualizados automaticamente a cada 2 segundos.
+          <motion.div variants={staggerContainer} className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {architectureLayers.map((layer) => {
+              const colors = colorMap[layer.color];
+              return (
+                <motion.div key={layer.num} variants={fadeInUp}>
+                  <Card className={`p-8 h-full border-l-4 ${colors.borderL} bg-white dark:bg-slate-900/50 border-t border-r border-b border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300`}>
+                    <div className="flex items-center justify-between mb-6">
+                      <div className={`w-14 h-14 ${colors.bg} rounded-2xl flex items-center justify-center`}>
+                        <layer.icon className={`h-7 w-7 ${colors.text}`} />
+                      </div>
+                      <span className="text-sm font-mono font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-4 py-1.5 rounded-full">
+                        {layer.num}
+                      </span>
+                    </div>
+                    <h3 className="text-2xl font-serif font-bold text-slate-900 dark:text-white mb-2">
+                      {layer.name}
+                    </h3>
+                    <p className={`text-sm font-semibold mb-4 ${colors.text}`}>
+                      {layer.tagline}
+                    </p>
+                    <p className="text-base text-slate-600 dark:text-slate-400 leading-relaxed font-light">
+                      {layer.description}
+                    </p>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </AnimatedSection>
+
+      {/* ============================================= */}
+      {/* 4. TECHNICAL ARCHITECTURE DASHBOARD           */}
+      {/* ============================================= */}
+      <AnimatedSection className="py-20 bg-slate-900 text-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={fadeInUp} className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
+              Protocol <span className="text-brand-sapphire-400">Telemetry</span>
+            </h2>
+            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
+              Live view of the ZK-Attestation pipeline across the network.
+            </p>
+          </motion.div>
+          <motion.div variants={fadeInUp}>
+            <TechnicalArchitectureDashboard />
+          </motion.div>
+        </div>
+      </AnimatedSection>
+
+      {/* ============================================= */}
+      {/* 5. MINIMAL TOKEN ECONOMICS                    */}
+      {/* ============================================= */}
+      <AnimatedSection className="py-24 bg-slate-50 dark:bg-slate-900/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <motion.div variants={fadeInUp} className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
+                Self-Funding <span className="text-amber-500">Economics</span>
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                A dual-token model engineered so the protocol pays for its own zero-knowledge computation and monitoring.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-8">
+              <Card className="p-8 bg-white dark:bg-slate-900 border border-amber-100 dark:border-amber-900/30 shadow-sm relative overflow-hidden">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-xl">
+                    <Coins className="h-8 w-8 text-amber-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">$NIGHT</h3>
+                    <p className="text-sm font-medium text-amber-600 dark:text-amber-500">Value & Fee Token</p>
+                  </div>
+                </div>
+                <p className="text-base text-slate-600 dark:text-slate-400 mb-6 font-light leading-relaxed">
+                  The primary native asset. Clients pay for automated compliance cycles in $NIGHT via the PaymentGateway compact contract.
                 </p>
-                <Button
-                  className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white"
-                  onClick={() => {
-                    const dashboardSection = document.getElementById('architecture-dashboard');
-                    dashboardSection?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  <Activity className="h-5 w-5 mr-2" />
-                  Ver Dashboard Live
-                </Button>
-              </div>
-            </Card>
-          </motion.div>
+                <div className="flex justify-between items-center text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-4">
+                  <span>Supply: 24B</span>
+                  <span>Distributes 40/60 to Agents</span>
+                </div>
+              </Card>
+
+              <Card className="p-8 bg-white dark:bg-slate-900 border border-purple-100 dark:border-purple-900/30 shadow-sm relative overflow-hidden">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl">
+                    <Zap className="h-8 w-8 text-purple-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">tDUST</h3>
+                    <p className="text-sm font-medium text-purple-600 dark:text-purple-500">Privacy Gas Token</p>
+                  </div>
+                </div>
+                <p className="text-base text-slate-600 dark:text-slate-400 mb-6 font-light leading-relaxed">
+                  Non-transferable execution token on Midnight. Agents swap $NIGHT to acquire tDUST to pay for ZK-circuit executions and state changes.
+                </p>
+                <div className="flex justify-between items-center text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-800 pt-4">
+                  <span>Use: ZK Attestations</span>
+                  <span>Decays over time</span>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
         </div>
       </AnimatedSection>
 
-      {/* Featured Stack Section */}
-      <AnimatedSection id="technology" className="section-padding bg-gradient-to-b from-white to-slate-50">
-        <div className="container mx-auto container-padding">
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 mb-6">
-              Stack Tecnológica de{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                Classe Mundial
-              </span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Implementamos e configuramos as melhores ferramentas open-source para criar sua fundação de IA privada.
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={staggerContainer}
-            className="grid lg:grid-cols-3 gap-8"
-          >
-            {[
-              {
-                title: 'Traefik Proxy & SSL',
-                description: 'Gateway moderno e seguro que gerencia todo o tráfego de entrada, garantindo criptografia SSL automática e roteamento inteligente para seus serviços.',
-                metrics: ['Gestão automática de Certificados', 'Load Balancing', 'Security Headers'],
-                icon: <Shield className="h-8 w-8" />,
-                color: 'blue'
-              },
-              {
-                title: 'Gitea - Version Control',
-                description: 'Sua própria plataforma de código. Hospede, revise e gerencie seus repositórios de IA com total privacidade e sem limites de usuários.',
-                metrics: ['Git Privado', 'CI/CD Pipelines Integrados', 'Zero custo por usuário'],
-                icon: <Database className="h-8 w-8" />,
-                color: 'emerald'
-              },
-              {
-                title: 'Next.js & Python API',
-                description: 'Frontend de alta performance e Backend robusto em Python/FastAPI para servir seus modelos de IA e aplicações de negócio.',
-                metrics: ['Server Side Rendering', 'FastAPI Async Performance', 'TypeSafe'],
-                icon: <Activity className="h-8 w-8" />,
-                color: 'purple'
-              },
-            ].map((item, index) => (
-              <motion.div key={index} variants={fadeInUp}>
-                <Card className="h-full p-6 hover:shadow-lg transition-shadow">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 rounded-2xl mb-6`}>
-                    {React.cloneElement(item.icon, { className: "h-8 w-8 text-white" })}
-                  </div>
-
-                  <h3 className="text-xl font-serif font-bold text-brand-gray-800 mb-4">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {item.description}
-                  </p>
-
-                  <div className="space-y-3">
-                    {item.metrics.map((metric, idx) => (
-                      <div key={idx} className="flex items-center text-sm">
-                        <div className={`w-2 h-2 bg-${item.color}-500 rounded-full mr-3 flex-shrink-0`}></div>
-                        <span className="text-gray-700">{metric}</span>
-                      </div>
-                    ))}
-                  </div>
-                </Card>
+      {/* ============================================= */}
+      {/* 6. INTEGRATION & ROI                          */}
+      {/* ============================================= */}
+      <AnimatedSection className="py-20 bg-white dark:bg-background border-y border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16">
+            <div>
+              <motion.div variants={fadeInUp} className="mb-8">
+                <h2 className="text-3xl font-serif font-bold text-slate-900 dark:text-white mb-4">
+                  Integration API
+                </h2>
+                <p className="text-slate-600 dark:text-slate-400">
+                  Connect DPO2U with your existing infrastructure securely.
+                </p>
               </motion.div>
-            ))}
+              <IntegrationCapabilities />
+            </div>
+            <div>
+              <motion.div variants={fadeInUp} className="mb-8">
+                <h2 className="text-3xl font-serif font-bold text-slate-900 dark:text-white mb-4">
+                  Cost Efficiency
+                </h2>
+                <p className="text-slate-600 dark:text-slate-400">
+                  Calculate the direct ROI of protocol-based compliance.
+                </p>
+              </motion.div>
+              <ROICalculator />
+            </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* ============================================= */}
+      {/* 7. FAQ                                        */}
+      {/* ============================================= */}
+      <AnimatedSection className="py-20 bg-slate-50 dark:bg-slate-900/30">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={fadeInUp} className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
+              Developer <span className="text-brand-sapphire-500">FAQ</span>
+            </h2>
+          </motion.div>
+          <motion.div variants={fadeInUp}>
+            <FAQSection />
           </motion.div>
         </div>
       </AnimatedSection>
 
-      {/* Integration Capabilities - Technical Details at End */}
-      <AnimatedSection id="integrations" className="bg-white">
-        <IntegrationCapabilities />
-      </AnimatedSection>
+      {/* ============================================= */}
+      {/* 8. CTA FINAL                                  */}
+      {/* ============================================= */}
+      <AnimatedSection className="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.02]"></div>
 
-      {/* CTA Final Section */}
-      <AnimatedSection className="section-padding bg-brand-sapphire-800 text-white relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-sapphire-800 via-brand-sapphire-700 to-brand-sapphire-900"></div>
-        <div className="absolute inset-0 bg-grid-white/5"></div>
-
-        <div className="container mx-auto container-padding text-center relative z-10">
-          <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
-            <div className="inline-flex items-center px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
-              <Shield className="h-4 w-4 text-emerald-400 mr-2" />
-              <span className="text-sm font-medium text-emerald-400">Transformação Digital Segura</span>
-            </div>
-
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 leading-tight text-white">
-              Pronto para assumir o controle da{' '}
-              <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
-                sua tecnologia?
-              </span>
+        <div className="container mx-auto text-center relative z-10">
+          <motion.div variants={fadeInUp} className="max-w-3xl mx-auto">
+            <Shield className="h-12 w-12 text-brand-emerald-400 mx-auto mb-6" />
+            <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-white">
+              Initialize Your Node
             </h2>
-
-            <p className="text-lg md:text-xl mb-8 text-slate-300 font-light leading-relaxed">
-              Entregamos sua infraestrutura de IA configurada, segura e pronta para escalar.
+            <p className="text-xl mb-10 text-slate-400 font-light">
+              Join the testnet and start generating ZK-attestations today.
             </p>
 
-            <div className="bg-brand-sapphire-700/50 backdrop-blur rounded-2xl p-6 mb-8 border border-brand-sapphire-600/30">
-              <p className="text-slate-200 mb-2">
-                <span className="text-emerald-400 font-medium">Setup Inicial Completo</span> • Treinamento da Equipe
-              </p>
-              <p className="text-slate-400 text-sm">
-                ✓ Entrega do Código Fonte • ✓ Documentação Técnica • ✓ Suporte Dedicado
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <ConsultationDialog />
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button
+                variant="primary"
+                size="xl"
+                className="bg-brand-emerald-600 hover:bg-brand-emerald-700 text-white font-bold px-10 py-6 rounded-xl transition-all shadow-md hover:shadow-lg"
+                onClick={() => window.location.href = '/analise'}
+              >
+                Run Diagnostic
+              </Button>
               <Button
                 variant="outline"
                 size="xl"
-                className="border-2 border-brand-sapphire-500 text-brand-platinum-200 hover:bg-brand-sapphire-700 hover:text-white hover:border-brand-sapphire-400 transition-all duration-200 font-medium"
+                className="border-2 border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white px-10 py-6 rounded-xl transition-all"
+                onClick={() => window.location.href = '/midnight-protocol'}
               >
-                Baixar Guia Técnico
+                Read Docs
               </Button>
             </div>
           </motion.div>
         </div>
       </AnimatedSection>
 
-      {/* Footer - Professional Design */}
       <Footer />
-
-      {/* Modals */}
-      <DataProcessingModal
-        isOpen={isDataModalOpen}
-        onClose={() => setIsDataModalOpen(false)}
-      />
     </div>
   );
 }

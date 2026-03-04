@@ -6,15 +6,19 @@ import MarketingScripts from '@/components/MarketingScripts';
 import { ThemeProvider } from '@/hooks/use-theme';
 import { Toaster } from '@/components/ui/toaster';
 import HomePage from '@/app/page';
-import MCPPage from '@/app/mcp';
+import ComplianceAutomatePage from '@/app/compliance-automate';
+import MCPBrainPage from '@/app/mcp-brain';
+import MidnightProtocolPage from '@/app/midnight-protocol';
+import SelfFundingAgentPage from '@/app/self-funding-agent';
+import PrivateStackPage from '@/app/private-stack';
 import AnalysisPage from '@/app/analise';
-import LgpdKitPage from '@/app/lgpd-kit';
-import ERC8004Page from '@/app/erc8004';
+import AboutPage from '@/app/about';
+import PrivacyPage from '@/app/privacy';
+import TermsPage from '@/app/terms';
 
-// Placeholder for other pages - functionality to be verified
-const Placeholder = ({ title }: { title: string }) => (
+const NotFound = () => (
     <div className="flex items-center justify-center min-h-screen">
-        <h1 className="text-2xl font-bold">{title} - Under Migration based on Next.js removal</h1>
+        <h1 className="text-2xl font-bold">404 — Page Not Found</h1>
     </div>
 );
 
@@ -27,19 +31,19 @@ function App() {
                     <div className="flex flex-col min-h-screen">
                         <Routes>
                             <Route path="/" element={<HomePage />} />
-                            <Route path="/mcp" element={<MCPPage />} />
+                            <Route path="/compliance-automate" element={<ComplianceAutomatePage />} />
+                            <Route path="/mcp-brain" element={<MCPBrainPage />} />
+                            <Route path="/midnight-protocol" element={<MidnightProtocolPage />} />
+                            <Route path="/self-funding-agent" element={<SelfFundingAgentPage />} />
+                            <Route path="/private-stack" element={<PrivateStackPage />} />
+                            <Route path="/about" element={<AboutPage />} />
                             <Route path="/analise" element={<AnalysisPage />} />
-                            <Route path="/dashboard" element={<Placeholder title="Dashboard" />} />
-                            <Route path="/lgpd" element={<LgpdKitPage />} />
-                            <Route path="/kit-lgpd" element={<LgpdKitPage />} />
-                            <Route path="/erc8004" element={<ERC8004Page />} />
-                            <Route path="/privacy" element={<Placeholder title="Privacy" />} />
-                            <Route path="/terms" element={<Placeholder title="Terms" />} />
-                            <Route path="*" element={<Placeholder title="404 Not Found" />} />
+                            <Route path="/privacy" element={<PrivacyPage />} />
+                            <Route path="/terms" element={<TermsPage />} />
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>
                     <Toaster />
-                    {/* <Analytics /> - Vercel Analytics removed */}
                 </ThemeProvider>
                 <CookieBanner />
             </ConsentProvider>

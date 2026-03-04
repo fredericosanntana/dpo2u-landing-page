@@ -263,11 +263,11 @@ const ConsultationDialog: React.FC<ConsultationDialogProps> = ({
 }) => {
   return (
     <PremiumDialog
-      title="Consultoria Executive Gratuita"
-      description="Diagnóstico completo + Roadmap personalizado + Demo da plataforma"
+      title="Free Executive Consultation"
+      description="Complete diagnostic + Custom roadmap + Platform demo"
       variant="premium"
       badge={{
-        text: "Consultoria Premium",
+        text: "Premium Consultation",
         variant: "premium",
         icon: Sparkles
       }}
@@ -279,30 +279,30 @@ const ConsultationDialog: React.FC<ConsultationDialogProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="text-center p-4 bg-brand-sapphire-50 rounded-xl">
             <Shield className="h-8 w-8 text-brand-sapphire-600 mx-auto mb-3" />
-            <h4 className="font-semibold text-brand-gray-800 mb-2">Diagnóstico LGPD</h4>
-            <p className="text-sm text-brand-gray-600">Análise completa da sua conformidade atual</p>
+            <h4 className="font-semibold text-brand-gray-800 mb-2">LGPD Diagnostic</h4>
+            <p className="text-sm text-brand-gray-600">Complete analysis of your current compliance</p>
           </div>
           <div className="text-center p-4 bg-brand-emerald-50 rounded-xl">
             <Zap className="h-8 w-8 text-brand-emerald-600 mx-auto mb-3" />
-            <h4 className="font-semibold text-brand-gray-800 mb-2">Roadmap IA</h4>
-            <p className="text-sm text-brand-gray-600">Plano personalizado de automação</p>
+            <h4 className="font-semibold text-brand-gray-800 mb-2">AI Roadmap</h4>
+            <p className="text-sm text-brand-gray-600">Custom automation plan</p>
           </div>
           <div className="text-center p-4 bg-brand-chrome-50 rounded-xl">
             <Crown className="h-8 w-8 text-brand-chrome-600 mx-auto mb-3" />
-            <h4 className="font-semibold text-brand-gray-800 mb-2">Demo Live</h4>
-            <p className="text-sm text-brand-gray-600">Apresentação exclusiva da plataforma</p>
+            <h4 className="font-semibold text-brand-gray-800 mb-2">Live Demo</h4>
+            <p className="text-sm text-brand-gray-600">Exclusive platform presentation</p>
           </div>
         </div>
-        
+
         <div className="bg-gradient-to-br from-brand-platinum-50 to-white p-6 rounded-2xl border border-brand-gray-200/50">
           <div className="flex items-center justify-between">
             <div>
-              <h5 className="font-semibold text-brand-gray-800 mb-1">Valor da Consultoria</h5>
-              <p className="text-sm text-brand-gray-600">Avaliação executiva especializada</p>
+              <h5 className="font-semibold text-brand-gray-800 mb-1">Consultation Value</h5>
+              <p className="text-sm text-brand-gray-600">Specialized executive assessment</p>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-brand-gray-400 line-through">R$ 2.500</div>
-              <div className="text-3xl font-black text-brand-green-600">GRÁTIS</div>
+              <div className="text-2xl font-bold text-brand-gray-400 line-through">$2,500</div>
+              <div className="text-3xl font-black text-brand-green-600">FREE</div>
             </div>
           </div>
         </div>

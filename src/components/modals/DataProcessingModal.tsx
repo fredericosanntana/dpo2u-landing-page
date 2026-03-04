@@ -27,24 +27,24 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
   const processingSteps: ProcessingStep[] = [
     {
       id: 'analysis',
-      name: 'Análise Organizacional',
-      description: 'Avaliando estrutura organizacional e necessidades de compliance',
+      name: 'Organizational Analysis',
+      description: 'Evaluating organizational structure and compliance requirements',
       status: 'pending',
       icon: <ChartBarIcon className="w-6 h-6" />,
       duration: 2000
     },
     {
       id: 'validation',
-      name: 'Diagnóstico de Conformidade',
-      description: 'Identificando gaps de conformidade LGPD e oportunidades de melhoria',
+      name: 'Compliance Diagnostic',
+      description: 'Identifying LGPD/GDPR compliance gaps and improvement opportunities',
       status: 'pending',
       icon: <ShieldCheckIcon className="w-6 h-6" />,
       duration: 3000
     },
     {
       id: 'optimization',
-      name: 'Roadmap Estratégico',
-      description: 'Definindo estratégia de transformação digital e implementação de infraestrutura',
+      name: 'Strategic Roadmap',
+      description: 'Defining digital transformation strategy and infrastructure implementation',
       status: 'pending',
       icon: <Cog6ToothIcon className="w-6 h-6" />,
       duration: 2500
@@ -139,10 +139,10 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                 <div className="flex items-center justify-between">
                   <div>
                     <Dialog.Title className="text-2xl font-bold">
-                      Assessment Inicial DPO2U
+                      DPO2U Initial Assessment
                     </Dialog.Title>
                     <p className="text-blue-100 mt-1">
-                      Avaliação estratégica da maturidade digital e compliance
+                      Strategic evaluation of digital maturity and compliance
                     </p>
                   </div>
                   <button
@@ -159,8 +159,8 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                 {/* Progress Bar */}
                 <div className="mb-8">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">Progresso do Assessment</span>
-                    <span className="text-sm text-gray-500">{Math.round(getProgressWidth())}% Concluído</span>
+                    <span className="text-sm font-medium text-gray-700">Assessment Progress</span>
+                    <span className="text-sm text-gray-500">{Math.round(getProgressWidth())}% Complete</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <motion.div
@@ -210,23 +210,23 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
 
                 {/* Digital Transformation Benefits */}
                 <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 mb-8">
-                  <h3 className="font-semibold text-gray-900 mb-3">🚀 Benefícios do Assessment DPO2U</h3>
+                  <h3 className="font-semibold text-gray-900 mb-3">DPO2U Assessment Benefits</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                      <span>Diagnóstico completo em 72h</span>
+                      <span>Complete diagnostic in 72h</span>
                     </div>
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-blue-500 rounded-full mr-2" />
-                      <span>Roadmap personalizado de implementação</span>
+                      <span>Custom implementation roadmap</span>
                     </div>
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-purple-500 rounded-full mr-2" />
-                      <span>Estratégia de compliance automatizada</span>
+                      <span>Automated compliance strategy</span>
                     </div>
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-brand-sapphire-500 rounded-full mr-2" />
-                      <span>ROI projetado e cronograma detalhado</span>
+                      <span>Projected ROI and detailed timeline</span>
                     </div>
                   </div>
                 </div>
@@ -238,14 +238,14 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                     onClick={onClose}
                     disabled={isProcessing}
                   >
-                    Fechar
+                    Close
                   </Button>
                   {!isProcessing && getProgressWidth() < 100 && (
                     <Button
                       onClick={startProcessing}
                       className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
                     >
-                      Iniciar Assessment
+                      Start Assessment
                     </Button>
                   )}
                   {getProgressWidth() === 100 && (
@@ -253,7 +253,7 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                       onClick={() => {/* Implement save functionality */ }}
                       className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
                     >
-                      Agendar Consultoria
+                      Schedule Consultation
                     </Button>
                   )}
                 </div>

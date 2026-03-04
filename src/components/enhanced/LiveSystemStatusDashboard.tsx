@@ -81,7 +81,7 @@ const LiveSystemStatusDashboard: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-3xl backdrop-blur-lg border border-white/20 shadow-2xl flex items-center justify-center">
           <div className="flex items-center space-x-3 text-white">
             <Activity className="h-6 w-6 animate-pulse" />
-            <span className="text-lg">Conectando à infraestrutura...</span>
+            <span className="text-lg">Connecting to infrastructure...</span>
           </div>
         </div>
       </div>
@@ -99,8 +99,8 @@ const LiveSystemStatusDashboard: React.FC = () => {
                 <Server className="h-5 w-5 text-white" />
               </div>
               <div>
-                <div className="text-white font-semibold">Infraestrutura Privada</div>
-                <div className="text-xs text-gray-400">Monitoramento em Tempo Real</div>
+                <div className="text-white font-semibold">Private Infrastructure</div>
+                <div className="text-xs text-gray-400">Real-Time Monitoring</div>
               </div>
             </div>
             <div className="flex items-center space-x-2">
@@ -130,7 +130,7 @@ const LiveSystemStatusDashboard: React.FC = () => {
               className="bg-emerald-900/40 rounded-xl p-4 border border-emerald-500/30"
             >
               <div className="flex items-center justify-between mb-2">
-                <div className="text-emerald-300 text-sm font-medium">Latência API</div>
+                <div className="text-emerald-300 text-sm font-medium">API Latency</div>
                 <Zap className="h-4 w-4 text-emerald-400" />
               </div>
               <div className="text-2xl font-bold text-white">{systemStatus.system.latency}ms</div>
@@ -141,13 +141,13 @@ const LiveSystemStatusDashboard: React.FC = () => {
           {/* Docker Status */}
           <div className="bg-slate-800/40 rounded-xl p-4 border border-slate-600/30 mb-4">
             <div className="flex items-center justify-between mb-2">
-              <div className="text-slate-300 text-sm font-medium">Containers Docker</div>
+              <div className="text-slate-300 text-sm font-medium">Docker Containers</div>
               <Box className="h-4 w-4 text-slate-400" />
             </div>
             <div className="flex items-center space-x-4">
               <div>
                 <div className="text-xl font-bold text-white max-w-[60px]">{systemStatus.infrastructure.containers_active}</div>
-                <div className="text-xs text-slate-400">Serviços</div>
+                <div className="text-xs text-slate-400">Services</div>
               </div>
               <div className="flex-1">
                 <div className="bg-slate-700/50 rounded-full h-2 overflow-hidden">
@@ -167,7 +167,7 @@ const LiveSystemStatusDashboard: React.FC = () => {
                 <Shield className="h-4 w-4 text-indigo-400" />
                 <div className="text-indigo-300 text-sm font-medium">Security</div>
               </div>
-              <div className="text-lg font-bold text-white">Ativo</div>
+              <div className="text-lg font-bold text-white">Active</div>
               <div className="text-xs text-indigo-300">Firewall + SSL</div>
             </div>
 

@@ -118,9 +118,9 @@ const ROICalculator: React.FC = () => {
   };
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'BRL',
+      currency: 'USD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }).format(value);
@@ -142,18 +142,18 @@ const ROICalculator: React.FC = () => {
         >
           <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-brand-emerald-100 to-brand-sapphire-100 rounded-full mb-6 border border-brand-emerald-200">
             <Calculator className="h-5 w-5 text-brand-emerald-600 mr-2" />
-            <span className="text-sm font-semibold text-brand-emerald-700">Calculadora de TCO & ROI</span>
+            <span className="text-sm font-semibold text-brand-emerald-700">TCO & ROI Calculator</span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-brand-text-dark mb-6">
             SaaS vs.{' '}
             <span className="bg-gradient-to-r from-brand-emerald-600 to-brand-sapphire-600 bg-clip-text text-transparent">
-              Stack Própria
+              Your Own Stack
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Compare os custos de alugar software (SaaS) versus investir na sua própria infraestrutura de IA (VPS)
+            Compare the costs of renting software (SaaS) versus investing in your own AI infrastructure (VPS)
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-4xl mx-auto">
@@ -161,20 +161,20 @@ const ROICalculator: React.FC = () => {
               {
                 icon: TrendingUp,
                 value: "-60%",
-                label: "Redução de TCO",
-                description: "Custo Total de Propriedade"
+                label: "TCO Reduction",
+                description: "Total Cost of Ownership"
               },
               {
                 icon: Server,
                 value: "100%",
-                label: "Ativo Proprietário",
-                description: "Software é seu patrimônio"
+                label: "Proprietary Asset",
+                description: "Software is your equity"
               },
               {
                 icon: DollarSign,
                 value: "Zero",
-                label: "Licença por Usuário",
-                description: "Escala ilimitada na VPS"
+                label: "Per-User License",
+                description: "Unlimited scaling on VPS"
               }
             ].map((stat, idx) => (
               <motion.div
@@ -215,7 +215,7 @@ const ROICalculator: React.FC = () => {
                   }`}
               >
                 <Calculator className="h-5 w-5 inline mr-2" />
-                Configurar Custos SaaS
+                Configure SaaS Costs
               </button>
               <button
                 onClick={() => setActiveTab('results')}
@@ -225,7 +225,7 @@ const ROICalculator: React.FC = () => {
                   }`}
               >
                 <BarChart3 className="h-5 w-5 inline mr-2" />
-                Economia Projetada
+                Projected Savings
               </button>
             </div>
 
@@ -242,11 +242,11 @@ const ROICalculator: React.FC = () => {
                     {/* Left Column - Inputs */}
                     <div className="space-y-6">
                       <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                        Seus Custos Atuais (SaaS)
+                        Your Current Costs (SaaS)
                       </h3>
 
                       <div>
-                        <Label className="text-gray-700 font-medium">Mensalidade Total de Softwares (R$)</Label>
+                        <Label className="text-gray-700 font-medium">Total Monthly Software Spend ($)</Label>
                         <Input
                           type="number"
                           value={metrics.currentSaaSCosts}
@@ -254,11 +254,11 @@ const ROICalculator: React.FC = () => {
                           className="mt-2 border-gray-300 focus:border-brand-sapphire-500"
                           placeholder="15000"
                         />
-                        <p className="text-sm text-gray-600 mt-1">Soma de todas as assinaturas (CRM, ERP, IA, etc.)</p>
+                        <p className="text-sm text-gray-600 mt-1">Sum of all subscriptions (CRM, ERP, AI, etc.)</p>
                       </div>
 
                       <div>
-                        <Label className="text-gray-700 font-medium">Quantidade de Usuários</Label>
+                        <Label className="text-gray-700 font-medium">Number of Users</Label>
                         <Input
                           type="number"
                           value={metrics.userCount}
@@ -266,11 +266,11 @@ const ROICalculator: React.FC = () => {
                           className="mt-2 border-gray-300 focus:border-brand-sapphire-500"
                           placeholder="50"
                         />
-                        <p className="text-sm text-gray-600 mt-1">Muitos SaaS cobram por licença/usuário</p>
+                        <p className="text-sm text-gray-600 mt-1">Many SaaS charge per license/user</p>
                       </div>
 
                       <div>
-                        <Label className="text-gray-700 font-medium">Custo se fosse desenvolver internamente (R$)</Label>
+                        <Label className="text-gray-700 font-medium">Cost to develop internally ($)</Label>
                         <Input
                           type="number"
                           value={metrics.internalDevCost}
@@ -278,21 +278,21 @@ const ROICalculator: React.FC = () => {
                           className="mt-2 border-gray-300 focus:border-brand-sapphire-500"
                           placeholder="50000"
                         />
-                        <p className="text-sm text-gray-600 mt-1">Quanto custaria contratar devs para criar isso do zero?</p>
+                        <p className="text-sm text-gray-600 mt-1">How much would it cost to hire devs to build this from scratch?</p>
                       </div>
                     </div>
 
                     {/* Right Column - Visual */}
                     <div className="flex flex-col justify-center space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-200">
-                      <h3 className="text-lg font-semibold text-gray-800">Cenário Comparativo</h3>
+                      <h3 className="text-lg font-semibold text-gray-800">Comparative Scenario</h3>
 
                       <div className="space-y-4">
                         <div className="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
                           <div className="flex items-center">
                             <Users className="h-5 w-5 text-blue-500 mr-3" />
-                            <span>Modelo SaaS (Aluguel)</span>
+                            <span>SaaS Model (Rental)</span>
                           </div>
-                          <span className="font-bold text-red-500">Recorrente Alto</span>
+                          <span className="font-bold text-red-500">High Recurring</span>
                         </div>
 
                         <div className="flex justify-center">
@@ -302,14 +302,14 @@ const ROICalculator: React.FC = () => {
                         <div className="flex justify-between items-center bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 p-3 rounded-lg shadow-sm">
                           <div className="flex items-center">
                             <Server className="h-5 w-5 text-emerald-600 mr-3" />
-                            <span className="font-medium text-emerald-900">Modelo Stack Própria (VPS)</span>
+                            <span className="font-medium text-emerald-900">Own Stack Model (VPS)</span>
                           </div>
-                          <span className="font-bold text-emerald-600">Fixo Baixo</span>
+                          <span className="font-bold text-emerald-600">Low Fixed</span>
                         </div>
                       </div>
 
                       <p className="text-sm text-gray-500 text-center mt-4">
-                        Na Stack Própria, você paga pela infraestrutura (VPS), não número de usuários. O software é seu para sempre.
+                        With Your Own Stack, you pay for infrastructure (VPS), not per user. The software is yours forever.
                       </p>
 
                       <Button
@@ -320,12 +320,12 @@ const ROICalculator: React.FC = () => {
                         {isCalculating ? (
                           <>
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                            Calculando Economia...
+                            Calculating Savings...
                           </>
                         ) : (
                           <>
                             <Zap className="h-5 w-5 mr-2" />
-                            Comparar Cenários
+                            Compare Scenarios
                           </>
                         )}
                       </Button>
@@ -343,12 +343,12 @@ const ROICalculator: React.FC = () => {
                   >
                     <div className="text-center mb-8">
                       <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                        Economia Anual Projetada
+                        Projected Annual Savings
                       </h3>
                       <div className="text-5xl font-bold bg-gradient-to-r from-brand-emerald-600 to-brand-sapphire-600 bg-clip-text text-transparent">
                         {formatCurrency(results.annualSavings)}
                       </div>
-                      <p className="text-gray-600 mt-2">Diferença de custo SaaS vs VPS em 12 meses</p>
+                      <p className="text-gray-600 mt-2">Cost difference SaaS vs VPS over 12 months</p>
                     </div>
 
                     {/* Results Grid */}
@@ -356,25 +356,25 @@ const ROICalculator: React.FC = () => {
                       {[
                         {
                           icon: DollarSign,
-                          label: "Economia Mensal",
+                          label: "Monthly Savings",
                           value: formatCurrency(results.monthlySavings),
                           color: "emerald"
                         },
                         {
                           icon: TrendingUp,
-                          label: "ROI (1º Ano)",
+                          label: "ROI (1st Year)",
                           value: `${Math.round(results.roi)}%`,
                           color: "sapphire"
                         },
                         {
                           icon: Clock,
-                          label: "Payback Investimento",
-                          value: `${results.paybackPeriod.toFixed(1)} meses`,
+                          label: "Investment Payback",
+                          value: `${results.paybackPeriod.toFixed(1)} months`,
                           color: "purple"
                         },
                         {
                           icon: Layers,
-                          label: "Valor do Ativo (IP)",
+                          label: "Asset Value (IP)",
                           value: formatCurrency(results.assetValue),
                           color: "emerald"
                         }
@@ -398,17 +398,17 @@ const ROICalculator: React.FC = () => {
 
                     {/* Benefits List */}
                     <Card className="p-6 bg-gradient-to-r from-brand-emerald-50 to-brand-sapphire-50 border-brand-emerald-200">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Vantagens da Stack Própria:</h4>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Own Stack Advantages:</h4>
                       <div className="grid md:grid-cols-2 gap-4">
                         {[
-                          "Sem custo por usuário adicional",
-                          "Código-fonte 100% seu (sem lock-in)",
-                          "Dados nunca saem da sua infraestrutura",
-                          "VPS de alta performance dedicada",
-                          "Custos previsíveis e fixos",
-                          "Segurança auditável e hardening incluso",
-                          "Setup completo em 72h",
-                          "Valorização do ativo da empresa"
+                          "No cost per additional user",
+                          "100% your source code (no lock-in)",
+                          "Data never leaves your infrastructure",
+                          "Dedicated high-performance VPS",
+                          "Predictable and fixed costs",
+                          "Auditable security with hardening included",
+                          "Complete setup in 72h",
+                          "Growing company asset value"
                         ].map((benefit, idx) => (
                           <div key={idx} className="flex items-center text-sm">
                             <CheckCircle className="h-4 w-4 text-brand-emerald-600 mr-2 flex-shrink-0" />
@@ -422,11 +422,11 @@ const ROICalculator: React.FC = () => {
                     <div className="text-center pt-6">
                       <Button className="bg-gradient-to-r from-brand-emerald-600 to-brand-sapphire-600 hover:from-brand-emerald-700 hover:to-brand-sapphire-700 text-white font-semibold px-8 py-3 text-lg">
                         <Sparkles className="h-5 w-5 mr-2" />
-                        Quero Minha Stack Própria
+                        I Want My Own Stack
                         <ArrowRight className="h-5 w-5 ml-2" />
                       </Button>
                       <p className="text-sm text-gray-600 mt-3">
-                        Análise de viabilidade técnica gratuita • Setup garantido
+                        Free technical feasibility analysis • Guaranteed setup
                       </p>
                     </div>
                   </motion.div>

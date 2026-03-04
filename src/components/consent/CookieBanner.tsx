@@ -14,9 +14,9 @@ export default function CookieBanner() {
     <div className="fixed inset-x-0 bottom-0 z-[60] p-4 sm:p-6">
       <div className="mx-auto max-w-4xl rounded-2xl border border-slate-200 bg-white/95 shadow-xl backdrop-blur dark:bg-slate-900/95 dark:border-slate-700">
         <div className="p-4 sm:p-6">
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Privacidade e Cookies</h3>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Privacy &amp; Cookies</h3>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-            Utilizamos cookies para melhorar sua experiência, medir audiência (analytics) e, se você permitir, fins de marketing. Você pode aceitar, recusar ou personalizar.
+            We use cookies to improve your experience, measure audience (analytics), and, with your permission, for marketing purposes. You can accept, reject, or customize.
           </p>
 
           {showCustomize && (
@@ -35,20 +35,20 @@ export default function CookieBanner() {
                   checked={localCats.marketing}
                   onChange={(e) => setLocalCats((c) => ({ ...c, marketing: e.target.checked }))}
                 />
-                Marketing (desativado por padrão)
+                Marketing (disabled by default)
               </label>
               <div className="sm:col-span-2 flex justify-end gap-2 pt-1">
                 <button
                   className="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
                   onClick={() => setShowCustomize(false)}
                 >
-                  Voltar
+                  Back
                 </button>
                 <button
                   className="px-4 py-2 rounded-lg bg-primary text-white hover:opacity-90"
                   onClick={() => setCategories(localCats)}
                 >
-                  Salvar preferências
+                  Save Preferences
                 </button>
               </div>
             </div>
@@ -60,19 +60,19 @@ export default function CookieBanner() {
                 className="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
                 onClick={rejectAll}
               >
-                Recusar todos
+                Reject All
               </button>
               <button
                 className="px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-50 border border-slate-300 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
                 onClick={() => setShowCustomize(true)}
               >
-                Personalizar
+                Customize
               </button>
               <button
                 className="px-4 py-2 rounded-lg bg-primary text-white hover:opacity-90"
                 onClick={acceptAll}
               >
-                Aceitar todos
+                Accept All
               </button>
             </div>
           )}
@@ -81,4 +81,3 @@ export default function CookieBanner() {
     </div>
   );
 }
-
