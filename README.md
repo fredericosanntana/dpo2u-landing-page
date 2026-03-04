@@ -1,11 +1,4 @@
----
-title: P05 - Landing Page DPO2U
-tipo: projeto
-tags: [lgpd, performance, nextjs, typescript, docker]
-updated_at: 2025-09-03
-status: concluido
----
-# 🚀 P05 - Landing Page DPO2U
+# DPO2U Landing Page
 
 **Projeto**: Landing Page Institucional DPO2U  
 **Objetivo**: Website principal para posicionamento de mercado e conversão  
@@ -225,12 +218,12 @@ Sistema multiagente para transformação digital das empresas com foco em:
 - **Docker Registry**: Container local (Traefik network)
 
 ### Referências Técnicas
-- [[ESPECIFICACAO_DESIGN_SYSTEM.md|Design System DPO2U]]
-- [[INVENTARIO_TECNICO_COMPONENTES.md|Componentes Técnicos]]
-- [[PORTAINER_DEPLOY.md|Deploy Production Guide]]
+- [Design System DPO2U](ESPECIFICACAO_DESIGN_SYSTEM.md)
+- [Componentes Técnicos](INVENTARIO_TECNICO_COMPONENTES.md)
+- [Deploy Production Guide](PORTAINER_DEPLOY.md)
 
 ---
 
-**P05 - DPO2U Landing Page**  
+**DPO2U Landing Page**
 *Next.js 15.5.2 | TypeScript | Docker | Traefik | SSL*  
 *✅ PRODUÇÃO ATIVA | Última atualização: 2025-09-03*
