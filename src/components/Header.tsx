@@ -5,7 +5,7 @@ import { trackCTA } from '@/lib/analytics';
 import ThemeToggle from './ui/theme-toggle';
 import MobileNav from './navigation/MobileNav';
 import {
-  Shield, Brain, Fingerprint, Coins, Lock, ChevronDown
+  Shield, Brain, Fingerprint, Coins, Lock, ChevronDown, Zap
 } from 'lucide-react';
 
 const products = [
@@ -121,6 +121,17 @@ export default function Header() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary dark:bg-brand-blue-400 transition-all group-hover:w-full"></span>
             </a>
           </nav>
+
+          {/* Launch dApp CTA — desktop */}
+          <a
+            href="https://3000-i5aw88os18ia78kr3p8mn-e1dbdc82.us2.manus.computer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-brand-sapphire-600 text-white text-sm font-bold shadow-md hover:shadow-purple-500/30 hover:scale-105 transition-all"
+          >
+            <Zap className="h-3.5 w-3.5" />
+            Launch dApp
+          </a>
 
           {/* Actions */}
           <div className="flex items-center space-x-3">

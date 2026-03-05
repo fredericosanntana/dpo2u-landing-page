@@ -351,6 +351,72 @@ export default function HomePage() {
       </AnimatedSection>
 
       {/* ============================================= */}
+      {/* 5.5 LAUNCH dAPP CTA                           */}
+      {/* ============================================= */}
+      <AnimatedSection id="launch-dapp" className="py-24 bg-gradient-to-br from-slate-900 via-purple-950/30 to-slate-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '5s' }} />
+          <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-brand-sapphire-600/10 rounded-full blur-[80px] animate-pulse" style={{ animationDuration: '7s' }} />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <motion.div variants={fadeInUp} className="text-center mb-12">
+              <div className="inline-flex items-center px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-6">
+                <Zap className="h-4 w-4 text-purple-400 mr-2" />
+                <span className="text-sm font-semibold text-purple-300">Live on Midnight Testnet</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
+                Interact with the{' '}
+                <span className="bg-gradient-to-r from-purple-400 to-brand-sapphire-400 bg-clip-text text-transparent">
+                  DPO2U dApp
+                </span>
+              </h2>
+              <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                Connect your Lace Wallet, generate ZK compliance proofs, deploy Compact contracts
+                and monitor on-chain activity — all in one interface built on the Midnight Network.
+              </p>
+            </motion.div>
+
+            <motion.div variants={staggerContainer} className="grid md:grid-cols-4 gap-4 mb-10">
+              {[
+                { icon: Fingerprint, label: 'Lace Wallet', desc: 'Connect & sign transactions', color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20' },
+                { icon: Shield, label: 'ZK Proofs', desc: 'Generate LGPD/GDPR proofs', color: 'text-brand-sapphire-400', bg: 'bg-brand-sapphire-500/10', border: 'border-brand-sapphire-500/20' },
+                { icon: FileText, label: 'Contracts', desc: 'Deploy Compact smart contracts', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+                { icon: Database, label: 'Dashboard', desc: 'Monitor network activity', color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
+              ].map((item) => (
+                <motion.div key={item.label} variants={fadeInUp}>
+                  <Card className={`p-5 bg-slate-800/60 border ${item.border} hover:bg-slate-800/80 transition-all text-center`}>
+                    <div className={`w-10 h-10 ${item.bg} rounded-xl flex items-center justify-center mx-auto mb-3`}>
+                      <item.icon className={`h-5 w-5 ${item.color}`} />
+                    </div>
+                    <p className="font-bold text-white text-sm mb-1">{item.label}</p>
+                    <p className="text-xs text-slate-400">{item.desc}</p>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="text-center">
+              <a
+                href="https://3000-i5aw88os18ia78kr3p8mn-e1dbdc82.us2.manus.computer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-purple-600 to-brand-sapphire-600 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-purple-500/30 hover:scale-105 transition-all"
+                onClick={() => trackCTA('launch_dapp', 'home_section')}
+              >
+                <Zap className="h-5 w-5" />
+                Launch dApp
+                <ArrowRight className="h-5 w-5" />
+              </a>
+              <p className="mt-4 text-sm text-slate-500">
+                Compact Runtime 0.14.0+ · Midnight.js v3.0.0+ · Wallet SDK 1.0.0+
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* ============================================= */}
       {/* 6. INTEGRATION & ROI                          */}
       {/* ============================================= */}
       <AnimatedSection className="py-20 bg-white dark:bg-background border-y border-slate-200 dark:border-slate-800">
