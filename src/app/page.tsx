@@ -156,6 +156,51 @@ export default function HomePage() {
                 <Star className="h-4 w-4 mr-2 text-amber-500" />
                 Live on Midnight Testnet &middot; ZK-SNARKs &middot; MCP Server Protocol
               </motion.p>
+
+              {/* Web2 → DPO2U → Midnight Diagram */}
+              <motion.div
+                variants={fadeInUp}
+                className="mt-10 p-5 bg-slate-900 dark:bg-slate-950 rounded-xl border border-slate-700/50 overflow-hidden"
+              >
+                <p className="text-xs font-mono text-slate-500 mb-3 uppercase tracking-widest">Protocol Bridge</p>
+                <svg viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto max-w-xl">
+                  <defs>
+                    <pattern id="grid-hero" width="40" height="40" patternUnits="userSpaceOnUse">
+                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(26,58,255,0.08)" strokeWidth="0.5"/>
+                    </pattern>
+                    <marker id="arrow-hero" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                      <polygon points="0 0, 10 3, 0 6" fill="#1A3AFF" />
+                    </marker>
+                  </defs>
+                  <rect width="800" height="160" fill="url(#grid-hero)" />
+                  {/* Web2 */}
+                  <rect x="20" y="30" width="180" height="100" fill="none" stroke="#FF6B6B" strokeWidth="1.5" rx="4"/>
+                  <text x="110" y="55" textAnchor="middle" fill="#FF6B6B" fontFamily="monospace" fontSize="11" fontWeight="600">WEB2</text>
+                  <text x="110" y="75" textAnchor="middle" fill="#6B7280" fontFamily="sans-serif" fontSize="9">WhatsApp · APIs</text>
+                  <text x="110" y="90" textAnchor="middle" fill="#6B7280" fontFamily="sans-serif" fontSize="9">Databases · Systems</text>
+                  <text x="110" y="110" textAnchor="middle" fill="#6B7280" fontFamily="sans-serif" fontSize="9">Centralized</text>
+                  {/* Arrow 1 */}
+                  <line x1="210" y1="80" x2="278" y2="80" stroke="#1A3AFF" strokeWidth="1.5" markerEnd="url(#arrow-hero)"/>
+                  {/* DPO2U */}
+                  <rect x="290" y="30" width="180" height="100" fill="none" stroke="#00C9B1" strokeWidth="2" rx="4"/>
+                  <text x="380" y="55" textAnchor="middle" fill="#00C9B1" fontFamily="monospace" fontSize="11" fontWeight="600">DPO2U</text>
+                  <text x="380" y="75" textAnchor="middle" fill="#9CA3AF" fontFamily="sans-serif" fontSize="9">ZK Compliance</text>
+                  <text x="380" y="90" textAnchor="middle" fill="#9CA3AF" fontFamily="sans-serif" fontSize="9">Consent Registry</text>
+                  <text x="380" y="110" textAnchor="middle" fill="#9CA3AF" fontFamily="sans-serif" fontSize="9">Verifiable Creds</text>
+                  <circle cx="380" cy="80" r="45" fill="none" stroke="#00C9B1" strokeWidth="0.8" opacity="0.25">
+                    <animate attributeName="r" from="30" to="60" dur="2.5s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="0.6" to="0" dur="2.5s" repeatCount="indefinite" />
+                  </circle>
+                  {/* Arrow 2 */}
+                  <line x1="480" y1="80" x2="548" y2="80" stroke="#1A3AFF" strokeWidth="1.5" markerEnd="url(#arrow-hero)"/>
+                  {/* Midnight */}
+                  <rect x="560" y="30" width="180" height="100" fill="none" stroke="#1A3AFF" strokeWidth="1.5" rx="4"/>
+                  <text x="650" y="55" textAnchor="middle" fill="#6366F1" fontFamily="monospace" fontSize="11" fontWeight="600">MIDNIGHT</text>
+                  <text x="650" y="75" textAnchor="middle" fill="#9CA3AF" fontFamily="sans-serif" fontSize="9">Sealed Ledger</text>
+                  <text x="650" y="90" textAnchor="middle" fill="#9CA3AF" fontFamily="sans-serif" fontSize="9">ZK Proofs</text>
+                  <text x="650" y="110" textAnchor="middle" fill="#9CA3AF" fontFamily="sans-serif" fontSize="9">On-chain Audit</text>
+                </svg>
+              </motion.div>
             </div>
 
             <motion.div variants={fadeInUp} className="hidden lg:block relative">
@@ -173,26 +218,29 @@ export default function HomePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <motion.div variants={fadeInUp} className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
-                Redefining the Cost of <span className="text-brand-sapphire-500">Trust</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-4">
+                The Problem We <span className="text-brand-sapphire-500">Solve</span>
               </h2>
+              <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+                Web2 compliance is broken. Web3 privacy is incomplete. DPO2U bridges the gap.
+              </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-8 mb-10">
               <motion.div variants={fadeInUp}>
-                <Card className="p-8 h-full border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-                  <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center">
-                    <FileText className="h-5 w-5 mr-3 text-slate-500" /> Traditional Compliance
+                <Card className="p-8 h-full border-red-100 dark:border-red-900/20 bg-white dark:bg-slate-900 shadow-sm">
+                  <h3 className="text-xl font-bold text-red-500 dark:text-red-400 mb-6 flex items-center">
+                    <FileText className="h-5 w-5 mr-3" /> Web2 Compliance is Broken
                   </h3>
                   <ul className="space-y-4">
                     {[
-                      'R$264K+/year for DPO, legal, and consultants',
-                      'Static PDF reports that expire instantly',
-                      'Exposes sensitive data during manual audits',
-                      'Siloed inside the company, hard to prove externally',
+                      'Sensitive data transits through centralized servers with no cryptographic audit trail',
+                      'LGPD consent records are paper-based or stored in mutable databases',
+                      'Compliance officers cannot prove data was handled correctly without exposing the data itself',
+                      'Healthcare, eldercare, and fintech operators face regulatory risk with no technical solution',
                     ].map((item, idx) => (
                       <li key={idx} className="flex items-start text-sm text-slate-600 dark:text-slate-400">
-                        <span className="text-slate-400 mr-3 mt-0.5">✕</span>
+                        <ArrowRight className="h-4 w-4 text-red-400 mr-3 mt-0.5 flex-shrink-0" />
                         {item}
                       </li>
                     ))}
@@ -201,22 +249,19 @@ export default function HomePage() {
               </motion.div>
 
               <motion.div variants={fadeInUp}>
-                <Card className="p-8 h-full border-brand-emerald-200 dark:border-brand-emerald-900/30 bg-brand-emerald-50/30 dark:bg-brand-emerald-900/10 shadow-sm relative overflow-hidden">
-                  <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <Fingerprint className="h-24 w-24 text-brand-emerald-500" />
-                  </div>
-                  <h3 className="text-xl font-bold text-brand-emerald-600 dark:text-brand-emerald-400 mb-6 flex items-center">
-                    <Shield className="h-5 w-5 mr-3" /> Protocol Compliance
+                <Card className="p-8 h-full border-amber-100 dark:border-amber-900/20 bg-white dark:bg-slate-900 shadow-sm">
+                  <h3 className="text-xl font-bold text-amber-500 dark:text-amber-400 mb-6 flex items-center">
+                    <Zap className="h-5 w-5 mr-3" /> Web3 Privacy is Incomplete
                   </h3>
                   <ul className="space-y-4">
                     {[
-                      'R$5K/year — Autonomous AI Agents do the heavy lifting',
-                      'Cryptographic, on-chain Zero-Knowledge attestations',
-                      'Proves compliance without ever exposing raw data',
-                      'Self-funding mechanism: $NIGHT payments fuel $DUST gas',
+                      'Most blockchains are transparent by default — incompatible with sensitive data regulation',
+                      'ZK technology exists but is not mapped to legal compliance frameworks',
+                      'Developers building on privacy chains lack compliance primitives',
+                      'The gap between cryptographic privacy and legal privacy remains unbridged',
                     ].map((item, idx) => (
-                      <li key={idx} className="flex items-start text-sm text-slate-700 dark:text-slate-300">
-                        <Check className="h-4 w-4 text-brand-emerald-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <li key={idx} className="flex items-start text-sm text-slate-600 dark:text-slate-400">
+                        <ArrowRight className="h-4 w-4 text-amber-400 mr-3 mt-0.5 flex-shrink-0" />
                         {item}
                       </li>
                     ))}
@@ -224,6 +269,16 @@ export default function HomePage() {
                 </Card>
               </motion.div>
             </div>
+
+            {/* Bridge Statement */}
+            <motion.div
+              variants={fadeInUp}
+              className="border-l-4 border-brand-emerald-500 bg-brand-emerald-50/60 dark:bg-brand-emerald-900/10 rounded-r-xl p-6"
+            >
+              <p className="text-slate-800 dark:text-slate-200 leading-relaxed">
+                <strong className="text-brand-emerald-600 dark:text-brand-emerald-400">DPO2U maps LGPD Article 11, GDPR Article 25, and HIPAA technical safeguards directly to Midnight Network primitives</strong> — selective disclosure, sealed ledger fields, and ZK proof circuits.
+              </p>
+            </motion.div>
           </div>
         </div>
       </AnimatedSection>
@@ -411,6 +466,127 @@ export default function HomePage() {
               <p className="mt-4 text-sm text-slate-500">
                 Compact Runtime 0.14.0+ · Midnight.js v3.0.0+ · Wallet SDK 1.0.0+
               </p>
+            </motion.div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* ============================================= */}
+      {/* 5.6 ROOMIECARE — REAL-WORLD USE CASE           */}
+      {/* ============================================= */}
+      <AnimatedSection id="roomiecare" className="py-24 bg-white dark:bg-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <motion.div variants={fadeInUp} className="text-center mb-14">
+              <div className="inline-flex items-center px-4 py-2 bg-teal-50 dark:bg-teal-900/20 rounded-full border border-teal-200 dark:border-teal-700/40 mb-6">
+                <Users className="h-4 w-4 text-teal-600 dark:text-teal-400 mr-2" />
+                <span className="text-sm font-semibold text-teal-700 dark:text-teal-300">Live Deployment</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-4">
+                Built and Tested on <span className="text-teal-600 dark:text-teal-400">RoomieCare</span>
+              </h2>
+              <p className="text-lg text-slate-500 dark:text-slate-400 max-w-3xl mx-auto">
+                RoomieCare is a WhatsApp-native elderly care platform. It is the first real-world deployment of the DPO2U compliance bridge — where sensitive health data of elderly patients is protected by decentralized identities and zero-knowledge proofs on Midnight Network.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              {[
+                {
+                  icon: Fingerprint,
+                  title: 'DID per Patient',
+                  desc: 'Each elderly patient has a sovereign digital identity. Their caregiver credentials, medication records, and care confirmations are stored as Verifiable Credentials — never on-chain, never on WhatsApp servers.',
+                  color: 'text-teal-600 dark:text-teal-400',
+                  bg: 'bg-teal-50 dark:bg-teal-900/20',
+                  border: 'border-teal-100 dark:border-teal-800/30',
+                },
+                {
+                  icon: Shield,
+                  title: 'ZK Care Proofs',
+                  desc: 'When a caregiver administers medication, a ZK proof is generated confirming the action occurred. The family receives confirmation. The regulator receives audit trail. The clinical data stays sealed.',
+                  color: 'text-brand-sapphire-600 dark:text-brand-sapphire-400',
+                  bg: 'bg-brand-sapphire-50 dark:bg-brand-sapphire-900/20',
+                  border: 'border-brand-sapphire-100 dark:border-brand-sapphire-800/30',
+                },
+                {
+                  icon: FileText,
+                  title: 'LGPD Art. 18 Executable',
+                  desc: 'Family can revoke data access in one command. The smart contract executes the right to erasure on-chain. No manual process. No compliance risk.',
+                  color: 'text-brand-emerald-600 dark:text-brand-emerald-400',
+                  bg: 'bg-brand-emerald-50 dark:bg-brand-emerald-900/20',
+                  border: 'border-brand-emerald-100 dark:border-brand-emerald-800/30',
+                },
+              ].map((item) => (
+                <motion.div key={item.title} variants={fadeInUp}>
+                  <Card className={`p-6 h-full border ${item.border} bg-white dark:bg-slate-900 shadow-sm`}>
+                    <div className={`w-10 h-10 ${item.bg} rounded-xl flex items-center justify-center mb-4`}>
+                      <item.icon className={`h-5 w-5 ${item.color}`} />
+                    </div>
+                    <h4 className={`font-bold text-base mb-3 ${item.color}`}>{item.title}</h4>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              variants={fadeInUp}
+              className="bg-slate-900 dark:bg-slate-950 rounded-xl p-6 border border-slate-700/50"
+            >
+              <p className="text-slate-300 leading-relaxed text-sm">
+                <strong className="text-white">The Contrast is the Point:</strong> A WhatsApp message is human-readable and immediate. The on-chain proof is cryptographic and permanent. Together, they prove that sensitive data can be handled with both compliance and privacy.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* ============================================= */}
+      {/* 5.7 COMPLIANCE MAPPING TABLE                  */}
+      {/* ============================================= */}
+      <AnimatedSection id="compliance" className="py-24 bg-slate-50 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <motion.div variants={fadeInUp} className="text-center mb-14">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-4">
+                Compliance is Not a Feature.{' '}
+                <span className="text-brand-sapphire-500">It is the Architecture.</span>
+              </h2>
+              <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+                DPO2U maps legal requirements directly to cryptographic primitives. This is unique to DPO2U.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-slate-900 dark:bg-slate-950 text-white">
+                    <th className="px-5 py-4 text-left font-semibold rounded-tl-xl">Regulation</th>
+                    <th className="px-5 py-4 text-left font-semibold">Requirement</th>
+                    <th className="px-5 py-4 text-left font-semibold">Midnight Primitive</th>
+                    <th className="px-5 py-4 text-left font-semibold rounded-tr-xl">DPO2U Implementation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { reg: 'LGPD Art. 11', req: 'Sensitive data legal basis', prim: 'Sealed ledger + consent circuit', impl: 'On-chain consent registry' },
+                    { reg: 'LGPD Art. 18', req: 'Right to erasure', prim: 'deactivateDID() circuit', impl: 'One-command revocation' },
+                    { reg: 'GDPR Art. 25', req: 'Privacy by design', prim: 'Non-exported ledger fields', impl: 'Default sealed architecture' },
+                    { reg: 'HIPAA § 164.312', req: 'Technical safeguards', prim: 'ZK proof generation', impl: 'Verifiable care execution' },
+                    { reg: 'ANS RN 452', req: 'Healthcare audit trail', prim: 'Immutable on-chain proofs', impl: 'Regulator-ready exports' },
+                  ].map((row, idx) => (
+                    <tr
+                      key={idx}
+                      className={idx % 2 === 0 ? 'bg-white dark:bg-slate-900' : 'bg-slate-50 dark:bg-slate-800/50'}
+                    >
+                      <td className="px-5 py-4 font-mono font-semibold text-brand-sapphire-600 dark:text-brand-sapphire-400 border-b border-slate-100 dark:border-slate-800">{row.reg}</td>
+                      <td className="px-5 py-4 text-slate-700 dark:text-slate-300 border-b border-slate-100 dark:border-slate-800">{row.req}</td>
+                      <td className="px-5 py-4 font-mono text-teal-600 dark:text-teal-400 border-b border-slate-100 dark:border-slate-800">{row.prim}</td>
+                      <td className="px-5 py-4 text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">{row.impl}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </motion.div>
           </div>
         </div>
