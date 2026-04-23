@@ -7,8 +7,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const AnimatedSection: React.FC<{
@@ -33,8 +32,7 @@ const AnimatedSection: React.FC<{
 
 export default function PrivateStackPage() {
   return (
-    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
-      <Header />
+    <LiquidGlassLayout>
 
       {/* Hero */}
       <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-cyan-950/20 to-brand-chrome-900">
@@ -472,7 +470,6 @@ await postToMidnight(score.overall);`}
         </div>
       </AnimatedSection>
 
-      <Footer />
-    </div>
+    </LiquidGlassLayout>
   );
 }

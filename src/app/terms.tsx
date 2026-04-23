@@ -1,49 +1,56 @@
 import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-brand-chrome-900">
-      <Header />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-32 max-w-3xl">
-        <h1 className="text-3xl md:text-4xl font-serif font-bold text-brand-chrome-900 dark:text-white mb-6">
-          Terms of Use
-        </h1>
+    <LiquidGlassLayout>
+      <div className="py-16 px-4">
+        <div className="max-w-3xl mx-auto liquid-glass rounded-3xl p-8 sm:p-12">
+          <h1 className="text-3xl md:text-4xl font-semibold text-white mb-2">
+            Terms of Use
+          </h1>
+          <p className="text-zinc-500 text-sm mb-8">
+            Last updated: {new Date().toISOString().slice(0, 10)}
+          </p>
 
-        <p className="text-brand-platinum-800 dark:text-brand-platinum-400 mb-6">
-          By accessing and using this website, you agree to these Terms.
-          DPO2U may update these Terms as needed.
-        </p>
+          <p className="text-zinc-300 mb-6 leading-relaxed">
+            By accessing and using this website, you agree to these Terms.
+            DPO2U may update these Terms as needed.
+          </p>
 
-        <h2 className="text-xl font-semibold text-brand-chrome-900 dark:text-white mt-8 mb-3">Use of Content</h2>
-        <p className="text-brand-platinum-800 dark:text-brand-platinum-400">
-          Content is provided for informational purposes only and does not constitute legal advice.
-          All intellectual property rights remain with DPO2U.
-        </p>
+          <div className="border-t border-white/10 my-6" />
 
-        <h2 className="text-xl font-semibold text-brand-chrome-900 dark:text-white mt-8 mb-3">Responsibilities</h2>
-        <p className="text-brand-platinum-800 dark:text-brand-platinum-400">
-          You agree not to use this site in any unlawful manner or in a way that
-          violates the rights of third parties.
-        </p>
+          <h2 className="text-lg font-semibold text-white mb-3">Use of Content</h2>
+          <p className="text-zinc-300 text-sm leading-relaxed">
+            Content is provided for informational purposes only and does not constitute legal advice.
+            All intellectual property rights remain with DPO2U.
+          </p>
 
-        <h2 className="text-xl font-semibold text-brand-chrome-900 dark:text-white mt-8 mb-3">Limitation of Liability</h2>
-        <p className="text-brand-platinum-800 dark:text-brand-platinum-400">
-          DPO2U provides this website and its content "as is" without warranties of any kind.
-          We are not liable for any damages arising from the use of this site.
-        </p>
+          <div className="border-t border-white/10 my-6" />
 
-        <h2 className="text-xl font-semibold text-brand-chrome-900 dark:text-white mt-8 mb-3">Contact</h2>
-        <p className="text-brand-platinum-800 dark:text-brand-platinum-400">
-          For questions about these terms, please contact us at contato@dpo2u.com.br.
-        </p>
+          <h2 className="text-lg font-semibold text-white mb-3">Responsibilities</h2>
+          <p className="text-zinc-300 text-sm leading-relaxed">
+            You agree not to use this site in any unlawful manner or in a way that
+            violates the rights of third parties.
+          </p>
 
-        <p className="text-brand-platinum-600 dark:text-brand-platinum-600 mt-12 text-sm">
-          Last updated: {new Date().toISOString().slice(0, 10)}
-        </p>
-      </main>
-      <Footer />
-    </div>
+          <div className="border-t border-white/10 my-6" />
+
+          <h2 className="text-lg font-semibold text-white mb-3">Limitation of Liability</h2>
+          <p className="text-zinc-300 text-sm leading-relaxed">
+            DPO2U provides this website and its content "as is" without warranties of any kind.
+            We are not liable for any damages arising from the use of this site.
+          </p>
+
+          <div className="border-t border-white/10 my-6" />
+
+          <h2 className="text-lg font-semibold text-white mb-3">Contact</h2>
+          <p className="text-zinc-300 text-sm leading-relaxed">
+            For questions about these terms, please contact us at{' '}
+            <a href="mailto:contato@dpo2u.com.br" className="text-brand-sapphire-400 hover:underline">contato@dpo2u.com.br</a>.
+          </p>
+        </div>
+      </div>
+    </LiquidGlassLayout>
   );
 }

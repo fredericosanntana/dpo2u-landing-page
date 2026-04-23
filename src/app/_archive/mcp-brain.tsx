@@ -5,9 +5,8 @@ import { Shield, Brain, Zap, ArrowRight, Check, Activity, Database, Lock, Server
 import { Button } from '@/components/ui/button';
 import { trackCTA } from '@/lib/analytics';
 import { Card } from '@/components/ui/card';
-import Header from '@/components/Header';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import { ConsultationDialog } from '@/components/ui/premium-dialog';
-import Footer from '@/components/Footer';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const AnimatedSection: React.FC<{
@@ -32,8 +31,7 @@ const AnimatedSection: React.FC<{
 
 export default function MCPBrainPage() {
   return (
-    <div className="min-h-screen">
-      <Header />
+    <LiquidGlassLayout>
 
       {/* Hero Section */}
       <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-premium">
@@ -127,7 +125,7 @@ export default function MCPBrainPage() {
       </AnimatedSection>
 
       {/* Architecture */}
-      <AnimatedSection className="section-padding bg-brand-chrome-900 text-white border-t border-brand-chrome-800">
+      <AnimatedSection className="section-padding text-white border-t border-white/10">
         <div className="container mx-auto container-padding">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
@@ -184,13 +182,13 @@ export default function MCPBrainPage() {
       </AnimatedSection>
 
       {/* Tools Showcase */}
-      <AnimatedSection className="section-padding bg-brand-platinum-100 dark:bg-brand-chrome-900">
+      <AnimatedSection className="section-padding bg-transparent">
         <div className="container mx-auto container-padding">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 dark:text-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6">
               17 Specialized Tools for Privacy Compliance
             </h2>
-            <p className="text-lg text-brand-gray-600 dark:text-brand-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg text-zinc-400 max-w-3xl mx-auto">
               Full automation for LGPD, GDPR, and Information Security — including 2 Midnight-specific tools.
             </p>
           </div>
@@ -202,17 +200,17 @@ export default function MCPBrainPage() {
               { title: 'midnight_did_management', desc: 'Decentralized Identity management powered by Midnight. Create, verify, and revoke DIDs for data subjects and processors.', icon: Fingerprint, textClass: 'text-brand-purple-500' },
             ].map((tool, idx) => (
               <motion.div key={`midnight-${idx}`} variants={fadeInUp}>
-                <Card className="h-full p-8 hover:shadow-xl transition-all border-2 border-brand-emerald-500/40 bg-gradient-to-br from-brand-platinum-100 to-brand-emerald-50 dark:from-brand-chrome-800 dark:to-emerald-950/30 ring-1 ring-brand-emerald-500/20">
+                <Card className="h-full p-8 hover:shadow-xl transition-all border-2 border-brand-emerald-500/40 bg-gradient-to-br from-brand-chrome-800 to-emerald-950/30 ring-1 ring-brand-emerald-500/20">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2 py-0.5 bg-brand-emerald-500/10 rounded text-xs font-semibold text-brand-emerald-600 dark:text-brand-emerald-400 border border-brand-emerald-500/20">Midnight</span>
+                    <span className="px-2 py-0.5 bg-brand-emerald-500/10 rounded text-xs font-semibold text-brand-emerald-400 border border-brand-emerald-500/20">Midnight</span>
                   </div>
                   <div className="flex items-start justify-between mb-4">
-                    <h3 className="font-mono text-lg font-bold text-brand-sapphire-600 dark:text-brand-sapphire-400">
+                    <h3 className="font-mono text-lg font-bold text-brand-sapphire-400">
                       {tool.title}
                     </h3>
                     <tool.icon className={`h-6 w-6 ${tool.textClass}`} />
                   </div>
-                  <p className="text-brand-gray-600 dark:text-brand-gray-400 text-sm leading-relaxed">
+                  <p className="text-zinc-400 text-sm leading-relaxed">
                     {tool.desc}
                   </p>
                 </Card>
@@ -235,12 +233,12 @@ export default function MCPBrainPage() {
               <motion.div key={idx} variants={fadeInUp}>
                 <Card className="h-full p-6 hover:shadow-lg transition-all border-l-4 border-l-transparent hover:border-l-brand-emerald-500">
                   <div className="flex items-start justify-between mb-4">
-                    <h3 className="font-mono text-lg font-bold text-brand-sapphire-600 dark:text-brand-sapphire-400">
+                    <h3 className="font-mono text-lg font-bold text-brand-sapphire-400">
                       {tool.title}
                     </h3>
                     <tool.icon className={`h-5 w-5 ${tool.textClass}`} />
                   </div>
-                  <p className="text-brand-gray-600 dark:text-brand-gray-400 text-sm leading-relaxed">
+                  <p className="text-zinc-400 text-sm leading-relaxed">
                     {tool.desc}
                   </p>
                 </Card>
@@ -323,7 +321,7 @@ export default function MCPBrainPage() {
       </AnimatedSection>
 
       {/* Pipeline Position */}
-      <AnimatedSection className="py-20 bg-brand-chrome-900 border-t border-brand-chrome-800">
+      <AnimatedSection className="py-20 border-t border-white/10">
         <div className="container mx-auto px-4">
           <motion.div variants={fadeInUp} className="text-center mb-12">
             <h2 className="text-3xl font-serif font-bold text-white mb-4">
@@ -384,7 +382,6 @@ export default function MCPBrainPage() {
         </div>
       </AnimatedSection>
 
-      <Footer />
-    </div>
+    </LiquidGlassLayout>
   );
 }

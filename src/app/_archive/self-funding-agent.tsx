@@ -7,8 +7,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const AnimatedSection: React.FC<{
@@ -53,8 +52,7 @@ export default function SelfFundingAgentPage() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
-      <Header />
+    <LiquidGlassLayout>
 
       {/* Hero Section */}
       <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-sapphire-950">
@@ -562,7 +560,6 @@ contract PaymentGateway {
         </div>
       </AnimatedSection>
 
-      <Footer />
-    </div>
+    </LiquidGlassLayout>
   );
 }

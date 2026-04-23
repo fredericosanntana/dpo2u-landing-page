@@ -200,6 +200,77 @@ const config: Config = {
 				// Cor semântica para textos escuros em títulos
 				'brand-text-dark': '#0f172a',
 
+				// ── APEX Liquid Glass palette ────────────────────────────────────
+				apex: {
+					bg:         '#050510',
+					surface:    '#0a0a1a',
+					accent:     '#006dff',
+					'accent-dim':'#005ce6',
+					heading:    '#fafafa',
+					muted:      '#a1a1aa',
+				},
+
+				// ── Editorial / Cryptographic Modernism palette ──────────────────
+				// Inspired by cryptography papers + Brazilian modernist architecture.
+				ink: {
+					DEFAULT: '#0C0D10',  // warm near-black
+					soft:    '#14161B',  // slightly lighter
+					deeper:  '#06070A',  // for voids
+				},
+				paper: {
+					DEFAULT: '#F1ECE3',  // cream paper
+					warm:    '#E8E1D4',  // slightly more ochre
+					cold:    '#EDEDE5',  // neutral cream
+				},
+				cobalt: {
+					'50':  '#EEF1F9',
+					'100': '#D5DDF0',
+					'200': '#A9B8DE',
+					'300': '#7A8EC7',
+					'400': '#4C66AE',
+					'500': '#1E3A8F',  // primary cobalt (deep, serious)
+					'600': '#182E72',
+					'700': '#112256',
+					'800': '#0B173B',
+					'900': '#06102B',
+				},
+				terracotta: {
+					'50':  '#FBEEE9',
+					'100': '#F5D8CC',
+					'200': '#ECB39A',
+					'300': '#E08B69',
+					'400': '#D46D47',
+					'500': '#C85C3B',  // primary warm accent
+					'600': '#A24A2E',
+					'700': '#7D3823',
+					'800': '#552518',
+					'900': '#30140D',
+				},
+				verdigris: {
+					'50':  '#EDF2F1',
+					'100': '#D3DEDC',
+					'200': '#A9BDB9',
+					'300': '#7F9C97',
+					'400': '#5E827C',
+					'500': '#4A7C74',  // quiet teal-green accent
+					'600': '#3A635C',
+					'700': '#2C4B45',
+					'800': '#1D322F',
+					'900': '#0F1A18',
+				},
+				concrete: {
+					'50':  '#F4F4F3',
+					'100': '#E5E5E2',
+					'200': '#C9C9C4',
+					'300': '#A7A7A0',
+					'400': '#7F7F76',
+					'500': '#5E5E55',  // warm gray — the "concrete" of Brutalism
+					'600': '#4A4A42',
+					'700': '#36362F',
+					'800': '#26261F',
+					'900': '#17170F',
+				},
+
 				// ── Status colors ────────────────────────────────────────────────
 				success: '#00d494',
 				warning: '#f59e0b',
@@ -208,11 +279,13 @@ const config: Config = {
 			},
 
 			fontFamily: {
-				display: ['Outfit', 'system-ui', 'sans-serif'],
-				heading: ['Outfit', 'system-ui', 'sans-serif'],
-				sans:    ['Inter', 'system-ui', 'sans-serif'],
-				mono:    ['JetBrains Mono', 'Fira Code', 'monospace'],
-				serif:   ['Outfit', 'Georgia', 'serif'],
+				display:   ['Fraunces', 'Instrument Serif', 'Georgia', 'serif'],
+				editorial: ['Instrument Serif', 'Fraunces', 'Georgia', 'serif'],
+				heading:   ['Fraunces', 'Instrument Serif', 'Georgia', 'serif'],
+				sans:      ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
+				mono:      ['JetBrains Mono', 'Fira Code', 'monospace'],
+				serif:     ['Fraunces', 'Georgia', 'serif'],
+				geist:     ['Inter Tight', 'Inter', 'system-ui', 'sans-serif'],
 			},
 
 			spacing: {
@@ -230,6 +303,8 @@ const config: Config = {
 				'pulse-subtle':  'pulseSubtle 2s ease-in-out infinite',
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up':   'accordion-up 0.2s ease-out',
+				marquee:         'marquee 30s linear infinite',
+				shimmer:         'shimmer 3s linear infinite',
 			},
 
 			keyframes: {
@@ -264,6 +339,14 @@ const config: Config = {
 				'accordion-up': {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to:   { height: '0' },
+				},
+				marquee: {
+					'0%':   { transform: 'translateX(0%)' },
+					'100%': { transform: 'translateX(-50%)' },
+				},
+				shimmer: {
+					'0%':   { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' },
 				},
 			},
 

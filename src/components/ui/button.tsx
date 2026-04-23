@@ -27,7 +27,11 @@ const buttonVariants = cva(
         
         // CTA variants for landing page
         'cta-primary': "bg-gradient-to-r from-brand-emerald-500 to-brand-sapphire-600 hover:from-brand-emerald-600 hover:to-brand-sapphire-700 text-white shadow-2xl hover:shadow-3xl transform hover:scale-[1.05] transition-all duration-300 font-bold border-0",
-        'cta-secondary': "border-2 border-brand-platinum-600/50 text-brand-platinum-300 hover:bg-brand-platinum-800 hover:text-white hover:border-brand-platinum-500 backdrop-blur-md bg-brand-chrome-800/20 font-medium transition-all duration-300"
+        'cta-secondary': "border-2 border-brand-platinum-600/50 text-brand-platinum-300 hover:bg-brand-platinum-800 hover:text-white hover:border-brand-platinum-500 backdrop-blur-md bg-brand-chrome-800/20 font-medium transition-all duration-300",
+
+        // APEX Liquid Glass hero variants
+        hero: "bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 hover:from-brand-sapphire-600 hover:to-brand-emerald-600 text-white rounded-full px-6 py-3 text-base font-medium shadow-lg shadow-brand-sapphire-500/25 hover:shadow-brand-sapphire-500/35 hover:scale-[1.03] transition-all duration-300",
+        heroSecondary: "liquid-glass text-white rounded-full px-6 py-3 text-base font-normal hover:bg-white/5 transition-all duration-300"
       },
       size: {
         default: "h-10 px-4 py-2",

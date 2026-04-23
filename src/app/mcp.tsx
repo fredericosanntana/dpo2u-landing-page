@@ -1,320 +1,245 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Shield, Brain, Zap, Users, ArrowRight, Check, Star, Activity, Database, Lock, Server, Code, Terminal, Fingerprint } from 'lucide-react';
+import {
+  Brain, ArrowRight, Terminal, Shield, Globe,
+  FileCheck, UserCheck, Zap, Github, BookOpen, ExternalLink,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { trackCTA } from '@/lib/analytics';
 import { Card } from '@/components/ui/card';
-import Header from '@/components/Header';
-import FAQSection from '@/components/FAQSection';
-import { ConsultationDialog } from '@/components/ui/premium-dialog';
-import DataProcessingModal from '@/components/modals/DataProcessingModal';
-import Footer from '@/components/Footer';
+import { Badge } from '@/components/ui/badge';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const AnimatedSection: React.FC<{
-    children: React.ReactNode;
-    className?: string;
-    id?: string;
-}> = ({ children, className = '', id }) => {
-    const [ref, inView] = useInView({
-        triggerOnce: true,
-        threshold: 0.1,
-    });
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+}> = ({ children, className = '', id }) => (
+  <motion.section
+    id={id}
+    initial="initial"
+    whileInView="animate"
+    viewport={{ once: true, amount: 0.05 }}
+    variants={staggerContainer}
+    className={className}
+  >
+    {children}
+  </motion.section>
+);
 
-    return (
-        <motion.section
-            ref={ref}
-            id={id}
-            initial="initial"
-            animate={inView ? "animate" : "initial"}
-            variants={staggerContainer}
-            className={className}
-        >
-            {children}
-        </motion.section>
-    );
-};
+const SKILLS = [
+  {
+    icon: Shield,
+    name: 'dpo2u-audit-micar',
+    title: 'MiCAR ART vault audit',
+    desc: 'Audit an EU stablecoin reserve program against MiCAR Art. 23 / 35 / 36 / 39 — Proof of Reserve, Liquidity Vault, Capital Buffer, Velocity Limiter.',
+    tags: ['EU', 'MiCAR', 'Crypto'],
+  },
+  {
+    icon: FileCheck,
+    name: 'dpo2u-compliance-check',
+    title: 'Compliance checklist + score',
+    desc: 'Run an LGPD / GDPR / DPDP / MiCAR / PDPA / UAE compliance scan. Returns scored checklist, gaps, and prioritized action plan.',
+    tags: ['LGPD', 'GDPR', 'DPDP', 'PDPA'],
+  },
+  {
+    icon: Globe,
+    name: 'dpo2u-compare-jurisdictions',
+    title: 'Cross-jurisdiction matrix',
+    desc: 'Regulatory matrix across Brazil, EU, India, Singapore, UAE. Includes ADGM foundation charter generation for market entry.',
+    tags: ['Multi-jurisdiction'],
+  },
+  {
+    icon: UserCheck,
+    name: 'dpo2u-consent-record',
+    title: 'On-chain consent record',
+    desc: 'Record or revoke a DPDP India / LGPD consent event on Solana via the consent-manager program. Purpose hashing + optional AES-GCM payload + ZK-bound consent via SP1 verifier.',
+    tags: ['Solana', 'DPDP', 'ZK'],
+  },
+];
 
 export default function MCPPage() {
-    const [isDataModalOpen, setIsDataModalOpen] = React.useState(false);
+  return (
+    <LiquidGlassLayout>
+      {/* Hero */}
+      <AnimatedSection className="relative min-h-[70vh] flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-brand-sapphire-950/20 to-brand-chrome-900">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-sapphire-500/10 rounded-full blur-[100px] animate-pulse" />
+        </div>
 
-    return (
-        <div className="min-h-screen">
-            <Header />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-28 pb-16">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div variants={fadeInUp} className="mb-6 flex justify-center">
+              <Badge variant="premium" size="lg" className="gap-2">
+                <Brain className="w-3.5 h-3.5" />
+                Model Context Protocol · Compliance tools for AI agents
+              </Badge>
+            </motion.div>
 
-            {/* Hero Section */}
-            <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-premium">
-                {/* Background Effects */}
-                <div className="absolute inset-0">
-                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-sapphire-500/10 via-brand-emerald-500/5 to-transparent"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-sapphire-500/10 rounded-full blur-[100px] animate-pulse-subtle"></div>
+            <motion.h1
+              variants={fadeInUp}
+              className="text-4xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight text-apex-heading"
+            >
+              Compliance tools,{' '}
+              <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent">
+                callable from any LLM.
+              </span>
+            </motion.h1>
+
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg text-zinc-400 mt-6 max-w-3xl mx-auto leading-relaxed"
+            >
+              The DPO2U MCP server exposes LGPD, GDPR, DPDP, MiCAR, PDPA, and UAE
+              compliance primitives as typed MCP tools. Plug into Claude, ChatGPT,
+              or any MCP-capable agent — from audit checklists to on-chain consent records.
+            </motion.p>
+
+            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mt-10 justify-center">
+              <Button variant="hero" size="lg" onClick={() => document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' })}>
+                Browse the tools
+              </Button>
+              <Button variant="heroSecondary" size="lg" onClick={() => window.open('https://github.com/fredericosanntana/dpo2u-solana', '_blank')}>
+                <Github className="w-4 h-4 mr-2" /> Repo
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* Skills Grid */}
+      <AnimatedSection id="skills" className="py-20 bg-brand-chrome-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={fadeInUp} className="text-center mb-12 max-w-3xl mx-auto">
+            <Badge variant="brand" size="sm" className="mb-4">Core skills</Badge>
+            <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-4">
+              Four compliance skills, one MCP server.
+            </h2>
+            <p className="text-zinc-400">
+              Every skill returns structured output and links to deterministic,
+              auditable artifacts — not prose.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {SKILLS.map((s) => (
+              <motion.div key={s.name} variants={fadeInUp}>
+                <Card className="h-full p-6 bg-white/[0.02] border border-white/[0.06] hover:border-brand-sapphire-500/30 hover:bg-white/[0.04] transition-all duration-300 flex flex-col">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-sapphire-500/20 to-brand-emerald-500/20 flex items-center justify-center shrink-0">
+                      <s.icon className="w-5 h-5 text-brand-sapphire-400" />
+                    </div>
+                    <div className="min-w-0">
+                      <code className="text-xs text-brand-emerald-400 font-mono">{s.name}</code>
+                      <h3 className="text-lg font-semibold text-white mt-1 leading-tight">{s.title}</h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-zinc-400 flex-1 leading-relaxed">{s.desc}</p>
+                  <div className="flex gap-1.5 mt-4 flex-wrap">
+                    {s.tags.map((t) => (
+                      <span key={t} className="text-[10px] uppercase tracking-widest px-2 py-1 rounded-full bg-white/[0.04] text-zinc-400 border border-white/[0.04]">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* Integration */}
+      <AnimatedSection className="py-20 bg-gradient-to-b from-brand-chrome-900 via-brand-sapphire-950/10 to-brand-chrome-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div variants={fadeInUp}>
+              <Badge variant="brand" size="sm" className="mb-4">
+                <Terminal className="w-3 h-3 mr-1" /> Integration
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
+                Point any MCP-capable agent here.
+              </h2>
+              <p className="text-zinc-400 mb-6 leading-relaxed">
+                The DPO2U MCP server runs locally or remotely. Add it to Claude Code,
+                ChatGPT with MCP, or your custom orchestrator with a single config
+                entry — every tool call is auditable and returns structured data.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  'Typed tool schemas (JSON-Schema) for every skill',
+                  'Idempotent outputs — suitable for audit trails',
+                  'Pluggable against the Solana on-chain programs',
+                  'Supports remote via stdio/SSE transport',
+                ].map((b) => (
+                  <li key={b} className="flex items-start gap-3">
+                    <Zap className="w-5 h-5 text-brand-emerald-400 shrink-0 mt-0.5" />
+                    <span className="text-sm text-zinc-300">{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Card className="bg-[#0d0d15] border border-white/[0.08] overflow-hidden">
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                  </div>
+                  <span className="text-xs text-zinc-500 ml-2 font-mono">claude mcp config</span>
                 </div>
-
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <motion.div
-                            variants={fadeInUp}
-                            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-brand-sapphire-500/20 to-brand-emerald-500/20 rounded-full border border-brand-sapphire-400/30 mb-8 backdrop-blur-sm"
-                        >
-                            <Brain className="h-5 w-5 text-primary mr-3" />
-                            <span className="text-base font-semibold text-brand-sapphire-300">Model Context Protocol (MCP) Server</span>
-                        </motion.div>
-
-                        <motion.h1
-                            variants={fadeInUp}
-                            className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold mb-8 leading-tight text-white"
-                        >
-                            Your Compliance <br />
-                            <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent">
-                                AI Brain
-                            </span>
-                        </motion.h1>
-
-                        <motion.p
-                            variants={fadeInUp}
-                            className="text-xl md:text-2xl mb-12 text-brand-platinum-300 leading-relaxed font-light"
-                        >
-                            An intelligent bridge between your local infrastructure and AI.
-                            <span className="text-brand-emerald-400 font-medium"> 17 Specialized Tools</span> for auditing, compliance, and homomorphic encryption, running 100% on your server.
-                        </motion.p>
-
-                        <motion.div
-                            variants={fadeInUp}
-                            className="flex flex-col sm:flex-row gap-6 justify-center"
-                        >
-                            <ConsultationDialog />
-                            <Button
-                                variant="outline"
-                                size="xl"
-                                className="border-2 border-brand-gray-400/50 text-brand-gray-200 hover:bg-brand-gray-700 hover:text-white backdrop-blur-md bg-brand-gray-800/20 font-bold px-12"
-                                onClick={() => window.open('https://github.com/dpo2u/dpo2u-mcp', '_blank')}
-                            >
-                                <Code className="h-5 w-5 mr-2" />
-                                View Technical Documentation
-                            </Button>
-                        </motion.div>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* Architecture Section */}
-            <AnimatedSection className="section-padding bg-brand-chrome-900 text-white">
-                <div className="container mx-auto container-padding">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-                            <span className="text-brand-emerald-400">Zero-Trust AI</span> Architecture
-                        </h2>
-                        <p className="text-lg text-brand-platinum-500 max-w-3xl mx-auto">
-                            Your data never leaves your infrastructure. The MCP Server orchestrates intelligence locally.
-                        </p>
-                    </div>
-
-                    <div className="grid lg:grid-cols-3 gap-8 items-center">
-                        {/* Client */}
-                        <Card className="bg-brand-chrome-800 border-brand-platinum-800 p-8 text-center relative">
-                            <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 hidden lg:block z-10">
-                                <ArrowRight className="h-8 w-8 text-brand-platinum-700" />
-                            </div>
-                            <div className="w-16 h-16 bg-brand-sapphire-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Terminal className="h-8 w-8 text-brand-sapphire-400" />
-                            </div>
-                            <h3 className="text-xl font-bold mb-2 text-white">MCP Clients</h3>
-                            <p className="text-brand-platinum-500 text-sm">Claude Desktop, Cursor, Custom Apps</p>
-                        </Card>
-
-                        {/* Server */}
-                        <Card className="bg-brand-chrome-800 border-brand-emerald-500/50 p-8 text-center ring-2 ring-brand-emerald-500/20 shadow-[0_0_50px_rgba(16,185,129,0.1)]">
-                            <div className="w-20 h-20 bg-brand-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Server className="h-10 w-10 text-brand-emerald-400" />
-                            </div>
-                            <h3 className="text-2xl font-bold mb-2 text-white">DPO2U MCP Server</h3>
-                            <div className="flex flex-wrap gap-2 justify-center mt-4">
-                                <span className="px-2 py-1 bg-brand-emerald-500/10 rounded text-xs text-brand-emerald-400 border border-brand-emerald-500/20">Node.js</span>
-                                <span className="px-2 py-1 bg-brand-emerald-500/10 rounded text-xs text-brand-emerald-400 border border-brand-emerald-500/20">TypeScript</span>
-                                <span className="px-2 py-1 bg-brand-emerald-500/10 rounded text-xs text-brand-emerald-400 border border-brand-emerald-500/20">Docker</span>
-                            </div>
-                        </Card>
-
-                        {/* Backend */}
-                        <Card className="bg-brand-chrome-800 border-brand-platinum-800 p-8 text-center relative">
-                            <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 hidden lg:block z-10">
-                                <ArrowRight className="h-8 w-8 text-brand-platinum-700 rotate-180" />
-                            </div>
-                            <div className="w-16 h-16 bg-brand-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Database className="h-8 w-8 text-brand-purple-400" />
-                            </div>
-                            <h3 className="text-xl font-bold mb-2 text-white">Local Intelligence</h3>
-                            <div className="space-y-2 mt-4">
-                                <div className="flex items-center justify-center gap-2 text-sm text-brand-platinum-400">
-                                    <Database className="h-4 w-4" /> LEANN Vector DB
-                                </div>
-                                <div className="flex items-center justify-center gap-2 text-sm text-brand-platinum-400">
-                                    <Lock className="h-4 w-4" /> OpenFHE Crypto
-                                </div>
-                            </div>
-                        </Card>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* Tools Showcase */}
-            <AnimatedSection className="section-padding bg-brand-platinum-100 dark:bg-brand-chrome-900">
-                <div className="container mx-auto container-padding">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 dark:text-white mb-6">
-                            17 Specialized Tools for Privacy Compliance
-                        </h2>
-                        <p className="text-lg text-brand-gray-600 dark:text-brand-gray-300 max-w-3xl mx-auto">
-                            Full automation for LGPD, GDPR, and Information Security.
-                        </p>
-                    </div>
-
-                    {/* Midnight-Specific Tools - Prominent Section */}
-                    <div className="grid md:grid-cols-2 gap-6 mb-10">
-                        {[
-                            { title: 'midnight_zk_compliance_proof', desc: 'Generate Zero-Knowledge compliance proofs on Midnight blockchain. Prove regulatory adherence without exposing sensitive data, leveraging Midnight\'s native ZK capabilities for verifiable privacy.', icon: Shield, color: 'cyan' },
-                            { title: 'midnight_did_management', desc: 'Decentralized Identity management powered by Midnight. Create, verify, and revoke DIDs for data subjects and processors with on-chain privacy guarantees and selective disclosure.', icon: Fingerprint, color: 'purple' },
-                        ].map((tool, idx) => (
-                            <motion.div key={`midnight-${idx}`} variants={fadeInUp}>
-                                <Card className="h-full p-8 hover:shadow-xl transition-all border-2 border-brand-emerald-500/40 bg-gradient-to-br from-brand-platinum-100 to-brand-emerald-50 dark:from-brand-chrome-800 dark:to-emerald-950/30 ring-1 ring-brand-emerald-500/20">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <span className="px-2 py-0.5 bg-brand-emerald-500/10 rounded text-xs font-semibold text-brand-emerald-600 dark:text-brand-emerald-400 border border-brand-emerald-500/20">Midnight</span>
-                                    </div>
-                                    <div className="flex items-start justify-between mb-4">
-                                        <h3 className="font-mono text-lg font-bold text-brand-sapphire-600 dark:text-brand-sapphire-400">
-                                            {tool.title}
-                                        </h3>
-                                        <tool.icon className={`h-6 w-6 text-${tool.color}-500`} />
-                                    </div>
-                                    <p className="text-brand-gray-600 dark:text-brand-gray-400 text-sm leading-relaxed">
-                                        {tool.desc}
-                                    </p>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[
-                            { title: 'auditinfrastructure', desc: 'Complete server and VPS auditing for compliance.', icon: Activity, color: 'blue' },
-                            { title: 'assessrisk', desc: 'Automatic DPIA/RIPD generation and risk assessment.', icon: Shield, color: 'red' },
-                            { title: 'mapdataflow', desc: 'Visual mapping of personal data flows.', icon: Database, color: 'emerald' },
-                            { title: 'generateprivacypolicy', desc: 'Creation of customized, legally valid policies.', icon: Code, color: 'purple' },
-                            { title: 'simulatebreach', desc: 'Technical incident simulation for resilience testing.', icon: Zap, color: 'orange' },
-                            { title: 'verifyconsent', desc: 'Audit of consent bases and opt-ins.', icon: Check, color: 'green' },
-                            { title: 'encryptedreporting', desc: 'Reports generated over encrypted data (FHE).', icon: Lock, color: 'indigo' },
-                            { title: 'zkcomplianceproof', desc: 'Zero-Knowledge compliance proofs without exposing data.', icon: Shield, color: 'cyan' },
-                            { title: 'homomorphicanalytics', desc: 'Analytics preserving full privacy.', icon: Activity, color: 'pink' },
-                        ].map((tool, idx) => (
-                            <motion.div key={idx} variants={fadeInUp}>
-                                <Card className="h-full p-6 hover:shadow-lg transition-all border-l-4 border-l-transparent hover:border-l-brand-emerald-500">
-                                    <div className="flex items-start justify-between mb-4">
-                                        <h3 className="font-mono text-lg font-bold text-brand-sapphire-600 dark:text-brand-sapphire-400">
-                                            {tool.title}
-                                        </h3>
-                                        <tool.icon className={`h-5 w-5 text-${tool.color}-500`} />
-                                    </div>
-                                    <p className="text-brand-gray-600 dark:text-brand-gray-400 text-sm leading-relaxed">
-                                        {tool.desc}
-                                    </p>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <div className="text-center mt-12">
-                        <p className="text-sm text-brand-gray-500 italic">...plus 6 more advanced security and analysis tools.</p>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* Integration Code */}
-            <AnimatedSection className="section-padding bg-brand-chrome-900 text-white">
-                <div className="container mx-auto container-padding">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-                                Simple Integration
-                            </h2>
-                            <p className="text-lg text-brand-platinum-400 mb-8">
-                                Add it to your Claude Desktop or Cursor in seconds. The server runs locally via Docker, exposing a standard MCP interface.
-                            </p>
-
-                            <ul className="space-y-4 mb-8">
-                                {[
-                                    'Compatible with Claude 3.5 Sonnet',
-                                    'Compatible with Cursor IDE',
-                                    'HTTP API for custom integrations',
-                                    'API Key authentication'
-                                ].map((item, idx) => (
-                                    <li key={idx} className="flex items-center text-brand-platinum-500">
-                                        <Check className="h-5 w-5 text-brand-emerald-400 mr-3" />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <Button
-                                variant="primary"
-                                size="lg"
-                                className="bg-brand-emerald-500 hover:bg-brand-emerald-600 text-white font-bold"
-                                onClick={() => window.open('https://github.com/dpo2u/dpo2u-mcp', '_blank')}
-                            >
-                                View Installation Guide
-                            </Button>
-                        </div>
-
-                        <div className="bg-brand-chrome-900 rounded-xl overflow-hidden border border-brand-chrome-800 shadow-2xl">
-                            <div className="flex items-center px-4 py-2 bg-brand-chrome-900 border-b border-brand-chrome-800">
-                                <div className="flex space-x-2">
-                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-brand-emerald-500"></div>
-                                </div>
-                                <span className="ml-4 text-xs text-brand-platinum-600 font-mono">claude_desktop_config.json</span>
-                            </div>
-                            <div className="p-6 overflow-x-auto">
-                                <pre className="text-sm font-mono text-brand-emerald-400 pointer-events-none select-none">
-                                    {`{
+                <pre className="p-5 text-xs text-zinc-300 font-mono leading-relaxed overflow-x-auto">
+{`{
   "mcpServers": {
     "dpo2u": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "dpo2u-mcp"
-      ],
+      "command": "npx",
+      "args": ["-y", "@dpo2u/mcp-server"],
       "env": {
-        "MCP_API_KEY": "sk-..."
+        "DPO2U_CLUSTER": "devnet"
       }
     }
   }
 }`}
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* Final CTA */}
-            <AnimatedSection className="py-24 bg-brand-sapphire-900 text-center">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-8">
-                        Start your Sovereign AI journey today
-                    </h2>
-                    <ConsultationDialog />
-                </div>
-            </AnimatedSection>
-
-            <DataProcessingModal
-                isOpen={isDataModalOpen}
-                onClose={() => setIsDataModalOpen(false)}
-            />
-            <Footer />
+                </pre>
+              </Card>
+            </motion.div>
+          </div>
         </div>
-    );
+      </AnimatedSection>
+
+      {/* CTA */}
+      <AnimatedSection className="py-24 bg-brand-chrome-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={fadeInUp} className="max-w-3xl mx-auto text-center liquid-glass rounded-[2rem] p-12 sm:p-16">
+            <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-4">
+              Bring compliance into every agent workflow.
+            </h2>
+            <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
+              From one-shot checklists to on-chain consent records — plug DPO2U MCP
+              into the agent loop and skip months of regulatory research.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button variant="hero" size="lg" onClick={() => window.open('https://github.com/fredericosanntana/dpo2u-solana', '_blank')}>
+                <Github className="w-4 h-4 mr-2" /> View source
+              </Button>
+              <Button variant="heroSecondary" size="lg" onClick={() => window.location.href = '/solana-protocol'}>
+                See on-chain protocol
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </div>
+            <div className="mt-8 pt-8 border-t border-white/[0.06] flex items-center justify-center gap-6 text-xs text-zinc-500">
+              <a href="mailto:contato@dpo2u.com.br" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                <BookOpen className="w-3.5 h-3.5" /> Talk to us
+              </a>
+              <a href="/compliance-automate" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                Compliance wizard <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </AnimatedSection>
+    </LiquidGlassLayout>
+  );
 }

@@ -8,8 +8,6 @@ import {
   Shield,
   Brain,
   Fingerprint,
-  Coins,
-  Lock,
   Users,
   ChevronRight,
   ChevronDown,
@@ -40,41 +38,27 @@ interface NavItem {
 
 const productItems: NavItem[] = [
   {
-    title: 'Compliance Engine',
-    href: '/compliance-automate',
-    description: 'Automated LGPD/GDPR compliance',
-    icon: Shield,
-    num: '01',
-  },
-  {
-    title: 'AI Compliance Brain',
-    href: '/mcp-brain',
-    description: '17 MCP tools for AI agents',
-    icon: Brain,
-    num: '02',
-  },
-  {
-    title: 'ZK Compliance Protocol',
-    href: '/midnight-protocol',
-    description: 'Zero-knowledge proofs on Midnight',
+    title: 'Solana Protocol',
+    href: '/solana-protocol',
+    description: 'SP1 v6 ZK verifier + 6 Anchor programs on devnet',
     icon: Fingerprint,
-    num: '03',
+    num: '01',
     highlight: true,
     badge: 'ZK',
   },
   {
-    title: 'Self-Funding Agents',
-    href: '/self-funding-agent',
-    description: '$NIGHT/$DUST autonomous economics',
-    icon: Coins,
-    num: '04',
+    title: 'MCP Brain',
+    href: '/mcp',
+    description: 'Model Context Protocol tools for compliance agents',
+    icon: Brain,
+    num: '02',
   },
   {
-    title: 'Private AI Stack',
-    href: '/private-stack',
-    description: 'On-chain security layer',
-    icon: Lock,
-    num: '05',
+    title: 'Compliance Engine',
+    href: '/compliance-automate',
+    description: 'LGPD/GDPR automated audit wizard',
+    icon: Shield,
+    num: '03',
   },
 ];
 
@@ -207,7 +191,7 @@ export default function MobileNav() {
                   className="w-full flex items-center justify-between px-4 py-3 text-left"
                 >
                   <span className="text-xs font-bold text-brand-gray-500 dark:text-brand-gray-500 uppercase tracking-widest">
-                    Products
+                    Compliance Engine
                   </span>
                   <ChevronDown className={`h-4 w-4 text-brand-gray-400 transition-transform ${productsExpanded ? 'rotate-180' : ''}`} />
                 </button>
@@ -327,13 +311,13 @@ export default function MobileNav() {
           >
             <div className="flex items-center justify-center space-x-4 text-xs text-brand-gray-500">
               <Badge variant="status-active" size="sm">
-                5 Products
+                6 Programs
               </Badge>
               <Badge variant="success" size="sm">
-                6 AI Agents
+                Devnet Live
               </Badge>
               <Badge variant="premium" size="sm">
-                5 ZK Contracts
+                SP1 v6
               </Badge>
             </div>
             <p className="text-xs text-brand-gray-500 dark:text-brand-gray-500 mt-2">

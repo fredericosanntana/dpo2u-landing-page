@@ -9,8 +9,7 @@ import {
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AnimatedCounter } from '@/components/ui/animated-counter';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const AnimatedSection: React.FC<{
@@ -33,37 +32,43 @@ const AnimatedSection: React.FC<{
   );
 };
 
-const stats = [
-  { value: 2078, label: 'Zettelkasten Notes', icon: Database, color: 'purple' as const },
-  { value: 12, label: 'Smart Contracts (7 Base + 5 Midnight)', icon: FileCode2, color: 'blue' as const },
-  { value: 97, label: 'Tests Passing', suffix: '/97', icon: Shield, color: 'green' as const },
-  { value: 6, label: 'Active AI Agents', icon: Bot, color: 'purple' as const },
-  { value: 17, label: 'MCP Compliance Tools', icon: Brain, color: 'blue' as const },
-  { value: 27, label: 'Midnight SDK Packages', suffix: '+', icon: Package, color: 'green' as const },
+const stats: Array<{
+  value: number;
+  label: string;
+  icon: typeof FileCode2;
+  color: 'purple' | 'blue' | 'green';
+  suffix?: string;
+}> = [
+  { value: 6, label: 'Anchor programs live on Solana devnet', icon: FileCode2, color: 'purple' },
+  { value: 120, label: 'LOC patched in sp1-solana for SP1 v6', icon: Package, color: 'blue', suffix: '+' },
+  { value: 156, label: 'k CU per on-chain ZK verification', icon: Cpu, color: 'green', suffix: 'k' },
+  { value: 356, label: 'Bytes — Groth16 proof size', icon: Shield, color: 'purple' },
+  { value: 4, label: 'Compliance skills in DPO2U MCP', icon: Brain, color: 'blue' },
+  { value: 2078, label: 'Zettelkasten notes powering the stack', icon: Database, color: 'green' },
 ];
 
 const expertise = [
   {
     title: 'Privacy & Compliance',
     icon: Lock,
-    skills: ['LGPD / GDPR', 'Data Protection Impact Assessments', 'Zero-Knowledge Proofs', 'Privacy by Design', 'DPO-as-a-Service'],
+    skills: ['LGPD / GDPR', 'DPDP India', 'MiCAR / ADGM', 'Zero-Knowledge Proofs', 'DPO-as-a-Service'],
   },
   {
-    title: 'Blockchain & Web3',
+    title: 'Solana / ZK Stack',
     icon: Hexagon,
-    skills: ['Solidity / ERC-8004', 'Midnight Compact Language', 'Uniswap V3 Integration', 'Base Chain (L2)', 'Cross-Chain Bridges'],
+    skills: ['Anchor programs', 'SP1 zkVM (v6)', 'Groth16 on alt_bn128', 'PDA / CPI patterns', 'Devnet ops'],
   },
   {
     title: 'AI & Automation',
     icon: Cpu,
-    skills: ['Model Context Protocol (MCP)', 'Multi-Agent Systems', 'Autonomous Agent Design', 'Zettelkasten Knowledge Mgmt', 'Content Pipeline Automation'],
+    skills: ['Model Context Protocol (MCP)', 'Multi-agent systems', 'Autonomous agent design', 'Zettelkasten knowledge mgmt', 'Chairman + AI coordination'],
   },
 ];
 
 export default function AboutPage() {
   return (
+    <LiquidGlassLayout>
     <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
-      <Header />
 
       {/* Hero */}
       <AnimatedSection className="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-brand-chrome-900 to-brand-chrome-900">
@@ -212,7 +217,7 @@ export default function AboutPage() {
                 title: 'DPO2U: Compliance as Protocol',
                 type: 'Whitepaper v1.1',
                 year: '2026',
-                description: 'How MCP + IPFS + ERC-8004 + Midnight ZK-SNARKs transform privacy compliance into a cryptographic on-chain asset.',
+                description: 'How MCP tools + SP1 v6 zero-knowledge proofs + Solana on-chain registry transform privacy compliance into a verifiable, cost-efficient cryptographic asset.',
               },
               {
                 title: 'Co-authored Research on DAOs',
@@ -260,9 +265,15 @@ export default function AboutPage() {
               content generation, treasury operations, knowledge management, and infrastructure — 24/7,
               with 99.9% uptime.
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-brand-platinum-500 mb-12 max-w-2xl mx-auto">
-              This is not a pitch deck philosophy. The agents are live, the contracts are deployed,
-              the tests are passing, and the ZK proofs are verifiable. Built in public, every step of the way.
+            <motion.p variants={fadeInUp} className="text-brand-platinum-500 mb-6 max-w-2xl mx-auto">
+              This is not a pitch deck philosophy. The agents are live, the programs are deployed
+              on Solana devnet, the tests are passing, and the ZK proofs are verifiable. Built in public, every step of the way.
+            </motion.p>
+
+            <motion.p variants={fadeInUp} className="text-brand-platinum-500 mb-12 max-w-2xl mx-auto italic">
+              DPO2U prototyped on Midnight Network and migrated to Solana in Q2 2026 — the move
+              unlocked cheaper on-chain verification, broader ecosystem reach, and a credible
+              path to the ~50M Brazilian CNPJs who need LGPD attestations at scale.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
@@ -291,7 +302,7 @@ export default function AboutPage() {
             Let's Build Together
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-lg text-brand-platinum-400 mb-8 max-w-2xl mx-auto">
-            Interested in Midnight Network integration, AI compliance systems,
+            Interested in Solana ZK compliance, AI compliance systems,
             or the "Compliance as Protocol" thesis? I'd love to connect.
           </motion.p>
           <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -317,7 +328,7 @@ export default function AboutPage() {
         </div>
       </AnimatedSection>
 
-      <Footer />
     </div>
+    </LiquidGlassLayout>
   );
 }

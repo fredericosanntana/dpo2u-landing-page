@@ -20,9 +20,9 @@ export default function Footer() {
                 </div>
               </div>
               <p className="text-brand-platinum-400 text-lg mb-6 max-w-md leading-relaxed">
-                5 integrated products transforming compliance into a self-funding,
-                privacy-preserving, on-chain cryptographic asset.
-                Built on Midnight Network.
+                The first LGPD-native zero-knowledge compliance attestation stack
+                on Solana. SP1 v6 verifier, 6 Anchor programs on devnet,
+                $0.0002 per attestation.
               </p>
 
               {/* Social Links */}
@@ -56,11 +56,10 @@ export default function Footer() {
               <h4 className="font-semibold text-white text-lg mb-6">Products</h4>
               <ul className="space-y-4">
                 {[
+                  { label: 'Solana Protocol', href: '/solana-protocol' },
+                  { label: 'MCP Brain', href: '/mcp' },
                   { label: 'Compliance Engine', href: '/compliance-automate' },
-                  { label: 'AI Compliance Brain', href: '/mcp-brain' },
-                  { label: 'ZK Compliance Protocol', href: '/midnight-protocol' },
-                  { label: 'Self-Funding Agents', href: '/self-funding-agent' },
-                  { label: 'Private AI Stack', href: '/private-stack' },
+                  { label: 'About DPO2U', href: '/about' },
                 ].map((item) => (
                   <li key={item.label}>
                     <a href={item.href} className="text-brand-platinum-500 hover:text-brand-emerald-400 transition-colors text-sm flex items-center group">
@@ -77,10 +76,11 @@ export default function Footer() {
               <h4 className="font-semibold text-white text-lg mb-6">Technology</h4>
               <ul className="space-y-4">
                 {[
-                  { label: 'Midnight Network', href: '/midnight-protocol' },
-                  { label: 'Compact Contracts', href: '/midnight-protocol' },
-                  { label: 'MCP Server', href: '/mcp-brain' },
-                  { label: '$NIGHT / $DUST', href: '/self-funding-agent' },
+                  { label: 'Solana Network', href: 'https://solana.com', external: true },
+                  { label: 'SP1 v6 Verifier', href: '/solana-protocol#verifier' },
+                  { label: 'Anchor Programs', href: '/solana-protocol#programs' },
+                  { label: 'GitHub Repo', href: 'https://github.com/fredericosanntana/dpo2u-solana', external: true },
+                  { label: 'dpo2u.com.br (PT-BR)', href: 'https://dpo2u.com.br', external: true },
                 ].map((item) => (
                   <li key={item.label}>
                     <a href={item.href} className="text-brand-platinum-500 hover:text-brand-emerald-400 transition-colors text-sm flex items-center group">
@@ -100,14 +100,14 @@ export default function Footer() {
                 Ready to build verifiable compliance?
               </h4>
               <p className="text-brand-platinum-400 mb-6 max-w-2xl mx-auto">
-                Explore how DPO2U's 5 integrated products transform privacy compliance
-                into a self-funding, privacy-preserving, on-chain cryptographic asset.
+                Zero-knowledge attestations on Solana — prove compliance without
+                leaking the score. Six Anchor programs live on devnet.
               </p>
               <a
-                href="/midnight-protocol"
+                href="/solana-protocol"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-brand-purple-500 to-brand-sapphire-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
               >
-                Explore Midnight Protocol
+                Explore Solana Protocol
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </div>

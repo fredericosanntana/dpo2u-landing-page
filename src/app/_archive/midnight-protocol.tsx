@@ -8,8 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import CompactContractsShowcase from '@/components/midnight/CompactContractsShowcase';
 import MidnightZKDemo from '@/components/midnight/MidnightZKDemo';
 import BuildTimeline from '@/components/midnight/BuildTimeline';
@@ -67,8 +66,7 @@ const sdkPackages = [
 
 export default function MidnightProtocolPage() {
   return (
-    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
-      <Header />
+    <LiquidGlassLayout>
 
       {/* Hero */}
       <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-purple-950/20 to-brand-chrome-900">
@@ -511,7 +509,6 @@ console.log('Contract:', contract.address);
         </div>
       </AnimatedSection>
 
-      <Footer />
-    </div>
+    </LiquidGlassLayout>
   );
 }

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import Header from '@/components/Header';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import { motion } from 'framer-motion';
 import { Shield, CheckCircle } from 'lucide-react';
 import Step1CompanyInfo from '@/components/wizard/Step1CompanyInfo';
@@ -13,7 +13,6 @@ import NavigationButtons from '@/components/wizard/NavigationButtons';
 import StepIndicator from '@/components/wizard/StepIndicator';
 import { CompleteFormData, WizardStep } from '@/../types/wizard';
 import { Card } from '@/components/ui/card';
-import Footer from '@/components/Footer';
 
 // Initial state matching the interface
 const INITIAL_DATA: CompleteFormData = {
@@ -104,8 +103,8 @@ export default function AnalysisPage() {
     };
 
     return (
-        <div className="min-h-screen bg-brand-platinum-100 dark:bg-brand-chrome-900">
-            <Header />
+        <LiquidGlassLayout>
+        <div className="min-h-screen bg-transparent dark">
 
             {/* Header Section */}
             <div className="bg-gradient-premium pt-24 pb-12 px-4 shadow-lg">
@@ -134,10 +133,10 @@ export default function AnalysisPage() {
                 <div className="grid lg:grid-cols-12 gap-8">
                     {/* Sidebar / Progress */}
                     <div className="lg:col-span-3">
-                        <Card className="sticky top-24 p-6 shadow-xl border-t-4 border-t-brand-emerald-500">
+                        <Card className="sticky top-24 p-6 shadow-xl border-t-4 border-t-brand-sapphire-500 !bg-white/5 !border-white/10 backdrop-blur-sm">
                             <StepIndicator currentStep={currentStep} totalSteps={6} stepTitles={STEP_TITLES} orientation="vertical" />
 
-                            <div className="mt-8 pt-6 border-t border-brand-gray-100 dark:border-brand-gray-800">
+                            <div className="mt-8 pt-6 border-t border-white/10">
                                 <h4 className="font-semibold text-brand-gray-800 dark:text-white mb-4 flex items-center">
                                     <CheckCircle className="h-4 w-4 mr-2 text-brand-emerald-500" />
                                     Resumo do Progresso
@@ -151,7 +150,7 @@ export default function AnalysisPage() {
                                         <span>Inventário</span>
                                         <span className={currentStep > 2 ? "text-brand-emerald-600 font-bold" : ""}>{currentStep > 2 ? "100%" : "Pendente"}</span>
                                     </div>
-                                    <div className="w-full bg-brand-gray-200 rounded-full h-1.5 mt-2">
+                                    <div className="w-full bg-white/10 rounded-full h-1.5 mt-2">
                                         <div
                                             className="bg-brand-emerald-500 h-1.5 rounded-full transition-all duration-500"
                                             style={{ width: `${((currentStep - 1) / 6) * 100}%` }}
@@ -164,7 +163,7 @@ export default function AnalysisPage() {
 
                     {/* Main Form */}
                     <div className="lg:col-span-9">
-                        <Card className="p-6 md:p-8 shadow-2xl min-h-[600px] flex flex-col justify-between">
+                        <Card className="p-6 md:p-8 shadow-2xl min-h-[600px] flex flex-col justify-between !bg-white/5 !border-white/10 backdrop-blur-sm">
                             <motion.div
                                 key={currentStep}
                                 initial={{ opacity: 0, x: 20 }}
@@ -176,7 +175,7 @@ export default function AnalysisPage() {
                                 {renderStep()}
                             </motion.div>
 
-                            <div className="mt-12 pt-6 border-t border-brand-gray-100 dark:border-brand-gray-800">
+                            <div className="mt-12 pt-6 border-t border-white/10">
                                 <NavigationButtons
                                     currentStep={currentStep}
                                     totalSteps={6}
@@ -191,7 +190,7 @@ export default function AnalysisPage() {
                     </div>
                 </div>
             </div>
-            <Footer />
         </div>
+        </LiquidGlassLayout>
     );
 }

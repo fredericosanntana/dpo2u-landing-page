@@ -4,8 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { Shield, FileText, CheckCircle, Zap, ArrowRight, Lock, Activity, Fingerprint, Database, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const AnimatedSection: React.FC<{
@@ -30,8 +29,7 @@ const AnimatedSection: React.FC<{
 
 export default function ComplianceAutomatePage() {
   return (
-    <div className="min-h-screen bg-brand-chrome-900 text-brand-platinum-100 overflow-x-hidden">
-      <Header />
+    <LiquidGlassLayout>
 
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-20">
@@ -95,7 +93,7 @@ export default function ComplianceAutomatePage() {
                 variant="outline"
                 size="xl"
                 className="bg-white/5 border-white/10 text-white hover:bg-white/10 hover:border-white/20 backdrop-blur-sm px-8 py-7 text-lg rounded-2xl font-medium transition-all"
-                onClick={() => window.location.href = '/mcp-brain'}
+                onClick={() => window.location.href = '/mcp'}
               >
                 <Brain className="mr-2 h-5 w-5" />
                 Next: AI Brain
@@ -187,8 +185,8 @@ export default function ComplianceAutomatePage() {
               {
                 icon: Fingerprint,
                 title: 'ZK-Ready Score',
-                desc: 'Compliance score ready to be posted as a ZK proof on Midnight Network via Product 03.',
-                output: 'score → Midnight Ledger',
+                desc: 'Compliance score ready to be posted as a zero-knowledge proof on Solana via the dpo2u-compliance-verifier program.',
+                output: 'score → Solana devnet',
                 bgClass: 'bg-yellow-500/10',
                 borderClass: 'border-yellow-500/20',
                 textClass: 'text-yellow-400',
@@ -332,7 +330,7 @@ export default function ComplianceAutomatePage() {
               variant="outline"
               size="xl"
               className="border-2 border-white/20 text-white hover:bg-white/10"
-              onClick={() => window.location.href = '/mcp-brain'}
+              onClick={() => window.location.href = '/mcp'}
             >
               <Brain className="mr-2 h-5 w-5" />
               Next: AI Compliance Brain
@@ -341,7 +339,6 @@ export default function ComplianceAutomatePage() {
         </div>
       </section>
 
-      <Footer />
-    </div>
+    </LiquidGlassLayout>
   );
 }

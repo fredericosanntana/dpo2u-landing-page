@@ -1,35 +1,20 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { trackCTA } from '@/lib/analytics';
 import ThemeToggle from './ui/theme-toggle';
 import MobileNav from './navigation/MobileNav';
 import {
-  Shield, Brain, Fingerprint, Coins, Lock, ChevronDown
+  Shield, Brain, Fingerprint,
 } from 'lucide-react';
 
 const products = [
-  { num: '01', name: 'Compliance Engine', desc: 'Automated LGPD/GDPR compliance', href: '/compliance-automate', icon: Shield, color: 'text-brand-emerald-400' },
-  { num: '02', name: 'AI Compliance Brain', desc: '17 MCP tools for AI agents', href: '/mcp-brain', icon: Brain, color: 'text-brand-sapphire-400' },
-  { num: '03', name: 'ZK Compliance Protocol', desc: 'Zero-knowledge proofs on Midnight', href: '/midnight-protocol', icon: Fingerprint, color: 'text-brand-purple-400' },
-  { num: '04', name: 'Self-Funding Agents', desc: '$NIGHT/$DUST autonomous economics', href: '/self-funding-agent', icon: Coins, color: 'text-amber-400' },
-  { num: '05', name: 'Private AI Stack', desc: 'On-chain security layer', href: '/private-stack', icon: Lock, color: 'text-cyan-400' },
+  { num: '01', name: 'Solana Protocol', desc: 'SP1 v6 ZK verifier + 6 Anchor programs', href: '/solana-protocol', icon: Fingerprint, color: 'text-brand-purple-400' },
+  { num: '02', name: 'MCP Brain', desc: 'Compliance tools for AI agents', href: '/mcp', icon: Brain, color: 'text-brand-sapphire-400' },
+  { num: '03', name: 'Compliance Engine', desc: 'LGPD/GDPR audit wizard', href: '/compliance-automate', icon: Shield, color: 'text-brand-emerald-400' },
 ];
 
 export default function Header() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -64,66 +49,31 @@ export default function Header() {
           </motion.a>
 
           {/* Navigation — Desktop */}
-          <nav className="hidden lg:flex items-center space-x-6">
-            <a href="/" className="text-brand-gray-700 dark:text-brand-gray-300 hover:text-brand-sapphire-600 dark:hover:text-brand-sapphire-400 transition-colors font-medium relative group">
-              DPO2U
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-sapphire-600 dark:bg-brand-sapphire-400 transition-all group-hover:w-full"></span>
-            </a>
-
-            {/* Products Dropdown */}
-            <div ref={dropdownRef} className="relative">
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center text-brand-gray-700 dark:text-brand-gray-300 hover:text-brand-sapphire-600 dark:hover:text-brand-sapphire-400 transition-colors font-medium relative group"
+          <nav className="hidden lg:flex items-center space-x-5">
+            {[
+              ...products.map(p => ({ name: p.name, href: p.href })),
+              { name: 'About', href: '/about' },
+            ].map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-sm text-brand-gray-700 dark:text-brand-gray-300 hover:text-brand-sapphire-600 dark:hover:text-brand-sapphire-400 transition-colors font-medium relative group whitespace-nowrap"
               >
-                Products
-                <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-sapphire-600 dark:bg-brand-sapphire-400 transition-all group-hover:w-full"></span>
-              </button>
-
-              <AnimatePresence>
-                {dropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-80 bg-white dark:bg-brand-chrome-800 rounded-xl shadow-2xl border border-brand-gray-200 dark:border-brand-platinum-800 overflow-hidden"
-                  >
-                    <div className="p-2">
-                      {products.map((product) => (
-                        <a
-                          key={product.href}
-                          href={product.href}
-                          onClick={() => setDropdownOpen(false)}
-                          className="flex items-start gap-3 p-3 rounded-lg hover:bg-brand-gray-50 dark:hover:bg-brand-platinum-800/50 transition-colors group"
-                        >
-                          <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-brand-platinum-200 dark:bg-brand-platinum-800 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <product.icon className={`h-4 w-4 ${product.color}`} />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2">
-                              <span className="text-[10px] font-mono text-brand-platinum-500">{product.num}</span>
-                              <span className="text-sm font-semibold text-brand-gray-800 dark:text-white">{product.name}</span>
-                            </div>
-                            <p className="text-xs text-brand-gray-500 dark:text-brand-gray-400 mt-0.5">{product.desc}</p>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            <a href="/about" className="text-brand-gray-700 dark:text-brand-gray-300 hover:text-brand-sapphire-600 dark:hover:text-brand-sapphire-400 transition-colors font-medium relative group">
-              About
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-sapphire-600 dark:bg-brand-sapphire-400 transition-all group-hover:w-full"></span>
-            </a>
+              </a>
+            ))}
           </nav>
 
           {/* Actions */}
           <div className="flex items-center space-x-3">
+            <a
+              href="https://dpo2u.com.br"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium text-brand-gray-600 dark:text-brand-gray-400 hover:text-brand-sapphire-600 dark:hover:text-brand-sapphire-400 transition-colors border border-brand-gray-200 dark:border-brand-platinum-700 rounded-full px-3 py-1"
+              aria-label="Mudar para versão em Português"
+            >
+              🇧🇷 PT
+            </a>
             <ThemeToggle variant="minimal" className="mr-2" />
             <Button
               variant="primary"
@@ -140,6 +90,7 @@ export default function Header() {
           </div>
         </div>
       </div>
+
     </motion.header>
   );
 }
