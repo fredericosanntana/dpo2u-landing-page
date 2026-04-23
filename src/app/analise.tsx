@@ -1,6 +1,4 @@
-
 import React, { useState } from 'react';
-import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
 import { motion } from 'framer-motion';
 import { Shield, CheckCircle } from 'lucide-react';
 import Step1CompanyInfo from '@/components/wizard/Step1CompanyInfo';
@@ -13,8 +11,10 @@ import NavigationButtons from '@/components/wizard/NavigationButtons';
 import StepIndicator from '@/components/wizard/StepIndicator';
 import { CompleteFormData, WizardStep } from '@/../types/wizard';
 import { Card } from '@/components/ui/card';
+import PageShell from '@/components/landing/PageShell';
+import PageHero from '@/components/landing/PageHero';
+import PageSection from '@/components/landing/PageSection';
 
-// Initial state matching the interface
 const INITIAL_DATA: CompleteFormData = {
     step1_company: {
         nome: '', cnpj: '', setor: 'Tecnologia/Software', colaboradores: 5,
@@ -72,7 +72,6 @@ export default function AnalysisPage() {
 
     const handleSubmit = async () => {
         setIsSubmitting(true);
-        // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 2000));
         alert('Diagnóstico enviado com sucesso! (Simulação)');
         setIsSubmitting(false);
@@ -103,52 +102,37 @@ export default function AnalysisPage() {
     };
 
     return (
-        <LiquidGlassLayout>
-        <div className="min-h-screen bg-transparent dark">
+        <PageShell footer={false}>
+            <PageHero
+                badge={
+                    <>
+                        <Shield className="w-4 h-4 text-brand-emerald-400" />
+                        <span>Diagnóstico de Adequação LGPD</span>
+                    </>
+                }
+                title="Mapeamento de Conformidade"
+                subtitle="Complete o formulário abaixo para gerar um diagnóstico preliminar e identificar gaps de conformidade na sua organização."
+            />
 
-            {/* Header Section */}
-            <div className="bg-gradient-premium pt-24 pb-12 px-4 shadow-lg">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="max-w-3xl mx-auto"
-                    >
-                        <div className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full mb-6 backdrop-blur-sm border border-white/20">
-                            <Shield className="h-4 w-4 text-brand-emerald-400 mr-2" />
-                            <span className="text-sm font-medium">Diagnóstico de Adequação LGPD</span>
-                        </div>
-                        <h1 className="text-3xl md:text-5xl font-serif font-bold mb-6 text-white">
-                            Mapeamento de Conformidade
-                        </h1>
-                        <p className="text-lg text-brand-platinum-200 leading-relaxed">
-                            Complete o formulário abaixo para gerar um diagnóstico preliminar e identificar gaps de conformidade na sua organização.
-                        </p>
-                    </motion.div>
-                </div>
-            </div>
-
-            {/* Wizard Container */}
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-8 pb-20 relative z-10">
+            <PageSection className="py-16" innerClassName="max-w-6xl">
                 <div className="grid lg:grid-cols-12 gap-8">
-                    {/* Sidebar / Progress */}
                     <div className="lg:col-span-3">
-                        <Card className="sticky top-24 p-6 shadow-xl border-t-4 border-t-brand-sapphire-500 !bg-white/5 !border-white/10 backdrop-blur-sm">
+                        <Card className="sticky top-28 p-6 liquid-glass rounded-3xl">
                             <StepIndicator currentStep={currentStep} totalSteps={6} stepTitles={STEP_TITLES} orientation="vertical" />
 
                             <div className="mt-8 pt-6 border-t border-white/10">
-                                <h4 className="font-semibold text-brand-gray-800 dark:text-white mb-4 flex items-center">
+                                <h4 className="font-semibold text-apex-heading mb-4 flex items-center">
                                     <CheckCircle className="h-4 w-4 mr-2 text-brand-emerald-500" />
                                     Resumo do Progresso
                                 </h4>
-                                <div className="space-y-3 text-sm text-brand-gray-600 dark:text-brand-gray-400">
+                                <div className="space-y-3 text-sm text-zinc-400">
                                     <div className="flex justify-between">
                                         <span>Empresa</span>
-                                        <span className={currentStep > 1 ? "text-brand-emerald-600 font-bold" : ""}>{currentStep > 1 ? "100%" : "Processando..."}</span>
+                                        <span className={currentStep > 1 ? "text-brand-emerald-400 font-semibold" : ""}>{currentStep > 1 ? "100%" : "Processando..."}</span>
                                     </div>
                                     <div className="flex justify-between">
                                         <span>Inventário</span>
-                                        <span className={currentStep > 2 ? "text-brand-emerald-600 font-bold" : ""}>{currentStep > 2 ? "100%" : "Pendente"}</span>
+                                        <span className={currentStep > 2 ? "text-brand-emerald-400 font-semibold" : ""}>{currentStep > 2 ? "100%" : "Pendente"}</span>
                                     </div>
                                     <div className="w-full bg-white/10 rounded-full h-1.5 mt-2">
                                         <div
@@ -161,9 +145,8 @@ export default function AnalysisPage() {
                         </Card>
                     </div>
 
-                    {/* Main Form */}
                     <div className="lg:col-span-9">
-                        <Card className="p-6 md:p-8 shadow-2xl min-h-[600px] flex flex-col justify-between !bg-white/5 !border-white/10 backdrop-blur-sm">
+                        <Card className="p-6 md:p-8 liquid-glass rounded-3xl min-h-[600px] flex flex-col justify-between">
                             <motion.div
                                 key={currentStep}
                                 initial={{ opacity: 0, x: 20 }}
@@ -189,8 +172,7 @@ export default function AnalysisPage() {
                         </Card>
                     </div>
                 </div>
-            </div>
-        </div>
-        </LiquidGlassLayout>
+            </PageSection>
+        </PageShell>
     );
 }

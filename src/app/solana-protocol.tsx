@@ -7,7 +7,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import LiquidGlassLayout from '@/components/landing/LiquidGlassLayout';
+import PageShell from '@/components/landing/PageShell';
+import PageHero from '@/components/landing/PageHero';
+import PageSection from '@/components/landing/PageSection';
 import { PROGRAMS, explorerUrl, truncateAddress } from '@/lib/solana';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
@@ -18,12 +20,12 @@ const AgentsRegisteredWidget = lazy(() =>
   import('@/components/solana/AgentsRegisteredWidget'),
 );
 
-const AnimatedSection: React.FC<{
+const AnimatedBlock: React.FC<{
   children: React.ReactNode;
   className?: string;
   id?: string;
 }> = ({ children, className = '', id }) => (
-  <motion.section
+  <motion.div
     id={id}
     initial="initial"
     whileInView="animate"
@@ -32,7 +34,7 @@ const AnimatedSection: React.FC<{
     className={className}
   >
     {children}
-  </motion.section>
+  </motion.div>
 );
 
 const HEADLINE_STATS = [
@@ -69,75 +71,62 @@ const FLOW_STEPS = [
   },
 ];
 
+const SP1_BULLETS = [
+  '120 LOC, backward-compatible via separate entry points',
+  'PublicValuesStruct ABI (subject, threshold, meets, vkRoot, nonce)',
+  'Groth16 verification via native alt_bn128 syscall — no BPF bloat',
+  'Upstream PR ready to open on succinctlabs/sp1-solana',
+];
+
 export default function SolanaProtocolPage() {
   return (
-    <LiquidGlassLayout>
-      {/* Hero */}
-      <AnimatedSection className="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-b from-brand-chrome-900 via-purple-950/20 to-brand-chrome-900">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-purple-500/15 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }} />
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand-sapphire-600/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }} />
+    <PageShell>
+      <PageHero
+        badge={
+          <>
+            <span className="relative flex h-2 w-2 mr-1">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald-500" />
+            </span>
+            Live on Solana Devnet · 2026-04-21
+          </>
+        }
+        title={
+          <>
+            Zero-Knowledge Compliance,{' '}
+            <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent">
+              Native to Solana.
+            </span>
+          </>
+        }
+        subtitle={
+          <>
+            Prove <code className="text-brand-emerald-400 font-mono">score ≥ threshold</code> to an
+            auditor without revealing the score. Groth16 via SP1 v6,
+            verified by <code className="text-brand-sapphire-400 font-mono">alt_bn128</code> syscall
+            in ~156k CU, recorded as an immutable attestation PDA.
+          </>
+        }
+        ctas={[
+          { label: 'Browse on-chain programs', href: '#programs' },
+          { label: 'Repo on GitHub', href: 'https://github.com/fredericosanntana/dpo2u-solana', external: true },
+        ]}
+      >
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          {HEADLINE_STATS.map((s) => (
+            <div key={s.label} className="liquid-glass rounded-2xl px-4 py-5">
+              <div className="text-2xl sm:text-3xl font-semibold text-apex-heading">{s.value}</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-widest mt-1">{s.label}</div>
+            </div>
+          ))}
         </div>
+      </PageHero>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 pb-16">
-          <div className="max-w-5xl mx-auto text-center">
-            <motion.div variants={fadeInUp} className="flex justify-center mb-6">
-              <Badge variant="premium" size="lg" className="gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-emerald-500" />
-                </span>
-                Live on Solana Devnet · 2026-04-21
-              </Badge>
-            </motion.div>
-
-            <motion.h1
-              variants={fadeInUp}
-              className="text-4xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] tracking-tight text-apex-heading"
-            >
-              Zero-Knowledge Compliance,{' '}
-              <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent">
-                Native to Solana.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeInUp}
-              className="text-lg sm:text-xl text-zinc-400 mt-6 max-w-3xl mx-auto leading-relaxed"
-            >
-              Prove <code className="text-brand-emerald-400 font-mono">score ≥ threshold</code> to an
-              auditor without revealing the score. Groth16 via SP1 v6,
-              verified by <code className="text-brand-sapphire-400 font-mono">alt_bn128</code> syscall
-              in ~156k CU, recorded as an immutable attestation PDA.
-            </motion.p>
-
-            <motion.div variants={fadeInUp} className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              {HEADLINE_STATS.map((s) => (
-                <div key={s.label} className="liquid-glass rounded-2xl px-4 py-5">
-                  <div className="text-2xl sm:text-3xl font-semibold text-white">{s.value}</div>
-                  <div className="text-xs text-zinc-500 uppercase tracking-widest mt-1">{s.label}</div>
-                </div>
-              ))}
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mt-10 justify-center">
-              <Button variant="hero" size="lg" onClick={() => document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth' })}>
-                Browse on-chain programs
-              </Button>
-              <Button variant="heroSecondary" size="lg" onClick={() => window.open('https://github.com/fredericosanntana/dpo2u-solana', '_blank')}>
-                <Github className="w-4 h-4 mr-2" /> Repo on GitHub
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </AnimatedSection>
-
-      {/* On-chain Programs Grid */}
-      <AnimatedSection id="programs" className="py-20 bg-brand-chrome-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <PageSection id="programs">
+        <AnimatedBlock>
           <motion.div variants={fadeInUp} className="text-center mb-12 max-w-3xl mx-auto">
             <Badge variant="brand" size="sm" className="mb-4">Six Anchor programs · Solana devnet</Badge>
-            <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-4">
+            <h2 className="text-3xl sm:text-5xl font-semibold text-apex-heading mb-4">
               Proof points, on-chain.
             </h2>
             <p className="text-zinc-400">
@@ -146,17 +135,17 @@ export default function SolanaProtocolPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {PROGRAMS.map((p) => (
               <motion.div key={p.key} variants={fadeInUp}>
-                <Card className="group h-full p-6 bg-white/[0.02] border border-white/[0.06] hover:border-brand-sapphire-500/30 hover:bg-white/[0.04] transition-all duration-300 flex flex-col">
+                <Card className="group h-full p-6 liquid-glass rounded-3xl hover:bg-white/[0.03] transition-all duration-300 flex flex-col">
                   <div className="flex items-start justify-between mb-4">
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-sapphire-500/20 to-brand-emerald-500/20 flex items-center justify-center">
                       <Fingerprint className="w-5 h-5 text-brand-sapphire-400" />
                     </div>
                     <Badge variant="status-active" size="sm">devnet</Badge>
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">{p.displayName}</h3>
+                  <h3 className="text-lg font-semibold text-apex-heading mb-2">{p.displayName}</h3>
                   <p className="text-sm text-zinc-400 mb-4 flex-1 leading-relaxed">{p.tagline}</p>
                   <div className="border-t border-white/[0.06] pt-4 space-y-3">
                     <div>
@@ -179,44 +168,42 @@ export default function SolanaProtocolPage() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </AnimatedSection>
+        </AnimatedBlock>
+      </PageSection>
 
-      {/* Flow Timeline */}
-      <AnimatedSection className="py-20 bg-gradient-to-b from-brand-chrome-900 via-purple-950/10 to-brand-chrome-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <PageSection>
+        <AnimatedBlock>
           <motion.div variants={fadeInUp} className="text-center mb-16 max-w-3xl mx-auto">
             <Badge variant="brand" size="sm" className="mb-4">How it works</Badge>
-            <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-4">
+            <h2 className="text-3xl sm:text-5xl font-semibold text-apex-heading mb-4">
               Private score. Public proof. Enforceable attestation.
             </h2>
           </motion.div>
 
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {FLOW_STEPS.map((step) => (
               <motion.div key={step.n} variants={fadeInUp}>
-                <Card className="h-full p-6 bg-white/[0.02] border border-white/[0.06]">
+                <Card className="h-full p-6 liquid-glass rounded-3xl">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-xs font-mono text-brand-platinum-500">{step.n}</span>
+                    <span className="text-xs font-mono text-zinc-500">{step.n}</span>
                     <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-purple-500/20 to-brand-sapphire-500/20 flex items-center justify-center">
                       <step.icon className="w-4 h-4 text-brand-purple-400" />
                     </div>
                   </div>
-                  <h3 className="text-base font-semibold text-white mb-2 leading-tight">{step.title}</h3>
+                  <h3 className="text-base font-semibold text-apex-heading mb-2 leading-tight">{step.title}</h3>
                   <p className="text-sm text-zinc-400 leading-relaxed">{step.desc}</p>
                 </Card>
               </motion.div>
             ))}
           </div>
-        </div>
-      </AnimatedSection>
+        </AnimatedBlock>
+      </PageSection>
 
-      {/* Live On-chain Widgets */}
-      <AnimatedSection id="live" className="py-20 bg-brand-chrome-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <PageSection id="live">
+        <AnimatedBlock>
           <motion.div variants={fadeInUp} className="text-center mb-12 max-w-3xl mx-auto">
             <Badge variant="success" size="sm" className="mb-4">Live data · Solana devnet RPC</Badge>
-            <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-4">
+            <h2 className="text-3xl sm:text-5xl font-semibold text-apex-heading mb-4">
               Read the chain, right now.
             </h2>
             <p className="text-zinc-400">
@@ -225,58 +212,51 @@ export default function SolanaProtocolPage() {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
-            <Suspense fallback={<Card className="h-64 bg-white/[0.02] border border-white/[0.06] animate-pulse" />}>
+          <div className="grid lg:grid-cols-2 gap-6">
+            <Suspense fallback={<Card className="h-64 liquid-glass rounded-3xl animate-pulse" />}>
               <LiveAttestationsWidget />
             </Suspense>
-            <Suspense fallback={<Card className="h-64 bg-white/[0.02] border border-white/[0.06] animate-pulse" />}>
+            <Suspense fallback={<Card className="h-64 liquid-glass rounded-3xl animate-pulse" />}>
               <AgentsRegisteredWidget />
             </Suspense>
           </div>
-        </div>
-      </AnimatedSection>
+        </AnimatedBlock>
+      </PageSection>
 
-      {/* SP1 v6 Patch */}
-      <AnimatedSection id="verifier" className="py-20 bg-gradient-to-b from-brand-chrome-900 via-purple-950/10 to-brand-chrome-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div variants={fadeInUp}>
-              <Badge variant="premium" size="sm" className="mb-4">Upstream-worthy patch</Badge>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
-                We had to patch sp1-solana for SP1 v6.
-              </h2>
-              <p className="text-zinc-400 mb-6 leading-relaxed">
-                Upstream <code className="text-brand-emerald-400 font-mono">sp1-solana</code> only
-                supported SP1 up to v5. Our patch (~120 LOC, backward-compatible)
-                extends it to v6 with 5 public inputs and a versioned envelope —
-                separate entry points keep v5 behavior intact.
-              </p>
-              <ul className="space-y-3">
-                {[
-                  '120 LOC, backward-compatible via separate entry points',
-                  'PublicValuesStruct ABI (subject, threshold, meets, vkRoot, nonce)',
-                  'Groth16 verification via native alt_bn128 syscall — no BPF bloat',
-                  'Upstream PR ready to open on succinctlabs/sp1-solana',
-                ].map((bullet) => (
-                  <li key={bullet} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-brand-emerald-400 shrink-0 mt-0.5" />
-                    <span className="text-sm text-zinc-300">{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+      <PageSection id="verifier">
+        <AnimatedBlock className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div variants={fadeInUp}>
+            <Badge variant="premium" size="sm" className="mb-4">Upstream-worthy patch</Badge>
+            <h2 className="text-3xl sm:text-4xl font-semibold text-apex-heading mb-4">
+              We had to patch sp1-solana for SP1 v6.
+            </h2>
+            <p className="text-zinc-400 mb-6 leading-relaxed">
+              Upstream <code className="text-brand-emerald-400 font-mono">sp1-solana</code> only
+              supported SP1 up to v5. Our patch (~120 LOC, backward-compatible)
+              extends it to v6 with 5 public inputs and a versioned envelope —
+              separate entry points keep v5 behavior intact.
+            </p>
+            <ul className="space-y-3">
+              {SP1_BULLETS.map((bullet) => (
+                <li key={bullet} className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-brand-emerald-400 shrink-0 mt-0.5" />
+                  <span className="text-sm text-zinc-300">{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
 
-            <motion.div variants={fadeInUp}>
-              <Card className="bg-[#0d0d15] border border-white/[0.08] overflow-hidden">
-                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
-                  <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-                  </div>
-                  <span className="text-xs text-zinc-500 ml-2 font-mono">dpo2u-driver output</span>
+          <motion.div variants={fadeInUp}>
+            <Card className="liquid-glass rounded-3xl overflow-hidden">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+                <div className="flex gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                 </div>
-                <pre className="p-5 text-xs text-zinc-300 font-mono leading-relaxed overflow-x-auto">
+                <span className="text-xs text-zinc-500 ml-2 font-mono">dpo2u-driver output</span>
+              </div>
+              <pre className="p-5 text-xs text-zinc-300 font-mono leading-relaxed overflow-x-auto">
 {`$ cargo run -p dpo2u-driver -- --verbose
 ┌─ DPO2U compliance proof ────────────┐
 │ threshold          : 70              │
@@ -287,19 +267,23 @@ export default function SolanaProtocolPage() {
 └──────────────────────────────────────┘
 ✓ on-chain verification succeeded
 ✓ attestation PDA: 71b2EPzr… [Explorer↗]`}
-                </pre>
-              </Card>
-            </motion.div>
-          </div>
-        </div>
-      </AnimatedSection>
+              </pre>
+            </Card>
+          </motion.div>
+        </AnimatedBlock>
+      </PageSection>
 
-      {/* CTA */}
-      <AnimatedSection className="py-24 bg-brand-chrome-900">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={fadeInUp} className="max-w-3xl mx-auto text-center liquid-glass rounded-[2rem] p-12 sm:p-16">
+      <PageSection>
+        <motion.div
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, amount: 0.05 }}
+          variants={staggerContainer}
+          className="max-w-3xl mx-auto text-center liquid-glass rounded-[2rem] p-12 sm:p-16"
+        >
+          <motion.div variants={fadeInUp}>
             <Badge variant="success" size="sm" className="mb-4">60-second demo</Badge>
-            <h2 className="text-3xl sm:text-5xl font-semibold text-white mb-4">
+            <h2 className="text-3xl sm:text-5xl font-semibold text-apex-heading mb-4">
               Run the proof yourself.
             </h2>
             <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
@@ -323,8 +307,8 @@ cd dpo2u-solana && cargo run -p dpo2u-driver`}
               </Button>
             </div>
           </motion.div>
-        </div>
-      </AnimatedSection>
-    </LiquidGlassLayout>
+        </motion.div>
+      </PageSection>
+    </PageShell>
   );
 }
