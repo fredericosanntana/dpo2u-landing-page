@@ -62,9 +62,9 @@ export default function HeroSection() {
           </h1>
 
           {/* Subheading */}
-          <p className="text-lg max-w-2xl mt-4 opacity-80 text-zinc-400">
+          <p className="text-lg sm:text-xl max-w-2xl mt-6 text-zinc-200 leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)]">
             DPO2U delivers the first LGPD-native zero-knowledge compliance attestation
-            stack on Solana. Prove <code className="text-brand-emerald-400 font-mono">score ≥ threshold</code> on-chain
+            stack on Solana. Prove <code className="text-brand-emerald-300 font-mono">score ≥ threshold</code> on-chain
             in ~156k CU (~$0.0002) — private inputs, public proof, immutable attestation.
           </p>
 
@@ -86,19 +86,19 @@ export default function HeroSection() {
         {/* Social Proof Bar */}
         <div className="pb-8 px-4">
           <div className="max-w-6xl mx-auto flex items-center gap-8">
-            <p className="text-foreground/50 text-sm leading-tight shrink-0 hidden sm:block">
+            <p className="text-zinc-300 text-sm leading-tight shrink-0 hidden sm:block drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
               Powered by cutting-edge
               <br />
               protocol technology
             </p>
             <div className="flex-1 overflow-hidden">
-              <div className="flex animate-marquee gap-8">
+              <div className="flex animate-marquee gap-10">
                 {[...BRANDS, ...BRANDS].map((brand, i) => (
-                  <div key={i} className="flex items-center gap-2 shrink-0">
-                    <div className="liquid-glass w-6 h-6 rounded-lg flex items-center justify-center text-xs text-zinc-400 font-medium">
+                  <div key={i} className="flex items-center gap-3 shrink-0">
+                    <div className="liquid-glass w-9 h-9 rounded-xl flex items-center justify-center text-sm font-semibold text-brand-sapphire-300">
                       {brand[0]}
                     </div>
-                    <span className="text-sm text-zinc-500 whitespace-nowrap">{brand}</span>
+                    <span className="text-sm font-medium text-zinc-200 whitespace-nowrap drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">{brand}</span>
                   </div>
                 ))}
               </div>

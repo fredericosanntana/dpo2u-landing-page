@@ -40,7 +40,7 @@ export default function PageHero({
         </h1>
 
         {subtitle ? (
-          <p className="text-lg max-w-2xl mt-6 opacity-80 text-zinc-400">
+          <p className="text-lg sm:text-xl max-w-2xl mt-6 text-zinc-300 leading-relaxed">
             {subtitle}
           </p>
         ) : null}
