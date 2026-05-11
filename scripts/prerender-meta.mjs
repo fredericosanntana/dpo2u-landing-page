@@ -101,6 +101,27 @@ const ROUTES = [
     title: 'Try the audit — DPO2U demo',
     description: 'Generate a real DPIA in 90 seconds. 5 fields, 17 jurisdictions, no signup. Output watermarked DEMO (not for production). Real audit + on-chain anchor via /pricing.',
   },
+  // Per-jurisdiction prerender entries (added 2026-05-11) — Sprint 3 KB add
+  // (Mexico/Vietnam/Malaysia). Server serves dist/coverage/<code>/index.html
+  // com meta tags SEO-targeted; React Router /coverage/:code route renderiza
+  // CoveragePage normalmente, com scroll-to-card opcional via useParams.
+  // Goal: ranquear pra queries específicas tipo "LFPDPPP compliance Solana"
+  // ou "Vietnam Decree 13 DPIA on-chain", sem precisar de página dedicada.
+  {
+    path: '/coverage/mexico',
+    title: 'LFPDPPP (Mexico) — Compliance kit for fintech ITF | DPO2U',
+    description: 'Mexico LFPDPPP compliance on Solana — INAI authority, ARCO rights (Acceso/Rectificación/Cancelación/Oposición), Art. 36 cross-border adequacy. Built for 8 ITF fintech licenses + 3M crypto retail wallets. 17 jurisdictions, 6 AI gov frameworks.',
+  },
+  {
+    path: '/coverage/vietnam',
+    title: 'Vietnam Decree 13 / Law 91/2025 — Cross-border DPIA on-chain | DPO2U',
+    description: 'Vietnam Personal Data Protection Decree 13/2023 + Law 91/2025 compliance on Solana — MPS authority, Art. 25 cross-border DPIA mandatória, Art. 23 breach 72h notification. Most restrictive APAC cross-border regime, attested on-chain.',
+  },
+  {
+    path: '/coverage/malaysia',
+    title: 'PDPA-MY 2024 — DPO mandatory + Data portability on-chain | DPO2U',
+    description: 'Malaysia PDPA 2010 + Amendment 2024 compliance on Solana — PDPC authority, s. 12A DPO mandatory (NEW 2024), s. 43A data portability (NEW), s. 12B breach 72h. First SEA regime com DPO mandatory; built for 5 SC-licensed crypto RMOs + Malaysian Web3 builders.',
+  },
 ];
 
 function escapeHtml(s) {

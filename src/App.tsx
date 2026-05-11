@@ -91,6 +91,11 @@ function App() {
                             <Route path="/alpha-signup"     element={<AlphaSignupPage />}    />
                             <Route path="/alpha"            element={<AlphaPage />}          />
                             <Route path="/coverage"         element={<CoveragePage />}       />
+                            {/* Per-jurisdiction SEO routes (added 2026-05-11) — render
+                                the same CoveragePage; prerender-meta.mjs injects unique
+                                meta tags per jurisdiction for SEO. CoveragePage can read
+                                useParams() if it wants to scroll-to-card; v1 renders all. */}
+                            <Route path="/coverage/:code"   element={<CoveragePage />}       />
                             <Route path="/pricing"          element={<PricingPage />}        />
                             <Route path="/demo"             element={<DemoPage />}           />
 

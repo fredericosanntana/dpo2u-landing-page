@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { usePageHead } from '@/lib/page-head';
 import { FONTS, PALETTE, SmallLabel } from '@/components/sealed/atoms';
 import JurisdictionMap from '@/components/sealed/sections/JurisdictionMap';
 import GovernanceBadge from '@/components/solana/GovernanceBadge';
+
+// Aliases pra URL slugs longos → codes existentes. Suporta /coverage/mexico
+// e /coverage/lfpdppp etc. Sem match, scroll é no-op (página normal).
+const URL_SLUG_TO_CODE: Record<string, string> = {
+  mexico: 'MEXICO',
+  lfpdppp: 'MEXICO',
+  vietnam: 'VIETNAM',
+  'decree-13': 'VIETNAM',
+  decree13: 'VIETNAM',
+  malaysia: 'MALAYSIA',
+  'pdpa-my': 'MALAYSIA',
+  japan: 'APPI',
+  appi: 'APPI',
+  brazil: 'LGPD',
+  lgpd: 'LGPD',
+  eu: 'GDPR',
+  gdpr: 'GDPR',
+};
 
 interface JurisdictionCard {
   code: string;
@@ -182,12 +201,29 @@ const COVERAGE: JurisdictionCard[] = [
 ];
 
 export default function CoveragePage() {
+  const params = useParams<{ code?: string }>();
+  const slugCode = params.code?.toLowerCase();
+  const targetCode = slugCode ? URL_SLUG_TO_CODE[slugCode] : undefined;
+
   usePageHead({
     title: 'Coverage — Seventeen jurisdictions, one primitive | DPO2U',
     description:
       'Visual map of the seventeen regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), and PDPA-MY (Malaysia). Plus the AI Governance vertical (six frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, and UNESCO Recommendation on Ethics of AI. Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). EMEA + Americas + APAC + LatAm in one composition step.',
-    path: '/coverage',
+    path: params.code ? `/coverage/${slugCode}` : '/coverage',
   });
+
+  // Scroll-to-card quando /coverage/:code é hit. Defer pra após hydration
+  // pra garantir DOM tá pronto.
+  useEffect(() => {
+    if (!targetCode) return;
+    const el = document.getElementById(`card-${targetCode.toLowerCase()}`);
+    if (el) {
+      // Pequeno delay pra animations/lazy components terminarem
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+    }
+  }, [targetCode]);
 
   return (
     <article className="pb-24">
@@ -560,6 +596,7 @@ export default function CoveragePage() {
           {COVERAGE.map((c) => (
             <article
               key={c.code}
+              id={`card-${c.code.toLowerCase()}`}
               style={{
                 borderTop: `.5px solid ${PALETTE.rule}`,
                 paddingTop: 20,
