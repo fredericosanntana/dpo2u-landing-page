@@ -47,7 +47,7 @@ const TIMELINE: TimelineItem[] = [
   {
     year: '2026',
     title: 'On-chain',
-    body: 'Migration to Solana for native ZK verification. Twelve Anchor programs live on devnet (incl. POPIA / CCPA / PIPEDA / PIPA Korea jurisdiction-specific primitives). SP1 v6 verifier patched, alt_bn128 syscall for Groth16. $0.0002 per attestation.',
+    body: 'Migration to Solana for native ZK verification. Fourteen Anchor programs live on devnet (incl. POPIA / CCPA / PIPEDA / PIPA Korea jurisdiction-specific primitives + Hiroshima ICOC G7 AI-process attestation + Pinocchio Composed-Stack orchestrator). SP1 v6 verifier patched, alt_bn128 syscall for Groth16. $0.0002 per attestation.',
   },
 ];
 
