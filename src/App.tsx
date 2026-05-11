@@ -1,22 +1,65 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import ConsentProvider from '@/components/consent/ConsentProvider';
 import CookieBanner from '@/components/consent/CookieBanner';
 import MarketingScripts from '@/components/MarketingScripts';
-import { ThemeProvider } from '@/hooks/use-theme';
 import { Toaster } from '@/components/ui/toaster';
+import SealedLayout from '@/components/sealed/SealedLayout';
+// Home stays eager — it's the LCP route. All others lazy-loaded
+// to keep the initial JS chunk under ~400 KB on mobile (F007/F014, audit cycle 2).
+//
+// /mcp removed 2026-04-29 — Sealed globalization sprint. Content now lives as a
+// section on home (#mcp) and as the MCP Tool Reference section on /research.
+// Server-side 301 redirect (server.js) sends /mcp → /#mcp for back-compat.
 import HomePage from '@/app/page';
-import ComplianceAutomatePage from '@/app/compliance-automate';
-import MCPPage from '@/app/mcp';
-import SolanaProtocolPage from '@/app/solana-protocol';
-import AnalysisPage from '@/app/analise';
-import AboutPage from '@/app/about';
-import PrivacyPage from '@/app/privacy';
-import TermsPage from '@/app/terms';
+const SolanaProtocolPage  = lazy(() => import('@/app/solana-protocol'));
+const AboutPage           = lazy(() => import('@/app/about'));
+const ResearchPage        = lazy(() => import('@/app/research'));
+const PrivacyPage         = lazy(() => import('@/app/privacy'));
+const TermsPage           = lazy(() => import('@/app/terms'));
+const RegisterDappPage    = lazy(() => import('@/app/register-dapp'));
+const AlphaSignupPage     = lazy(() => import('@/app/alpha-signup'));
+const AlphaPage           = lazy(() => import('@/app/alpha'));
+const CoveragePage        = lazy(() => import('@/app/coverage'));
+const PricingPage         = lazy(() => import('@/app/pricing'));
+const DemoPage            = lazy(() => import('@/app/demo'));
+
+// Editorial fade — no spinner, no layout shift. A thin ivory veil.
+const RouteFallback = () => (
+    <div
+        aria-hidden
+        className="min-h-screen bg-dpo2u-ivory animate-pulse"
+        style={{ animationDuration: '1.6s' }}
+    />
+);
 
 const NotFound = () => (
-    <div className="flex items-center justify-center min-h-screen">
-        <h1 className="text-2xl font-bold">404 — Page Not Found</h1>
+    <div className="min-h-screen bg-dpo2u-ivory text-dpo2u-ink font-body flex items-center justify-center p-6">
+        <div className="max-w-[52ch] text-center">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-dpo2u-ink/70 mb-6">
+                — 404 —
+            </p>
+            <h1 className="font-display text-section text-dpo2u-ink font-medium">
+                This page has been sunset.
+            </h1>
+            <p className="mt-6 font-body text-[16px] text-dpo2u-ink/70">
+                Try the homepage, or read the research.
+            </p>
+            <div className="mt-10 flex gap-8 justify-center font-mono text-[13px] uppercase tracking-[0.14em]">
+                <Link
+                    to="/"
+                    className="text-dpo2u-ink border-b border-dpo2u-ink/30 hover:border-dpo2u-indigo hover:text-dpo2u-indigo transition-colors pb-1"
+                >
+                    → dpo2u.com
+                </Link>
+                <Link
+                    to="/research"
+                    className="text-dpo2u-ink/70 border-b border-dpo2u-ink/15 hover:border-dpo2u-ink hover:text-dpo2u-ink transition-colors pb-1"
+                >
+                    → Research
+                </Link>
+            </div>
+        </div>
     </div>
 );
 
@@ -24,30 +67,57 @@ function App() {
     return (
         <Router>
             <ConsentProvider>
-                <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange>
-                    <MarketingScripts />
-                    <div className="flex flex-col min-h-screen">
+                <MarketingScripts />
+                <a
+                    href="#main"
+                    className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-dpo2u-ink focus:text-dpo2u-ivory focus:px-4 focus:py-2 focus:font-mono focus:text-[12px] focus:uppercase focus:tracking-[0.16em] focus:rounded-sm"
+                >
+                    Skip to content
+                </a>
+                <SealedLayout>
+                    <main id="main" className="flex flex-col">
+                        <Suspense fallback={<RouteFallback />}>
                         <Routes>
-                            <Route path="/" element={<HomePage />} />
-                            <Route path="/solana-protocol" element={<SolanaProtocolPage />} />
-                            <Route path="/mcp" element={<MCPPage />} />
-                            <Route path="/compliance-automate" element={<ComplianceAutomatePage />} />
-                            <Route path="/about" element={<AboutPage />} />
-                            <Route path="/analise" element={<AnalysisPage />} />
-                            <Route path="/privacy" element={<PrivacyPage />} />
-                            <Route path="/terms" element={<TermsPage />} />
+                            {/* Active routes — 7 editorial + 2 alpha registry (2026-04-28).
+                                /mcp removed 2026-04-29; server.js issues a 301 redirect
+                                to /#mcp for any direct hits. */}
+                            <Route path="/"                 element={<HomePage />}           />
+                            <Route path="/solana-protocol"  element={<SolanaProtocolPage />} />
+                            <Route path="/about"            element={<AboutPage />}          />
+                            <Route path="/research"         element={<ResearchPage />}       />
+                            <Route path="/privacy"          element={<PrivacyPage />}        />
+                            <Route path="/terms"            element={<TermsPage />}          />
+                            <Route path="/register-dapp"    element={<RegisterDappPage />}   />
+                            <Route path="/alpha-signup"     element={<AlphaSignupPage />}    />
+                            <Route path="/alpha"            element={<AlphaPage />}          />
+                            <Route path="/coverage"         element={<CoveragePage />}       />
+                            <Route path="/pricing"          element={<PricingPage />}        />
+                            <Route path="/demo"             element={<DemoPage />}           />
 
-                            {/* Legacy Midnight-era routes — redirected post-Solana pivot */}
-                            <Route path="/midnight-protocol" element={<Navigate to="/solana-protocol" replace />} />
-                            <Route path="/mcp-brain" element={<Navigate to="/mcp" replace />} />
-                            <Route path="/self-funding-agent" element={<Navigate to="/" replace />} />
-                            <Route path="/private-stack" element={<Navigate to="/" replace />} />
+                            {/* Legacy redirects — retired in the 2026-04-24 rebrand + 2026-04-28 sprint */}
+                            <Route path="/midnight-protocol"    element={<Navigate to="/solana-protocol" replace />} />
+                            <Route path="/mcp-brain"            element={<Navigate to="/research#mcp-reference" replace />} />
+                            <Route path="/mcp"                  element={<Navigate to="/" replace />} />
+                            <Route path="/self-funding-agent"   element={<Navigate to="/"                replace />} />
+                            <Route path="/private-stack"        element={<Navigate to="/"                replace />} />
+                            <Route path="/compliance-automate"  element={<Navigate to="/"                replace />} />
+                            <Route path="/lgpd-kit"             element={<Navigate to="/"                replace />} />
+                            <Route path="/analise"              element={<Navigate to="/register-dapp"   replace />} />
+                            <Route path="/adequacao"            element={<Navigate to="/register-dapp"   replace />} />
+                            <Route path="/register"             element={<Navigate to="/register-dapp"   replace />} />
+                            <Route path="/showcase"             element={<Navigate to="/alpha"           replace />} />
+                            <Route path="/dashboard"            element={<Navigate to="/"                replace />} />
+                            <Route path="/graphs"               element={<Navigate to="/"                replace />} />
+                            <Route path="/story"                element={<Navigate to="/about"           replace />} />
+                            <Route path="/lgpd"                 element={<Navigate to="/"                replace />} />
+                            <Route path="/teste"                element={<Navigate to="/"                replace />} />
 
                             <Route path="*" element={<NotFound />} />
                         </Routes>
-                    </div>
-                    <Toaster />
-                </ThemeProvider>
+                        </Suspense>
+                    </main>
+                </SealedLayout>
+                <Toaster />
                 <CookieBanner />
             </ConsentProvider>
         </Router>

@@ -1,288 +1,327 @@
+// /about — DPO2U origin + F13 manifesto.
+// Re-skinned 2026-04-29 with Sealed editorial cartorial vocabulary.
+// Long-form prose layout, pull quotes in Fraunces italic, WaxSeal sign-off.
 import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { usePageHead } from '@/lib/page-head';
 import {
-  Github, Twitter, Linkedin, Mail,
-  Shield, Brain, Hexagon, Bot,
-  FileCode2, Package, Cpu, Database, Lock, Users,
-} from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { AnimatedCounter } from '@/components/ui/animated-counter';
-import PageShell from '@/components/landing/PageShell';
-import PageHero from '@/components/landing/PageHero';
-import PageSection from '@/components/landing/PageSection';
-import { fadeInUp, staggerContainer } from '@/lib/animations';
+  SmallLabel,
+  Rule,
+  Button,
+  WaxSeal,
+  FONTS,
+  PALETTE,
+} from '@/components/sealed/atoms';
 
-const AnimatedBlock: React.FC<{
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-}> = ({ children, className = '', id }) => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  return (
-    <motion.div
-      ref={ref}
-      id={id}
-      initial="initial"
-      animate={inView ? 'animate' : 'initial'}
-      variants={staggerContainer}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-};
+interface TimelineItem {
+  year: string;
+  title: string;
+  body: string;
+}
 
-const stats: Array<{
-  value: number;
-  label: string;
-  icon: typeof FileCode2;
-  color: 'purple' | 'blue' | 'green';
-  suffix?: string;
-}> = [
-  { value: 6, label: 'Anchor programs live on Solana devnet', icon: FileCode2, color: 'purple' },
-  { value: 120, label: 'LOC patched in sp1-solana for SP1 v6', icon: Package, color: 'blue', suffix: '+' },
-  { value: 156, label: 'k CU per on-chain ZK verification', icon: Cpu, color: 'green', suffix: 'k' },
-  { value: 356, label: 'Bytes — Groth16 proof size', icon: Shield, color: 'purple' },
-  { value: 4, label: 'Compliance skills in DPO2U MCP', icon: Brain, color: 'blue' },
-  { value: 2078, label: 'Zettelkasten notes powering the stack', icon: Database, color: 'green' },
-];
-
-const expertise = [
+const TIMELINE: TimelineItem[] = [
   {
-    title: 'Privacy & Compliance',
-    icon: Lock,
-    skills: ['LGPD / GDPR', 'DPDP India', 'MiCAR / ADGM', 'Zero-Knowledge Proofs', 'DPO-as-a-Service'],
+    year: '2021',
+    title: 'Origin',
+    body: 'DPO2U starts as twenty lines in a Zettelkasten. Not a company — a question: why is compliance an industry of dashboards and PDFs when the underlying claim is mathematical?',
   },
   {
-    title: 'Solana / ZK Stack',
-    icon: Hexagon,
-    skills: ['Anchor programs', 'SP1 zkVM (v6)', 'Groth16 on alt_bn128', 'PDA / CPI patterns', 'Devnet ops'],
+    year: '2022',
+    title: 'Research',
+    body: 'Publish-first principle established. First whitepaper draft. Public notes on LGPD as computational specification.',
   },
   {
-    title: 'AI & Automation',
-    icon: Cpu,
-    skills: ['Model Context Protocol (MCP)', 'Multi-agent systems', 'Autonomous agent design', 'Zettelkasten knowledge mgmt', 'Chairman + AI coordination'],
+    year: '2023',
+    title: 'MCP primitives',
+    body: 'First typed compliance tools (LGPD gap analysis, GDPR DPIA). MCP adopted as the integration substrate. Tools run inside any LLM.',
+  },
+  {
+    year: '2024',
+    title: 'Cross-jurisdictional',
+    body: 'DPDP, PDPA, MiCAR, UAE regulations added. Six jurisdictions operationalized as typed tools (POPIA · NDPA · PDPL added 2026 Q1 for EMEA; CCPA · PIPEDA · LAW25 added 2026 Q2 for Americas). Peer-reviewed DAO research co-authored.',
+  },
+  {
+    year: '2025',
+    title: 'ZK prototype',
+    body: 'ERC-8004 self-funding agent spec published. Zero-knowledge compliance proofs prototyped on Midnight Network.',
+  },
+  {
+    year: '2026',
+    title: 'On-chain',
+    body: 'Migration to Solana for native ZK verification. Twelve Anchor programs live on devnet (incl. POPIA / CCPA / PIPEDA / PIPA Korea jurisdiction-specific primitives). SP1 v6 verifier patched, alt_bn128 syscall for Groth16. $0.0002 per attestation.',
   },
 ];
 
-const publications = [
+interface Publication {
+  title: string;
+  type: string;
+  year: string;
+  description: string;
+}
+
+const PUBLICATIONS: Publication[] = [
   {
-    title: 'DPO2U: Compliance as Protocol',
+    title: 'DPO2U: Compliance as a Computable Primitive',
     type: 'Whitepaper v1.1',
     year: '2026',
-    description: 'How MCP tools + SP1 v6 zero-knowledge proofs + Solana on-chain registry transform privacy compliance into a verifiable, cost-efficient cryptographic asset.',
-  },
-  {
-    title: 'Co-authored Research on DAOs',
-    type: 'Academic Paper',
-    year: '2024',
-    description: 'Peer-reviewed publication on decentralized autonomous organizations and governance mechanisms.',
+    description:
+      'How MCP tools + SP1 v6 zero-knowledge proofs + Solana on-chain registry transform compliance into a verifiable, cost-efficient cryptographic asset.',
   },
   {
     title: 'ERC-8004: Autonomous Agent Standard',
-    type: 'Technical Specification',
+    type: 'Technical specification',
     year: '2025',
-    description: 'A revolutionary Ethereum standard enabling AI agents to operate with complete financial autonomy via self-funding smart contracts.',
+    description:
+      'An Ethereum standard that enables AI agents to operate with self-funding smart contracts and verifiable on-chain identity.',
+  },
+  {
+    title: 'Decentralized Autonomous Organizations',
+    type: 'Academic paper (co-author)',
+    year: '2024',
+    description:
+      'Peer-reviewed research on DAO governance mechanisms and on-chain accountability patterns.',
   },
 ];
 
-const agents = [
-  { name: 'Compliance Expert', model: 'Opus', color: 'text-red-400' },
-  { name: 'Agent Factory', model: 'Opus', color: 'text-pink-400' },
-  { name: 'Knowledge Manager', model: 'Sonnet', color: 'text-cyan-400' },
-  { name: 'Content Creator', model: 'Sonnet', color: 'text-yellow-400' },
-  { name: 'DeFi Ops', model: 'Sonnet', color: 'text-brand-emerald-400' },
-  { name: 'Docker/VPS Ops', model: 'Sonnet', color: 'text-brand-sapphire-400' },
+// F13 manifesto — voice canon, English. Pull quotes get Fraunces italic styling.
+const MANIFESTO_PARAGRAPHS: Array<{ text: string; pullQuote?: boolean }> = [
+  { text: 'Five years ago, DPO2U began as twenty lines in a Zettelkasten.' },
+  { text: 'We did not want to found a SaaS for compliance. We wanted to understand why compliance had become an industry of monthly dashboards, hours-of-lawyer, and signed PDFs — when the underlying claim is, at heart, verifiable mathematics.' },
+  { text: 'Publish before you sell. Research before you code. Code before you hire. That order is the thesis: research first, primitive next, product third.', pullQuote: true },
+  { text: 'Five years on: seventeen jurisdictions operationalised in code (LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA — São Paulo to San Francisco to Lagos to Dubai to Tokyo). Plus AI Governance vertical (six frameworks: Japan AI Promotion Act + Hiroshima ICOC G7 + EU AI Act + Korea AI Basic Act + CAIDP Universal Guidelines + UNESCO RAM, aligned with CAIDP submission to the UN Global Dialogue on AI Governance). Fourteen Anchor programs on Solana devnet. Sixty-six typed MCP tools. A public Zettelkasten — thousands of atomic notes feeding all of it.' },
+  { text: 'No dashboard. No monthly subscription with a PDF report. No consultant billing by the hour.' },
+  { text: 'We are not the $50k compliance consultancy. We are not Vanta, Drata, or OneTrust. We are the research house that writes the primitive that makes them obsolete.' },
+  { text: 'We are the DPO who ships code. The lawyer who learned to compute. The house that proved — in zero-knowledge proofs on-chain — that compliance can be mathematics.', pullQuote: true },
 ];
 
 export default function AboutPage() {
+  usePageHead({
+    title: 'About — Origin story & F13 manifesto | DPO2U',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with fourteen Solana programs, 66 typed MCP tools, and six AI governance frameworks aligned with CAIDP and the UN Global Dialogue on AI Governance. The full story.',
+    path: '/about',
+  });
+
   return (
-    <PageShell>
-      <PageHero
-        badge={
-          <>
-            <Users className="w-4 h-4" />
-            Founder &amp; Sole Operator
-          </>
-        }
-        title="Frederico Santana"
-        subtitle={
-          <>
-            Building the bridge between{' '}
-            <span className="text-brand-purple-400 font-medium">autonomous AI agents</span> and{' '}
-            <span className="text-brand-sapphire-400 font-medium">zero-knowledge privacy</span>.
-            One person. Six AI agents. Twelve smart contracts.
-          </>
-        }
-      >
-        <div className="flex flex-wrap gap-3 justify-center">
-          <a
-            href="https://github.com/fredericosanntana"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="liquid-glass rounded-full px-5 py-2.5 inline-flex items-center text-sm text-zinc-300 hover:bg-white/[0.04] transition-colors"
-          >
-            <Github className="h-4 w-4 mr-2" />
-            GitHub
-          </a>
-          <a
-            href="https://x.com/fredsanntana"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="liquid-glass rounded-full px-5 py-2.5 inline-flex items-center text-sm text-zinc-300 hover:bg-white/[0.04] transition-colors"
-          >
-            <Twitter className="h-4 w-4 mr-2" />
-            X / Twitter
-          </a>
-          <a
-            href="https://www.linkedin.com/in/fredericosantana/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="liquid-glass rounded-full px-5 py-2.5 inline-flex items-center text-sm text-zinc-300 hover:bg-white/[0.04] transition-colors"
-          >
-            <Linkedin className="h-4 w-4 mr-2" />
-            LinkedIn
-          </a>
-          <a
-            href="mailto:contato@dpo2u.com.br"
-            className="inline-flex items-center bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 hover:from-brand-sapphire-600 hover:to-brand-emerald-600 rounded-full px-5 py-2.5 text-sm text-white font-medium shadow-lg shadow-brand-sapphire-500/25 transition-all"
-          >
-            <Mail className="h-4 w-4 mr-2" />
-            Get in Touch
-          </a>
+    <>
+      {/* Masthead */}
+      <section className="px-6 lg:px-14 pt-16 lg:pt-24 pb-16 lg:pb-20" style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
+        <SmallLabel style={{ marginBottom: 16 }}>§ ABOUT · DPO2U · EST. MMXXI</SmallLabel>
+        <h1
+          style={{
+            fontFamily: FONTS.display, fontWeight: 500,
+            lineHeight: 1.02, letterSpacing: '-.035em',
+            margin: 0,
+          }}
+          className="text-[48px] sm:text-[64px] lg:text-[80px]"
+        >
+          Research first.<br />
+          Primitive next.<br />
+          <span style={{ fontStyle: 'italic', color: PALETTE.terracotta }}>Product third.</span>
+        </h1>
+        <p
+          style={{
+            fontFamily: FONTS.body, fontSize: 19, lineHeight: 1.55,
+            color: PALETTE.inkSoft, marginTop: 28, maxWidth: 640,
+          }}
+        >
+          DPO2U is the compliance research house that ships code. One founder. Five years.
+          Seventeen jurisdictions + AI Governance vertical (six frameworks, CAIDP-aligned).
+        </p>
+      </section>
+
+      {/* Manifesto — long-form, with pull quotes */}
+      <section className="px-6 lg:px-14 py-24" style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
+        <SmallLabel style={{ marginBottom: 16, color: PALETTE.terracotta }}>§ I · MANIFESTO</SmallLabel>
+        <h2
+          style={{
+            fontFamily: FONTS.display, fontWeight: 500, fontStyle: 'italic',
+            lineHeight: 1.08, letterSpacing: '-.025em',
+            margin: '0 0 40px',
+            color: PALETTE.terracotta,
+          }}
+          className="text-[40px] sm:text-[52px] lg:text-[60px]"
+        >
+          Compliance, computed.
+        </h2>
+
+        <article style={{ maxWidth: 640 }}>
+          {MANIFESTO_PARAGRAPHS.map((p, i) => (
+            p.pullQuote ? (
+              <blockquote
+                key={i}
+                style={{
+                  fontFamily: FONTS.display,
+                  fontStyle: 'italic',
+                  fontSize: 28,
+                  lineHeight: 1.35,
+                  color: PALETTE.terracotta,
+                  margin: '36px 0',
+                  padding: '20px 0 20px 24px',
+                  borderLeft: `2px solid ${PALETTE.terracotta}`,
+                }}
+                className="lg:text-[32px]"
+              >
+                {p.text}
+              </blockquote>
+            ) : (
+              <p
+                key={i}
+                style={{
+                  fontFamily: FONTS.body, fontSize: 17.5, lineHeight: 1.65,
+                  color: PALETTE.ink,
+                  margin: '0 0 20px',
+                }}
+              >
+                {p.text}
+              </p>
+            )
+          ))}
+
+          <div style={{ marginTop: 40, display: 'flex', alignItems: 'center', gap: 24 }}>
+            <WaxSeal size={108} label="DPO2U" />
+            <div>
+              <div
+                style={{
+                  fontFamily: FONTS.display, fontSize: 26, fontWeight: 600,
+                  letterSpacing: '-.02em',
+                }}
+              >
+                DP<span style={{ color: PALETTE.terracotta }}>O</span>2U.
+              </div>
+              <div style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '.18em', color: PALETTE.concrete, marginTop: 4, textTransform: 'uppercase' }}>
+                Compliance, computed.
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      {/* Timeline */}
+      <section className="px-6 lg:px-14 py-24" style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
+        <SmallLabel style={{ marginBottom: 16 }}>§ II · ORIGIN · FIVE YEARS</SmallLabel>
+        <h2
+          style={{
+            fontFamily: FONTS.display, fontWeight: 500,
+            lineHeight: 1.05, letterSpacing: '-.03em',
+            margin: '0 0 40px',
+          }}
+          className="text-[36px] sm:text-[48px] lg:text-[60px]"
+        >
+          From a Zettelkasten<br />
+          <span style={{ fontStyle: 'italic' }}>to a Solana devnet.</span>
+        </h2>
+
+        <div
+          style={{
+            border: `.5px solid ${PALETTE.ruleStrong}`,
+            background: PALETTE.paper,
+          }}
+        >
+          {TIMELINE.map((t, i) => (
+            <div
+              key={t.year}
+              className="grid grid-cols-1 lg:grid-cols-[120px_220px_1fr] gap-3 lg:gap-8 items-start lg:items-center px-6 py-6 lg:px-7"
+              style={{
+                borderBottom: i < TIMELINE.length - 1 ? `.5px solid ${PALETTE.rule}` : 'none',
+              }}
+            >
+              <div style={{ fontFamily: FONTS.mono, fontSize: 14, letterSpacing: '.08em', color: PALETTE.terracotta, fontWeight: 500 }}>
+                {t.year}
+              </div>
+              <div style={{ fontFamily: FONTS.display, fontSize: 22, fontWeight: 500, letterSpacing: '-.015em' }}>
+                {t.title}
+              </div>
+              <p style={{ fontFamily: FONTS.body, fontSize: 14.5, lineHeight: 1.6, color: PALETTE.inkSoft, margin: 0 }}>
+                {t.body}
+              </p>
+            </div>
+          ))}
         </div>
-      </PageHero>
+      </section>
 
-      <PageSection>
-        <AnimatedBlock>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-semibold text-apex-heading mb-4">
-              Builder <span className="text-brand-sapphire-400">Credentials</span>
-            </h2>
-            <p className="text-zinc-400 max-w-2xl mx-auto">
-              Numbers that speak louder than resumes.
-            </p>
-          </div>
+      {/* Publications */}
+      <section className="px-6 lg:px-14 py-24" style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
+        <SmallLabel style={{ marginBottom: 16 }}>§ III · PUBLICATIONS</SmallLabel>
+        <h2
+          style={{
+            fontFamily: FONTS.display, fontWeight: 500,
+            lineHeight: 1.05, letterSpacing: '-.03em',
+            margin: '0 0 40px',
+          }}
+          className="text-[36px] sm:text-[48px] lg:text-[60px]"
+        >
+          Read the research<br />
+          <span style={{ fontStyle: 'italic' }}>before you read the pitch.</span>
+        </h2>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {stats.map((stat, idx) => (
-              <motion.div key={stat.label} variants={fadeInUp}>
-                <Card className="p-8 liquid-glass rounded-3xl text-center">
-                  <stat.icon className={`h-8 w-8 mx-auto mb-4 ${
-                    stat.color === 'purple' ? 'text-brand-purple-400' :
-                    stat.color === 'blue' ? 'text-brand-sapphire-400' :
-                    'text-brand-emerald-400'
-                  }`} />
-                  <div className="text-3xl font-bold text-apex-heading mb-2">
-                    <AnimatedCounter
-                      value={stat.value}
-                      duration={2}
-                      delay={idx * 0.15}
-                      suffix={stat.suffix}
-                    />
-                  </div>
-                  <p className="text-zinc-400 text-sm">{stat.label}</p>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </AnimatedBlock>
-      </PageSection>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {PUBLICATIONS.map((p) => (
+            <article
+              key={p.title}
+              style={{
+                background: PALETTE.paper2,
+                border: `.5px solid ${PALETTE.ruleStrong}`,
+                padding: '24px 22px',
+                minHeight: 260,
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <SmallLabel style={{ color: PALETTE.terracotta, fontSize: 9.5, marginBottom: 8 }}>
+                {p.type} · {p.year}
+              </SmallLabel>
+              <h3
+                style={{
+                  fontFamily: FONTS.display, fontSize: 20, fontWeight: 500,
+                  letterSpacing: '-.015em', lineHeight: 1.25, margin: 0,
+                }}
+              >
+                {p.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: FONTS.body, fontSize: 14, lineHeight: 1.6,
+                  color: PALETTE.inkSoft, margin: '14px 0 0',
+                }}
+              >
+                {p.description}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <PageSection>
-        <AnimatedBlock>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-semibold text-apex-heading mb-4">
-              Technical <span className="text-brand-purple-400">Expertise</span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {expertise.map((area) => (
-              <motion.div key={area.title} variants={fadeInUp}>
-                <Card className="h-full p-8 liquid-glass rounded-3xl">
-                  <area.icon className="h-10 w-10 text-brand-purple-400 mb-6" />
-                  <h3 className="text-xl font-semibold text-apex-heading mb-4">{area.title}</h3>
-                  <ul className="space-y-3">
-                    {area.skills.map((skill) => (
-                      <li key={skill} className="flex items-center text-zinc-400 text-sm">
-                        <div className="w-1.5 h-1.5 bg-brand-purple-400 rounded-full mr-3 flex-shrink-0" />
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </AnimatedBlock>
-      </PageSection>
-
-      <PageSection>
-        <AnimatedBlock>
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-semibold text-apex-heading mb-4">
-              <span className="text-brand-sapphire-400">Publications</span> &amp; Research
-            </h2>
-          </div>
-
-          <div className="max-w-3xl mx-auto space-y-6">
-            {publications.map((pub) => (
-              <motion.div key={pub.title} variants={fadeInUp}>
-                <Card className="p-8 liquid-glass rounded-3xl hover:bg-white/[0.03] transition-colors">
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-apex-heading">{pub.title}</h3>
-                    <span className="text-xs text-zinc-500 flex-shrink-0 ml-4">{pub.year}</span>
-                  </div>
-                  <span className="inline-block text-xs px-2 py-1 bg-brand-sapphire-500/10 text-brand-sapphire-300 rounded mb-3">
-                    {pub.type}
-                  </span>
-                  <p className="text-zinc-400 text-sm">{pub.description}</p>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </AnimatedBlock>
-      </PageSection>
-
-      <PageSection>
-        <AnimatedBlock>
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div variants={fadeInUp}>
-              <Bot className="h-16 w-16 text-brand-purple-400 mx-auto mb-8" />
-            </motion.div>
-            <motion.h2 variants={fadeInUp} className="text-3xl sm:text-5xl font-semibold text-apex-heading mb-6">
-              The One-Person <span className="text-brand-purple-400">Unicorn</span>
-            </motion.h2>
-            <motion.p variants={fadeInUp} className="text-lg text-zinc-400 mb-8 leading-relaxed max-w-3xl mx-auto">
-              DPO2U isn't a team of 50 — it's one founder amplified by six autonomous AI agents,
-              each with distinct capabilities and on-chain identities. The agents handle compliance audits,
-              content generation, treasury operations, knowledge management, and infrastructure — 24/7,
-              with 99.9% uptime.
-            </motion.p>
-            <motion.p variants={fadeInUp} className="text-zinc-500 mb-6 max-w-2xl mx-auto">
-              This is not a pitch deck philosophy. The agents are live, the programs are deployed
-              on Solana devnet, the tests are passing, and the ZK proofs are verifiable. Built in public, every step of the way.
-            </motion.p>
-
-            <motion.p variants={fadeInUp} className="text-zinc-500 mb-12 max-w-2xl mx-auto italic">
-              DPO2U prototyped on Midnight Network and migrated to Solana in Q2 2026 — the move
-              unlocked cheaper on-chain verification, broader ecosystem reach, and a credible
-              path to the ~50M Brazilian CNPJs who need LGPD attestations at scale.
-            </motion.p>
-
-            <motion.div variants={fadeInUp} className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-              {agents.map((agent) => (
-                <Card key={agent.name} className="p-6 liquid-glass rounded-2xl">
-                  <div className={`text-sm font-semibold ${agent.color} mb-1`}>{agent.name}</div>
-                  <div className="text-xs text-zinc-500">Claude {agent.model}</div>
-                </Card>
-              ))}
-            </motion.div>
-          </div>
-        </AnimatedBlock>
-      </PageSection>
-    </PageShell>
+      {/* Founder */}
+      <section className="px-6 lg:px-14 py-24" style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
+        <SmallLabel style={{ marginBottom: 16 }}>§ IV · FOUNDER</SmallLabel>
+        <h2
+          style={{
+            fontFamily: FONTS.display, fontWeight: 500,
+            lineHeight: 1.05, letterSpacing: '-.03em',
+            margin: 0,
+          }}
+          className="text-[36px] sm:text-[48px] lg:text-[56px]"
+        >
+          Frederico <span style={{ fontStyle: 'italic' }}>Santana</span>
+        </h2>
+        <p style={{ fontFamily: FONTS.body, fontSize: 17, lineHeight: 1.6, color: PALETTE.inkSoft, marginTop: 20, maxWidth: 640 }}>
+          Founder and sole author. Five years of compliance research. Seventeen jurisdictions
+          in code. Sixty-six MCP tools. Six AI governance frameworks. Based in São Paulo, BR.
+        </p>
+        <div className="mt-10 flex gap-3 flex-wrap">
+          <Button kind="terracotta" href="mailto:fredericosanntana@gmail.com">
+            fredericosanntana@gmail.com →
+          </Button>
+          <Button kind="ghost" href="https://github.com/fredericosanntana">
+            GitHub
+          </Button>
+          <Button kind="ghost" href="https://linkedin.com/in/fredericosantana">
+            LinkedIn
+          </Button>
+          <Button kind="ghost" href="https://x.com/fredsanntana">
+            X (Twitter)
+          </Button>
+        </div>
+      </section>
+    </>
   );
 }
