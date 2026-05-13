@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import simpleGit from 'simple-git';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import { registerStripeRoutes } from './server-routes/stripe-checkout.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -66,6 +67,14 @@ app.use((_req, res, next) => {
     );
     next();
 });
+
+// Stripe Checkout routes — registradas ANTES do express.json() global pq
+// /api/stripe/webhook precisa raw body pra signature verification do Stripe.
+// Cada route da Stripe declara seu próprio body parser (json pra create-session,
+// raw pro webhook). Se app.use(express.json()) rodar primeiro, ele parseia o
+// body do webhook e quebra constructEvent() com "Payload was provided as a parsed
+// JavaScript object instead."
+registerStripeRoutes(app, express);
 
 // Limit JSON payload (~58 fields, but inventories can be large)
 app.use(express.json({ limit: '2mb' }));
@@ -400,8 +409,12 @@ app.post('/api/alpha-signup', alphaSignupLimiter, async (req, res) => {
     }
 
     // --- Persist submission JSON --------------------------------------------
+    // Must always respond JSON: if the bind-mounted submissions dir is not
+    // writable (host-side perms regression — happened 2026-05-12 after the
+    // P0 "drop root" Dockerfile change), Express's default error handler
+    // would render HTML, and the frontend's `await res.json()` would explode
+    // with "Unexpected token '<'". Wrap and return structured JSON instead.
     const submissionDir = path.resolve(__dirname, 'public', 'submissions');
-    fs.mkdirSync(submissionDir, { recursive: true });
     const record = {
         id: submissionId,
         submittedAt,
@@ -414,11 +427,21 @@ app.post('/api/alpha-signup', alphaSignupLimiter, async (req, res) => {
         codeFiles,
         processing: null,
     };
-    fs.writeFileSync(
-        path.join(submissionDir, `${submissionId}.json`),
-        JSON.stringify(record, null, 2),
-        'utf-8'
-    );
+    try {
+        fs.mkdirSync(submissionDir, { recursive: true });
+        fs.writeFileSync(
+            path.join(submissionDir, `${submissionId}.json`),
+            JSON.stringify(record, null, 2),
+            'utf-8'
+        );
+    } catch (e) {
+        console.error(`[alpha-signup] persist failed for ${submissionId}:`, e?.message || e);
+        return res.status(500).json({
+            error: 'persist_failed',
+            message: 'Submission could not be saved server-side. Email fredericosanntana@gmail.com and we will book the call manually.',
+            submissionId,
+        });
+    }
 
     // --- Send both emails synchronously -------------------------------------
     const sendEmail = '/dpo2u-scripts/send-email.sh';

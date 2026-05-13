@@ -9,8 +9,15 @@ services:
     restart: always
     ports:
       - "3003:3000"
+    env_file:
+      # Sprint 1 S1.9 — Stripe secrets (rk_live_, whsec_, price IDs). .env is gitignored.
+      - .env
     environment:
       - API_GATEWAY_URL=http://172.17.0.1:8090 # Kept for reference, though client-side calls might need these via VITE_ env vars
+      # send-email.sh otherwise auto-probes /workspace/... or /root/DPO2U/...
+      # Neither path exists in this container — the credentials file is mounted at /dpo2u-creds/smtp.env.
+      # Without this env var, send-email.sh fails with "No password found for cmo".
+      - SMTP_CREDENTIALS_FILE=/dpo2u-creds/smtp.env
     labels:
       - "traefik.enable=true"
       # HTTP Router
@@ -27,9 +34,20 @@ services:
       - "traefik.http.services.dpo2u.loadbalancer.server.port=3000"
     networks:
       - proxy
+      # send-email.sh resolves billionmail-postfix-billionmail-1 by container DNS;
+      # without this network attachment the alpha-signup emails fail with
+      # "Could not resolve host" even though Postfix is up on the billionmail network.
+      - billionmail
     volumes:
       - ./public/downloads:/app/public/downloads
+      - ./public/submissions:/app/public/submissions
+      - /root/DPO2U/03-Ferramentas/Scripts/social:/dpo2u-scripts:ro
+      - /root/DPO2U/.agent-smtp-credentials.env:/dpo2u-creds/smtp.env:ro
+      - /tmp/dpo2u-alpha:/tmp/dpo2u-alpha
 
 networks:
   proxy:
     external: true
+  billionmail:
+    external: true
+    name: billionmail_billionmail-network
