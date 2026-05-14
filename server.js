@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import simpleGit from 'simple-git';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import { registerStripeRoutes } from './server-routes/stripe-checkout.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -66,6 +67,14 @@ app.use((_req, res, next) => {
     );
     next();
 });
+
+// Stripe Checkout routes — registradas ANTES do express.json() global pq
+// /api/stripe/webhook precisa raw body pra signature verification do Stripe.
+// Cada route da Stripe declara seu próprio body parser (json pra create-session,
+// raw pro webhook). Se app.use(express.json()) rodar primeiro, ele parseia o
+// body do webhook e quebra constructEvent() com "Payload was provided as a parsed
+// JavaScript object instead."
+registerStripeRoutes(app, express);
 
 // Limit JSON payload (~58 fields, but inventories can be large)
 app.use(express.json({ limit: '2mb' }));
@@ -400,8 +409,12 @@ app.post('/api/alpha-signup', alphaSignupLimiter, async (req, res) => {
     }
 
     // --- Persist submission JSON --------------------------------------------
+    // Must always respond JSON: if the bind-mounted submissions dir is not
+    // writable (host-side perms regression — happened 2026-05-12 after the
+    // P0 "drop root" Dockerfile change), Express's default error handler
+    // would render HTML, and the frontend's `await res.json()` would explode
+    // with "Unexpected token '<'". Wrap and return structured JSON instead.
     const submissionDir = path.resolve(__dirname, 'public', 'submissions');
-    fs.mkdirSync(submissionDir, { recursive: true });
     const record = {
         id: submissionId,
         submittedAt,
@@ -414,11 +427,21 @@ app.post('/api/alpha-signup', alphaSignupLimiter, async (req, res) => {
         codeFiles,
         processing: null,
     };
-    fs.writeFileSync(
-        path.join(submissionDir, `${submissionId}.json`),
-        JSON.stringify(record, null, 2),
-        'utf-8'
-    );
+    try {
+        fs.mkdirSync(submissionDir, { recursive: true });
+        fs.writeFileSync(
+            path.join(submissionDir, `${submissionId}.json`),
+            JSON.stringify(record, null, 2),
+            'utf-8'
+        );
+    } catch (e) {
+        console.error(`[alpha-signup] persist failed for ${submissionId}:`, e?.message || e);
+        return res.status(500).json({
+            error: 'persist_failed',
+            message: 'Submission could not be saved server-side. Email fredericosanntana@gmail.com and we will book the call manually.',
+            submissionId,
+        });
+    }
 
     // --- Send both emails synchronously -------------------------------------
     const sendEmail = '/dpo2u-scripts/send-email.sh';
@@ -608,6 +631,184 @@ app.post('/api/alpha-signup', alphaSignupLimiter, async (req, res) => {
 });
 
 // =============================================================================
+// =============================================================================
+// /api/demo/audit — Interactive landing demo (90s DPIA generation, watermarked)
+// =============================================================================
+// Generates a template-filled markdown DPIA from 5 form fields. NÃO chama o
+// MCP real — é uma demo honest:
+//   - input → fill template → return DPIA-shaped markdown with "DEMO" header/footer
+//   - real DPIA generation (via mcp-server generate_dpia tool) é tier Builder+/Team
+//
+// Por que template em vez de subprocess pra MCP: (a) sem auth complexity, (b)
+// determinístico/sem latência variável, (c) zero risco de leakage pra
+// production MCP (demo é completamente isolado), (d) honesto — output marcado
+// DEMO desde o byte 0.
+//
+// Rate-limited 5/hour/IP (mesma policy do alpha-signup).
+// =============================================================================
+const demoAuditLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 5,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        error: 'rate_limit_exceeded',
+        message: 'Demo limit 5 requests/hour/IP. Sign up at /alpha-signup for full access.',
+        retryAfterSeconds: 3600,
+    },
+});
+
+const JURISDICTION_AUTHORITIES = {
+    LGPD: { authority: 'ANPD (Autoridade Nacional de Proteção de Dados)', law: 'Lei 13.709/2018', country: 'Brazil' },
+    GDPR: { authority: 'EDPB + national DPAs', law: 'Regulation (EU) 2016/679', country: 'EU' },
+    DPDP: { authority: 'Data Protection Board of India', law: 'DPDP Act 2023', country: 'India' },
+    PDPA: { authority: 'PDPC Singapore', law: 'PDPA 2012 (rev. 2021/2023)', country: 'Singapore' },
+    CCPA: { authority: 'CPPA (California Privacy Protection Agency)', law: 'CCPA + CPRA', country: 'California, US' },
+    PIPEDA: { authority: 'OPC (Office of the Privacy Commissioner of Canada)', law: 'PIPEDA + DPA 2018', country: 'Canada' },
+    POPIA: { authority: 'Information Regulator', law: 'Act 4 of 2013', country: 'South Africa' },
+    APPI: { authority: 'PPC (Personal Information Protection Commission)', law: 'Act 57/2003 + 2022 amendment', country: 'Japan' },
+    PIPA: { authority: 'PIPC (Personal Information Protection Commission)', law: 'Act 16930/2020', country: 'South Korea' },
+    PDP: { authority: 'MCI Indonesia', law: 'UU 27/2022 PDP Law', country: 'Indonesia' },
+    UAE: { authority: 'ADGM + UAE Data Office', law: 'PDPL Federal Decree-Law 45/2021 + ADGM DPR 2021', country: 'United Arab Emirates' },
+    NDPA: { authority: 'NDPC (Nigeria Data Protection Commission)', law: 'NDPA 2023', country: 'Nigeria' },
+    LAW25: { authority: 'CAI (Commission d\'accès à l\'information)', law: 'Quebec Law 25 (Bill 64)', country: 'Quebec, Canada' },
+    MICAR: { authority: 'ESMA + EBA + national NCAs', law: 'MICA Regulation (EU) 2023/1114', country: 'EU' },
+    MEXICO: { authority: 'INAI (Instituto Nacional de Transparencia)', law: 'LFPDPPP 2010', country: 'Mexico' },
+    VIETNAM: { authority: 'Ministry of Public Security (MPS)', law: 'Decree 13/2023 + Law 91/2025', country: 'Vietnam' },
+    MALAYSIA: { authority: 'PDPC Malaysia', law: 'PDPA 2010 + Amendment 2024', country: 'Malaysia' },
+};
+
+function buildDemoDpia({ companyName, jurisdiction, processingActivity, dataSubjects, purpose, ticketId, generatedAt }) {
+    const j = JURISDICTION_AUTHORITIES[jurisdiction] || JURISDICTION_AUTHORITIES.LGPD;
+    const lines = [
+        '# Data Protection Impact Assessment (DPIA)',
+        '',
+        '> **⚠️ DEMO OUTPUT — Not for production use.**',
+        '> This document is template-filled from the public demo at https://dpo2u.com/demo.',
+        '> Generated content is illustrative only and does NOT constitute legal advice.',
+        '> For a real audit + on-chain attestation, see https://dpo2u.com/pricing.',
+        '',
+        `**Subject**: ${companyName}`,
+        `**Jurisdiction**: ${jurisdiction} (${j.country})`,
+        `**Generated**: ${generatedAt}`,
+        `**Demo ticket**: ${ticketId}`,
+        '',
+        '---',
+        '',
+        '## 1. Description of processing',
+        '',
+        `### 1.1 Processing activity`,
+        `${processingActivity}`,
+        '',
+        `### 1.2 Data subjects`,
+        `${dataSubjects}`,
+        '',
+        `### 1.3 Purpose`,
+        `${purpose}`,
+        '',
+        '### 1.4 Regulatory regime',
+        `- **Law**: ${j.law}`,
+        `- **Supervisory authority**: ${j.authority}`,
+        `- **Country**: ${j.country}`,
+        '',
+        '---',
+        '',
+        '## 2. Necessity and proportionality assessment',
+        '',
+        '### 2.1 Lawful basis',
+        'Pending — to be assessed against the applicable lawful bases in ' + j.law + '.',
+        'Real audit (Tier Builder+) maps each processing activity to specific legal bases',
+        'with article-level citations.',
+        '',
+        '### 2.2 Data minimization',
+        'Pending — real audit identifies which data fields can be reduced or pseudonymized.',
+        '',
+        '### 2.3 Retention period',
+        'Pending — to be defined per data category. See `generate_retention_policy` tool',
+        '(Tier Builder+) for granular matrix.',
+        '',
+        '---',
+        '',
+        '## 3. Risk assessment',
+        '',
+        '| Risk | Likelihood | Severity | Mitigation |',
+        '|---|---|---|---|',
+        '| Unauthorized access | Medium | High | (real audit defines) |',
+        '| Data breach notification gap | Low | High | (real audit defines) |',
+        '| Cross-border transfer non-compliance | Medium | Medium | (real audit defines) |',
+        '| Data subject rights friction | Medium | Medium | (real audit defines) |',
+        '',
+        '---',
+        '',
+        '## 4. Compliance gaps (DEMO PLACEHOLDER)',
+        '',
+        'Real audit identifies specific gaps with article-level citations:',
+        '- Consent management workflow review',
+        '- Breach notification SLA monitoring',
+        '- Cross-border transfer impact assessment',
+        '- DPO appointment (if mandatory in your jurisdiction)',
+        '- Records of Processing Activities (RoPA) maintenance',
+        '',
+        '---',
+        '',
+        '## 5. Recommendations',
+        '',
+        'Demo recommendations are generic. Real audit (Tier Team) produces:',
+        '- Article-by-article compliance checklist with score',
+        '- On-chain attestation PDA (Solana — devnet today, mainnet phase 2)',
+        '- White-label PDF + machine-readable JSON output',
+        '- Cross-jurisdiction matrix if you operate in multiple regimes',
+        '',
+        '---',
+        '',
+        '## DEMO FOOTER',
+        '',
+        `> This is a DEMO output for ${companyName} under ${jurisdiction}.`,
+        '> For real audit + on-chain anchor, see https://dpo2u.com/pricing',
+        `> Demo ticket: ${ticketId} · Generated: ${generatedAt}`,
+        '',
+        '— DPO2U · Compliance, sealed.',
+    ];
+    return lines.join('\n');
+}
+
+app.post('/api/demo/audit', demoAuditLimiter, (req, res) => {
+    const data = req.body || {};
+    const companyName = String(data.companyName || '').trim().slice(0, 120);
+    const jurisdiction = String(data.jurisdiction || 'LGPD').trim().toUpperCase().slice(0, 24);
+    const processingActivity = String(data.processingActivity || '').trim().slice(0, 240);
+    const dataSubjects = String(data.dataSubjects || '').trim().slice(0, 240);
+    const purpose = String(data.purpose || '').trim().slice(0, 240);
+
+    if (!companyName || !processingActivity || !dataSubjects || !purpose) {
+        return res.status(400).json({ error: 'All fields required (companyName, processingActivity, dataSubjects, purpose)' });
+    }
+    if (!JURISDICTION_AUTHORITIES[jurisdiction]) {
+        return res.status(400).json({ error: `Unknown jurisdiction: ${jurisdiction}. Supported: ${Object.keys(JURISDICTION_AUTHORITIES).join(', ')}` });
+    }
+
+    const ticketId = crypto.randomUUID();
+    const generatedAt = new Date().toISOString();
+    const dpia_md = buildDemoDpia({
+        companyName,
+        jurisdiction,
+        processingActivity,
+        dataSubjects,
+        purpose,
+        ticketId,
+        generatedAt,
+    });
+
+    return res.json({
+        ok: true,
+        ticket_id: ticketId,
+        generated_at: generatedAt,
+        watermark: 'DEMO',
+        dpia_md,
+        note: 'Template-filled DPIA. Real audit via mcp-server generate_dpia (Tier Builder+/Team).',
+    });
+});
+
 // /api/alpha-list — public showcase, names-only
 //
 // Returns processed submissions with showPublicly=true. NEVER exposes scores,

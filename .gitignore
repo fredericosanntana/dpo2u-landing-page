@@ -5,3 +5,8 @@ node_modules/
 dist/
 build/
 node_modules/
+
+# Secrets — never commit. Use .env.example as template.
+.env
+.env.*
+!.env.example

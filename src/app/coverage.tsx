@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { usePageHead } from '@/lib/page-head';
 import { FONTS, PALETTE, SmallLabel } from '@/components/sealed/atoms';
 import JurisdictionMap from '@/components/sealed/sections/JurisdictionMap';
 import GovernanceBadge from '@/components/solana/GovernanceBadge';
+
+// Aliases pra URL slugs longos → codes existentes. Suporta /coverage/mexico
+// e /coverage/lfpdppp etc. Sem match, scroll é no-op (página normal).
+const URL_SLUG_TO_CODE: Record<string, string> = {
+  mexico: 'MEXICO',
+  lfpdppp: 'MEXICO',
+  vietnam: 'VIETNAM',
+  'decree-13': 'VIETNAM',
+  decree13: 'VIETNAM',
+  malaysia: 'MALAYSIA',
+  'pdpa-my': 'MALAYSIA',
+  japan: 'APPI',
+  appi: 'APPI',
+  brazil: 'LGPD',
+  lgpd: 'LGPD',
+  eu: 'GDPR',
+  gdpr: 'GDPR',
+};
 
 interface JurisdictionCard {
   code: string;
@@ -152,15 +171,59 @@ const COVERAGE: JurisdictionCard[] = [
     authority: 'PPC (Personal Information Protection Commission)',
     position: 'G7 first comprehensive AI law · APPI + Hiroshima ICOC G7 · EU+UK dual adequacy · CAIO mandate FY2026.',
   },
+  {
+    code: 'MEXICO',
+    flag: '🇲🇽',
+    region: 'Mexico · Mexico City',
+    law: 'LFPDPPP (2010) + Reglamento 2011 + Ley Fintech 2018 (sector financeiro)',
+    primaryArticle: 'Art. 22-32 ARCO · Art. 8-9 consent (11 lawful bases) · Art. 36 cross-border · Art. 20 breach',
+    authority: 'INAI (Instituto Nacional de Transparencia)',
+    position: 'Largest LatAm crypto retail market · 8 ITF licenses ativas · LGPD-LFPDPPP 85% cross-mapping.',
+  },
+  {
+    code: 'VIETNAM',
+    flag: '🇻🇳',
+    region: 'Vietnam · Hanoi',
+    law: 'Decree 13/2023 NĐ-CP + Personal Data Protection Law 91/2025',
+    primaryArticle: 'Art. 25 cross-border DPIA mandatória · Art. 23 breach 72h · Art. 11 consent explícito · Art. 28 DPO',
+    authority: 'MPS (Ministry of Public Security · A05)',
+    position: 'Most restrictive cross-border data transfer regime in Asia · Web3 gaming + remittance vertical.',
+  },
+  {
+    code: 'MALAYSIA',
+    flag: '🇲🇾',
+    region: 'Malaysia · Kuala Lumpur',
+    law: 'PDPA 2010 + Amendment 2024 (DPO mandatory + portability + 72h breach)',
+    primaryArticle: '7 PDPPs · s. 12A DPO mandatory · s. 12B breach 72h · s. 43A portability · s. 129 cross-border',
+    authority: 'PDPC Malaysia (Personal Data Protection Commission)',
+    position: 'First SEA regime com DPO mandatory + data portability · 5 SC-licensed crypto RMOs.',
+  },
 ];
 
 export default function CoveragePage() {
+  const params = useParams<{ code?: string }>();
+  const slugCode = params.code?.toLowerCase();
+  const targetCode = slugCode ? URL_SLUG_TO_CODE[slugCode] : undefined;
+
   usePageHead({
-    title: 'Coverage — Fifteen jurisdictions, one primitive | DPO2U',
+    title: 'Coverage — Seventeen jurisdictions, one primitive | DPO2U',
     description:
-      'Visual map of the fifteen regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI. Plus the AI Governance vertical (six frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, and UNESCO Recommendation on Ethics of AI. Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). EMEA + Americas + APAC in one composition step.',
-    path: '/coverage',
+      'Visual map of the seventeen regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), and PDPA-MY (Malaysia). Plus the AI Governance vertical (six frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, and UNESCO Recommendation on Ethics of AI. Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). EMEA + Americas + APAC + LatAm in one composition step.',
+    path: params.code ? `/coverage/${slugCode}` : '/coverage',
   });
+
+  // Scroll-to-card quando /coverage/:code é hit. Defer pra após hydration
+  // pra garantir DOM tá pronto.
+  useEffect(() => {
+    if (!targetCode) return;
+    const el = document.getElementById(`card-${targetCode.toLowerCase()}`);
+    if (el) {
+      // Pequeno delay pra animations/lazy components terminarem
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+    }
+  }, [targetCode]);
 
   return (
     <article className="pb-24">
@@ -180,7 +243,7 @@ export default function CoveragePage() {
             margin: 0,
           }}
         >
-          Fifteen jurisdictions.
+          Seventeen jurisdictions.
           <br />
           <span style={{ fontStyle: 'italic' }}>One primitive layer.</span>
         </h1>
@@ -209,7 +272,7 @@ export default function CoveragePage() {
             marginTop: 28,
           }}
         >
-          — 14 Solana programs · 63 MCP tools · 6 AI governance frameworks · devnet live · last updated 2026-05-06 —
+          — 14 Solana programs · 66 MCP tools · 6 AI governance frameworks · devnet live · last updated 2026-05-06 —
         </p>
       </section>
 
@@ -533,6 +596,7 @@ export default function CoveragePage() {
           {COVERAGE.map((c) => (
             <article
               key={c.code}
+              id={`card-${c.code.toLowerCase()}`}
               style={{
                 borderTop: `.5px solid ${PALETTE.rule}`,
                 paddingTop: 20,
@@ -663,7 +727,7 @@ export default function CoveragePage() {
           >
             packages/mcp-server/src/kb/jurisdictions/
           </code>
-          {' '}— fourteen Zod-validated JSONs (fifteen codes — PDPL aliases UAE), addressable by
+          {' '}— seventeen Zod-validated JSONs (seventeen codes — PDPL aliases UAE), addressable by
           code or alias (PDPL → UAE, ZA → POPIA, NG → NDPA, US/CA-US → CCPA, CA → PIPEDA, QC → LAW25, JP/JAPAN → APPI).
           Each entry powers <em>compare_jurisdictions</em>,{' '}
           <em>check_compliance</em>, and the on-chain attestation schemas in the
