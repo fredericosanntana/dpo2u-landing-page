@@ -135,9 +135,8 @@ export default function PilotLandingPage() {
             tag="P1 / P2 / P3"
             title="Operador municipal"
             body="Submete atestação via REST/MCP. O predicate engine determinístico avalia 5 critérios off-chain (CNPJ holder, canal oficial, sem mudança recente, sem pagamento iminente, banco regulado BCB). Verdict + hashes vão on-chain — payload com PII fica off-chain encriptado."
-            cta="Console operator"
-            sub="Sprint K — em construção"
-            disabled
+            cta="Abrir console →"
+            to="/pilot/login"
           />
           <PersonaBlock
             tag="P4 / P5"
