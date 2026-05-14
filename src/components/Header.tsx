@@ -52,6 +52,7 @@ export default function Header() {
           <nav className="hidden lg:flex items-center space-x-5">
             {[
               ...products.map(p => ({ name: p.name, href: p.href })),
+              { name: 'Piloto', href: '/pilot' },
               { name: 'About', href: '/about' },
             ].map((item) => (
               <a

@@ -25,6 +25,11 @@ const PricingPage         = lazy(() => import('@/app/pricing'));
 const DemoPage            = lazy(() => import('@/app/demo'));
 const DSRPage             = lazy(() => import('@/app/dsr'));
 const PortalPage          = lazy(() => import('@/app/portal'));
+// Pilot Anticorrupção — Stellar Soroban (Sprint37° M1)
+const PilotLandingPage    = lazy(() => import('@/app/pilot/index'));
+const PilotVerifyPage     = lazy(() => import('@/app/pilot/verify'));
+const PilotDashboardPage  = lazy(() => import('@/app/pilot/dashboard'));
+const PilotContractPage   = lazy(() => import('@/app/pilot/contract'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
 const RouteFallback = () => (
@@ -104,6 +109,13 @@ function App() {
                             <Route path="/dsr"              element={<DSRPage />}            />
                             {/* /portal — Customer audit history portal v0 (S2.10, read-only) */}
                             <Route path="/portal"           element={<PortalPage />}         />
+
+                            {/* Piloto Anticorrupção (Stellar Soroban) — Sprint37° M1 */}
+                            <Route path="/pilot"                       element={<PilotLandingPage />}   />
+                            <Route path="/pilot/verify"                element={<PilotVerifyPage />}    />
+                            <Route path="/pilot/dashboard"             element={<PilotDashboardPage />} />
+                            <Route path="/pilot/contract"              element={<PilotContractPage />}  />
+                            <Route path="/pilot/contract/:contract_id" element={<PilotContractPage />}  />
 
                             {/* Legacy redirects — retired in the 2026-04-24 rebrand + 2026-04-28 sprint */}
                             <Route path="/midnight-protocol"    element={<Navigate to="/solana-protocol" replace />} />
