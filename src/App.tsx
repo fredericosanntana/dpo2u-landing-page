@@ -23,6 +23,8 @@ const AlphaPage           = lazy(() => import('@/app/alpha'));
 const CoveragePage        = lazy(() => import('@/app/coverage'));
 const PricingPage         = lazy(() => import('@/app/pricing'));
 const DemoPage            = lazy(() => import('@/app/demo'));
+const DSRPage             = lazy(() => import('@/app/dsr'));
+const PortalPage          = lazy(() => import('@/app/portal'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
 const RouteFallback = () => (
@@ -98,6 +100,10 @@ function App() {
                             <Route path="/coverage/:code"   element={<CoveragePage />}       />
                             <Route path="/pricing"          element={<PricingPage />}        />
                             <Route path="/demo"             element={<DemoPage />}           />
+                            {/* /dsr — Data Subject Rights portal v0 (S2.5, read-only history) */}
+                            <Route path="/dsr"              element={<DSRPage />}            />
+                            {/* /portal — Customer audit history portal v0 (S2.10, read-only) */}
+                            <Route path="/portal"           element={<PortalPage />}         />
 
                             {/* Legacy redirects — retired in the 2026-04-24 rebrand + 2026-04-28 sprint */}
                             <Route path="/midnight-protocol"    element={<Navigate to="/solana-protocol" replace />} />
