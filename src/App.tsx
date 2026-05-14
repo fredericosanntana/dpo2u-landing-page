@@ -30,6 +30,16 @@ const PilotLandingPage    = lazy(() => import('@/app/pilot/index'));
 const PilotVerifyPage     = lazy(() => import('@/app/pilot/verify'));
 const PilotDashboardPage  = lazy(() => import('@/app/pilot/dashboard'));
 const PilotContractPage   = lazy(() => import('@/app/pilot/contract'));
+// Phase B — Operator console
+const PilotLoginPage      = lazy(() => import('@/app/pilot/login'));
+const PilotOperatorIndex  = lazy(() => import('@/app/pilot/operator/index'));
+const PilotOperatorSubmit = lazy(() => import('@/app/pilot/operator/submit'));
+const PilotOperatorHistory= lazy(() => import('@/app/pilot/operator/history'));
+const PilotOperatorErasure= lazy(() => import('@/app/pilot/operator/erasure'));
+// Phase C — Admin console (feature-flagged via VITE_ADMIN_UI=1)
+const PilotAdminIndex     = lazy(() => import('@/app/pilot/admin/index'));
+const PilotAdminConfigure = lazy(() => import('@/app/pilot/admin/configure-use-case'));
+const PilotAdminAuthorize = lazy(() => import('@/app/pilot/admin/authorize-submitter'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
 const RouteFallback = () => (
@@ -116,6 +126,16 @@ function App() {
                             <Route path="/pilot/dashboard"             element={<PilotDashboardPage />} />
                             <Route path="/pilot/contract"              element={<PilotContractPage />}  />
                             <Route path="/pilot/contract/:contract_id" element={<PilotContractPage />}  />
+                            {/* Phase B — Operator (API key gated) */}
+                            <Route path="/pilot/login"                 element={<PilotLoginPage />}     />
+                            <Route path="/pilot/operator"              element={<PilotOperatorIndex />} />
+                            <Route path="/pilot/operator/submit"       element={<PilotOperatorSubmit />} />
+                            <Route path="/pilot/operator/history"      element={<PilotOperatorHistory />} />
+                            <Route path="/pilot/operator/erasure"      element={<PilotOperatorErasure />} />
+                            {/* Phase C — Admin (Freighter + allowlist + VITE_ADMIN_UI=1) */}
+                            <Route path="/pilot/admin"                       element={<PilotAdminIndex />} />
+                            <Route path="/pilot/admin/configure-use-case"    element={<PilotAdminConfigure />} />
+                            <Route path="/pilot/admin/authorize-submitter"   element={<PilotAdminAuthorize />} />
 
                             {/* Legacy redirects — retired in the 2026-04-24 rebrand + 2026-04-28 sprint */}
                             <Route path="/midnight-protocol"    element={<Navigate to="/solana-protocol" replace />} />
