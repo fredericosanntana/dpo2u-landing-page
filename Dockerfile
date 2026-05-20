@@ -2,6 +2,9 @@
 FROM node:20-alpine as build
 WORKDIR /app
 COPY package*.json ./
+# vendor tarball referenced by package.json (file:./vendor/...) — needs to exist
+# before npm ci resolves the file: protocol.
+COPY vendor ./vendor
 RUN npm ci
 COPY . .
 RUN npm run build
@@ -21,6 +24,7 @@ RUN apk add --no-cache python3 git ca-certificates bash curl coreutils
 
 # Install production deps (express + simple-git)
 COPY package*.json ./
+COPY vendor ./vendor
 RUN npm install --omit=dev && npm install express simple-git helmet express-rate-limit
 
 # Copy built assets

@@ -3,8 +3,8 @@
 import React from 'react';
 
 export const PALETTE = {
-  paper: 'var(--dpo2u-ivory, #F1ECE3)',
-  paper2: '#E8E2D5',
+  paper: 'var(--dpo2u-ivory, #FFFFFF)',
+  paper2: 'var(--dpo2u-ivory-warm, #F5F5F5)',
   ink: 'var(--dpo2u-ink, #0C0D10)',
   inkSoft: '#2A2722',
   terracotta: 'var(--dpo2u-terracotta, #C85C3B)',
@@ -94,7 +94,7 @@ export function WaxSeal({
           x="60" y="70" textAnchor="middle"
           fontFamily="Fraunces, Georgia, serif"
           fontWeight="700" fontSize="34"
-          fill="#fff3e6"
+          fill="#FFFFFF"
           style={{ letterSpacing: '.02em' }}
         >D</text>
         <defs>
@@ -353,7 +353,7 @@ export function Button({
     kind === 'primary'
       ? { background: PALETTE.ink, color: PALETTE.paper, border: `1px solid ${PALETTE.ink}` }
       : kind === 'terracotta'
-        ? { background: PALETTE.terracotta, color: '#fff3e6', border: `1px solid ${PALETTE.terracotta}` }
+        ? { background: PALETTE.terracotta, color: '#FFFFFF', border: `1px solid ${PALETTE.terracotta}` }
         : { background: 'transparent', color: PALETTE.ink, border: `1px solid ${PALETTE.ruleStrong}` };
   return <a href={href} style={{ ...base, ...variants, ...style }}>{children}</a>;
 }

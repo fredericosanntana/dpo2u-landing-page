@@ -26,7 +26,7 @@ export default function HomePage() {
   usePageHead({
     title: 'DPO2U — Compliance, sealed.',
     description:
-      'Regulatory compliance as on-chain primitives. For every Solana project that processes data, issues tokens, or runs AI — 17 jurisdictions, 70 countries, 6 AI governance frameworks. From DPIA generation to MICA proof-of-reserve. Automated, auditable, proven on-chain. 1.94s · $0.0002 · 5 years since 2021.',
+      'Regulatory compliance as on-chain primitives. For every Solana project that processes data, issues tokens, or runs AI — 17 jurisdictions, 70+ countries, 8 AI governance frameworks (including Singapore IMDA MGF-Agentic v1.0). 15 legal-source manifests hash-anchored on-chain · 5 jurisdictional programs cross-reference via Anchor seeds::program. From DPIA generation to MICA proof-of-reserve. Automated, auditable, proven on-chain. 1.94s · $0.0002 · 5 years since 2021.',
     path: '/',
   });
   return (

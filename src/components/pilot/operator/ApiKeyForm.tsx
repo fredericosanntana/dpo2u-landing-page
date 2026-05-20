@@ -11,7 +11,7 @@ import { useAuthStore } from '@/lib/pilot/auth-store';
 import { probeApiKey, McpError } from '@/lib/pilot/mcp-client';
 
 const schema = z.object({
-  apiKey: z.string().trim().min(8, 'API key precisa ter no mínimo 8 caracteres').max(256, 'Máximo 256 caracteres'),
+  apiKey: z.string().trim().min(8, 'API key precisa ter no mínimo 8 caracteres').max(2048, 'Máximo 2048 caracteres'),
   tenantLabel: z.string().trim().max(64, 'Máximo 64 caracteres').optional().or(z.literal('')),
   mcpBaseUrl: z
     .string()
