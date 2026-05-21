@@ -108,6 +108,11 @@
    }
   }
  },
+ "govbr": {
+  "leniency_alerts": 120,
+  "leniency_fail": 97,
+  "leniency_still_contracting": 50
+ },
  "attested": [
   {
    "use_case": "sanction_check_v1",
@@ -174,6 +179,50 @@
    "evidence_hash": "d18757d4f979f4c93678007912c57339121f12501142491242cfeffa44043f7a",
    "tx": "9f30f84eaa65f2ff6bae44433fda94eb5d9c1b8a375b92f2ec31152d9c58f62b",
    "explorer": "https://stellar.expert/explorer/testnet/tx/9f30f84eaa65f2ff6bae44433fda94eb5d9c1b8a375b92f2ec31152d9c58f62b"
+  },
+  {
+   "use_case": "leniency_flag_v1",
+   "verdict": "FAIL",
+   "supplier": "UNIDAS LOCACOES E SERVICOS S/A",
+   "organ": "Controladoria Geral do Estado do Paraná - PR",
+   "uf": "",
+   "item": "Acordo de leniência",
+   "evidence_hash": "912f953abe790e47c5056f1e2004159210ff4bd631920ae14853a58c8a94d5f1",
+   "tx": "b6f899ae58692c6185539e4bec34e22ca0f0d7e24281f944260a829c51ee41f6",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/b6f899ae58692c6185539e4bec34e22ca0f0d7e24281f944260a829c51ee41f6"
+  },
+  {
+   "use_case": "leniency_flag_v1",
+   "verdict": "FAIL",
+   "supplier": "CONSTRUTORA COESA S.A. - EM RECUPERACAO JUDICIAL",
+   "organ": "Controladoria-Geral da União",
+   "uf": "",
+   "item": "Acordo de leniência",
+   "evidence_hash": "a6402fafbc30922b2fd697a9140cd234adb2491c1c413e2a0865b7c71448ee73",
+   "tx": "314bea2b9c611c9f0c898acb0b228347244e70623dd85405e15a0c04dcfd04f2",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/314bea2b9c611c9f0c898acb0b228347244e70623dd85405e15a0c04dcfd04f2"
+  },
+  {
+   "use_case": "leniency_flag_v1",
+   "verdict": "FAIL",
+   "supplier": "METHA S.A. - EM RECUPERACAO JUDICIAL",
+   "organ": "Controladoria-Geral da União",
+   "uf": "",
+   "item": "Acordo de leniência",
+   "evidence_hash": "9e64ef004b914ec8a10d3fa5af778be777d34485b650b6ff832124e1d728d539",
+   "tx": "b99cb84ddd68ea1c40d1f232bb3a6bdca567864383c057024907ae579d65a635",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/b99cb84ddd68ea1c40d1f232bb3a6bdca567864383c057024907ae579d65a635"
+  },
+  {
+   "use_case": "leniency_flag_v1",
+   "verdict": "FAIL",
+   "supplier": "OAS EMPREENDIMENTOS S.A.",
+   "organ": "Controladoria-Geral da União",
+   "uf": "",
+   "item": "Acordo de leniência",
+   "evidence_hash": "d2b4ee17b614b7dfe2b50956a98d7d8803eef96ebb5e181ce5b1bdebab85954f",
+   "tx": "a276c0f0560a0aeea8ad4a2f4f749b04298143c6e6693c60ae4848f872f1357c",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/a276c0f0560a0aeea8ad4a2f4f749b04298143c6e6693c60ae4848f872f1357c"
   }
  ]
 }

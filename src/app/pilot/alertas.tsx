@@ -83,6 +83,15 @@ const SEV_COLOR: Record<Alert['severity'], string> = {
   Crítica: '#7a2a17',
 };
 
+const UC_LABEL: Record<string, string> = {
+  sanction_check_v1: 'Sanção',
+  overpricing_v1: 'Sobrepreço',
+  leniency_flag_v1: 'Leniência',
+  divergent_payee_v1: 'Favorecido divergente',
+  winner_rotation_v1: 'Rodízio de vencedores',
+};
+const ucLabel = (id: string): string => UC_LABEL[id] || id;
+
 const PAGE_SIZE = 40;
 
 const mono = (size = 11): React.CSSProperties => ({
@@ -342,6 +351,7 @@ export default function PilotAlertasPage() {
                   ['all', 'Todos os use cases'],
                   ['sanction_check_v1', 'Sanção'],
                   ['overpricing_v1', 'Sobrepreço'],
+                  ['leniency_flag_v1', 'Leniência'],
                 ]} />
                 <Select value={severity} onChange={setSeverity} options={[
                   ['all', 'Toda severidade'],
@@ -390,7 +400,7 @@ export default function PilotAlertasPage() {
                           {a.prospective && <span style={{ color: '#7a2a17', marginLeft: 6 }}>· prosp.</span>}
                         </td>
                         <td style={{ padding: '8px 10px', color: PALETTE.concrete }}>
-                          {a.use_case === 'overpricing_v1' ? 'Sobrepreço' : 'Sanção'}
+                          {ucLabel(a.use_case)}
                         </td>
                         <td style={{ padding: '8px 10px', maxWidth: 240, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {a.supplier}
@@ -471,7 +481,7 @@ export default function PilotAlertasPage() {
                       </span>
                       <span style={{ fontFamily: FONTS.body, fontSize: 14 }}>{at.supplier}</span>
                       <span style={{ ...mono(10), color: PALETTE.concrete }}>
-                        {at.use_case === 'overpricing_v1' ? 'Sobrepreço' : 'Sanção'} · {at.uf}
+                        {ucLabel(at.use_case)}{at.uf ? ` · ${at.uf}` : ''}
                       </span>
                     </div>
                     <div style={{ ...mono(10), color: PALETTE.verdigris, marginTop: 6, wordBreak: 'break-all' }}>
@@ -581,7 +591,7 @@ function AlertDetail({ alert, onClose }: { alert: Alert; onClose: () => void }) 
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <SmallLabel>
-            {alert.use_case === 'overpricing_v1' ? 'Sobrepreço' : 'Sanção'} · {alert.severity}
+            {ucLabel(alert.use_case)} · {alert.severity}
           </SmallLabel>
           <button
             onClick={onClose}
