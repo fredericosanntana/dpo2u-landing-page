@@ -27,6 +27,7 @@ const DSRPage             = lazy(() => import('@/app/dsr'));
 const PortalPage          = lazy(() => import('@/app/portal'));
 // Pilot Anticorrupção — Stellar Soroban (Sprint37° M1)
 const PilotLandingPage    = lazy(() => import('@/app/pilot/index'));
+const PilotAlertasPage    = lazy(() => import('@/app/pilot/alertas'));
 const PilotVerifyPage     = lazy(() => import('@/app/pilot/verify'));
 const PilotDashboardPage  = lazy(() => import('@/app/pilot/dashboard'));
 const PilotContractPage   = lazy(() => import('@/app/pilot/contract'));
@@ -122,6 +123,7 @@ function App() {
 
                             {/* Piloto Anticorrupção (Stellar Soroban) — Sprint37° M1 */}
                             <Route path="/pilot"                       element={<PilotLandingPage />}   />
+                            <Route path="/pilot/alertas"               element={<PilotAlertasPage />}   />
                             <Route path="/pilot/verify"                element={<PilotVerifyPage />}    />
                             <Route path="/pilot/dashboard"             element={<PilotDashboardPage />} />
                             <Route path="/pilot/contract"              element={<PilotContractPage />}  />
