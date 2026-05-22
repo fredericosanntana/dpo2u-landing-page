@@ -32,6 +32,15 @@ const B2B: UC[] = [
   { id: 'popia_officer_v1', label: 'Information Officer POPIA', desc: 'Selo da nomeação do Information Officer — POPIA.' },
   { id: 'pipeda_consent_v1', label: 'Consentimento PIPEDA', desc: 'Selo de um registro de consentimento — PIPEDA, Canadá.' },
   { id: 'pipa_identity_v1', label: 'Identidade PIPA', desc: 'Identidade alternativa ao RRN — PIPA, Coreia do Sul.' },
+  { id: 'compliance_attestation_v1', label: 'Atestação de conformidade · 16 jurisdições', desc: 'Atesta a conformidade de uma organização contra qualquer uma das 16 jurisdições de proteção de dados — parametrizado por jurisdição.' },
+];
+
+// As 16 jurisdições de proteção de dados cobertas por compliance_attestation_v1.
+const JURISDICTIONS: string[] = [
+  'Brasil · LGPD', 'União Europeia · GDPR', 'Califórnia · CCPA/CPRA', 'Canadá · PIPEDA',
+  'Quebec · Lei 25', 'Japão · APPI', 'Coreia do Sul · PIPA', 'Indonésia · UU PDP',
+  'Singapura · PDPA', 'Índia · DPDP', 'Emirados · PDPL/ADGM', 'África do Sul · POPIA',
+  'Nigéria · NDPA', 'México · LFPDPPP', 'Vietnã · Decreto 13', 'Malásia · PDPA',
 ];
 
 const CONTRACT = 'CC4TJGDRWZOPGBWOOHBJF3N2VKUQRNIW6C6PTYHD7ZI3D42GBQRRZHM5';
@@ -123,6 +132,28 @@ export default function PilotCompliancePage() {
                 <UseCaseCard key={uc.id} uc={uc} accent={PALETTE.terracotta} />
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 16 jurisdições */}
+      <section className="px-6 lg:px-14 pt-[52px]">
+        <div className="mx-auto max-w-[1180px]">
+          <SmallLabel style={{ marginBottom: 6 }}>Catálogo de jurisdições · compliance_attestation_v1</SmallLabel>
+          <p style={{ ...mono(10), color: PALETTE.concrete, margin: '0 0 16px' }}>
+            16 regimes de proteção de dados — um use case parametrizado por jurisdição
+            (a 17ª, MiCAR, é regime de cripto-ativos com trilha própria)
+          </p>
+          <div
+            className="grid gap-px"
+            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', background: PALETTE.rule }}
+          >
+            {JURISDICTIONS.map((j) => (
+              <div key={j} style={{ background: PALETTE.paper, padding: '12px 14px', ...mono(11) }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: PALETTE.terracotta, display: 'inline-block', marginRight: 8 }} />
+                {j}
+              </div>
+            ))}
           </div>
         </div>
       </section>
