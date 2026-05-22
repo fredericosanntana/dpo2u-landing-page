@@ -17,6 +17,7 @@ interface NavSpec {
 const LINKS: NavSpec[] = [
   { to: '/pilot',           label: 'Visão geral',  exact: true },
   { to: '/pilot/alertas',   label: 'Alertas' },
+  { to: '/pilot/compliance', label: 'Compliance B2B' },
   { to: '/pilot/verify',    label: 'Verificar' },
   { to: '/pilot/dashboard', label: 'Dashboard' },
   { to: '/pilot/contract',  label: 'Contrato' },
