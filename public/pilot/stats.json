@@ -113,6 +113,11 @@
   "leniency_fail": 97,
   "leniency_still_contracting": 50
  },
+ "sprint_m_pncp": {
+  "sanction_pncp_alerts": 11,
+  "sanction_pncp_valor_em_risco": 1390982.97,
+  "sanction_pncp_window_days": 90
+ },
  "attested": [
   {
    "use_case": "sanction_check_v1",

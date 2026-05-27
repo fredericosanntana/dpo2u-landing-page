@@ -126,6 +126,8 @@ function App() {
                             {/* Piloto Anticorrupção (Stellar Soroban) — Sprint37° M1 */}
                             <Route path="/pilot"                       element={<PilotLandingPage />}   />
                             <Route path="/pilot/alertas"               element={<PilotAlertasPage />}   />
+                            {/* Sprint M (2026-05-26) — alias público pra divulgação externa */}
+                            <Route path="/sentinela-anticorrupcao"     element={<PilotAlertasPage />}   />
                             <Route path="/pilot/compliance"            element={<PilotCompliancePage />} />
                             <Route path="/pilot/atestar"               element={<PilotAtestarPage />}   />
                             <Route path="/pilot/verify"                element={<PilotVerifyPage />}    />

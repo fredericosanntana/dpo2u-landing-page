@@ -16,6 +16,9 @@ const RUNS = '/root/dpo2u-stellar/docs/demos/runs';
 const FULL = path.join(RUNS, '2026-05-21-real-pilot-alerts-full.json');
 const MAIN = path.join(RUNS, '2026-05-21-real-pilot.json');
 const LENIENCY = path.join(RUNS, '2026-05-21-leniency-check.json');
+// Sprint M (2026-05-26): scan PNCP nacional via proxy Tailscale — vencedoras
+// sancionadas (CEIS/CNEP/CEPIM) em qualquer plataforma de pregão.
+const SANCTION_PNCP = '/tmp/sanction-pncp-90d.json';
 const OUT = path.join(process.cwd(), 'public', 'pilot');
 
 const zOf = (a) => {
@@ -85,6 +88,32 @@ const alerts = [
   ...(leniency.alerts || []).map((a) => leanAlert(a, idx++)),
 ];
 
+// Sprint M: integra alertas do scan PNCP nacional (sanção × vencedora D+0).
+const sanctionPncp = fs.existsSync(SANCTION_PNCP) ? JSON.parse(fs.readFileSync(SANCTION_PNCP, 'utf8')) : { alerts: [] };
+for (const a of (sanctionPncp.alerts || [])) {
+  alerts.push({
+    id: idx++,
+    use_case: 'sanction_check_v1',
+    verdict: 'FAIL',
+    severity: 'Crítica',
+    cnpj: a.vencedora?.cnpj || '',
+    supplier: a.vencedora?.nome || '',
+    organ: a.orgao,
+    uf: a.uf,
+    municipio: a.municipio,
+    date: (a.dataPublicacaoPncp || '').slice(0, 10),
+    catmat: null,
+    item: (a.objeto || '').slice(0, 80),
+    value: a.valor_homologado || null,
+    unit_price: null,
+    z: null,
+    basket_n: null,
+    basket_median: null,
+    prospective: true,
+    reason: `Vencedora sancionada em ${a.sanctions_active.map((s) => `${s.list.toUpperCase()} (${s.categoria}, ${s.dataInicio}→${s.dataFinal || 'vigente'})`).join('; ')}. PNCP: ${a.contratacaoId}.`,
+  });
+}
+
 function attestedRow(a) {
   return {
     use_case: a.use_case,
@@ -123,6 +152,11 @@ fs.writeFileSync(
         leniency_alerts: (leniency.alerts || []).length,
         leniency_fail: leniency.summary?.fail_active_agreement ?? 0,
         leniency_still_contracting: leniency.summary?.still_contracting_or_receiving ?? 0,
+      },
+      sprint_m_pncp: {
+        sanction_pncp_alerts: (sanctionPncp.alerts || []).length,
+        sanction_pncp_valor_em_risco: sanctionPncp.summary?.valor_total_em_risco ?? 0,
+        sanction_pncp_window_days: sanctionPncp.window_days ?? null,
       },
       attested,
     },

@@ -101,6 +101,17 @@ const ROUTES = [
     title: 'Try the audit — DPO2U demo',
     description: 'Generate a real DPIA in 90 seconds. 5 fields, 17 jurisdictions, no signup. Output watermarked DEMO (not for production). Real audit + on-chain anchor via /pricing.',
   },
+  // Sprint M (2026-05-26) — alias público do painel de alertas anticorrupção
+  {
+    path: '/sentinela-anticorrupcao',
+    title: 'Sentinela Anticorrupção — alertas D+0 nacional | DPO2U',
+    description: 'Painel público de alertas anticorrupção em contratações públicas brasileiras. Cruzamento D+0 entre vencedoras de pregão (PNCP, cobertura nacional) e sanções vigentes (CEIS/CNEP/CEPIM da CGU). Atestação on-chain Stellar Soroban testnet. 1.273 alertas detectados; R$ 1,39M em risco mapeados na Sprint M.',
+  },
+  {
+    path: '/pilot/alertas',
+    title: 'Painel de alertas do piloto — DPO2U Stellar',
+    description: 'Painel interno do piloto anticorrupção: 1.273 alertas reais (sanction_check + overpricing + leniency), severidade ponderada, atestações on-chain Stellar testnet.',
+  },
   // Per-jurisdiction prerender entries (added 2026-05-11) — Sprint 3 KB add
   // (Mexico/Vietnam/Malaysia). Server serves dist/coverage/<code>/index.html
   // com meta tags SEO-targeted; React Router /coverage/:code route renderiza
