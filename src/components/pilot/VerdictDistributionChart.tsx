@@ -26,9 +26,12 @@ export function VerdictDistributionChart() {
   const events = useIndexerStore((s) => s.events);
   const dist = selectVerdictDistribution({ events } as any);
 
+  // Sealed palette only. PASS = verdigris, FAIL + REVIEW = terracotta full.
+  // Labels diferenciam REVIEW de FAIL no donut (não a cor) — user pediu
+  // terracotta puro no lugar do salmon-yellow.
   const slices: SliceConfig[] = [
     { value: dist.pass, color: '#4A7C74', label: 'PASS' },
-    { value: dist.review, color: '#C4A962', label: 'REVIEW' },
+    { value: dist.review, color: '#C85C3B', label: 'REVIEW' },
     { value: dist.fail, color: '#C85C3B', label: 'FAIL' },
   ];
 

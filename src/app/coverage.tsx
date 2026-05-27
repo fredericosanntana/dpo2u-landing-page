@@ -208,7 +208,7 @@ export default function CoveragePage() {
   usePageHead({
     title: 'Coverage — Seventeen jurisdictions, one primitive | DPO2U',
     description:
-      'Visual map of the seventeen regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), and PDPA-MY (Malaysia). Plus the AI Governance vertical (six frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, and UNESCO Recommendation on Ethics of AI. Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). EMEA + Americas + APAC + LatAm in one composition step.',
+      'Visual map of the seventeen regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), and PDPA-MY (Malaysia). Plus the AI Governance vertical (eight frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, UNESCO Recommendation on Ethics of AI, Singapore IMDA Model AI Governance Framework for Agentic AI v1.0, and the L1-L5 AI Governance Stack methodology (Kenney 2026). Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). 15 legal-source manifests anchored on Solana devnet under cross-program seeds::program reference. EMEA + Americas + APAC + LatAm in one composition step.',
     path: params.code ? `/coverage/${slugCode}` : '/coverage',
   });
 
@@ -272,7 +272,7 @@ export default function CoveragePage() {
             marginTop: 28,
           }}
         >
-          — 14 Solana programs · 66 MCP tools · 6 AI governance frameworks · devnet live · last updated 2026-05-06 —
+          — 15 Solana programs · 70 MCP tools · 8 AI governance frameworks · 15 legal-source manifests anchored on-chain · 5 programs cross-reference manifest via Anchor seeds::program · devnet live · last updated 2026-05-15 —
         </p>
       </section>
 

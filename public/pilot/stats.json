@@ -1,0 +1,233 @@
+{
+ "generated_at": "2026-05-21T14:18:08.778Z",
+ "contract": "CC4TJGDRWZOPGBWOOHBJF3N2VKUQRNIW6C6PTYHD7ZI3D42GBQRRZHM5",
+ "sources": {
+  "sanctions": {
+   "ceis": 13671,
+   "cnep": 1612,
+   "cepim": 3562
+  },
+  "sanctions_source_dates": {
+   "ceis": "20260521",
+   "cnep": "20260521",
+   "cepim": "20260520"
+  },
+  "compras_gov_records": 14430,
+  "distinct_suppliers": 1788,
+  "scan_classes": [
+   {
+    "codigo": 6505,
+    "nome": "DROGAS E MEDICAMENTOS",
+    "catmats": 60
+   },
+   {
+    "codigo": 6510,
+    "nome": "CURATIVOS CIRÚRGICOS",
+    "catmats": 25
+   },
+   {
+    "codigo": 7510,
+    "nome": "ARTIGOS DE ESCRITÓRIO",
+    "catmats": 25
+   }
+  ]
+ },
+ "summary": {
+  "sanction_alerts": 231,
+  "sanction_fail": 56,
+  "sanction_review": 175,
+  "sanction_prospective_fail": 28,
+  "overpricing_alerts": 911,
+  "overpricing_groups_trimmed_out": 4
+ },
+ "statistics": {
+  "sanction": {
+   "total": 231,
+   "fail": 56,
+   "review": 175,
+   "prospective_fail": 28,
+   "by_list": {
+    "ceis": 231,
+    "cnep": 1,
+    "cepim": 0
+   }
+  },
+  "overpricing": {
+   "total": 911,
+   "z_bands": {
+    "3.5-10": 618,
+    "10-30": 241,
+    "30-100": 51,
+    ">100": 1
+   },
+   "z_min": 3.5,
+   "z_max": 136.57,
+   "z_median": 6.72,
+   "basket_size": {
+    "min": 8,
+    "p25": 274,
+    "median": 627,
+    "p75": 806,
+    "max": 959
+   }
+  },
+  "coverage": {
+   "by_uf": {
+    "RJ": 231,
+    "CE": 50,
+    "PR": 80,
+    "AC": 9,
+    "PB": 25,
+    "PA": 92,
+    "SP": 129,
+    "PE": 23,
+    "MG": 73,
+    "RO": 15,
+    "TO": 8,
+    "BA": 70,
+    "GO": 28,
+    "MT": 20,
+    "SE": 7,
+    "AM": 58,
+    "RN": 11,
+    "AP": 14,
+    "MS": 22,
+    "RR": 20,
+    "DF": 26,
+    "MA": 33,
+    "AL": 10,
+    "PI": 14,
+    "ES": 11,
+    "RS": 53,
+    "SC": 10
+   },
+   "distinct_uf": 27,
+   "temporal": {
+    "earliest": "2021-12-02",
+    "latest": "2026-05-20"
+   }
+  }
+ },
+ "govbr": {
+  "leniency_alerts": 120,
+  "leniency_fail": 97,
+  "leniency_still_contracting": 50
+ },
+ "sprint_m_pncp": {
+  "sanction_pncp_alerts": 11,
+  "sanction_pncp_valor_em_risco": 1390982.97,
+  "sanction_pncp_window_days": 90
+ },
+ "attested": [
+  {
+   "use_case": "sanction_check_v1",
+   "verdict": "FAIL",
+   "supplier": "DISTRIBUIDORA DE MEDICAMENTOS BACKES LTDA",
+   "organ": "FUNDO MUN DE SAUDE DE VASSOURAS - RJ",
+   "uf": "RJ",
+   "item": "CIMETIDINA, CONCENTRAÇÃO: 400 MG",
+   "evidence_hash": "eb1e8e35c9b02558b4307b17eece487026a0b4af15074ec948936c9c69635ea4",
+   "tx": "2141095b78655a10e707b87150efbcaea2fb12a68f50f5939dab8a91d35fad5e",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/2141095b78655a10e707b87150efbcaea2fb12a68f50f5939dab8a91d35fad5e"
+  },
+  {
+   "use_case": "sanction_check_v1",
+   "verdict": "FAIL",
+   "supplier": "ILG COMERCIAL LTDA",
+   "organ": "PREFEITURA DE MERCEDES - PR",
+   "uf": "PR",
+   "item": "CIMETIDINA, DOSAGEM: 200 MG",
+   "evidence_hash": "b343b4f2984412ca8a2cd8335561261b15524c952a70d38543cc8eb3ee49032c",
+   "tx": "9e2def2a3fc656043105f4d6387b0438453e13842a41733d10562e8a27b304f1",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/9e2def2a3fc656043105f4d6387b0438453e13842a41733d10562e8a27b304f1"
+  },
+  {
+   "use_case": "sanction_check_v1",
+   "verdict": "REVIEW",
+   "supplier": "DISTRIMED COMERCIO DE MEDICAMENTOS E MATERIAL HOSPITALAR LTDA",
+   "organ": "PREFEITURA MUNICIPAL DE HORIZONTE - CE",
+   "uf": "CE",
+   "item": "CIMETIDINA, CONCENTRAÇÃO: 400 MG",
+   "evidence_hash": "27caebf37d9aad3446bafe442f2a0d7077ffa2c219e1169450b073ca2971d8a7",
+   "tx": "0e2d7d4eaf6102a2872e8e1d45b5be3c0af97af854ac72264f776a15632551c3",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/0e2d7d4eaf6102a2872e8e1d45b5be3c0af97af854ac72264f776a15632551c3"
+  },
+  {
+   "use_case": "overpricing_v1",
+   "verdict": "FAIL",
+   "supplier": "COMPANHIA HOSPITALAR LTDA",
+   "organ": "PREFEITURA MUNICIPAL DE BOA VISTA - RR",
+   "uf": "RR",
+   "item": "ACICLOVIR, DOSAGEM: 30 MG/G, USO: POMADA OFTÁLMICA ",
+   "evidence_hash": "3650d4da032604c99d879b9d5c8d13329692be382f5c9ff17a7576ca9dd6e8d5",
+   "tx": "92fb6e2d72ea451e606e9b12351c05fc26a4e2ac78c11682607ecc4e22d382d1",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/92fb6e2d72ea451e606e9b12351c05fc26a4e2ac78c11682607ecc4e22d382d1"
+  },
+  {
+   "use_case": "overpricing_v1",
+   "verdict": "FAIL",
+   "supplier": "MAURO ROBERTO RODRIGUES DE MOURA",
+   "organ": "PREFEITURA MUNICIPAL DE FRANCISCO SANTOS - PI",
+   "uf": "PI",
+   "item": "CIMETIDINA, DOSAGEM: 200 MG",
+   "evidence_hash": "1dc68cab260dfd541d701b2aab44aeaa52a852dd38b4b7b6cca19f7bd7783777",
+   "tx": "6726b9cda4e48bdf0766a6b106469ddc5224cede2908dfca85a3157aec4c0a90",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/6726b9cda4e48bdf0766a6b106469ddc5224cede2908dfca85a3157aec4c0a90"
+  },
+  {
+   "use_case": "overpricing_v1",
+   "verdict": "FAIL",
+   "supplier": "SUPLY SOLUCOES EM TECNOLOGIA & TRANSPORTES LTDA",
+   "organ": "INST.BRAS.DO MEIO AMB.E DOS REC.NAT.RENOVAV.",
+   "uf": "AC",
+   "item": "AMPICILINA, APRESENTAÇÃO: ASSOCIADA COM SULBACTAM , DOSAGEM: 1G + 500MG , TIPO USO: INJETÁVEL ",
+   "evidence_hash": "d18757d4f979f4c93678007912c57339121f12501142491242cfeffa44043f7a",
+   "tx": "9f30f84eaa65f2ff6bae44433fda94eb5d9c1b8a375b92f2ec31152d9c58f62b",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/9f30f84eaa65f2ff6bae44433fda94eb5d9c1b8a375b92f2ec31152d9c58f62b"
+  },
+  {
+   "use_case": "leniency_flag_v1",
+   "verdict": "FAIL",
+   "supplier": "UNIDAS LOCACOES E SERVICOS S/A",
+   "organ": "Controladoria Geral do Estado do Paraná - PR",
+   "uf": "",
+   "item": "Acordo de leniência",
+   "evidence_hash": "912f953abe790e47c5056f1e2004159210ff4bd631920ae14853a58c8a94d5f1",
+   "tx": "b6f899ae58692c6185539e4bec34e22ca0f0d7e24281f944260a829c51ee41f6",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/b6f899ae58692c6185539e4bec34e22ca0f0d7e24281f944260a829c51ee41f6"
+  },
+  {
+   "use_case": "leniency_flag_v1",
+   "verdict": "FAIL",
+   "supplier": "CONSTRUTORA COESA S.A. - EM RECUPERACAO JUDICIAL",
+   "organ": "Controladoria-Geral da União",
+   "uf": "",
+   "item": "Acordo de leniência",
+   "evidence_hash": "a6402fafbc30922b2fd697a9140cd234adb2491c1c413e2a0865b7c71448ee73",
+   "tx": "314bea2b9c611c9f0c898acb0b228347244e70623dd85405e15a0c04dcfd04f2",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/314bea2b9c611c9f0c898acb0b228347244e70623dd85405e15a0c04dcfd04f2"
+  },
+  {
+   "use_case": "leniency_flag_v1",
+   "verdict": "FAIL",
+   "supplier": "METHA S.A. - EM RECUPERACAO JUDICIAL",
+   "organ": "Controladoria-Geral da União",
+   "uf": "",
+   "item": "Acordo de leniência",
+   "evidence_hash": "9e64ef004b914ec8a10d3fa5af778be777d34485b650b6ff832124e1d728d539",
+   "tx": "b99cb84ddd68ea1c40d1f232bb3a6bdca567864383c057024907ae579d65a635",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/b99cb84ddd68ea1c40d1f232bb3a6bdca567864383c057024907ae579d65a635"
+  },
+  {
+   "use_case": "leniency_flag_v1",
+   "verdict": "FAIL",
+   "supplier": "OAS EMPREENDIMENTOS S.A.",
+   "organ": "Controladoria-Geral da União",
+   "uf": "",
+   "item": "Acordo de leniência",
+   "evidence_hash": "d2b4ee17b614b7dfe2b50956a98d7d8803eef96ebb5e181ce5b1bdebab85954f",
+   "tx": "a276c0f0560a0aeea8ad4a2f4f749b04298143c6e6693c60ae4848f872f1357c",
+   "explorer": "https://stellar.expert/explorer/testnet/tx/a276c0f0560a0aeea8ad4a2f4f749b04298143c6e6693c60ae4848f872f1357c"
+  }
+ ]
+}

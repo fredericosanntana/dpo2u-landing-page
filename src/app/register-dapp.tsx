@@ -126,7 +126,8 @@ export default function RegisterDappPage() {
     };
 
     const validateStep = (n: number): boolean => {
-        const schema = stepSchemas[n as keyof typeof stepSchemas];
+        const schema = stepSchemas[n - 1];
+        if (!schema) return true;
         const result = schema.safeParse(payload);
         if (result.success) {
             setErrors({});

@@ -49,6 +49,8 @@ app.use(helmet({
                 'https://soroban-testnet.stellar.org',
                 'https://horizon-testnet.stellar.org',
                 'https://stellar.expert',
+                // Pilot operator console fetches the gateway here (Sprint K).
+                'https://mcp.dpo2u.com',
                 'https://api.mxpnl.com',
                 'https://api-js.mixpanel.com',
                 'https://www.google-analytics.com',

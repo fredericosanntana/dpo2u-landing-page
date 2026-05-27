@@ -61,7 +61,7 @@ export default function SealedNav() {
         zIndex: 10,
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
-        background: 'color-mix(in oklab, ' + PALETTE.paper + ' 88%, transparent)',
+        background: 'rgba(255, 255, 255, 0.88)',
         borderBottom: `.5px solid ${PALETTE.rule}`,
       }}
       className="px-6 py-[18px] lg:px-14"

@@ -26,7 +26,7 @@ export default function SealedFooter() {
   return (
     <footer
       className="px-6 lg:px-14 pt-14 pb-10"
-      style={{ background: PALETTE.paper }}
+      style={{ background: '#FFFFFF' }}
     >
       <div className="grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 mb-9">
         <div className="col-span-2 lg:col-span-1">

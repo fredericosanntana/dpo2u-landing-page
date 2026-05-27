@@ -103,60 +103,47 @@
   --brand-text-dark: 15 23 42;
   /* #0F172A - Azul muito escuro (não aparenta marrom) */
 
-  /* Revolutionary Semantic Colors */
-  --background: 255 255 255;
-  --foreground: 15 23 42;
-  --primary: 0 109 255;
-  /* Revolutionary Sapphire */
-  --primary-foreground: 255 255 255;
-  --secondary: 0 212 148;
-  /* Revolutionary Emerald */
-  --secondary-foreground: 255 255 255;
-  --accent: 3 105 161;
-  /* Revolutionary Ocean */
-  --accent-foreground: 255 255 255;
-  --muted: 248 250 252;
-  /* Revolutionary Platinum Light */
-  --muted-foreground: 51 65 85;
+  /* Revolutionary Semantic Colors — HSL format (shadcn standard).
+   * BUG FIX 2026-05-14: Estes valores estavam em formato RGB sem unidades
+   * (e.g. `--border: 226 232 240`), mas o `* { border-color: hsl(var(--border)) }`
+   * abaixo interpretava como HSL → resultado: bordas amarelas em todo o site.
+   * Convertido pra HSL real conforme spec do shadcn/ui. */
+  --background: 0 0% 100%;                /* #FFFFFF */
+  --foreground: 222 47% 11%;              /* #0F172A — slate-900 */
+  --primary: 214 100% 50%;                /* #006DFF — DPO2U Sapphire */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 162 100% 42%;              /* #00D494 — DPO2U Emerald */
+  --secondary-foreground: 0 0% 100%;
+  --accent: 201 96% 32%;                  /* #0369A1 — DPO2U Ocean */
+  --accent-foreground: 0 0% 100%;
+  --muted: 210 40% 98%;                   /* #F8FAFC — slate-50 */
+  --muted-foreground: 215 16% 47%;        /* #64748B — slate-500 */
 
   /* Borders and rings */
-  --border: 226 232 240;
-  --input: 226 232 240;
-  --ring: 0 109 255;
-  /* Revolutionary Sapphire for focus rings */
+  --border: 214 32% 91%;                  /* #E2E8F0 — slate-200 */
+  --input: 214 32% 91%;
+  --ring: 214 100% 50%;                   /* DPO2U Sapphire */
 
   /* Radius */
   --radius: 0.5rem;
 }
 
 .dark {
-  --background: 15 23 42;
-  /* slate-900 */
-  --foreground: 248 250 252;
-  /* slate-50 */
-  --primary: 0 109 255;
-  /* Revolutionary Sapphire */
-  --primary-foreground: 255 255 255;
-  --secondary: 51 65 85;
-  /* slate-700 */
-  --secondary-foreground: 248 250 252;
-  /* slate-50 */
-  --accent: 51 65 85;
-  /* slate-700 */
-  --accent-foreground: 248 250 252;
-  /* slate-50 */
-  --muted: 51 65 85;
-  /* slate-700 */
-  --muted-foreground: 148 163 184;
-  /* slate-400 */
+  --background: 222 47% 11%;              /* #0F172A — slate-900 */
+  --foreground: 210 40% 98%;              /* #F8FAFC — slate-50 */
+  --primary: 214 100% 50%;                /* DPO2U Sapphire */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 215 25% 27%;               /* #334155 — slate-700 */
+  --secondary-foreground: 210 40% 98%;
+  --accent: 215 25% 27%;                  /* slate-700 */
+  --accent-foreground: 210 40% 98%;
+  --muted: 215 25% 27%;                   /* slate-700 */
+  --muted-foreground: 215 20% 65%;        /* #94A3B8 — slate-400 */
 
   /* Borders and rings for dark mode */
-  --border: 51 65 85;
-  /* slate-700 */
-  --input: 51 65 85;
-  /* slate-700 */
-  --ring: 0 109 255;
-  /* Revolutionary Sapphire */
+  --border: 215 25% 27%;                  /* slate-700 */
+  --input: 215 25% 27%;
+  --ring: 214 100% 50%;                   /* DPO2U Sapphire */
 }
 
 /* Base styles */
