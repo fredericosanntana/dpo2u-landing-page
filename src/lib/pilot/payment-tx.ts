@@ -4,6 +4,8 @@
 // `@x402/stellar` exact/client contra o facilitator real (ver shake-down). Aqui
 // montamos o PaymentPayload OFICIAL @x402 a partir de um XDR já assinado.
 
+import { x402Version as X402_VERSION } from '@x402/core'; // versão atual do protocolo (2)
+
 export interface X402Challenge {
   readonly scheme: string;
   readonly network: string;
@@ -41,7 +43,7 @@ export function encodePaymentHeader(args: {
   signedXdr: string;
 }): string {
   const payload = {
-    x402Version: 1,
+    x402Version: X402_VERSION,
     accepted: {
       scheme: args.challenge.scheme,
       network: args.challenge.network,
@@ -83,6 +85,15 @@ export function encodeFullPayload(full: unknown): string {
   return typeof btoa === 'function'
     ? btoa(unescape(encodeURIComponent(json)))
     : Buffer.from(json, 'utf8').toString('base64');
+}
+
+/** Valor humano p/ exibir. O protocolo carrega `amount` em unidades mínimas (USDC 7 casas);
+ * o servidor inclui `extra.priceDecimal` (ex.: "0.10"). Cai pra conversão atômica→decimal. */
+export function humanAmount(c: X402Challenge): string {
+  const pd = c.extra?.priceDecimal;
+  if (pd != null && String(pd).length > 0) return String(pd);
+  const n = Number(c.amount);
+  return Number.isFinite(n) ? (n / 1e7).toString() : c.amount;
 }
 
 /** Passphrase + RPC Soroban por rede CAIP2 (pubnet/testnet). */

@@ -10,12 +10,14 @@ import { useState } from 'react';
 import { Loader2, CreditCard, Wallet, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ExactStellarScheme } from '@x402/stellar/exact/client';
+import { x402Version as X402_VERSION } from '@x402/core';
 import { connect as freighterConnect, getStatus } from '@/lib/pilot/freighter';
 import { freighterSigner } from '@/lib/pilot/freighter-signer';
 import {
   toOfficialRequirement,
   encodeFullPayload,
   stellarNet,
+  humanAmount,
   type X402Challenge,
 } from '@/lib/pilot/payment-tx';
 import {
@@ -60,8 +62,8 @@ export function PaymentModal({ challenge, input, onPaid, onCancel }: PaymentModa
       const signer = await freighterSigner(payer, net.passphrase);
       const scheme = new ExactStellarScheme(signer, { url: net.rpcUrl });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const partial = await scheme.createPaymentPayload(1, requirement as any);
-      const header = encodeFullPayload({ x402Version: 1, accepted: requirement, payload: partial.payload });
+      const partial = await scheme.createPaymentPayload(X402_VERSION, requirement as any);
+      const header = encodeFullPayload({ x402Version: X402_VERSION, accepted: requirement, payload: partial.payload });
       const result = await submitAttestationWithPayment(input, header);
       onPaid(result);
     } catch (err) {
@@ -83,7 +85,7 @@ export function PaymentModal({ challenge, input, onPaid, onCancel }: PaymentModa
         </div>
 
         <dl className="grid grid-cols-2 gap-2 text-sm">
-          <div><dt className="text-xs text-dpo2u-ink/60">Valor</dt><dd className="text-dpo2u-ink">{challenge.amount} USDC</dd></div>
+          <div><dt className="text-xs text-dpo2u-ink/60">Valor</dt><dd className="text-dpo2u-ink">{humanAmount(challenge)} USDC</dd></div>
           <div><dt className="text-xs text-dpo2u-ink/60">Network</dt><dd className="text-dpo2u-ink">{challenge.network}</dd></div>
           <div className="col-span-2"><dt className="text-xs text-dpo2u-ink/60">Destinatário</dt><dd className="font-mono text-xs break-all text-dpo2u-ink">{challenge.payTo}</dd></div>
           <div className="col-span-2"><dt className="text-xs text-dpo2u-ink/60">Asset (USDC SAC)</dt><dd className="font-mono text-xs break-all text-dpo2u-ink">{challenge.asset}</dd></div>
@@ -97,7 +99,7 @@ export function PaymentModal({ challenge, input, onPaid, onCancel }: PaymentModa
           <>
             <p className="text-xs text-dpo2u-ink/60">Pagador: <span className="font-mono">{payer.slice(0, 10)}…</span></p>
             <Button onClick={onPay} disabled={busy} className="w-full bg-dpo2u-gold text-dpo2u-ink hover:bg-dpo2u-gold/90">
-              {busy ? <><Loader2 className="h-4 w-4 animate-spin mr-2" /> Pagando…</> : <>Pagar {challenge.amount} USDC & reenviar</>}
+              {busy ? <><Loader2 className="h-4 w-4 animate-spin mr-2" /> Pagando…</> : <>Pagar {humanAmount(challenge)} USDC & reenviar</>}
             </Button>
           </>
         )}
