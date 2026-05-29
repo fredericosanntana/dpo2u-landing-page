@@ -60,16 +60,34 @@ export function encodePaymentHeader(args: {
     : Buffer.from(json, 'utf8').toString('base64');
 }
 
-/**
- * Seam de go-live: dado o desafio + uma função que constrói+assina o pagamento USDC
- * (via @x402/stellar exact/client + Freighter), devolve o header X-PAYMENT pronto.
- * `signPayment` recebe o challenge e o payer e retorna o XDR assinado.
- */
-export async function buildX402PaymentHeader(args: {
-  challenge: X402Challenge;
-  payer: string;
-  signPayment: (challenge: X402Challenge, payer: string) => Promise<string>;
-}): Promise<string> {
-  const signedXdr = await args.signPayment(args.challenge, args.payer);
-  return encodePaymentHeader({ challenge: args.challenge, payer: args.payer, signedXdr });
+/** PaymentRequirements oficial @x402 reconstruído a partir do desafio (p/ o exact/client). */
+export interface OfficialPaymentRequirements {
+  readonly scheme: string;
+  readonly network: string;
+  readonly asset: string;
+  readonly amount: string;
+  readonly payTo: string;
+  readonly maxTimeoutSeconds: number;
+  readonly extra: Record<string, unknown>;
+}
+export function toOfficialRequirement(c: X402Challenge): OfficialPaymentRequirements {
+  return {
+    scheme: c.scheme, network: c.network, asset: c.asset, amount: c.amount,
+    payTo: c.payTo, maxTimeoutSeconds: c.maxTimeoutSeconds, extra: c.extra ?? {},
+  };
+}
+
+/** Encode (base64) de um PaymentPayload oficial completo → header X-PAYMENT. */
+export function encodeFullPayload(full: unknown): string {
+  const json = JSON.stringify(full);
+  return typeof btoa === 'function'
+    ? btoa(unescape(encodeURIComponent(json)))
+    : Buffer.from(json, 'utf8').toString('base64');
+}
+
+/** Passphrase + RPC Soroban por rede CAIP2 (pubnet/testnet). */
+export function stellarNet(network: string): { passphrase: string; rpcUrl: string } {
+  return network.includes('testnet')
+    ? { passphrase: 'Test SDF Network ; September 2015', rpcUrl: 'https://soroban-testnet.stellar.org' }
+    : { passphrase: 'Public Global Stellar Network ; September 2015', rpcUrl: 'https://soroban-mainnet.stellar.org' };
 }

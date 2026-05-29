@@ -9,8 +9,15 @@
 import { useState } from 'react';
 import { Loader2, CreditCard, Wallet, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ExactStellarScheme } from '@x402/stellar/exact/client';
 import { connect as freighterConnect, getStatus } from '@/lib/pilot/freighter';
-import { buildX402PaymentHeader, type X402Challenge } from '@/lib/pilot/payment-tx';
+import { freighterSigner } from '@/lib/pilot/freighter-signer';
+import {
+  toOfficialRequirement,
+  encodeFullPayload,
+  stellarNet,
+  type X402Challenge,
+} from '@/lib/pilot/payment-tx';
 import {
   submitAttestationWithPayment,
   type SubmitAttestationInput,
@@ -22,18 +29,9 @@ export interface PaymentModalProps {
   readonly input: SubmitAttestationInput;
   readonly onPaid: (result: SubmitResult) => void;
   readonly onCancel: () => void;
-  /** Seam de go-live: constrói+assina o pagamento USDC (XDR) via @x402/stellar + Freighter. */
-  readonly signPayment?: (challenge: X402Challenge, payer: string) => Promise<string>;
 }
 
-const goLiveSeam = async (_c: X402Challenge, payer: string): Promise<string> => {
-  throw new Error(
-    `Construção do pagamento USDC x402 entra no go-live (integração @x402/stellar exact/client + ` +
-      `facilitator Built-on-Stellar). Wallet conectada: ${payer.slice(0, 8)}…`,
-  );
-};
-
-export function PaymentModal({ challenge, input, onPaid, onCancel, signPayment }: PaymentModalProps) {
+export function PaymentModal({ challenge, input, onPaid, onCancel }: PaymentModalProps) {
   const [payer, setPayer] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -55,12 +53,16 @@ export function PaymentModal({ challenge, input, onPaid, onCancel, signPayment }
     setBusy(true);
     setError(null);
     try {
-      const xPayment = await buildX402PaymentHeader({
-        challenge,
-        payer,
-        signPayment: signPayment ?? goLiveSeam,
-      });
-      const result = await submitAttestationWithPayment(input, xPayment);
+      // Constrói+assina o pagamento USDC via SDK oficial @x402/stellar + Freighter,
+      // monta o PaymentPayload oficial e reenvia com X-PAYMENT.
+      const net = stellarNet(challenge.network);
+      const requirement = toOfficialRequirement(challenge);
+      const signer = await freighterSigner(payer, net.passphrase);
+      const scheme = new ExactStellarScheme(signer, { url: net.rpcUrl });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const partial = await scheme.createPaymentPayload(1, requirement as any);
+      const header = encodeFullPayload({ x402Version: 1, accepted: requirement, payload: partial.payload });
+      const result = await submitAttestationWithPayment(input, header);
       onPaid(result);
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
