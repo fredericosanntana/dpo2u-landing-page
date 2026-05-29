@@ -38,7 +38,7 @@ function getServer(contract: ContractMeta): rpc.Server {
   return new rpc.Server(contract.rpc_url);
 }
 
-async function buildInvocation(args: {
+export async function buildInvocation(args: {
   contract: ContractMeta;
   signer: string;
   method: string;
@@ -93,7 +93,7 @@ export async function simulate(args: {
   }
 }
 
-async function submitSigned(args: {
+export async function submitSigned(args: {
   contract: ContractMeta;
   signedXdr: string;
 }): Promise<SubmissionResult> {

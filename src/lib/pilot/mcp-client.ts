@@ -86,7 +86,9 @@ export interface PaymentRequiredResponse {
 
 export type SubmitResult =
   | { readonly kind: 'accepted'; readonly attempt_id: string; readonly status: AttestationAttempt['status']; readonly idempotent_replay?: boolean }
-  | { readonly kind: 'payment_required'; readonly challenge: PaymentRequiredResponse };
+  // `raw` = corpo 402 (formato x402 oficial: { x402Version, accepts:[...] }). Use
+  // `parseX402Challenge(raw)` de payment-tx.ts. `challenge` mantido p/ back-compat.
+  | { readonly kind: 'payment_required'; readonly raw: unknown; readonly challenge?: PaymentRequiredResponse };
 
 export class McpError extends Error {
   constructor(
@@ -192,14 +194,20 @@ export async function probeApiKey(args: { apiKey: string; mcpBaseUrl: string }):
   }
 }
 
-export async function submitAttestation(input: SubmitAttestationInput): Promise<SubmitResult> {
+async function doSubmit(input: SubmitAttestationInput, extraHeaders?: Record<string, string>): Promise<SubmitResult> {
   const res = await authedFetch('/api/v1/attestation/submit', {
     method: 'POST',
     body: JSON.stringify(input),
+    headers: extraHeaders,
   });
   if (res.status === 402) {
-    const body = await parseJson<PaymentRequiredResponse>(res);
-    return { kind: 'payment_required', challenge: body };
+    const raw = await parseJson<unknown>(res);
+    const legacy = raw as Partial<PaymentRequiredResponse>;
+    return {
+      kind: 'payment_required',
+      raw,
+      challenge: legacy && legacy.payment_required ? (legacy as PaymentRequiredResponse) : undefined,
+    };
   }
   if (!res.ok) {
     const body = await res.text().catch(() => '');
@@ -212,6 +220,18 @@ export async function submitAttestation(input: SubmitAttestationInput): Promise<
     status: payload.status,
     idempotent_replay: payload.idempotent_replay,
   };
+}
+
+export async function submitAttestation(input: SubmitAttestationInput): Promise<SubmitResult> {
+  return doSubmit(input);
+}
+
+/** Retry da submissão com o header `X-PAYMENT` (x402) já assinado pelo Freighter. */
+export async function submitAttestationWithPayment(
+  input: SubmitAttestationInput,
+  xPaymentHeaderB64: string,
+): Promise<SubmitResult> {
+  return doSubmit(input, { 'x-payment': xPaymentHeaderB64 });
 }
 
 export async function getAttestation(attemptId: string): Promise<AttestationAttempt> {

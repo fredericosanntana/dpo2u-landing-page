@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Loader2, Send, AlertCircle, CheckCircle2, ExternalLink, CreditCard, Sparkles } from 'lucide-react';
+import { Loader2, Send, AlertCircle, CheckCircle2, ExternalLink, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,8 +13,10 @@ import {
   McpError,
   type AttestationAttempt,
   type SubmitResult,
-  type PaymentRequiredResponse,
+  type SubmitAttestationInput,
 } from '@/lib/pilot/mcp-client';
+import { parseX402Challenge, type X402Challenge } from '@/lib/pilot/payment-tx';
+import { PaymentModal } from './PaymentModal';
 import { stellarExpertUrl } from '@/lib/pilot/stellar';
 
 const schema = z.object({
@@ -53,7 +55,7 @@ type ResultState =
   | { readonly kind: 'pending'; readonly attempt: AttestationAttempt }
   | { readonly kind: 'completed'; readonly attempt: AttestationAttempt }
   | { readonly kind: 'failed'; readonly attempt?: AttestationAttempt; readonly errorMessage?: string }
-  | { readonly kind: 'payment_required'; readonly challenge: PaymentRequiredResponse }
+  | { readonly kind: 'payment_required'; readonly challenge: X402Challenge; readonly input: SubmitAttestationInput }
   | { readonly kind: 'error'; readonly message: string };
 
 export function SubmitAttestationForm() {
@@ -92,14 +94,15 @@ export function SubmitAttestationForm() {
       });
       return;
     }
+    const submitInput: SubmitAttestationInput = {
+      use_case_id: data.use_case_id,
+      request_id: data.request_id,
+      evidence,
+      callback_url: data.callback_url || undefined,
+    };
     let result: SubmitResult;
     try {
-      result = await submitAttestation({
-        use_case_id: data.use_case_id,
-        request_id: data.request_id,
-        evidence,
-        callback_url: data.callback_url || undefined,
-      });
+      result = await submitAttestation(submitInput);
     } catch (err) {
       const e = err as McpError;
       setState({
@@ -109,14 +112,24 @@ export function SubmitAttestationForm() {
       return;
     }
     if (result.kind === 'payment_required') {
-      setState({ kind: 'payment_required', challenge: result.challenge });
+      const ch = parseX402Challenge(result.raw);
+      setState(ch
+        ? { kind: 'payment_required', challenge: ch, input: submitInput }
+        : { kind: 'error', message: '402 recebido sem requisitos x402 reconhecíveis.' });
       return;
     }
-    // Accepted — poll status until terminal.
+    continueWithAccepted(result, submitInput);
+  };
+
+  // Poll status até terminal (reusado pelo caminho normal e pós-pagamento x402).
+  const continueWithAccepted = (
+    result: Extract<SubmitResult, { kind: 'accepted' }>,
+    input: SubmitAttestationInput,
+  ) => {
     const attemptShim: AttestationAttempt = {
       attempt_id: result.attempt_id,
-      request_id: data.request_id,
-      use_case_id: data.use_case_id,
+      request_id: input.request_id,
+      use_case_id: input.use_case_id,
       status: result.status,
       created_at: Date.now(),
       updated_at: Date.now(),
@@ -125,20 +138,11 @@ export function SubmitAttestationForm() {
     pollAttestation(
       result.attempt_id,
       (attempt) => {
-        if (attempt.status === 'COMPLETED') {
-          setState({ kind: 'completed', attempt });
-        } else if (attempt.status === 'FAILED') {
-          setState({ kind: 'failed', attempt, errorMessage: attempt.error?.message });
-        } else {
-          setState({ kind: 'pending', attempt });
-        }
+        if (attempt.status === 'COMPLETED') setState({ kind: 'completed', attempt });
+        else if (attempt.status === 'FAILED') setState({ kind: 'failed', attempt, errorMessage: attempt.error?.message });
+        else setState({ kind: 'pending', attempt });
       },
-      (err) => {
-        setState({
-          kind: 'failed',
-          errorMessage: `Polling falhou: ${err.message}`,
-        });
-      },
+      (err) => setState({ kind: 'failed', errorMessage: `Polling falhou: ${err.message}` }),
       { intervalMs: 3_000, maxAttempts: 40 },
     );
   };
@@ -236,27 +240,15 @@ export function SubmitAttestationForm() {
       )}
 
       {state.kind === 'payment_required' && (
-        <div className="rounded-lg border border-dpo2u-gold/30 bg-dpo2u-gold/5 p-5 space-y-3">
-          <div className="flex items-start gap-2">
-            <CreditCard className="h-5 w-5 text-dpo2u-gold shrink-0 mt-0.5" />
-            <div>
-              <p className="font-display text-lg text-dpo2u-ink">Pagamento requerido (x402)</p>
-              <p className="text-sm text-dpo2u-ink/70 font-body mt-1">
-                Este use case exige pagamento on-chain antes do registro. Faça o pagamento via Stellar (cliente x402) e
-                reenvie a request.
-              </p>
-            </div>
-          </div>
-          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-            <Detail label="Valor" value={state.challenge.amount_decimal ?? state.challenge.amount_atomic} />
-            <Detail label="Asset" value={state.challenge.asset_address} mono />
-            <Detail label="Destinatário" value={state.challenge.recipient} mono />
-            <Detail label="Network" value={state.challenge.network} />
-          </dl>
-          {state.challenge.description && (
-            <p className="text-xs text-dpo2u-ink/60 italic">{state.challenge.description}</p>
-          )}
-        </div>
+        <PaymentModal
+          challenge={state.challenge}
+          input={state.input}
+          onCancel={() => setState({ kind: 'idle' })}
+          onPaid={(result) => {
+            if (result.kind === 'accepted') continueWithAccepted(result, state.input);
+            else setState({ kind: 'error', message: 'Pagamento não liberou o recurso (402 persistiu).' });
+          }}
+        />
       )}
 
       {state.kind === 'pending' && (
