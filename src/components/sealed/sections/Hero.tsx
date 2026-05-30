@@ -24,22 +24,35 @@ export default function Hero() {
             }}
             className="text-[64px] sm:text-[88px] lg:text-[132px]"
           >
-            Compliance,<br />
-            <span style={{ fontStyle: 'italic' }}>sealed</span>
+            Compliance <span style={{ fontStyle: 'italic' }}>as</span><br />
+            a protocol
             <span style={{ color: PALETTE.terracotta }}>.</span>
           </h1>
           <div
             style={{
-              marginTop: 32,
+              marginTop: 18,
+              fontFamily: FONTS.display,
+              fontStyle: 'italic',
+              fontSize: 24,
+              lineHeight: 1.25,
+              color: PALETTE.inkSoft,
+              maxWidth: 580,
+            }}
+          >
+            The HTTPS of compliance, for Web3.
+          </div>
+          <div
+            style={{
+              marginTop: 28,
               maxWidth: 580,
               fontSize: 19.5,
               lineHeight: 1.55,
               color: PALETTE.inkSoft,
             }}
           >
-            Regulatory compliance as on-chain primitives. For every Solana project that processes data, issues tokens, or runs AI — 17 jurisdictions, 70 countries, 6 AI governance frameworks. From DPIA generation to MICA proof-of-reserve.
+            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot &amp; Midnight. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve.
             <br /><br />
-            <b style={{ color: PALETTE.ink }}>Score stays private. Proof is public.</b>
+            <b style={{ color: PALETTE.ink }}>The only protocol that seals both regimes</b> — data privacy and AI governance. Score stays private. Proof is public.
             <br />
             Without a lawyer. Without a dashboard your buyer can see.
           </div>
@@ -71,7 +84,7 @@ export default function Hero() {
             {[
               ['1.94s', 'per attestation'],
               ['$0.0002', 'per seal'],
-              ['15', 'jurisdictions'],
+              ['24', 'jurisdictions'],
               ['5 yrs', 'since 2021'],
             ].map(([n, l], i) => (
               <div
@@ -109,7 +122,7 @@ export default function Hero() {
               zIndex: 2,
             }}
           >
-            <Stamp rotate={8}>Live · Devnet</Stamp>
+            <Stamp rotate={8}>Live · Testnet</Stamp>
           </div>
           <WaxSeal size={240} style={{ margin: '0 auto 24px' }} />
           <Cancellation width={400} lines={6} style={{ margin: '0 auto', display: 'block' }} />

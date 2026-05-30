@@ -40,6 +40,12 @@ export const JURISDICTIONS = [
   { code: 'LFPDPPP',  region: 'Mexico',         lat: '+19.4° N' },
   { code: 'Decree-13',region: 'Vietnam',        lat: '+21.0° N' },
   { code: 'PDPA-MY',  region: 'Malaysia',       lat: '+3.1° N'  },
+  { code: 'MICAR-CASP',region: 'EU (Title V)',  lat: '+50.8° N' },
+  { code: 'DPA-KE',   region: 'Kenya',          lat: '−1.3° S'  },
+  { code: 'DPA-GH',   region: 'Ghana',          lat: '+5.6° N'  },
+  { code: 'Law-1581', region: 'Colombia',       lat: '+4.7° N'  },
+  { code: 'DPA-TZ',   region: 'Tanzania',       lat: '−6.8° S'  },
+  { code: 'DPL-UG',   region: 'Uganda',         lat: '+0.3° N'  },
 ];
 
 // ─── Wax Seal ──────────────────────────────────────────────────
@@ -108,7 +114,7 @@ export function WaxSeal({
           fontWeight="600"
         >
           <textPath href={`#waxArc-${size}`} startOffset="2%">
-            {`${label} · ON SOLANA · COMPLIANCE SEALED · `}
+            {`${label} · COMPLIANCE SEALED · ATTESTED ON-CHAIN · `}
           </textPath>
         </text>
         <ellipse cx="46" cy="42" rx="14" ry="6" fill="rgba(255,255,255,.22)" />
@@ -310,7 +316,7 @@ export function Attestation({ style }: { style?: React.CSSProperties }) {
         <div style={{
           fontFamily: FONTS.display, fontSize: 11, letterSpacing: '.3em',
           color: PALETTE.concrete,
-        }}>COMPLIANCE · SEALED · ON SOLANA</div>
+        }}>COMPLIANCE · SEALED · ON-CHAIN</div>
         <div style={{
           fontFamily: FONTS.mono, fontSize: 10, color: PALETTE.verdigris,
         }}>✓ VERIFIED</div>

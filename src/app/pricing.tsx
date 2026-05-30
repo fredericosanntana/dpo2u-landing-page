@@ -23,86 +23,87 @@ type Tier = {
 
 const TIERS: Tier[] = [
   {
-    name: 'Free',
-    price: '$0',
-    cadence: 'forever',
-    pitch: 'For builders evaluating compliance on Solana.',
+    name: 'Open Source',
+    price: 'Free SDK',
+    cadence: '+ $0.0002 / attestation',
+    pitch: 'Run it yourself. You own the stack.',
     features: [
-      '3 DPIA generations / month',
-      'Single jurisdiction (your pick)',
-      'KB read access — 17 jurisdictions + 6 AI gov frameworks',
-      'No on-chain anchor (off-chain only)',
-      'Community Discord support',
+      'Full open-source SDK (npm + cargo)',
+      'Run the compliance primitives in your own CI/CD',
+      'You hold the keys — no platform in the loop',
+      'All chains (Stellar live · others roadmap)',
+      '24 jurisdictions + 8 AI-governance frameworks',
+      'Selective disclosure (ZK) — score private, proof public',
     ],
-    cta: { label: 'Start free →', to: '/alpha-signup' },
+    cta: { label: 'Read the docs →', to: '/research' },
   },
   {
-    name: 'Builder',
-    price: '$29',
-    cadence: '/ month',
-    pitch: 'For active Solana builders shipping to production.',
+    name: 'Managed Protocol',
+    price: 'In calibration',
+    cadence: 'platform fee + $0.0002 / attestation',
+    pitch: 'We run it. The result, not the integration.',
     features: [
-      '50 DPIA / audit / policy generations / month',
-      'Single jurisdiction (switch any time)',
-      'On-chain anchor (Solana devnet today, mainnet phase 2)',
-      'IPFS pinning (Lighthouse OR Shadow Drive)',
-      'Email support, ≤ 48h response',
-      'CSV export of audit history',
+      'Connect your repo — we execute the pipeline',
+      'Automatic on-chain anchoring of every seal',
+      'Legal-source manifest monitoring (24 jurisdictions)',
+      'Dashboard + audit-evidence (dossier) export',
+      'Email support',
+      'Platform pricing in calibration — talk to us',
     ],
-    cta: { label: 'Start pilot →', to: '/alpha-signup' },
+    cta: { label: 'Connect repo →', to: '/app/activate' },
     highlight: true,
   },
   {
-    name: 'Team',
-    price: '$199',
-    cadence: '/ month',
-    pitch: 'For protocols + stablecoin issuers + DAOs at scale.',
+    name: 'DPO-as-a-Service',
+    price: 'Custom retainer',
+    cadence: '+ per-attestation',
+    pitch: "We're your DPO. A name on the line.",
     features: [
-      'Unlimited generations',
-      'All 17 jurisdictions + 6 AI gov frameworks',
-      'Multi-jurisdiction cross-check (LGPD vs GDPR vs DPDP, etc.)',
-      'MICA proof-of-reserve attestation (ART vault)',
-      'White-label outputs (DPIA, audit reports)',
-      'Priority support — Slack channel + 24h SLA',
-      'Self-host option (Docker bundle)',
+      'Everything in Managed',
+      'Named, accountable DPO of record',
+      'Audit defense + regulator interface',
+      'Quarterly compliance review',
+      'Priority SLA',
     ],
-    cta: { label: 'Talk to us →', to: '/alpha-signup' },
+    cta: { label: 'Book a consult →', to: '/alpha-signup' },
   },
 ];
 
 const COMPARISON_ROWS = [
-  ['Generations / month', '3', '50', 'Unlimited'],
-  ['Jurisdictions', '1', '1 (switchable)', 'All 17'],
-  ['AI gov frameworks', '0', '0', 'All 6'],
-  ['On-chain anchor', '—', 'Devnet', 'Devnet + Mainnet (phase 2)'],
-  ['IPFS pinning (Lighthouse / Shadow Drive)', '—', '✓', '✓'],
-  ['Multi-jurisdiction cross-check', '—', '—', '✓'],
-  ['MICA proof-of-reserve', '—', '—', '✓ (mainnet phase 2)'],
-  ['White-label', '—', '—', '✓'],
-  ['Self-host (Docker)', '—', '—', '✓'],
-  ['Support', 'Community', 'Email 48h', 'Slack 24h'],
+  ['Who runs the primitives', 'You', 'DPO2U', 'DPO2U'],
+  ['On-chain seal', '$0.0002 / attestation', '$0.0002 / attestation', '$0.0002 / attestation'],
+  ['Platform fee', '—', 'In calibration', 'Custom retainer'],
+  ['Jurisdictions', 'All 24', 'All 24', 'All 24'],
+  ['AI-governance frameworks', 'All 8', 'All 8', 'All 8'],
+  ['Chains', 'All (Stellar live)', 'All (Stellar live)', 'All (Stellar live)'],
+  ['Selective disclosure (ZK)', '✓', '✓', '✓'],
+  ['Managed pipeline + dashboard', '—', '✓', '✓'],
+  ['Audit-evidence export (dossier)', 'self-serve', '✓', '✓'],
+  ['Named accountable DPO', '—', '—', '✓'],
+  ['Audit defense + regulator interface', '—', '—', '✓'],
+  ['Support', 'Community', 'Email', 'Priority SLA'],
 ];
 
 const FAQ = [
   {
-    q: 'É grátis pra sempre?',
-    a: 'O tier Free é grátis indefinidamente, com limites (3 generations/month, 1 jurisdição). Builder e Team são pagos mensalmente.',
+    q: 'O que exatamente eu pago?',
+    a: 'A unidade de valor — e de cobrança — é a atestação. O selo on-chain custa $0.0002 (o custo de ancorar uma atestação). No tier Open Source você roda o SDK e paga só o selo no momento de ancorar. Managed e DPO-aaS adicionam uma camada de serviço (executar o pipeline / DPO responsável) cujo preço está em calibração.',
   },
   {
-    q: 'Posso self-host o stack inteiro?',
-    a: 'Sim — Tier Team inclui um Docker bundle com mcp-server + Solana programs + KBs. Self-host = $199/month flat, sem caps de uso.',
+    q: 'O SDK é mesmo grátis?',
+    a: 'Sim. O SDK open-source é gratuito (npm + cargo). Você só paga o selo on-chain de $0.0002 quando ancora uma atestação. Sem mensalidade no tier OSS.',
   },
   {
-    q: 'Quando o anchor vai pra mainnet?',
-    a: 'Devnet hoje, mainnet em fase 2 (após Squads multisig + external audit). Phase 1 priorities: MICAR ART vault + compliance_registry. ETA: Q3 2026.',
+    q: 'Por que o preço do Managed/DPO está "em calibração"?',
+    a: 'Estamos validando disposição-a-pagar com clientes-alvo antes de fixar o número público. Em vez de publicar um preço que vamos mudar, conversamos caso a caso. Fale conosco via alpha signup.',
   },
   {
-    q: 'Como funciona o billing pra agora?',
-    a: 'Stripe live em fase 2. Por enquanto: pilot pricing via /alpha-signup → conversa com DPO2U → invoice manual (Wise / PIX / bank transfer). Pilots de 6 meses com discount possível.',
+    q: 'Qual chain está no ar?',
+    a: 'Stellar é a chain live (testnet validada on-chain; mainnet em rollout faseado). Solana, EVM, Polkadot e Midnight estão no roadmap — marcadas como tal, sem alegar live.',
   },
   {
-    q: 'Posso white-label os outputs?',
-    a: 'Tier Team inclui white-label (sua marca, seu domínio). Builder mantém branding DPO2U mas pode editar livremente o markdown gerado.',
+    q: 'Funciona em quantas jurisdições?',
+    a: '24 jurisdições + 8 frameworks de governança de IA, no mesmo stack. Cross-check multi-jurisdição (LGPD vs GDPR vs DPDP, etc.) incluído.',
   },
 ];
 
@@ -110,7 +111,7 @@ export default function PricingPage() {
   usePageHead({
     title: 'Pricing — DPO2U',
     description:
-      'Pricing público pra compliance on-chain — Free, Builder ($29/mo), Team ($199/mo). 17 jurisdictions, 6 AI gov frameworks. Stripe billing live em fase 2; pilots manuais via /alpha-signup hoje.',
+      'Open-core ladder para compliance on-chain — Open Source (SDK grátis + $0.0002/attestation), Managed Protocol e DPO-as-a-Service. A atestação é a unidade de cobrança. 24 jurisdições, 8 frameworks de IA. Preço Managed/DPO em calibração — fale conosco.',
     path: '/pricing',
   });
 
@@ -128,13 +129,13 @@ export default function PricingPage() {
           >
             Compliance, priced honestly.
           </h1>
-          <p className="mt-6 max-w-[60ch] text-[17px] md:text-[19px] text-dpo2u-ink/75">
-            Three tiers. No usage-based surprise bills. No "enterprise — contact sales"
-            wall on tier two. Stripe billing live em fase 2; pilot pricing manual via
-            alpha signup hoje — for 6-month engagements typically.
+          <p className="mt-6 max-w-[62ch] text-[17px] md:text-[19px] text-dpo2u-ink/75">
+            The attestation is the unit of value — and the unit of billing. Three ways to
+            seal compliance, defined by who runs the primitives and who stands behind the
+            result: run it yourself, we run it, or we become your accountable DPO.
           </p>
-          <p className="mt-3 max-w-[60ch] font-mono text-[12px] uppercase tracking-[0.14em] text-dpo2u-terracotta">
-            Phase 1 — pilot pricing. Stripe self-service rolls out Q3 2026.
+          <p className="mt-3 max-w-[62ch] font-mono text-[12px] uppercase tracking-[0.14em] text-dpo2u-terracotta">
+            On-chain seal — $0.0002 / attestation. Managed &amp; DPO pricing in calibration — talk to us.
           </p>
         </header>
 
@@ -268,18 +269,18 @@ export default function PricingPage() {
               className="text-[22px] md:text-[26px] font-medium mb-2"
               style={{ fontFamily: FONTS.display }}
             >
-              Try it before buying.
+              Open the app.
             </h3>
             <p className="text-[15px] text-dpo2u-ink/70">
-              Generate a DPIA in 90 seconds. No signup, no card.
+              Connect your wallet, seal an attestation, share a public proof.
             </p>
           </div>
           <Link
-            to="/demo"
+            to="/app"
             className="inline-block py-3 px-7 font-mono text-[13px] uppercase tracking-[0.14em] transition-colors"
             style={{ background: PALETTE.ink, color: PALETTE.paper }}
           >
-            Try the audit →
+            Open the app →
           </Link>
         </section>
       </div>

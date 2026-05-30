@@ -93,6 +93,13 @@ app.use(express.json({ limit: '2mb' }));
 app.get('/mcp', (req, res) => res.redirect(301, '/#mcp'));
 app.head('/mcp', (req, res) => res.redirect(301, '/#mcp'));
 
+// Pre-app intake retired (2026-05-29) — superseded by the functional app.
+// 301 (not a soft-404) preserves link equity from inbound links / SEO history.
+app.get('/register-dapp', (req, res) => res.redirect(301, '/app/activate'));
+app.head('/register-dapp', (req, res) => res.redirect(301, '/app/activate'));
+app.get('/demo', (req, res) => res.redirect(301, '/login'));
+app.head('/demo', (req, res) => res.redirect(301, '/login'));
+
 // `/downloads` MUST come before `dist/` static — vite copies public/ into
 // dist/ at build time, so without this priority the baked-in dist/downloads/*
 // would shadow the volume-mounted public/downloads/* (which is the live source
@@ -873,6 +880,13 @@ app.use((req, res) => {
     const prerendered = path.join(__dirname, 'dist', safePath, 'index.html');
     if (safePath && safePath !== '/' && fs.existsSync(prerendered)) {
         return res.status(200).sendFile(prerendered);
+    }
+    // Valid client-side SPA routes without a prerendered dir (dynamic params or
+    // app/legal pages) — serve the shell with 200, not a soft-404. /verify is
+    // shareable; /dpa is a linked legal page; /app + /login are the auth'd app.
+    const SPA_OK = ['/verify', '/dpa', '/login', '/app'];
+    if (SPA_OK.some((p) => req.path === p || req.path.startsWith(`${p}/`))) {
+        return res.status(200).sendFile(path.join(__dirname, 'dist', 'index.html'));
     }
     // Unknown path — serve SPA shell with 404 so crawlers de-index correctly.
     // The React app still hydrates and renders NotFoundPage on the client.

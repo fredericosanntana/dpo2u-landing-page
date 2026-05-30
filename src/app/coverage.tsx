@@ -198,6 +198,60 @@ const COVERAGE: JurisdictionCard[] = [
     authority: 'PDPC Malaysia (Personal Data Protection Commission)',
     position: 'First SEA regime com DPO mandatory + data portability · 5 SC-licensed crypto RMOs.',
   },
+  {
+    code: 'KENYA',
+    flag: '🇰🇪',
+    region: 'Kenya · Nairobi',
+    law: 'Data Protection Act 2019 + Regulations 2021',
+    primaryArticle: 's. 25 principles · s. 31 DPIA · s. 43 breach · controller/processor registration (ODPC)',
+    authority: 'ODPC (Office of the Data Protection Commissioner)',
+    position: 'East Africa fintech hub · M-Pesa / crypto on-ramp corridor.',
+  },
+  {
+    code: 'GHANA',
+    flag: '🇬🇭',
+    region: 'Ghana · Accra',
+    law: 'Data Protection Act 2012 (Act 843)',
+    primaryArticle: 's. 17 principles · s. 28 registration · data controller accountability',
+    authority: 'Data Protection Commission (DPC)',
+    position: 'West Africa remittance + agri-fintech rail.',
+  },
+  {
+    code: 'COLOMBIA',
+    flag: '🇨🇴',
+    region: 'Colombia · Bogotá',
+    law: 'Ley 1581 de 2012 + Decreto 1377/2013 (Habeas Data)',
+    primaryArticle: 'Art. 8 derechos del titular · Art. 17 deberes · registro RNBD',
+    authority: 'SIC (Superintendencia de Industria y Comercio)',
+    position: 'LatAm Andina market · cross-mapping com LGPD/LFPDPPP.',
+  },
+  {
+    code: 'TANZANIA',
+    flag: '🇹🇿',
+    region: 'Tanzania · Dodoma',
+    law: 'Personal Data Protection Act 2022 (Act 11/2022) + Regs 2023',
+    primaryArticle: 's. 23 principles · registration of collectors/processors · cross-border safeguards',
+    authority: 'PDPC (Personal Data Protection Commission)',
+    position: 'East Africa expansion · DPA + NDPA/POPIA proxy coverage.',
+  },
+  {
+    code: 'UGANDA',
+    flag: '🇺🇬',
+    region: 'Uganda · Kampala',
+    law: 'Data Protection and Privacy Act 2019 + Regs 2021',
+    primaryArticle: 's. 3 principles · s. 29 security · registration with PDPO',
+    authority: 'PDPO / NITA-U (Personal Data Protection Office)',
+    position: 'East Africa diaspora remittance corridor.',
+  },
+  {
+    code: 'MICAR-CASP',
+    flag: '🇪🇺',
+    region: 'EU · crypto-asset service providers',
+    law: 'Regulation (EU) 2023/1114 — Title V',
+    primaryArticle: 'Art. 60-61 authorization · Art. 68 governance · Art. 75 segregation · Art. 76-79 transparency · Art. 86-92 market abuse',
+    authority: 'National NCAs / ESMA',
+    position: 'CASP authorization layer — custody, exchange, trading-platform, placement (distinct from Title III ART).',
+  },
 ];
 
 export default function CoveragePage() {
@@ -206,9 +260,9 @@ export default function CoveragePage() {
   const targetCode = slugCode ? URL_SLUG_TO_CODE[slugCode] : undefined;
 
   usePageHead({
-    title: 'Coverage — Seventeen jurisdictions, one primitive | DPO2U',
+    title: 'Coverage — Twenty-four jurisdictions, one primitive | DPO2U',
     description:
-      'Visual map of the seventeen regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), and PDPA-MY (Malaysia). Plus the AI Governance vertical (eight frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, UNESCO Recommendation on Ethics of AI, Singapore IMDA Model AI Governance Framework for Agentic AI v1.0, and the L1-L5 AI Governance Stack methodology (Kenney 2026). Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). 15 legal-source manifests anchored on Solana devnet under cross-program seeds::program reference. EMEA + Americas + APAC + LatAm in one composition step.',
+      'Visual map of the twenty-four regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), PDPA-MY (Malaysia), Kenya DPA, Ghana DPA, Colombia Ley 1581, Tanzania PDPA, and Uganda DPPA. Plus the AI Governance vertical (eight frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, UNESCO Recommendation on Ethics of AI, Singapore IMDA Model AI Governance Framework for Agentic AI v1.0, and the L1-L5 AI Governance Stack methodology (Kenney 2026). Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). 15 legal-source manifests anchored on Solana devnet under cross-program seeds::program reference. EMEA + Americas + APAC + LatAm in one composition step.',
     path: params.code ? `/coverage/${slugCode}` : '/coverage',
   });
 
@@ -243,7 +297,7 @@ export default function CoveragePage() {
             margin: 0,
           }}
         >
-          Seventeen jurisdictions.
+          Twenty-four jurisdictions.
           <br />
           <span style={{ fontStyle: 'italic' }}>One primitive layer.</span>
         </h1>
@@ -727,8 +781,8 @@ export default function CoveragePage() {
           >
             packages/mcp-server/src/kb/jurisdictions/
           </code>
-          {' '}— seventeen Zod-validated JSONs (seventeen codes — PDPL aliases UAE), addressable by
-          code or alias (PDPL → UAE, ZA → POPIA, NG → NDPA, US/CA-US → CCPA, CA → PIPEDA, QC → LAW25, JP/JAPAN → APPI).
+          {' '}— twenty-four Zod-validated JSONs, addressable by
+          code or alias (PDPL → UAE, ZA → POPIA, NG → NDPA, US/CA-US → CCPA, CA → PIPEDA, QC → LAW25, JP/JAPAN → APPI, CASP → MiCA Title V).
           Each entry powers <em>compare_jurisdictions</em>,{' '}
           <em>check_compliance</em>, and the on-chain attestation schemas in the
           DPO2U Solana programs.

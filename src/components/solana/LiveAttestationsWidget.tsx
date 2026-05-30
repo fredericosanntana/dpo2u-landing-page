@@ -3,7 +3,7 @@ import { BorshCoder, Idl } from '@coral-xyz/anchor';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Fingerprint, AlertCircle, Loader2 } from 'lucide-react';
-import { getConnection, explorerUrl, truncateAddress } from '@/lib/solana';
+import { getConnection, explorerUrl, truncateAddress, PROGRAM_IDS } from '@/lib/solana';
 import rawIdl from '@/idl/compliance_registry.json';
 
 type Attestation = {
@@ -20,7 +20,9 @@ type Row = {
 };
 
 const idl = rawIdl as unknown as Idl & { address: string };
-const PROGRAM_ADDRESS = idl.address;
+// idl.address é o VERIFIER (5xrWphWX…), não o registry. As contas Attestation vivem no
+// compliance-registry — consultar idl.address devolvia 0 contas (bug pré-existente).
+const PROGRAM_ADDRESS = PROGRAM_IDS.complianceRegistry.toBase58();
 const REFRESH_MS = 30_000;
 
 function toHex(bytes: Uint8Array, len = 8): string {

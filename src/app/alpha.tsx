@@ -125,22 +125,22 @@ export default function AlphaPage() {
                                 color: PALETTE.inkSoft, marginTop: 16,
                             }}
                         >
-                            The cohort onboards through{' '}
+                            Projects onboard through the{' '}
                             <a
-                                href="/register-dapp"
+                                href="/app/activate"
                                 style={{
                                     color: PALETTE.terracotta,
                                     borderBottom: `.5px solid ${PALETTE.terracotta}`,
                                     textDecoration: 'none',
                                 }}
                             >
-                                /register-dapp
+                                app
                             </a>
-                            . First names appear once DPO2U processes their submission.
+                            . First names appear once a pipeline is active.
                         </p>
                         <div className="mt-8">
-                            <Button kind="terracotta" href="/register-dapp">
-                                Submit a dApp →
+                            <Button kind="terracotta" href="/app/activate">
+                                Activate a pipeline →
                             </Button>
                         </div>
                     </div>

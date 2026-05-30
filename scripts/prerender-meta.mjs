@@ -45,6 +45,21 @@ const indexHtml = fs.readFileSync(indexPath, 'utf8');
  */
 const ROUTES = [
   {
+    path: '/',
+    title: 'DPO2U — Compliance as a protocol.',
+    description: 'The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot & Midnight (Stellar live). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. Score private, proof public. 1.94s · $0.0002 per seal · since 2021.',
+  },
+  {
+    path: '/verify',
+    title: 'Verify an attestation — DPO2U',
+    description: 'Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain. The verdict, jurisdiction, timestamp and evidence hash are public; the score stays private.',
+  },
+  {
+    path: '/dpa',
+    title: 'Data Processing Agreement (DPA) — DPO2U',
+    description: 'DPO2U processor DPA template — GDPR Art. 28 + LGPD Art. 39: documented instruction, confidentiality, security (Art. 32), sub-processors, data-subject assistance, breach notification, deletion/return, audit, and international transfers.',
+  },
+  {
     path: '/solana-protocol',
     title: 'Solana Protocol — 12 ZK programs on devnet | DPO2U',
     description: 'Twelve DPO2U Solana programs across compliance, consent, MiCAR ART, agent infra, and 4 jurisdiction-specific (POPIA, CCPA, PIPEDA, PIPA Korea) — SP1 Groth16 proofs. ~$0.0002/attestation, 156k CU, 356-byte proofs.',
@@ -72,11 +87,6 @@ const ROUTES = [
     description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U Solana programs on devnet.',
   },
   {
-    path: '/register-dapp',
-    title: 'Register a dApp — Alpha intake | DPO2U',
-    description: 'Submit your dApp to the DPO2U alpha registry. Seven-step LGPD diligence + Solana metadata. Compliance attested on-chain.',
-  },
-  {
     path: '/alpha-signup',
     title: 'Alpha signup — DPO2U',
     description: 'Three fields. Submit your project, we run the MCP chain on your repo, and we book a call with the result.',
@@ -88,18 +98,13 @@ const ROUTES = [
   },
   {
     path: '/coverage',
-    title: 'Coverage — Seventeen jurisdictions, one primitive | DPO2U',
-    description: 'Visual map of seventeen regulatory regimes covered in code: LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), and PDPA-MY (Malaysia). EMEA + Americas + APAC + LatAm in one composition step.',
+    title: 'Coverage — Twenty-four jurisdictions, one primitive | DPO2U',
+    description: 'Visual map of twenty-four regulatory regimes covered in code: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), PDPA-MY (Malaysia), Kenya DPA, Ghana DPA, Colombia Ley 1581, Tanzania PDPA, and Uganda DPPA — plus 8 AI-governance frameworks. EMEA + Americas + APAC + LatAm in one composition step.',
   },
   {
     path: '/pricing',
-    title: 'Pricing — Free, Builder $29, Team $199 | DPO2U',
-    description: 'Honest pricing for on-chain compliance. Free tier (3 generations/month, 1 jurisdiction), Builder $29/mo (50 generations, on-chain anchor), Team $199/mo (unlimited, all 17 jurisdictions, white-label, self-host). Pilot pricing — Stripe billing live phase 2.',
-  },
-  {
-    path: '/demo',
-    title: 'Try the audit — DPO2U demo',
-    description: 'Generate a real DPIA in 90 seconds. 5 fields, 17 jurisdictions, no signup. Output watermarked DEMO (not for production). Real audit + on-chain anchor via /pricing.',
+    title: 'Pricing — Open Source, Managed, DPO-as-a-Service | DPO2U',
+    description: 'Open-core ladder for on-chain compliance: Open Source (free SDK + $0.0002 per attestation), Managed Protocol, and DPO-as-a-Service. The attestation is the unit of billing. 24 jurisdictions, 8 AI-governance frameworks. Managed/DPO pricing in calibration — talk to us.',
   },
   // Sprint M (2026-05-26) — alias público do painel de alertas anticorrupção
   {
@@ -200,16 +205,47 @@ function rewriteHead(html, { title, description, url, image }) {
   return out;
 }
 
+// Crawler/LLM body content — injected into <div id="root">. React's createRoot()
+// REPLACES #root children on mount, so users get the live SPA while JS-less crawlers
+// (GPTBot/ClaudeBot/PerplexityBot, Bing, social unfurlers) read real, citeable prose.
+const W = 'style="max-width:820px;margin:40px auto;padding:0 24px;font-family:Georgia,serif;color:#0C0D10;line-height:1.5"';
+const BODY = {
+  '/': `<main ${W}><h1>Compliance as a protocol</h1>
+<p>DPO2U turns regulatory compliance into a verifiable, on-chain attestation — the score stays private, the proof is public. The HTTPS of compliance, for Web3.</p>
+<p>The only protocol that seals both regimes — data privacy and AI governance — across 24 jurisdictions and 8 AI-governance frameworks. Provable compliance for anything that processes data, issues tokens, or runs AI, across Solana, Stellar (live), EVM, Polkadot and Midnight.</p>
+<h2>Two ways in</h2><ul><li><strong>I'm building</strong> — run the open-source SDK and DPO2U's compliance primitives inside your own CI/CD.</li><li><strong>Run it for me</strong> — we execute the pipeline for you, or become your accountable DPO of record.</li></ul>
+<h2>The open-core ladder</h2><ul><li><strong>Open Source</strong> — free SDK + $0.0002 per on-chain attestation.</li><li><strong>Managed Protocol</strong> — we run the pipeline (platform pricing in calibration).</li><li><strong>DPO-as-a-Service</strong> — a named, accountable DPO of record.</li></ul>
+<p>Independent research house since 2021. Founder: Frederico Santana — DPO for 15 years, FGV Master's in Law, Technology & Innovation, co-author of ERC-8004. 1.94s per seal · $0.0002 per attestation · 70+ countries.</p></main>`,
+  '/coverage': `<main ${W}><h1>Twenty-four jurisdictions, one primitive layer</h1>
+<p>Each regime is a typed compliance primitive in one engine. Data-protection jurisdictions: LGPD (Brazil), GDPR (EU), MiCAR and MiCA Title V CASP (EU), DPDP (India), PDPA (Singapore), UAE (ADGM/VARA), PDPL (UAE federal), POPIA (South Africa), NDPA (Nigeria), CCPA (California), PIPEDA (Canada), Quebec Law 25, PIPA (South Korea), PDP (Indonesia), APPI (Japan), LFPDPPP (Mexico), Decree 13 (Vietnam), PDPA (Malaysia), and the data-protection acts of Kenya, Ghana, Colombia, Tanzania and Uganda.</p>
+<p>Plus eight AI-governance frameworks: Japan AI Promotion Act, Hiroshima ICOC (G7), EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO Recommendation on the Ethics of AI, Singapore IMDA MGF-Agentic v1.0, and the L1-L5 AI Governance Stack — aligned with the CAIDP submission to the UN Global Dialogue on AI Governance (UN GA Resolution 79/325).</p></main>`,
+  '/pricing': `<main ${W}><h1>Pricing — the attestation is the unit of billing</h1>
+<p>An open-core ladder, defined by who runs the primitives and who stands behind the result:</p>
+<ul><li><strong>Open Source</strong> — free SDK (npm + cargo) + $0.0002 per on-chain attestation. You run it yourself and hold the keys.</li><li><strong>Managed Protocol</strong> — connect your repo, we execute the pipeline and anchor every seal. Platform pricing in calibration — talk to us.</li><li><strong>DPO-as-a-Service</strong> — a named, accountable DPO of record, audit defense and regulator interface. Custom retainer.</li></ul>
+<p>The on-chain seal costs $0.0002 per attestation. 24 jurisdictions, 8 AI-governance frameworks.</p></main>`,
+  '/research': `<main ${W}><h1>Compliance as a computable primitive</h1>
+<p>DPO2U is the research house that ships code. Compliance is exposed three ways: an open-source SDK, an MCP server, and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
+<p>Coverage spans 24 jurisdictions and 8 AI-governance frameworks, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
+  '/verify': `<main ${W}><h1>Verify an attestation</h1>
+<p>Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain — no DPO2U credential required. Verification is keyed by use-case id and evidence hash; the verdict, jurisdiction/predicate, timestamp and evidence hash are public, while the score and underlying data stay private. Score private, proof public.</p></main>`,
+  '/dpa': `<main ${W}><h1>Data Processing Agreement (DPA)</h1>
+<p>DPO2U's standard processor DPA template — GDPR Article 28 and LGPD Article 39: processing only on documented instruction, confidentiality, security (GDPR Art. 32), sub-processors, assistance with data-subject rights, breach notification, deletion/return on termination, audit rights, and international transfers. Executed by signed contract — accessing this page does not, by itself, form a binding agreement. Contact dpo@dpo2u.com.</p></main>`,
+};
+
 let written = 0;
 for (const route of ROUTES) {
   const url = `${SITE_BASE}${route.path}`;
   const image = `${SITE_BASE}/og-image.png`;
-  const html = rewriteHead(indexHtml, {
+  let html = rewriteHead(indexHtml, {
     title: route.title,
     description: route.description,
     url,
     image,
   });
+  // Inject crawler-readable body for key routes (React replaces it on mount).
+  if (BODY[route.path]) {
+    html = html.replace('<div id="root"></div>', `<div id="root">${BODY[route.path]}</div>`);
+  }
 
   const targetDir = path.join(dist, route.path.replace(/^\/+/, ''));
   fs.mkdirSync(targetDir, { recursive: true });

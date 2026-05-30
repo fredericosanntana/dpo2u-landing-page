@@ -7,9 +7,12 @@
 import React from 'react';
 
 import Hero           from '@/components/sealed/sections/Hero';
+import TwoDoors       from '@/components/sealed/sections/TwoDoors';
 import Marquee        from '@/components/sealed/sections/Marquee';
 import Problem        from '@/components/sealed/sections/Problem';
 import Product        from '@/components/sealed/sections/Product';
+import Ladder         from '@/components/sealed/sections/Ladder';
+import DPOCta         from '@/components/sealed/sections/DPOCta';
 import SDK            from '@/components/sealed/sections/SDK';
 import MCP            from '@/components/sealed/sections/MCP';
 import Jurisdictions  from '@/components/sealed/sections/Jurisdictions';
@@ -24,23 +27,26 @@ import { usePageHead } from '@/lib/page-head';
 
 export default function HomePage() {
   usePageHead({
-    title: 'DPO2U — Compliance, sealed.',
+    title: 'DPO2U — Compliance as a protocol.',
     description:
-      'Regulatory compliance as on-chain primitives. For every Solana project that processes data, issues tokens, or runs AI — 17 jurisdictions, 70+ countries, 8 AI governance frameworks (including Singapore IMDA MGF-Agentic v1.0). 15 legal-source manifests hash-anchored on-chain · 5 jurisdictional programs cross-reference via Anchor seeds::program. From DPIA generation to MICA proof-of-reserve. Automated, auditable, proven on-chain. 1.94s · $0.0002 · 5 years since 2021.',
+      'The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot & Midnight (Stellar live). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve. Score stays private, proof is public. 1.94s · $0.0002 per seal · since 2021.',
     path: '/',
   });
   return (
     <>
       <Hero />
+      <TwoDoors />
       <Marquee />
       <Problem />
       <Product />
+      <Ladder />
       <SDK />
       <MCP />
       <Jurisdictions />
       <Architecture />
       <Traction />
       <Team />
+      <DPOCta />
       <Roadmap />
       <Manifesto />
       <CTA />

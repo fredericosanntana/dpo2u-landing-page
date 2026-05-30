@@ -1,10 +1,14 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, Outlet } from 'react-router-dom';
 import ConsentProvider from '@/components/consent/ConsentProvider';
 import CookieBanner from '@/components/consent/CookieBanner';
 import MarketingScripts from '@/components/MarketingScripts';
 import { Toaster } from '@/components/ui/toaster';
 import SealedLayout from '@/components/sealed/SealedLayout';
+// Authenticated app (Fase C) — wallet session is provider-level (eager); pages lazy.
+import { WalletAuthProvider } from '@/components/app/WalletAuthProvider';
+import RequireWallet from '@/components/app/RequireWallet';
+import AppLayout from '@/components/app/AppLayout';
 // Home stays eager — it's the LCP route. All others lazy-loaded
 // to keep the initial JS chunk under ~400 KB on mobile (F007/F014, audit cycle 2).
 //
@@ -17,12 +21,13 @@ const AboutPage           = lazy(() => import('@/app/about'));
 const ResearchPage        = lazy(() => import('@/app/research'));
 const PrivacyPage         = lazy(() => import('@/app/privacy'));
 const TermsPage           = lazy(() => import('@/app/terms'));
-const RegisterDappPage    = lazy(() => import('@/app/register-dapp'));
+const DPAPage             = lazy(() => import('@/app/dpa'));
+const VerifyPublicPage    = lazy(() => import('@/app/verify/[id]'));
+const VerifySolanaPage    = lazy(() => import('@/app/verify/sol'));
 const AlphaSignupPage     = lazy(() => import('@/app/alpha-signup'));
 const AlphaPage           = lazy(() => import('@/app/alpha'));
 const CoveragePage        = lazy(() => import('@/app/coverage'));
 const PricingPage         = lazy(() => import('@/app/pricing'));
-const DemoPage            = lazy(() => import('@/app/demo'));
 const DSRPage             = lazy(() => import('@/app/dsr'));
 const PortalPage          = lazy(() => import('@/app/portal'));
 // Pilot Anticorrupção — Stellar Soroban (Sprint37° M1)
@@ -43,6 +48,13 @@ const PilotOperatorErasure= lazy(() => import('@/app/pilot/operator/erasure'));
 const PilotAdminIndex     = lazy(() => import('@/app/pilot/admin/index'));
 const PilotAdminConfigure = lazy(() => import('@/app/pilot/admin/configure-use-case'));
 const PilotAdminAuthorize = lazy(() => import('@/app/pilot/admin/authorize-submitter'));
+// Authenticated app (Fase C)
+const LoginPage           = lazy(() => import('@/app/login'));
+const AppDashboard        = lazy(() => import('@/app/app/dashboard'));
+const AppActivate         = lazy(() => import('@/app/app/activate'));
+const AppEvidence         = lazy(() => import('@/app/app/evidence'));
+const AppBilling          = lazy(() => import('@/app/app/billing'));
+const AppSettings         = lazy(() => import('@/app/app/settings'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
 const RouteFallback = () => (
@@ -83,10 +95,23 @@ const NotFound = () => (
     </div>
 );
 
+// Public chrome — sealed nav + footer wrap all public + pilot routes.
+// /login and /app/* opt out of this (they render their own shell).
+function PublicChrome() {
+    return (
+        <SealedLayout>
+            <main id="main" className="flex flex-col">
+                <Outlet />
+            </main>
+        </SealedLayout>
+    );
+}
+
 function App() {
     return (
         <Router>
             <ConsentProvider>
+              <WalletAuthProvider>
                 <MarketingScripts />
                 <a
                     href="#main"
@@ -94,10 +119,9 @@ function App() {
                 >
                     Skip to content
                 </a>
-                <SealedLayout>
-                    <main id="main" className="flex flex-col">
                         <Suspense fallback={<RouteFallback />}>
                         <Routes>
+                          <Route element={<PublicChrome />}>
                             {/* Active routes — 7 editorial + 2 alpha registry (2026-04-28).
                                 /mcp removed 2026-04-29; server.js issues a 301 redirect
                                 to /#mcp for any direct hits. */}
@@ -107,7 +131,16 @@ function App() {
                             <Route path="/research"         element={<ResearchPage />}       />
                             <Route path="/privacy"          element={<PrivacyPage />}        />
                             <Route path="/terms"            element={<TermsPage />}          />
-                            <Route path="/register-dapp"    element={<RegisterDappPage />}   />
+                            <Route path="/dpa"              element={<DPAPage />}            />
+                            {/* Public attestation proof (Fase B) — shareable, trustless */}
+                            {/* Solana variant ANTES do /verify/:id pra não casar 'sol' como :id */}
+                            <Route path="/verify/sol/uc/:uc/hash/:hash/subject/:subject" element={<VerifySolanaPage />} />
+                            <Route path="/verify/:id"       element={<VerifyPublicPage />}   />
+                            <Route path="/verify/uc/:uc/hash/:hash" element={<VerifyPublicPage />} />
+                            <Route path="/verify"           element={<VerifyPublicPage />}   />
+                            {/* Retired pre-app intake — superseded by the functional app (Fase C-E).
+                                /register-dapp → /app/activate · /demo → /login (open the app). */}
+                            <Route path="/register-dapp"    element={<Navigate to="/app/activate" replace />} />
                             <Route path="/alpha-signup"     element={<AlphaSignupPage />}    />
                             <Route path="/alpha"            element={<AlphaPage />}          />
                             <Route path="/coverage"         element={<CoveragePage />}       />
@@ -117,7 +150,7 @@ function App() {
                                 useParams() if it wants to scroll-to-card; v1 renders all. */}
                             <Route path="/coverage/:code"   element={<CoveragePage />}       />
                             <Route path="/pricing"          element={<PricingPage />}        />
-                            <Route path="/demo"             element={<DemoPage />}           />
+                            <Route path="/demo"             element={<Navigate to="/login" replace />} />
                             {/* /dsr — Data Subject Rights portal v0 (S2.5, read-only history) */}
                             <Route path="/dsr"              element={<DSRPage />}            />
                             {/* /portal — Customer audit history portal v0 (S2.10, read-only) */}
@@ -164,12 +197,22 @@ function App() {
                             <Route path="/teste"                element={<Navigate to="/"                replace />} />
 
                             <Route path="*" element={<NotFound />} />
+                          </Route>
+
+                          {/* Authenticated app — wallet-gated (Fase C). No public chrome. */}
+                          <Route path="/login" element={<LoginPage />} />
+                          <Route element={<RequireWallet><AppLayout /></RequireWallet>}>
+                              <Route path="/app" element={<AppDashboard />} />
+                              <Route path="/app/activate" element={<AppActivate />} />
+                              <Route path="/app/evidence" element={<AppEvidence />} />
+                              <Route path="/app/billing" element={<AppBilling />} />
+                              <Route path="/app/settings" element={<AppSettings />} />
+                          </Route>
                         </Routes>
                         </Suspense>
-                    </main>
-                </SealedLayout>
                 <Toaster />
                 <CookieBanner />
+              </WalletAuthProvider>
             </ConsentProvider>
         </Router>
     );

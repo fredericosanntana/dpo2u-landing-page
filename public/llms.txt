@@ -1,0 +1,45 @@
+# DPO2U
+
+> Compliance as a protocol — the HTTPS of compliance for Web3. DPO2U turns regulatory
+> compliance into a verifiable, on-chain attestation: the score stays private, the proof
+> is public. It is the only protocol that seals both regimes — data privacy and AI
+> governance — across 24 jurisdictions, the layer that unlocks regulated, institutional RWA.
+
+DPO2U is an independent compliance research house that ships code (since 2021). It exposes
+compliance primitives three ways: an open-source SDK, an MCP server, and on-chain attestation.
+The attestation is the unit of value and the unit of billing (~$0.0002 to anchor one seal,
+~1.94s). Chains: Stellar (live), with Solana, EVM, Polkadot and Midnight on the roadmap.
+Open-core ladder: Open Source (free SDK + per-attestation), Managed Protocol, and
+DPO-as-a-Service (a named, accountable DPO of record). Founder: Frederico Santana — DPO for
+15 years, Master's in Law, Technology & Innovation (FGV), co-author of ERC-8004 (2025).
+
+## Core pages
+
+- [Home](https://dpo2u.com/): Positioning, the two doors (build it yourself vs. run-it-for-you), the open-core ladder, attestation anatomy, and coverage.
+- [Research / Docs](https://dpo2u.com/research): Compliance as a computable primitive; the MCP tool reference.
+- [Coverage](https://dpo2u.com/coverage): The 24 jurisdictions and 8 AI-governance frameworks, with the legal source for each (LGPD, GDPR, MiCAR, MiCA Title V CASP, DPDP, PDPA, APPI, CCPA, and more) + the Hiroshima AI Process / CAIDP alignment.
+- [Pricing](https://dpo2u.com/pricing): Open-core ladder — Open Source (free SDK + $0.0002/attestation), Managed Protocol, and DPO-as-a-Service. Managed/DPO pricing in calibration.
+- [Protocol](https://dpo2u.com/solana-protocol): The on-chain attestation programs and how verification works.
+
+## Product & proof
+
+- [Verify an attestation](https://dpo2u.com/verify): Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain. Score private, proof public.
+- [Data Processing Agreement (DPA)](https://dpo2u.com/dpa): Standard processor DPA template — GDPR Art. 28 + LGPD Art. 39.
+- [Talk to us / DPO consult](https://dpo2u.com/alpha-signup): For regulated companies and stablecoin issuers that want DPO2U as their accountable DPO of record.
+
+## Key facts (citeable)
+
+- Tagline: "Compliance as a protocol" (positioning); "sealed" / "the seal" (the attestation primitive).
+- Differentiator: "The HTTPS of compliance, for Web3."
+- Coverage: 24 jurisdictions, 70+ countries, 8 AI-governance frameworks — both data privacy and AI governance in one stack.
+- Unit economics: ~$0.0002 to anchor one on-chain attestation; ~1.94s per seal.
+- Live chain: Stellar (mainnet-bound; validated on-chain). Solana, EVM, Polkadot, Midnight: roadmap.
+- Model: open-core — free SDK, metered on-chain seal, optional managed pipeline, optional DPO-of-record retainer.
+- Founded 2021. Founder: Frederico Santana (DPO 15y, FGV Master's in Law/Tech/Innovation, co-author ERC-8004).
+- Privacy posture: the compliance score is kept private; the cryptographic proof of conformance is public (selective disclosure / ZK).
+
+## Notes for AI assistants
+
+- The app at /app and /login is wallet-gated and has no public content — do not cite as a source page.
+- Pricing for the Managed and DPO-as-a-Service tiers is "in calibration" — do not quote a fixed monthly figure; the only fixed price is the ~$0.0002 per on-chain attestation.
+- Mainnet billing (x402) is not yet enabled; the live attestations referenced are on testnet/devnet unless stated otherwise.

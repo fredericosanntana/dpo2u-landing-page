@@ -24,7 +24,7 @@ export default function Jurisdictions() {
             }}
             className="text-[40px] sm:text-[52px] lg:text-[60px]"
           >
-            Seventeen jurisdictions,<br />
+            Twenty-four jurisdictions,<br />
             <span style={{ fontStyle: 'italic' }}>one primitive</span>.
           </h2>
         </div>

@@ -17,10 +17,9 @@ const NAV_LINKS: NavLinkSpec[] = [
   { label: 'Protocol',     to: '/solana-protocol' },
   { label: 'Coverage',     to: '/coverage' },
   { label: 'Pricing',      to: '/pricing' },
-  { label: 'Try the audit', to: '/demo' },
-  { label: 'About',        to: '/about' },
   { label: 'Docs',         to: '/research' },
-  { label: 'Alpha signup', to: '/alpha-signup' },
+  { label: 'About',        to: '/about' },
+  { label: 'Talk to us',   to: '/alpha-signup' },
 ];
 
 function NavLinkItem({ link, active, onClick }: { link: NavLinkSpec; active: boolean; onClick?: () => void }) {
@@ -110,12 +109,10 @@ export default function SealedNav() {
           </Button>
           <Button
             kind="primary"
-            href="https://www.npmjs.com/"
-            style={{ padding: '8px 14px', fontSize: 13 }}
+            href="/app"
+            style={{ padding: '8px 16px', fontSize: 13 }}
           >
-            <span style={{ fontFamily: FONTS.mono, fontSize: 12 }}>
-              npm i dpo2u-sdk
-            </span>
+            Open app →
           </Button>
         </div>
 
@@ -171,10 +168,10 @@ export default function SealedNav() {
             </Button>
             <Button
               kind="primary"
-              href="https://www.npmjs.com/"
+              href="/app"
               style={{ padding: '10px 14px', fontSize: 13, justifyContent: 'center' }}
             >
-              <span style={{ fontFamily: FONTS.mono, fontSize: 12 }}>npm i dpo2u-sdk</span>
+              Open app →
             </Button>
           </div>
         </div>

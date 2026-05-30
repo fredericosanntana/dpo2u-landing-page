@@ -1,3 +1,4 @@
+import './lib/polyfills' // 1º: Buffer global (necessário p/ @dpo2u/stellar-sdk no /verify)
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
