@@ -48,6 +48,12 @@ const PilotOperatorErasure= lazy(() => import('@/app/pilot/operator/erasure'));
 const PilotAdminIndex     = lazy(() => import('@/app/pilot/admin/index'));
 const PilotAdminConfigure = lazy(() => import('@/app/pilot/admin/configure-use-case'));
 const PilotAdminAuthorize = lazy(() => import('@/app/pilot/admin/authorize-submitter'));
+
+// Pilot V2 — GovTech Bidding (Soroban Smart Contracts)
+const PilotV2Gov          = lazy(() => import('@/app/pilot/v2/gov'));
+const PilotV2Supplier     = lazy(() => import('@/app/pilot/v2/supplier'));
+const PilotV2Oracle       = lazy(() => import('@/app/pilot/v2/oracle'));
+
 // Authenticated app (Fase C)
 const LoginPage           = lazy(() => import('@/app/login'));
 const AppDashboard        = lazy(() => import('@/app/app/dashboard'));
@@ -178,6 +184,11 @@ function App() {
                             <Route path="/pilot/admin"                       element={<PilotAdminIndex />} />
                             <Route path="/pilot/admin/configure-use-case"    element={<PilotAdminConfigure />} />
                             <Route path="/pilot/admin/authorize-submitter"   element={<PilotAdminAuthorize />} />
+
+                            {/* Pilot V2 — GovTech Bidding */}
+                            <Route path="/pilot/v2/gov"                element={<PilotV2Gov />} />
+                            <Route path="/pilot/v2/supplier"           element={<PilotV2Supplier />} />
+                            <Route path="/pilot/v2/oracle"             element={<PilotV2Oracle />} />
 
                             {/* Legacy redirects — retired in the 2026-04-24 rebrand + 2026-04-28 sprint */}
                             <Route path="/midnight-protocol"    element={<Navigate to="/solana-protocol" replace />} />

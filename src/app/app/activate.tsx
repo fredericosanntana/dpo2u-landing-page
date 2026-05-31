@@ -12,7 +12,7 @@ import { usePipelineStore } from '@/lib/app/pipeline-store';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
 import { ManagedPayModal } from '@/components/app/ManagedPayModal';
 import { managedActivate, managedRun, type ManagedCall } from '@/lib/app/managed-client';
-import { githubConnect, parseGithubCallback } from '@/lib/app/github-client';
+import { githubConnect, parseGithubCallback, githubStatus, startGithubInstall, githubInstallUrl, type GithubStatus } from '@/lib/app/github-client';
 import type { X402Challenge } from '@/lib/pilot/payment-tx';
 
 type Pending = { challenge: X402Challenge; kind: 'activate' | 'run' } | null;
@@ -41,6 +41,15 @@ export default function AppActivate() {
   // GitHub App callback (instalação → workspace). null = sem callback pendente.
   const [githubMsg, setGithubMsg] = useState<{ kind: 'ok' | 'err' | 'pending'; text: string } | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  // Estado da conexão GitHub (Porta A — DPO-as-a-Service). Lê o binding + créditos.
+  const [gh, setGh] = useState<GithubStatus | null>(null);
+  useEffect(() => {
+    if (!pubkey) { setGh(null); return; }
+    let alive = true;
+    void githubStatus(pubkey).then((s) => { if (alive) setGh(s); });
+    return () => { alive = false; };
+    // re-busca quando a wallet muda OU quando um callback acabou de ligar (githubMsg ok).
+  }, [pubkey, githubMsg?.kind]);
 
   // Callback do GitHub App: o GitHub redireciona pra cá com ?installation_id=…&setup_action=install
   // após o usuário autorizar. Liga a instalação ao workspace (a pubkey da wallet conectada).
@@ -150,14 +159,61 @@ export default function AppActivate() {
         </div>
       )}
       <h1 className="text-[30px] md:text-[38px] font-medium" style={{ fontFamily: FONTS.display, letterSpacing: '-0.02em', marginTop: 6 }}>
-        Company Profile & Jurisdiction<span style={{ color: PALETTE.terracotta }}>.</span>
+        Activate<span style={{ color: PALETTE.terracotta }}>.</span>
       </h1>
       <p className="mt-2 text-[15px]" style={{ color: PALETTE.inkSoft }}>
-        Insira os dados da empresa e a jurisdição desejada. A DPO2U vai analisar e ancorar o primeiro selo on-chain
-        {managedChain === 'solana'
-          ? ' na Solana (devnet) — assinatura via Solflare, sem XLM/Freighter.'
-          : ' na Stellar (testnet) — pagamento do setup via Freighter (x402, quando habilitado).'}
+        Duas formas de selar compliance on-chain. <b>Conecte o GitHub</b> para a DPO2U atestar cada PR
+        automaticamente (DPO-as-a-Service), ou <b>rode uma atestação única</b> num repositório agora.
       </p>
+
+      {/* PORTA A — DPO-as-a-Service (GitHub contínuo). Só no estado inicial. */}
+      {!pipelineId && !runResult && !busy && (
+        <div className="mt-8 p-6" style={{ border: `1px solid ${gh?.install ? PALETTE.verdigris : PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div>
+              <SmallLabel style={{ color: gh?.install ? PALETTE.verdigris : PALETTE.terracotta }}>Porta A · DPO-as-a-Service</SmallLabel>
+              <h2 className="mt-1 text-[20px] font-medium" style={{ fontFamily: FONTS.display }}>Compliance contínuo no GitHub</h2>
+            </div>
+            {gh?.install && (
+              <span style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.verdigris, border: `1px solid ${PALETTE.verdigris}`, borderRadius: 999, padding: '3px 10px' }}>
+                ✓ conectado
+              </span>
+            )}
+          </div>
+
+          {gh?.install ? (
+            <>
+              <p className="mt-3 text-[14px]" style={{ color: PALETTE.inkSoft }}>
+                Conectado a <b style={{ fontFamily: FONTS.mono }}>{gh.install.account_login || 'sua conta'}</b> ·{' '}
+                <b>{gh.credits}</b> crédito{gh.credits === 1 ? '' : 's'} de CI. Cada PR vira um selo (Check Run) e debita 1 crédito.
+              </p>
+              <div className="mt-4 flex gap-3 flex-wrap">
+                <a href={githubInstallUrl()} target="_blank" rel="noreferrer" className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
+                  style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, textDecoration: 'none' }}>
+                  Adicionar / gerenciar repos ↗
+                </a>
+                <Link to="/app/billing" className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
+                  style={{ background: PALETTE.ink, color: PALETTE.paper, textDecoration: 'none' }}>
+                  Recarregar créditos →
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="mt-3 text-[14px]" style={{ color: PALETTE.inkSoft }}>
+                Conecte seus repositórios uma vez. A cada push/PR, a DPO2U roda o pipeline de compliance,
+                posta um Check Run no PR e ancora um selo on-chain verificável em <code style={{ fontFamily: FONTS.mono }}>/verify</code>.
+              </p>
+              <button type="button" onClick={() => startGithubInstall(pubkey ?? undefined)} disabled={!pubkey}
+                className="mt-4 py-3 px-6 font-mono text-[13px] uppercase tracking-[.14em]"
+                style={{ background: pubkey ? PALETTE.terracotta : PALETTE.ruleStrong, color: '#fff', border: 'none', cursor: pubkey ? 'pointer' : 'not-allowed' }}>
+                Conectar GitHub →
+              </button>
+              {!pubkey && <p className="mt-2 text-[11px]" style={{ color: PALETTE.concrete }}>Conecte a wallet primeiro.</p>}
+            </>
+          )}
+        </div>
+      )}
 
       {busy && !pending && (
         <div className="mt-8 p-6 flex items-center gap-4" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
@@ -172,6 +228,15 @@ export default function AppActivate() {
 
       {!pipelineId && !runResult && !busy && (
         <div className="mt-8 flex flex-col gap-5">
+          <div style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, paddingTop: 20 }}>
+            <SmallLabel style={{ color: PALETTE.terracotta }}>Porta B · Attestation</SmallLabel>
+            <h2 className="mt-1 text-[20px] font-medium" style={{ fontFamily: FONTS.display }}>Atestar um repositório agora</h2>
+            <p className="mt-1 text-[13px]" style={{ color: PALETTE.inkSoft }}>
+              Atestação única, sob demanda — paga por atestação (x402)
+              {managedChain === 'solana' ? ' · Solana devnet (Solflare).' : ' · Stellar testnet (Freighter).'}
+              Não precisa instalar o App.
+            </p>
+          </div>
           <label className="flex flex-col gap-2">
             <SmallLabel>Company ID (CNPJ / VAT / DID)</SmallLabel>
             <input value={companyId} onChange={(e) => setCompanyId(e.target.value)} placeholder="00.000.000/0001-00"

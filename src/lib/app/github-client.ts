@@ -7,6 +7,25 @@
 
 const BASE = (import.meta.env.VITE_MCP_BASE_URL as string | undefined) ?? 'https://mcp.dpo2u.com';
 
+// Slug do GitHub App (a URL pública é github.com/apps/<slug>). Configurável por env pro
+// build; default = 'dpo2u-compliance' (slug provável do App "DPO2U Compliance" 3918317).
+export function githubAppSlug(): string {
+  return (import.meta.env.VITE_GITHUB_APP_SLUG as string | undefined) ?? 'dpo2u-compliance';
+}
+
+/** URL de instalação do App — abre a tela de consentimento do GitHub (escolher repos).
+ *  `state` opcional volta no callback (ex.: a pubkey, pra robustez futura). */
+export function githubInstallUrl(opts?: { state?: string }): string {
+  const base = `https://github.com/apps/${githubAppSlug()}/installations/new`;
+  return opts?.state ? `${base}?state=${encodeURIComponent(opts.state)}` : base;
+}
+
+/** Inicia o fluxo de conexão: redireciona o browser pro consentimento do GitHub.
+ *  Ao terminar, o GitHub volta pro callback (/app/activate?installation_id=…). */
+export function startGithubInstall(state?: string): void {
+  if (typeof window !== 'undefined') window.location.href = githubInstallUrl({ state });
+}
+
 export interface GithubStatus {
   enabled: boolean;
   bound: boolean;

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { getUsage, type ManagedUsage, type ManagedReceipt } from '@/lib/app/managed-client';
+import { githubStatus } from '@/lib/app/github-client';
 import { stellarExpertUrl } from '@/lib/pilot/stellar';
 
 // O ledger x402 grava amount em XLM DECIMAL (ex.: "2", "0.1") — NÃO atômico. Não dividir por 1e7.
@@ -21,12 +22,14 @@ export default function AppBilling() {
   const isSolana = chain === 'solana';
   const [usage, setUsage] = useState<ManagedUsage | null>(null);
   const [loading, setLoading] = useState(false);
+  const [githubCredits, setGithubCredits] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!pubkey) { setUsage(null); return; }
+    if (!pubkey) { setUsage(null); setGithubCredits(null); return; }
     let alive = true;
     setLoading(true);
     void getUsage(pubkey, isSolana ? 'solana' : 'stellar').then((u) => { if (alive) { setUsage(u); setLoading(false); } });
+    void githubStatus(pubkey).then((s) => { if (alive) setGithubCredits(s?.credits ?? null); });
     return () => { alive = false; };
   }, [pubkey, isSolana]);
 
@@ -54,14 +57,15 @@ export default function AppBilling() {
         </div>
       )}
 
-      {/* Usage real (ledger x402) */}
-      <div className="mt-8 grid grid-cols-3" style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
+      {/* Usage real (ledger x402) + créditos de CI (GitHub App) */}
+      <div className="mt-8 grid grid-cols-2 lg:grid-cols-4" style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
         {[
           [String(receipts.length), 'pagamentos x402'],
           [`${totalXlm} XLM`, 'total pago (testnet)'],
           [String(pipelines), 'pipelines'],
+          [githubCredits === null ? '—' : String(githubCredits), 'créditos CI (GitHub)'],
         ].map(([n, l], i) => (
-          <div key={l} style={{ padding: '18px 16px', borderRight: i < 2 ? `.5px solid ${PALETTE.rule}` : 'none' }}>
+          <div key={l} style={{ padding: '18px 16px', borderRight: i < 3 ? `.5px solid ${PALETTE.rule}` : 'none' }}>
             <div style={{ fontFamily: FONTS.display, fontWeight: 500, fontSize: 26 }}>{n}</div>
             <SmallLabel style={{ marginTop: 6 }}>{l}</SmallLabel>
           </div>

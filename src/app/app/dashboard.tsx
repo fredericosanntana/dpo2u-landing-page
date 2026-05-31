@@ -11,6 +11,7 @@ import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { useIndexerStore } from '@/lib/pilot/indexer-store';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
 import { useSolanaAttestations } from '@/lib/app/solana-indexer';
+import { githubStatus, type GithubStatus } from '@/lib/app/github-client';
 import { truncateHash } from '@/lib/pilot/stellar';
 
 const SEAL_PRICE = 0.0002;
@@ -55,6 +56,14 @@ export default function AppDashboard() {
   const history = useAttestationHistory((s) => s.refs);
   // Solana: lê as PDAs do subject via getProgramAccounts (devnet). Só ativa em sessão Solana.
   const solana = useSolanaAttestations(isSolana ? pubkey : null);
+  // Status da conexão GitHub (chip no header).
+  const [gh, setGh] = React.useState<GithubStatus | null>(null);
+  useEffect(() => {
+    if (!pubkey) { setGh(null); return; }
+    let alive = true;
+    void githubStatus(pubkey).then((s) => { if (alive) setGh(s); });
+    return () => { alive = false; };
+  }, [pubkey]);
 
   // Stellar indexer (Horizon) só faz sentido em sessão Stellar.
   useEffect(() => { if (!isSolana) void fetchOnce(); }, [isSolana, fetchOnce]);
@@ -120,6 +129,17 @@ export default function AppDashboard() {
         {workspace.label} · {tier.label} · {count > 0 ? `${count} attestation${count === 1 ? '' : 's'}` : 'nenhuma atestação ainda'}
         {loading ? ' · sincronizando…' : ''}
       </p>
+      <div className="mt-3">
+        {gh?.install ? (
+          <Link to="/app/settings" style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.verdigris, border: `1px solid ${PALETTE.verdigris}`, borderRadius: 999, padding: '3px 10px', textDecoration: 'none' }}>
+            ● GitHub conectado · {gh.credits} créditos CI
+          </Link>
+        ) : (
+          <Link to="/app/activate" style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 999, padding: '3px 10px', textDecoration: 'none' }}>
+            ○ GitHub não conectado · conectar →
+          </Link>
+        )}
+      </div>
 
       <div className="mt-8 grid grid-cols-2 lg:grid-cols-4" style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
         {[[String(count), 'attestations'], [`$${spend}`, 'seal spend'], [String(jurisdictions), 'jurisdictions'], [flagged ? String(flagged) : '✓', flagged ? 'flagged (fail/review)' : 'all clear']].map(([n, l], i) => (
