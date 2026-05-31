@@ -10,6 +10,7 @@ const NAV: { to: string; label: string }[] = [
   { to: '/app', label: 'Overview' },
   { to: '/app/activate', label: 'Activate' },
   { to: '/app/evidence', label: 'Audit evidence' },
+  { to: '/app/escrow', label: 'Escrow (B2B)' },
   { to: '/app/billing', label: 'Billing' },
   { to: '/app/settings', label: 'Settings' },
 ];

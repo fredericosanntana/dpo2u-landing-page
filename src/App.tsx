@@ -53,6 +53,7 @@ const LoginPage           = lazy(() => import('@/app/login'));
 const AppDashboard        = lazy(() => import('@/app/app/dashboard'));
 const AppActivate         = lazy(() => import('@/app/app/activate'));
 const AppEvidence         = lazy(() => import('@/app/app/evidence'));
+const AppEscrow           = lazy(() => import('@/app/app/escrow'));
 const AppBilling          = lazy(() => import('@/app/app/billing'));
 const AppSettings         = lazy(() => import('@/app/app/settings'));
 
@@ -205,6 +206,7 @@ function App() {
                               <Route path="/app" element={<AppDashboard />} />
                               <Route path="/app/activate" element={<AppActivate />} />
                               <Route path="/app/evidence" element={<AppEvidence />} />
+                              <Route path="/app/escrow" element={<AppEscrow />} />
                               <Route path="/app/billing" element={<AppBilling />} />
                               <Route path="/app/settings" element={<AppSettings />} />
                           </Route>

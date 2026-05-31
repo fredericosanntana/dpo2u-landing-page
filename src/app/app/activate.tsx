@@ -3,8 +3,8 @@
  * → DPO2U registra o pipeline → "Run now" paga per-attestation, executa o pipeline no
  * servidor e ancora o selo. Reusa o x402/Freighter via ManagedPayModal + managed-client.
  */
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel } from '@/components/sealed/atoms';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { useAuthStore } from '@/lib/pilot/auth-store';
@@ -12,6 +12,7 @@ import { usePipelineStore } from '@/lib/app/pipeline-store';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
 import { ManagedPayModal } from '@/components/app/ManagedPayModal';
 import { managedActivate, managedRun, type ManagedCall } from '@/lib/app/managed-client';
+import { githubConnect, parseGithubCallback } from '@/lib/app/github-client';
 import type { X402Challenge } from '@/lib/pilot/payment-tx';
 
 type Pending = { challenge: X402Challenge; kind: 'activate' | 'run' } | null;
@@ -27,17 +28,51 @@ export default function AppActivate() {
   const addPipeline = usePipelineStore((s) => s.add);
   const addHistory = useAttestationHistory((s) => s.add);
 
+  const [companyId, setCompanyId] = useState('');
   const [repoUrl, setRepoUrl] = useState('');
+  const [countries, setCountries] = useState<string[]>(['LGPD']);
+  const [evaluateAi, setEvaluateAi] = useState(false);
   const [email, setEmail] = useState('');
   const [pipelineId, setPipelineId] = useState<string | null>(null);
   const [pending, setPending] = useState<Pending>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [runResult, setRunResult] = useState<Record<string, unknown> | null>(null);
+  // GitHub App callback (instalação → workspace). null = sem callback pendente.
+  const [githubMsg, setGithubMsg] = useState<{ kind: 'ok' | 'err' | 'pending'; text: string } | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Callback do GitHub App: o GitHub redireciona pra cá com ?installation_id=…&setup_action=install
+  // após o usuário autorizar. Liga a instalação ao workspace (a pubkey da wallet conectada).
+  useEffect(() => {
+    const cb = parseGithubCallback(window.location.search);
+    if (!cb) return;
+    if (!pubkey) {
+      setGithubMsg({ kind: 'err', text: 'Conecte a wallet primeiro para vincular a instalação do GitHub ao seu workspace.' });
+      return;
+    }
+    let cancelled = false;
+    setGithubMsg({ kind: 'pending', text: 'Vinculando a instalação do GitHub ao seu workspace…' });
+    void githubConnect({ installationId: cb.installationId, pubkey }).then((res) => {
+      if (cancelled) return;
+      if (res.ok) {
+        setGithubMsg({ kind: 'ok', text: `GitHub conectado (instalação ${cb.installationId}). A DPO2U passa a atestar cada PR automaticamente — recarregue créditos em Billing.` });
+      } else {
+        setGithubMsg({ kind: 'err', text: `Falha ao vincular a instalação do GitHub: ${res.error ?? 'erro desconhecido'}` });
+      }
+      // Limpa os query params do callback da URL (evita re-disparar no refresh).
+      const next = new URLSearchParams(searchParams);
+      ['installation_id', 'setup_action', 'code', 'state'].forEach((k) => next.delete(k));
+      setSearchParams(next, { replace: true });
+    });
+    return () => { cancelled = true; };
+    // Só depende de pubkey: roda quando a wallet resolve (o callback vem na 1ª render).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pubkey]);
 
   const normRepo = repoUrl.replace(/^https?:\/\//, '').replace(/^github\.com\//, '').replace(/\.git$/, '');
   const emailValid = EMAIL_RE.test(email.trim());
-  const canActivate = normRepo.includes('/') && emailValid;
+  const canActivate = companyId.trim().length > 2 && normRepo.includes('/') && emailValid;
 
   const handle = (c: ManagedCall, onOk: (data: Record<string, unknown>) => void, kind: 'activate' | 'run') => {
     if (c.kind === 'ok') { onOk(c.data); return true; }
@@ -50,12 +85,14 @@ export default function AppActivate() {
     setErr(null); setBusy(true);
     try {
       if (!pubkey) { setErr('Conecte a wallet.'); return; }
-      const res = await managedActivate({ repo_url: normRepo, email: email.trim(), pubkey, chain: managedChain }, apiKey, xPayment);
+      const payload = { company_id: companyId.trim(), repo_url: normRepo, countries, evaluate_ai: evaluateAi, email: email.trim(), pubkey, chain: managedChain };
+      // O backend legado ainda pode checar repo_url
+      const res = await managedActivate(payload as any, apiKey, xPayment);
       handle(res, (data) => {
         const pid = String(data.pipeline_id || '');
         setPipelineId(pid);
         setPending(null);
-        addPipeline({ id: pid, pubkey, repoUrl: normRepo, chains: [managedChain === 'solana' ? 'Solana' : 'Stellar'], jurisdictions: [String(data.jurisdiction || 'gdpr')], trigger: 'managed', createdAt: Date.now() });
+        addPipeline({ id: pid, pubkey, repoUrl: companyId.trim(), chains: [managedChain === 'solana' ? 'Solana' : 'Stellar'], jurisdictions: data.jurisdiction ? [String(data.jurisdiction)] : countries, trigger: 'managed', createdAt: Date.now() });
         // o setup já roda a 1ª atestação e ancora o selo — mostra a evidência na hora
         const fr = data.first_run as Record<string, unknown> | null | undefined;
         if (fr && fr.evidence_hash_hex) {
@@ -74,7 +111,7 @@ export default function AppActivate() {
   const onRun = async (xPayment?: string) => {
     setErr(null); setBusy(true); setRunResult(null);
     try {
-      const res = await managedRun({ pipeline_id: pipelineId || undefined, repo_url: pipelineId ? undefined : normRepo, pubkey: pubkey || undefined, chain: managedChain }, apiKey, xPayment);
+      const res = await managedRun({ pipeline_id: pipelineId || undefined, repo_url: pipelineId ? undefined : normRepo, company_id: companyId.trim(), countries, evaluate_ai: evaluateAi, pubkey: pubkey || undefined, chain: managedChain } as any, apiKey, xPayment);
       handle(res, (data) => {
         setPending(null);
         setRunResult(data);
@@ -96,11 +133,27 @@ export default function AppActivate() {
   return (
     <div className="max-w-[760px]">
       <SmallLabel>Activate · Managed Protocol</SmallLabel>
+      {githubMsg && (
+        <div
+          role="status"
+          className="mt-3 p-3 text-[13px]"
+          style={{
+            border: `1px solid ${githubMsg.kind === 'err' ? PALETTE.terracotta : PALETTE.verdigris}`,
+            borderRadius: 4,
+            background: githubMsg.kind === 'err' ? 'rgba(193,84,57,.06)' : 'rgba(74,124,116,.08)',
+            color: PALETTE.inkSoft,
+            fontFamily: FONTS.mono,
+          }}
+        >
+          {githubMsg.kind === 'pending' ? '⏳ ' : githubMsg.kind === 'ok' ? '✓ ' : '⚠ '}
+          {githubMsg.text}
+        </div>
+      )}
       <h1 className="text-[30px] md:text-[38px] font-medium" style={{ fontFamily: FONTS.display, letterSpacing: '-0.02em', marginTop: 6 }}>
-        Connect a repository<span style={{ color: PALETTE.terracotta }}>.</span>
+        Company Profile & Jurisdiction<span style={{ color: PALETTE.terracotta }}>.</span>
       </h1>
       <p className="mt-2 text-[15px]" style={{ color: PALETTE.inkSoft }}>
-        Conecte o repositório e o email. A DPO2U roda o pipeline de compliance e ancora o primeiro selo on-chain
+        Insira os dados da empresa e a jurisdição desejada. A DPO2U vai analisar e ancorar o primeiro selo on-chain
         {managedChain === 'solana'
           ? ' na Solana (devnet) — assinatura via Solflare, sem XLM/Freighter.'
           : ' na Stellar (testnet) — pagamento do setup via Freighter (x402, quando habilitado).'}
@@ -120,15 +173,78 @@ export default function AppActivate() {
       {!pipelineId && !runResult && !busy && (
         <div className="mt-8 flex flex-col gap-5">
           <label className="flex flex-col gap-2">
-            <SmallLabel>Repository</SmallLabel>
+            <SmallLabel>Company ID (CNPJ / VAT / DID)</SmallLabel>
+            <input value={companyId} onChange={(e) => setCompanyId(e.target.value)} placeholder="00.000.000/0001-00"
+              className="px-4 py-3" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper, fontFamily: FONTS.mono, fontSize: 14 }} />
+          </label>
+          <label className="flex flex-col gap-2">
+            <SmallLabel>Repository URL</SmallLabel>
             <input value={repoUrl} onChange={(e) => setRepoUrl(e.target.value)} placeholder="github.com/your-org/your-repo"
               className="px-4 py-3" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper, fontFamily: FONTS.mono, fontSize: 14 }} />
+            <span className="text-[11px]" style={{ color: PALETTE.concrete }}>Necessário para atestar o compliance diretamente no código-fonte.</span>
+          </label>
+          <label className="flex flex-col gap-2">
+            <SmallLabel>Jurisdictions (Multiple Selection)</SmallLabel>
+            <div className="flex flex-col gap-2 p-3" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper }}>
+              {[
+                { id: 'LGPD', label: 'Brasil (LGPD)' },
+                { id: 'CCPA', label: 'USA / California (CCPA)' },
+                { id: 'GDPR', label: 'Europe (GDPR)' },
+                { id: 'PIPEDA', label: 'Canada (PIPEDA)' },
+                { id: 'LAW25', label: 'Quebec (Law 25)' },
+                { id: 'POPIA', label: 'South Africa (POPIA)' },
+                { id: 'UAE', label: 'Abu Dhabi / Dubai (ADGM/UAE)' },
+                { id: 'MICAR', label: 'MiCAR (Crypto EU - ART)' },
+                { id: 'MICAR-CASP', label: 'MiCAR (Crypto EU - CASP)' },
+                { id: 'DPDP', label: 'India (DPDP)' },
+                { id: 'PDPA', label: 'Singapore (PDPA)' },
+                { id: 'NDPA', label: 'Nigeria (NDPA)' },
+                { id: 'PIPA', label: 'South Korea (PIPA)' },
+                { id: 'PDP', label: 'Indonesia (PDP)' },
+                { id: 'APPI', label: 'Japan (APPI)' },
+                { id: 'MEXICO', label: 'Mexico (LFPDPPP)' },
+                { id: 'VIETNAM', label: 'Vietnam (Decree 13)' },
+                { id: 'MALAYSIA', label: 'Malaysia (PDPA)' },
+                { id: 'KENYA', label: 'Kenya (DPA)' },
+                { id: 'GHANA', label: 'Ghana (DPA)' },
+                { id: 'COLOMBIA', label: 'Colombia (Ley 1581)' },
+                { id: 'TANZANIA', label: 'Tanzania (PDPA)' },
+                { id: 'RWANDA', label: 'Rwanda (Law 058)' },
+                { id: 'UGANDA', label: 'Uganda (DPPA)' },
+              ].map((j) => (
+                <label key={j.id} className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={countries.includes(j.id)}
+                    onChange={(e) => {
+                      if (e.target.checked) setCountries((prev) => [...prev, j.id]);
+                      else setCountries((prev) => prev.filter((c) => c !== j.id));
+                    }}
+                    style={{ accentColor: PALETTE.terracotta }}
+                  />
+                  <span style={{ fontFamily: FONTS.mono, fontSize: 13, color: PALETTE.ink }}>{j.label}</span>
+                </label>
+              ))}
+            </div>
+            <span className="text-[11px]" style={{ color: PALETTE.concrete }}>O motor IA executará em paralelo para cada país selecionado.</span>
+          </label>
+          <label className="flex items-center gap-3 mt-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={evaluateAi}
+              onChange={(e) => setEvaluateAi(e.target.checked)}
+              style={{ accentColor: PALETTE.terracotta, width: 16, height: 16 }}
+            />
+            <div className="flex flex-col">
+              <span style={{ fontFamily: FONTS.body, fontSize: 14, fontWeight: 500, color: PALETTE.ink }}>Evaluate AI Frameworks</span>
+              <span className="text-[11px]" style={{ color: PALETTE.concrete }}>Valida aderência a CAIDP AI Index e Hiroshima Process.</span>
+            </div>
           </label>
           <label className="flex flex-col gap-2">
             <SmallLabel>Email</SmallLabel>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="voce@empresa.com"
               className="px-4 py-3" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper, fontFamily: FONTS.mono, fontSize: 14 }} />
-            <span className="text-[11px]" style={{ color: PALETTE.concrete }}>Pra te enviarmos o relatório e atualizações do pipeline.</span>
+            <span className="text-[11px]" style={{ color: PALETTE.concrete }}>Pra te enviarmos o relatório e atualizações.</span>
           </label>
           {err && <p style={{ color: PALETTE.terracotta, fontFamily: FONTS.mono, fontSize: 13 }}>{err}</p>}
           <button type="button" disabled={!canActivate} onClick={() => void onActivate()} className="py-3 px-6 font-mono text-[13px] uppercase tracking-[.14em]"
@@ -141,7 +257,7 @@ export default function AppActivate() {
       {pipelineId && !runResult && !busy && (
         <div className="mt-8 p-6" style={{ border: `1px solid ${PALETTE.verdigris}`, borderRadius: 4, background: 'rgba(74,124,116,.08)' }}>
           <SmallLabel style={{ color: PALETTE.verdigris }}>Pipeline registered</SmallLabel>
-          <h2 className="mt-2 text-[20px] font-medium" style={{ fontFamily: FONTS.display }}>{normRepo}</h2>
+          <h2 className="mt-2 text-[20px] font-medium" style={{ fontFamily: FONTS.display }}>{companyId}</h2>
           <p className="mt-2 text-[14px]" style={{ color: PALETTE.inkSoft }}>Tier agora é <b>Managed</b>. Rode o pipeline pra a DPO2U executar e ancorar o primeiro selo.</p>
           {err && <p style={{ color: PALETTE.terracotta, fontFamily: FONTS.mono, fontSize: 13 }}>{err}</p>}
           <div className="mt-4 flex gap-3">
