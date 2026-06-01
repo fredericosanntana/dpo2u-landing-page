@@ -9,7 +9,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { useAuthStore, maskApiKey } from '@/lib/pilot/auth-store';
-import { githubStatus, startGithubInstall, githubInstallUrl, type GithubStatus } from '@/lib/app/github-client';
+import { githubStatus, githubRepos, startGithubInstall, githubInstallUrl, type GithubStatus, type GithubRepo } from '@/lib/app/github-client';
+import { truncatePubkey } from '@/lib/app/wallet-session';
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
@@ -28,10 +29,12 @@ export default function AppSettings() {
   const clearKey = useAuthStore((s) => s.clear);
   const [keyInput, setKeyInput] = useState('');
   const [gh, setGh] = useState<GithubStatus | null>(null);
+  const [repos, setRepos] = useState<GithubRepo[] | null>(null);
   useEffect(() => {
-    if (!pubkey) { setGh(null); return; }
+    if (!pubkey) { setGh(null); setRepos(null); return; }
     let alive = true;
     void githubStatus(pubkey).then((s) => { if (alive) setGh(s); });
+    void githubRepos(pubkey).then((r) => { if (alive) setRepos(r?.repos ?? null); });
     return () => { alive = false; };
   }, [pubkey]);
 
@@ -66,6 +69,26 @@ export default function AppSettings() {
             <Field label="Installation" value={String(gh.install.installation_id)} />
             <Field label="Créditos CI" value={String(gh.credits)} />
           </div>
+          {repos && repos.length > 0 && (
+            <div className="mt-4" style={{ border: `.5px solid ${PALETTE.rule}`, borderRadius: 4, overflow: 'hidden' }}>
+              <div style={{ padding: '8px 12px', background: PALETTE.paper, borderBottom: `.5px solid ${PALETTE.rule}` }}>
+                <SmallLabel>Repositórios conectados · {repos.length}</SmallLabel>
+              </div>
+              {repos.slice(0, 20).map((r) => (
+                <div key={`${r.installation_id}:${r.full_name}`} className="flex items-center justify-between gap-3"
+                  style={{ padding: '8px 12px', borderTop: `.5px solid ${PALETTE.rule}` }}>
+                  <span style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.ink, wordBreak: 'break-all' }}>{r.full_name}</span>
+                  <span className="flex items-center gap-2" style={{ flexShrink: 0 }}>
+                    <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: r.private ? PALETTE.terracotta : PALETTE.verdigris, border: `1px solid ${r.private ? PALETTE.terracotta : PALETTE.verdigris}`, borderRadius: 999, padding: '1px 8px' }}>
+                      {r.private ? 'private' : 'public'}
+                    </span>
+                    <a href={r.html_url} target="_blank" rel="noreferrer" style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, textDecoration: 'underline', textUnderlineOffset: 3 }}>↗</a>
+                  </span>
+                </div>
+              ))}
+              {repos.length > 20 && <div style={{ padding: '6px 12px', borderTop: `.5px solid ${PALETTE.rule}`, fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete }}>+{repos.length - 20} mais…</div>}
+            </div>
+          )}
           <div className="mt-4 flex gap-3 flex-wrap">
             <a href={githubInstallUrl()} target="_blank" rel="noreferrer" className="py-2 px-4 font-mono text-[11px] uppercase tracking-[.14em]"
               style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, textDecoration: 'none' }}>Gerenciar repos ↗</a>
@@ -76,7 +99,8 @@ export default function AppSettings() {
       ) : (
         <div className="p-4" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
           <p className="text-[14px] mb-3" style={{ color: PALETTE.inkSoft }}>
-            Conecte o GitHub para a DPO2U atestar cada PR automaticamente (DPO-as-a-Service).
+            Esta wallet (<b style={{ fontFamily: FONTS.mono }}>{truncatePubkey(pubkey)}</b>) ainda não tem GitHub conectado.
+            O vínculo é <b>por wallet</b> — se você conectou com outra wallet, troque para ela na carteira; ou conecte aqui (re-vincula a instalação a esta wallet).
           </p>
           <button type="button" onClick={() => startGithubInstall(pubkey ?? undefined)} disabled={!pubkey}
             className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"

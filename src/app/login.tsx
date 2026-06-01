@@ -1,6 +1,6 @@
 /**
  * /login — wallet connect ("Seal in"). PRD §7.6 / screens auth card.
- * Freighter primary; Phantom behind VITE_WALLET_SOLANA; WalletConnect/GitHub roadmap.
+ * Solana-only: Solflare + Phantom; WalletConnect/GitHub roadmap.
  */
 import React from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';

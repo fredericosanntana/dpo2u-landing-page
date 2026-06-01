@@ -90,3 +90,9 @@ export function truncateAddress(address: PublicKey | string, head = 4, tail = 4)
   if (a.length <= head + tail + 1) return a;
   return `${a.slice(0, head)}…${a.slice(-tail)}`;
 }
+
+/** Trunca um hash hex (evidência/commitment) p/ exibição. Neutro de chain. */
+export function truncateHash(hash: string, head = 8, tail = 8): string {
+  if (!hash || hash.length <= head + tail + 1) return hash;
+  return `${hash.slice(0, head)}…${hash.slice(-tail)}`;
+}

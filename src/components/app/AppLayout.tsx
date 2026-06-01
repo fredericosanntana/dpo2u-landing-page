@@ -71,7 +71,7 @@ export default function AppLayout() {
               {truncatePubkey(pubkey)}
             </div>
             <div style={{ fontFamily: FONTS.mono, fontSize: 10, color: PALETTE.concrete }}>
-              {network ?? 'stellar'}
+              {network ?? 'solana'}
             </div>
             <button
               type="button"

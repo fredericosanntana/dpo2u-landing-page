@@ -1,41 +1,54 @@
 /**
- * /app/billing — uso REAL (Fase E). Puxa o ledger x402 do gateway (GET /managed/usage)
- * filtrado pela pubkey: setup fee + per-attestation efetivamente pagos (XLM testnet), com
- * links de tx. Preço final do tier Managed/DPO segue "em calibração" (gate G1).
+ * /app/billing — uso REAL (Fase E). Puxa o ledger do gateway (GET /managed/usage)
+ * filtrado pela pubkey: setup fee + per-attestation em USDC (Solana), com links de tx.
+ * Preço final do tier Managed/DPO segue "em calibração" (gate G1).
  */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { getUsage, type ManagedUsage, type ManagedReceipt } from '@/lib/app/managed-client';
-import { githubStatus } from '@/lib/app/github-client';
-import { stellarExpertUrl } from '@/lib/pilot/stellar';
+import { githubStatus, rechargeCredits } from '@/lib/app/github-client';
+import { explorerUrl as solExplorerUrl } from '@/lib/solana';
 
-// O ledger x402 grava amount em XLM DECIMAL (ex.: "2", "0.1") — NÃO atômico. Não dividir por 1e7.
-const fmtXlm = (amount: string): string => {
+// O ledger grava amount em DECIMAL (ex.: "2", "0.1") — NÃO atômico.
+const fmtAmount = (amount: string): string => {
   const n = Number(amount);
   return Number.isFinite(n) ? String(n) : amount;
 };
 
 export default function AppBilling() {
-  const { pubkey, chain, tier } = useWalletAuth();
-  const isSolana = chain === 'solana';
+  const { pubkey, tier } = useWalletAuth();
   const [usage, setUsage] = useState<ManagedUsage | null>(null);
   const [loading, setLoading] = useState(false);
   const [githubCredits, setGithubCredits] = useState<number | null>(null);
+  const [rechargeBusy, setRechargeBusy] = useState(false);
+  const [rechargeMsg, setRechargeMsg] = useState<string | null>(null);
 
   useEffect(() => {
     if (!pubkey) { setUsage(null); setGithubCredits(null); return; }
     let alive = true;
     setLoading(true);
-    void getUsage(pubkey, isSolana ? 'solana' : 'stellar').then((u) => { if (alive) { setUsage(u); setLoading(false); } });
+    void getUsage(pubkey, 'solana').then((u) => { if (alive) { setUsage(u); setLoading(false); } });
     void githubStatus(pubkey).then((s) => { if (alive) setGithubCredits(s?.credits ?? null); });
     return () => { alive = false; };
-  }, [pubkey, isSolana]);
+  }, [pubkey, rechargeMsg]);
+
+  // Recarrega créditos de CI. O pagamento na Solana é via gateway (USDC SPL), server-side.
+  const onRecharge = async () => {
+    if (!pubkey) { setRechargeMsg('Conecte a wallet.'); return; }
+    setRechargeBusy(true); setRechargeMsg(null);
+    try {
+      const r = await rechargeCredits(pubkey);
+      if (r.kind === 'payment_required') { setRechargeMsg('Recarga via gateway Solana (USDC SPL) em calibração no devnet.'); return; }
+      if (r.kind === 'error') { setRechargeMsg(`Falha na recarga: ${r.message}`); return; }
+      setRechargeMsg(`✓ +${r.added} créditos · saldo ${r.balance}.`);
+    } finally { setRechargeBusy(false); }
+  };
 
   const receipts: ManagedReceipt[] = usage?.receipts ?? [];
   const total = receipts.reduce((acc, r) => acc + (Number(r.amount) || 0), 0);
-  const totalXlm = total.toFixed(2).replace(/\.?0+$/, '');
+  const totalAmt = total.toFixed(2).replace(/\.?0+$/, '');
   const pipelines = usage?.pipelines?.length ?? 0;
 
   return (
@@ -45,23 +58,21 @@ export default function AppBilling() {
         Usage &amp; plan<span style={{ color: PALETTE.terracotta }}>.</span>
       </h1>
       <p className="mt-2 text-[15px]" style={{ color: PALETTE.inkSoft }}>
-        A atestação é a unidade de cobrança. Plano atual: <b>{tier.label}</b>. ({isSolana ? 'Solana devnet' : 'Stellar testnet'})
+        A atestação é a unidade de cobrança. Plano atual: <b>{tier.label}</b>. (Solana devnet)
       </p>
-      {isSolana && (
-        <div className="mt-4 p-4" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
-          <SmallLabel>Pagamento na Solana</SmallLabel>
-          <p className="mt-1 text-[14px]" style={{ color: PALETTE.inkSoft }}>
-            Na Solana o pagamento é via <b>payment-gateway</b> (Invoice on-chain em USDC SPL), não x402/XLM —
-            e está <b>desabilitado em devnet</b> por ora. Os recibos x402 abaixo são do fluxo Stellar.
-          </p>
-        </div>
-      )}
+      <div className="mt-4 p-4" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
+        <SmallLabel>Pagamento na Solana</SmallLabel>
+        <p className="mt-1 text-[14px]" style={{ color: PALETTE.inkSoft }}>
+          O pagamento é via <b>payment-gateway</b> (Invoice on-chain em USDC SPL), resolvido server-side —
+          e está <b>em calibração no devnet</b> por ora.
+        </p>
+      </div>
 
       {/* Usage real (ledger x402) + créditos de CI (GitHub App) */}
       <div className="mt-8 grid grid-cols-2 lg:grid-cols-4" style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
         {[
-          [String(receipts.length), 'pagamentos x402'],
-          [`${totalXlm} XLM`, 'total pago (testnet)'],
+          [String(receipts.length), 'pagamentos'],
+          [`${totalAmt} USDC`, 'total pago (devnet)'],
           [String(pipelines), 'pipelines'],
           [githubCredits === null ? '—' : String(githubCredits), 'créditos CI (GitHub)'],
         ].map(([n, l], i) => (
@@ -72,9 +83,24 @@ export default function AppBilling() {
         ))}
       </div>
 
+      {/* Recarga de créditos de CI (GitHub App) — pagamento via gateway Solana (USDC SPL). */}
+      <div className="mt-4 flex items-center gap-3 flex-wrap">
+        <button type="button" disabled={!pubkey || rechargeBusy} onClick={() => void onRecharge()}
+          className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
+          style={{ background: pubkey && !rechargeBusy ? PALETTE.ink : PALETTE.ruleStrong, color: PALETTE.paper, border: 'none', cursor: pubkey && !rechargeBusy ? 'pointer' : 'not-allowed' }}>
+          {rechargeBusy ? 'Recarregando…' : 'Recarregar créditos CI →'}
+        </button>
+        <span className="text-[12px]" style={{ color: PALETTE.concrete }}>
+          1 pacote = 10 créditos · 1 crédito por Check Run · saldo <b>vinculado à wallet {pubkey ? `${pubkey.slice(0, 4)}…${pubkey.slice(-4)}` : '—'}</b>.
+        </span>
+      </div>
+      {rechargeMsg && (
+        <p className="mt-2 text-[13px]" style={{ fontFamily: FONTS.mono, color: rechargeMsg.startsWith('✓') ? PALETTE.verdigris : PALETTE.terracotta }}>{rechargeMsg}</p>
+      )}
+
       {/* Recibos */}
       <div className="mt-6">
-        <SmallLabel style={{ marginBottom: 10 }}>Recibos x402</SmallLabel>
+        <SmallLabel style={{ marginBottom: 10 }}>Recibos</SmallLabel>
         {loading ? (
           <p className="text-[13px]" style={{ color: PALETTE.concrete }}>Carregando uso…</p>
         ) : receipts.length === 0 ? (
@@ -95,9 +121,9 @@ export default function AppBilling() {
                 {receipts.slice().sort((a, b) => b.paidAt - a.paidAt).map((r) => (
                   <tr key={r.txHash} style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
                     <td style={{ padding: '8px 14px', fontFamily: FONTS.mono, fontSize: 12 }}>{r.resource.replace('managed/', '')}</td>
-                    <td style={{ padding: '8px 14px', fontSize: 13 }}>{fmtXlm(r.amount)} XLM</td>
+                    <td style={{ padding: '8px 14px', fontSize: 13 }}>{fmtAmount(r.amount)} {r.asset || 'USDC'}</td>
                     <td style={{ padding: '8px 14px', fontSize: 12 }}>
-                      <a href={stellarExpertUrl('tx', r.txHash)} target="_blank" rel="noreferrer" style={{ fontFamily: FONTS.mono, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>{r.txHash.slice(0, 8)}… ↗</a>
+                      <a href={solExplorerUrl(r.txHash, 'tx')} target="_blank" rel="noreferrer" style={{ fontFamily: FONTS.mono, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>{r.txHash.slice(0, 8)}… ↗</a>
                     </td>
                     <td style={{ padding: '8px 14px', fontSize: 12, color: PALETTE.concrete }}>{new Date(r.paidAt).toISOString().slice(0, 10)}</td>
                   </tr>
@@ -111,7 +137,7 @@ export default function AppBilling() {
       <div className="mt-6 p-4" style={{ border: `1px solid ${PALETTE.verdigris}`, borderRadius: 4, background: 'rgba(74,124,116,.08)' }}>
         <SmallLabel>Preço (Managed / DPO)</SmallLabel>
         <p className="mt-1 text-[14px]" style={{ color: PALETTE.inkSoft }}>
-          Testnet: setup <b>2 XLM</b> + <b>0.1 XLM</b> por atestação. O preço público final está <b>em calibração</b> (gate G1) —
+          Devnet: setup + por atestação em <b>USDC</b>. O preço público final está <b>em calibração</b> (gate G1) —
           validando disposição-a-pagar antes de fixar. Fale conosco para um plano.
         </p>
       </div>

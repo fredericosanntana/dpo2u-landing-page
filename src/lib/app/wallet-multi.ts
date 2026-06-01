@@ -1,12 +1,13 @@
-// Multi-wallet adapters behind a common interface.
+// Multi-wallet adapters behind a common interface. Solana-only.
 //
-// MVP: Freighter (Stellar) is the validated path — delegates to the pilot's
-// freighter adapter (src/lib/pilot/freighter.ts), 100% reuse. Phantom (Solana)
-// is behind VITE_WALLET_SOLANA; WalletConnect/GitHub OAuth are roadmap (need
-// backend) and render disabled in the UI.
+// O app disponibiliza apenas Solana: Solflare e Phantom (wallets nativas Solana).
+// O caminho da chain antiga foi removido daqui (continua só no /pilot).
+// WalletConnect/GitHub OAuth são roadmap (precisam de backend).
 
-import { connect as freighterConnect, getStatus as freighterStatus } from '@/lib/pilot/freighter';
 import type { WalletChain } from './wallet-session';
+
+// Cluster Solana configurado (default devnet) — lido sem carregar @solana/web3.js.
+const SOLANA_CLUSTER = (import.meta.env.VITE_SOLANA_CLUSTER as string | undefined) ?? 'devnet';
 
 export interface WalletConnectResult {
   readonly ok: boolean;
@@ -26,38 +27,12 @@ export interface WalletAdapter {
   connect(): Promise<WalletConnectResult>;
 }
 
-const SOLANA_ENABLED = (import.meta.env.VITE_WALLET_SOLANA as string | undefined) === '1';
-
-export const freighterAdapter: WalletAdapter = {
-  id: 'freighter',
-  label: 'Freighter (Stellar)',
-  chain: 'stellar',
-  enabled: true,
-  async isAvailable() {
-    const s = await freighterStatus();
-    return s.available;
-  },
-  async connect() {
-    const s = await freighterConnect();
-    if (!s.publicKey) {
-      return { ok: false, chain: 'stellar', error: s.error ?? 'Conexão recusada ou rede indisponível.' };
-    }
-    return {
-      ok: true,
-      chain: 'stellar',
-      pubkey: s.publicKey,
-      network: s.network,
-      networkPassphrase: s.networkPassphrase,
-    };
-  },
-};
-
 // Phantom (Solana) — minimal, dynamic so @solana/web3.js doesn't load unless used.
 export const phantomAdapter: WalletAdapter = {
   id: 'phantom',
   label: 'Phantom (Solana)',
   chain: 'solana',
-  enabled: SOLANA_ENABLED,
+  enabled: true,
   async isAvailable() {
     if (typeof window === 'undefined') return false;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,16 +47,16 @@ export const phantomAdapter: WalletAdapter = {
       const res = await sol.connect();
       const pubkey = res?.publicKey?.toString?.() ?? sol.publicKey?.toString?.();
       if (!pubkey) return { ok: false, chain: 'solana', error: 'Sem pubkey.' };
-      return { ok: true, chain: 'solana', pubkey, network: 'mainnet-beta' };
+      return { ok: true, chain: 'solana', pubkey, network: SOLANA_CLUSTER };
     } catch (e) {
       return { ok: false, chain: 'solana', error: e instanceof Error ? e.message : 'Conexão recusada.' };
     }
   },
 };
 
-// Solflare (Solana) — habilitada por padrão (tração). window.solflare injeta isSolflare +
-// connect() + publicKey. No fluxo Managed dual-chain, conectar Solflare ancora o selo na
-// Solana (gateway assina; ver activate.tsx + solana-driver no gateway) — NÃO toca Freighter/XLM.
+// Solflare (Solana) — habilitada por padrão. window.solflare injeta isSolflare +
+// connect() + publicKey. Conectar Solflare ancora o selo na Solana (o gateway assina;
+// ver activate.tsx + solana-driver no gateway).
 export const solflareAdapter: WalletAdapter = {
   id: 'solflare',
   label: 'Solflare (Solana)',
@@ -101,14 +76,14 @@ export const solflareAdapter: WalletAdapter = {
       await sf.connect();
       const pubkey = sf.publicKey?.toString?.();
       if (!pubkey) return { ok: false, chain: 'solana', error: 'Sem pubkey.' };
-      return { ok: true, chain: 'solana', pubkey, network: 'mainnet-beta' };
+      return { ok: true, chain: 'solana', pubkey, network: SOLANA_CLUSTER };
     } catch (e) {
       return { ok: false, chain: 'solana', error: e instanceof Error ? e.message : 'Conexão recusada.' };
     }
   },
 };
 
-export const WALLET_ADAPTERS: readonly WalletAdapter[] = [freighterAdapter, solflareAdapter, phantomAdapter];
+export const WALLET_ADAPTERS: readonly WalletAdapter[] = [solflareAdapter, phantomAdapter];
 
 export function getAdapter(id: string): WalletAdapter | undefined {
   return WALLET_ADAPTERS.find((a) => a.id === id);

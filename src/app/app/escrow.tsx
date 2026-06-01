@@ -5,12 +5,12 @@
 import React, { useState } from 'react';
 import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
-import { truncateHash } from '@/lib/pilot/stellar';
+import { truncateHash } from '@/lib/solana';
 
 export default function AppEscrow() {
-  const { pubkey, network, workspace } = useWalletAuth();
-  
-  // Mock data to simulate the Stellar Escrow contract state we built in dpo2u-stellar
+  const { pubkey, workspace } = useWalletAuth();
+
+  // Mock data — estado de exemplo dos contratos de escrow condicional (Solana).
   const [escrows, setEscrows] = useState([
     {
       id: 'escrow_1A2b3C',
@@ -62,7 +62,7 @@ export default function AppEscrow() {
       </div>
 
       <p className="mt-2 text-[14px]" style={{ color: PALETTE.inkSoft }}>
-        {workspace.label} · Fundos travados em Smart Contracts na rede {network ?? 'Stellar'}. 
+        {workspace.label} · Fundos travados em Smart Contracts na rede Solana.
         A liberação ocorre automaticamente quando o Motor MCP atesta conformidade.
       </p>
 

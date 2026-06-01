@@ -1,6 +1,5 @@
-// Hook de leitura das atestações Solana de um subject (dashboard dual-chain).
-// Espelha o papel do indexer-store (Stellar/Horizon), mas lê via getProgramAccounts
-// no compliance-registry (devnet). Auto-refresh a cada 30s, igual ao LiveAttestationsWidget.
+// Hook de leitura das atestações Solana de um subject (dashboard).
+// Lê via getProgramAccounts no compliance-registry (devnet). Auto-refresh a cada 30s.
 
 import { useCallback, useEffect, useState } from 'react';
 import {

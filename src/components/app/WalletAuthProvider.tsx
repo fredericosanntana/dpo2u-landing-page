@@ -1,14 +1,13 @@
-// WalletAuthProvider — app-wide wallet session + derived tier/workspace.
+// WalletAuthProvider — app-wide wallet session + derived tier/workspace. Solana-only.
 //
-// Reconciles the persisted session against the live Freighter status on mount
-// and on window focus (a user may switch accounts/networks in the extension).
-// Connect/disconnect go through the multi-wallet adapters.
+// Reconciles the persisted session against the live Solana wallet
+// (Solflare/Phantom) on mount and on window focus. Connect/disconnect go
+// through the multi-wallet adapters.
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useWalletSession } from '@/lib/app/wallet-session';
 import { deriveTier, deriveWorkspace, type TierInfo, type Workspace } from '@/lib/app/tier';
-import { getAdapter, freighterAdapter } from '@/lib/app/wallet-multi';
-import { getStatus as freighterGetStatus } from '@/lib/pilot/freighter';
+import { getAdapter, solflareAdapter } from '@/lib/app/wallet-multi';
 import { usePipelineStore } from '@/lib/app/pipeline-store';
 
 interface WalletAuthValue {
@@ -33,36 +32,27 @@ export function WalletAuthProvider({ children }: { children: React.ReactNode }) 
 
   const hasPipeline = Boolean(session.pubkey && pipelines.some((p) => p.pubkey === session.pubkey));
 
-  // Reconcile persisted session with the live extension state. Chain-aware:
-  // Stellar reconcilia via Freighter; Solana via window.solflare/window.solana
-  // (senão uma sessão Solana degradava em silêncio — parte do bug dual-chain).
+  // Reconcile persisted session with the live Solana wallet (Solflare/Phantom).
+  // Sessões legadas de outra chain são descartadas — o usuário reconecta
+  // com uma wallet Solana.
   const reconcile = useCallback(async () => {
     if (!session.pubkey) return;
-    if (session.chain === 'stellar') {
-      const s = await freighterGetStatus();
-      if (s.available && s.publicKey && s.publicKey !== session.pubkey) {
-        session.setSession({
-          chain: 'stellar',
-          pubkey: s.publicKey,
-          network: s.network,
-          networkPassphrase: s.networkPassphrase,
-          connectedAt: Date.now(),
-        });
-      }
-    } else if (session.chain === 'solana') {
-      if (typeof window === 'undefined') return;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const w = window as any;
-      const provider = w.solflare?.isSolflare ? w.solflare : w.solana?.isPhantom ? w.solana : null;
-      const livePubkey: string | undefined = provider?.publicKey?.toString?.();
-      if (livePubkey && livePubkey !== session.pubkey) {
-        session.setSession({
-          chain: 'solana',
-          pubkey: livePubkey,
-          network: session.network ?? 'mainnet-beta',
-          connectedAt: Date.now(),
-        });
-      }
+    if (session.chain && session.chain !== 'solana') {
+      session.clear();
+      return;
+    }
+    if (typeof window === 'undefined') return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any;
+    const provider = w.solflare?.isSolflare ? w.solflare : w.solana?.isPhantom ? w.solana : null;
+    const livePubkey: string | undefined = provider?.publicKey?.toString?.();
+    if (livePubkey && livePubkey !== session.pubkey) {
+      session.setSession({
+        chain: 'solana',
+        pubkey: livePubkey,
+        network: session.network ?? 'devnet',
+        connectedAt: Date.now(),
+      });
     }
   }, [session]);
 
@@ -77,7 +67,7 @@ export function WalletAuthProvider({ children }: { children: React.ReactNode }) 
     setError(null);
     setConnecting(true);
     try {
-      const adapter = getAdapter(adapterId) ?? freighterAdapter;
+      const adapter = getAdapter(adapterId) ?? solflareAdapter;
       const res = await adapter.connect();
       if (!res.ok || !res.pubkey) {
         setError(res.error ?? 'Falha ao conectar a wallet.');

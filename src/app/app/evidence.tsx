@@ -1,19 +1,18 @@
 /**
- * /app/evidence — audit-evidence dossier (Fase E).
+ * /app/evidence — audit-evidence dossier (Fase E). Solana-only.
  * Junta os selos desta wallet: histórico LOCAL (instantâneo — os selos Managed são
- * ancorados pela DPO2U, não pela pubkey do usuário, então não vêm pelo filtro on-chain)
- * + eventos on-chain do indexer (Horizon), dedup por hash. KPIs, breakdown por use case,
- * lista de selos com link /verify, export JSON / print PDF.
+ * ancorados pela DPO2U, não pela pubkey do usuário) + atestações on-chain lidas das
+ * PDAs do compliance-registry (Solana), dedup por hash. KPIs, breakdown por use case,
+ * lista de selos com link /verify/sol, export JSON / print PDF.
  */
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
-import { useIndexerStore } from '@/lib/pilot/indexer-store';
+import { DocAddonPanel } from '@/components/app/DocAddonPanel';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
 import { useSolanaAttestations } from '@/lib/app/solana-indexer';
-import { truncateHash, stellarExpertUrl, DEFAULT_CONTRACT } from '@/lib/pilot/stellar';
-import { CLUSTER, PROGRAM_IDS, explorerUrl as solExplorerUrl } from '@/lib/solana';
+import { CLUSTER, PROGRAM_IDS, explorerUrl as solExplorerUrl, truncateHash } from '@/lib/solana';
 
 interface Seal {
   useCaseId: string;
@@ -23,59 +22,37 @@ interface Seal {
   txHash?: string;
   at: number; // ms
   source: 'onchain' | 'local';
-  chain: 'stellar' | 'solana';
+  chain: 'solana';
   subject?: string; // Solana: subject da PDA (link /verify/sol)
   explorerUrl?: string; // Solana: link direto pro explorer
 }
 
 export default function AppEvidence() {
-  const { pubkey, chain, tier, workspace } = useWalletAuth();
-  const isSolana = chain === 'solana';
-  const events = useIndexerStore((s) => s.events);
-  const fetchOnce = useIndexerStore((s) => s.fetchOnce);
+  const { pubkey, tier, workspace } = useWalletAuth();
   const history = useAttestationHistory((s) => s.refs);
-  const solana = useSolanaAttestations(isSolana ? pubkey : null);
-  useEffect(() => { if (!isSolana) void fetchOnce(); }, [isSolana, fetchOnce]);
+  const solana = useSolanaAttestations(pubkey);
 
-  // Merge: on-chain (rico) + local (instantâneo), dedup por hash (on-chain ganha).
-  // Dual-chain: em sessão Solana lê as PDAs; em Stellar lê o indexer Horizon.
+  // Merge: on-chain (PDAs, rico) + local (instantâneo), dedup por hash (on-chain ganha).
   const seals = useMemo<Seal[]>(() => {
     if (!pubkey) return [];
     const byHash = new Map<string, Seal>();
     const myHistory = history.filter((h) => h.pubkey === pubkey);
-
-    if (isSolana) {
-      for (const r of myHistory.filter((h) => (h.chain ?? 'stellar') === 'solana')) {
-        byHash.set(r.evidenceHashHex.toLowerCase(), {
-          useCaseId: r.useCaseId, hash: r.evidenceHashHex, verdict: r.verdict, score: r.score,
-          txHash: r.txHash, at: r.at, source: 'local', chain: 'solana', subject: r.pubkey, explorerUrl: r.explorerUrl,
-        });
-      }
-      for (const a of solana.records) {
-        const key = (a.evidenceHashHex ?? a.commitmentHex).toLowerCase();
-        byHash.set(key, {
-          useCaseId: 'managed_compliance_v1', hash: a.evidenceHashHex ?? a.commitmentHex,
-          verdict: a.verdict ?? undefined, at: a.issuedAt ?? 0, source: 'onchain', chain: 'solana',
-          subject: a.subject, explorerUrl: a.explorerUrl,
-        });
-      }
-      return Array.from(byHash.values()).sort((a, b) => b.at - a.at);
-    }
-
-    for (const r of myHistory.filter((h) => (h.chain ?? 'stellar') !== 'solana')) {
+    for (const r of myHistory) {
       byHash.set(r.evidenceHashHex.toLowerCase(), {
         useCaseId: r.useCaseId, hash: r.evidenceHashHex, verdict: r.verdict, score: r.score,
-        txHash: r.txHash, at: r.at, source: 'local', chain: 'stellar',
+        txHash: r.txHash, at: r.at, source: 'local', chain: 'solana', subject: r.pubkey, explorerUrl: r.explorerUrl,
       });
     }
-    for (const e of events.filter((e) => e.record.submitted_by === pubkey)) {
-      byHash.set(e.evidence_hash_hex.toLowerCase(), {
-        useCaseId: e.use_case_id, hash: e.evidence_hash_hex, verdict: e.record.verdict,
-        txHash: e.tx_hash, at: e.record.timestamp * 1000, source: 'onchain', chain: 'stellar',
+    for (const a of solana.records) {
+      const key = (a.evidenceHashHex ?? a.commitmentHex).toLowerCase();
+      byHash.set(key, {
+        useCaseId: 'managed_compliance_v1', hash: a.evidenceHashHex ?? a.commitmentHex,
+        verdict: a.verdict ?? undefined, at: a.issuedAt ?? 0, source: 'onchain', chain: 'solana',
+        subject: a.subject, explorerUrl: a.explorerUrl,
       });
     }
     return Array.from(byHash.values()).sort((a, b) => b.at - a.at);
-  }, [events, history, pubkey, isSolana, solana.records]);
+  }, [history, pubkey, solana.records]);
 
   const byJuris = useMemo(() => {
     const m = new Map<string, { total: number; pass: number; fail: number; review: number }>();
@@ -91,20 +68,16 @@ export default function AppEvidence() {
   }, [seals]);
 
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  // verify_url por chain: Stellar resolve por (uc,hash); Solana por (uc,hash,subject).
+  // verify_url Solana: resolve por (uc, hash, subject).
   const verifyUrl = (s: Seal): string =>
-    s.chain === 'solana'
-      ? `${origin}/verify/sol/uc/${s.useCaseId}/hash/${s.hash}/subject/${s.subject ?? ''}`
-      : `${origin}/verify/uc/${s.useCaseId}/hash/${s.hash}`;
+    `${origin}/verify/sol/uc/${s.useCaseId}/hash/${s.hash}/subject/${s.subject ?? ''}`;
 
   const exportJson = () => {
     const dossier = {
       generatedAt: new Date().toISOString(),
       workspace: workspace.label,
       tier: tier.label,
-      anchor: isSolana
-        ? { chain: 'solana', network: `solana:${CLUSTER}`, program: PROGRAM_IDS.complianceRegistry.toBase58() }
-        : { chain: 'stellar', network: 'stellar:testnet', contract: DEFAULT_CONTRACT.id },
+      anchor: { chain: 'solana', network: `solana:${CLUSTER}`, program: PROGRAM_IDS.complianceRegistry.toBase58() },
       total: seals.length,
       attestations: seals.map((s) => ({
         chain: s.chain,
@@ -139,7 +112,7 @@ export default function AppEvidence() {
           </h1>
         </div>
         <div className="flex gap-2">
-          <button type="button" onClick={() => void fetchOnce()} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
+          <button type="button" onClick={() => solana.refetch()} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
             style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, background: 'transparent', cursor: 'pointer' }}>Atualizar</button>
           <button type="button" onClick={exportJson} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
             style={{ background: PALETTE.ink, color: PALETTE.paper, border: 'none', cursor: 'pointer' }}>Export JSON</button>
@@ -149,7 +122,7 @@ export default function AppEvidence() {
       </div>
 
       <p className="mt-2 text-[14px]" style={{ color: PALETTE.inkSoft }}>
-        {workspace.label} · {tier.label} · {seals.length} selo{seals.length === 1 ? '' : 's'} ({isSolana ? `Solana ${CLUSTER}` : 'Stellar testnet'}).
+        {workspace.label} · {tier.label} · {seals.length} selo{seals.length === 1 ? '' : 's'} (Solana {CLUSTER}).
       </p>
 
       <Rule style={{ margin: '28px 0' }} color={PALETTE.ruleStrong} />
@@ -193,18 +166,11 @@ export default function AppEvidence() {
                     <div style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, wordBreak: 'break-all' }}>{truncateHash(s.hash)}</div>
                   </div>
                   <div className="flex items-center gap-3">
-                    {s.chain === 'solana' ? (
-                      (s.explorerUrl || s.txHash) && (
-                        <a href={s.explorerUrl ?? solExplorerUrl(s.txHash!, 'tx')} target="_blank" rel="noreferrer"
-                          style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, textDecoration: 'underline', textUnderlineOffset: 3 }}>tx ↗</a>
-                      )
-                    ) : (
-                      s.txHash && (
-                        <a href={stellarExpertUrl('tx', s.txHash)} target="_blank" rel="noreferrer"
-                          style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, textDecoration: 'underline', textUnderlineOffset: 3 }}>tx ↗</a>
-                      )
+                    {(s.explorerUrl || s.txHash) && (
+                      <a href={s.explorerUrl ?? solExplorerUrl(s.txHash!, 'tx')} target="_blank" rel="noreferrer"
+                        style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, textDecoration: 'underline', textUnderlineOffset: 3 }}>tx ↗</a>
                     )}
-                    <Link to={s.chain === 'solana' ? `/verify/sol/uc/${s.useCaseId}/hash/${s.hash}/subject/${s.subject ?? ''}` : `/verify/uc/${s.useCaseId}/hash/${s.hash}`}
+                    <Link to={`/verify/sol/uc/${s.useCaseId}/hash/${s.hash}/subject/${s.subject ?? ''}`}
                       className="py-1.5 px-3 font-mono text-[11px] uppercase tracking-[.12em]"
                       style={{ background: PALETTE.ink, color: PALETTE.paper, textDecoration: 'none' }}>Ver prova →</Link>
                   </div>
@@ -242,24 +208,12 @@ export default function AppEvidence() {
 
           {/* On-chain anchor — por chain */}
           <div className="mt-6 p-4" style={{ background: PALETTE.ink, color: PALETTE.paper, borderRadius: 4 }}>
-            <SmallLabel style={{ color: 'rgba(241,236,227,.7)' }}>On-chain anchor · {isSolana ? `Solana ${CLUSTER}` : 'Stellar testnet'}</SmallLabel>
-            {isSolana ? (
-              <>
-                <div style={{ fontFamily: FONTS.mono, fontSize: 12, marginTop: 6, wordBreak: 'break-all' }}>{PROGRAM_IDS.complianceRegistry.toBase58()}</div>
-                <a href={solExplorerUrl(PROGRAM_IDS.complianceRegistry.toBase58())} target="_blank" rel="noreferrer"
-                  style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                  Ver no Solana Explorer →
-                </a>
-              </>
-            ) : (
-              <>
-                <div style={{ fontFamily: FONTS.mono, fontSize: 12, marginTop: 6, wordBreak: 'break-all' }}>{DEFAULT_CONTRACT.id}</div>
-                <a href={stellarExpertUrl('contract', DEFAULT_CONTRACT.id)} target="_blank" rel="noreferrer"
-                  style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
-                  Ver no Stellar Expert →
-                </a>
-              </>
-            )}
+            <SmallLabel style={{ color: 'rgba(241,236,227,.7)' }}>On-chain anchor · Solana {CLUSTER}</SmallLabel>
+            <div style={{ fontFamily: FONTS.mono, fontSize: 12, marginTop: 6, wordBreak: 'break-all' }}>{PROGRAM_IDS.complianceRegistry.toBase58()}</div>
+            <a href={solExplorerUrl(PROGRAM_IDS.complianceRegistry.toBase58())} target="_blank" rel="noreferrer"
+              style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+              Ver no Solana Explorer →
+            </a>
           </div>
 
           <p className="mt-4 text-[12px]" style={{ color: PALETTE.concrete }}>
@@ -267,6 +221,8 @@ export default function AppEvidence() {
           </p>
         </>
       )}
+
+      <DocAddonPanel />
     </div>
   );
 }

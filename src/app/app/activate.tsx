@@ -1,7 +1,7 @@
 /**
- * /app/activate — Managed onboarding REAL (Fase 1/2): conecta repo → paga setup fee (x402)
- * → DPO2U registra o pipeline → "Run now" paga per-attestation, executa o pipeline no
- * servidor e ancora o selo. Reusa o x402/Freighter via ManagedPayModal + managed-client.
+ * /app/activate — Managed onboarding REAL (Fase 1/2): conecta repo → registra o pipeline
+ * → "Run now" executa o pipeline no servidor e ancora o selo na Solana. O pagamento
+ * (USDC SPL) é resolvido server-side pelo payment-gateway — o app não assina client-side.
  */
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -10,20 +10,16 @@ import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { useAuthStore } from '@/lib/pilot/auth-store';
 import { usePipelineStore } from '@/lib/app/pipeline-store';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
-import { ManagedPayModal } from '@/components/app/ManagedPayModal';
 import { managedActivate, managedRun, type ManagedCall } from '@/lib/app/managed-client';
-import { githubConnect, parseGithubCallback, githubStatus, startGithubInstall, githubInstallUrl, type GithubStatus } from '@/lib/app/github-client';
-import type { X402Challenge } from '@/lib/pilot/payment-tx';
-
-type Pending = { challenge: X402Challenge; kind: 'activate' | 'run' } | null;
+import { githubConnect, parseGithubCallback, githubStatus, githubRepos, startGithubInstall, githubInstallUrl, type GithubStatus, type GithubRepo } from '@/lib/app/github-client';
+import { truncatePubkey } from '@/lib/app/wallet-session';
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 export default function AppActivate() {
-  const { pubkey, chain } = useWalletAuth();
-  // Dual-chain: a chain ativa decide o caminho de atestação. Solana NÃO usa Freighter/XLM
-  // (corrige o bug: Solflare cobrava XLM e abria Freighter). Default stellar.
-  const managedChain: 'stellar' | 'solana' = chain === 'solana' ? 'solana' : 'stellar';
+  const { pubkey } = useWalletAuth();
+  // Solana-only: o selo é ancorado na Solana; o pagamento (USDC SPL) é server-side.
+  const managedChain = 'solana' as const;
   const apiKey = useAuthStore((s) => s.apiKey);
   const addPipeline = usePipelineStore((s) => s.add);
   const addHistory = useAttestationHistory((s) => s.add);
@@ -34,19 +30,23 @@ export default function AppActivate() {
   const [evaluateAi, setEvaluateAi] = useState(false);
   const [email, setEmail] = useState('');
   const [pipelineId, setPipelineId] = useState<string | null>(null);
-  const [pending, setPending] = useState<Pending>(null);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [runResult, setRunResult] = useState<Record<string, unknown> | null>(null);
+  // Porta B repo privado: quando o repo é privado, em vez de mandar pra Porta A, mostramos
+  // um painel que redireciona direto pro grant do GitHub. granted=true após o retorno.
+  const [privateRepo, setPrivateRepo] = useState<{ repo: string; granted: boolean } | null>(null);
   // GitHub App callback (instalação → workspace). null = sem callback pendente.
   const [githubMsg, setGithubMsg] = useState<{ kind: 'ok' | 'err' | 'pending'; text: string } | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   // Estado da conexão GitHub (Porta A — DPO-as-a-Service). Lê o binding + créditos.
   const [gh, setGh] = useState<GithubStatus | null>(null);
+  const [repos, setRepos] = useState<GithubRepo[] | null>(null);
   useEffect(() => {
-    if (!pubkey) { setGh(null); return; }
+    if (!pubkey) { setGh(null); setRepos(null); return; }
     let alive = true;
     void githubStatus(pubkey).then((s) => { if (alive) setGh(s); });
+    void githubRepos(pubkey).then((r) => { if (alive) setRepos(r?.repos ?? null); });
     return () => { alive = false; };
     // re-busca quando a wallet muda OU quando um callback acabou de ligar (githubMsg ok).
   }, [pubkey, githubMsg?.kind]);
@@ -83,60 +83,78 @@ export default function AppActivate() {
   const emailValid = EMAIL_RE.test(email.trim());
   const canActivate = companyId.trim().length > 2 && normRepo.includes('/') && emailValid;
 
-  const handle = (c: ManagedCall, onOk: (data: Record<string, unknown>) => void, kind: 'activate' | 'run') => {
+  const handle = (c: ManagedCall, onOk: (data: Record<string, unknown>) => void) => {
     if (c.kind === 'ok') { onOk(c.data); return true; }
-    if (c.kind === 'payment_required') { setPending({ challenge: c.challenge, kind }); return false; }
+    // Solana: o pagamento é via payment-gateway (USDC SPL), resolvido server-side.
+    if (c.kind === 'payment_required') { setErr('O pagamento na Solana é via gateway (USDC SPL) e está em calibração no devnet. Tente novamente em instantes.'); return false; }
+    // Repo privado (gateway /run → 409): em vez de erro seco, abre o painel de "disponibilizar acesso".
+    if (c.kind === 'error' && c.status === 409) { setPrivateRepo({ repo: normRepo, granted: false }); return false; }
     setErr(c.message);
     return false;
   };
 
-  const onActivate = async (xPayment?: string) => {
+  // Abre o grant do GitHub em NOVA ABA (não navega a aba atual). Como esta aba não sai, o
+  // estado React (form + pipelineId) fica intacto — sem necessidade de sessionStorage. O
+  // binding instalação→wallet é feito pela própria aba nova ao voltar pra /app/activate.
+  const onGrantPrivateAccess = () => {
+    if (!pubkey) { setErr('Conecte a wallet primeiro.'); return; }
+    window.open(githubInstallUrl({ state: pubkey }), '_blank', 'noopener,noreferrer');
+    // Revela o "Tentar novamente" — o usuário volta aqui depois de autorizar na outra aba.
+    setPrivateRepo((prev) => prev ? { ...prev, granted: true } : { repo: normRepo, granted: true });
+  };
+
+  // Após conceder o acesso e voltar: re-dispara a atestação naquele repo (agora legível via App).
+  const onRetryPrivate = () => {
+    setPrivateRepo(null);
+    setErr(null);
+    if (pipelineId) void onRun();
+    else void onActivate();
+  };
+
+  // "Editar repositório": descarta o estado de privado E o pipeline, devolvendo o formulário.
+  const onEditPrivateRepo = () => { setPrivateRepo(null); setPipelineId(null); setErr(null); };
+
+  const onActivate = async () => {
     setErr(null); setBusy(true);
     try {
       if (!pubkey) { setErr('Conecte a wallet.'); return; }
       const payload = { company_id: companyId.trim(), repo_url: normRepo, countries, evaluate_ai: evaluateAi, email: email.trim(), pubkey, chain: managedChain };
       // O backend legado ainda pode checar repo_url
-      const res = await managedActivate(payload as any, apiKey, xPayment);
+      const res = await managedActivate(payload as any, apiKey);
       handle(res, (data) => {
         const pid = String(data.pipeline_id || '');
         setPipelineId(pid);
-        setPending(null);
-        addPipeline({ id: pid, pubkey, repoUrl: companyId.trim(), chains: [managedChain === 'solana' ? 'Solana' : 'Stellar'], jurisdictions: data.jurisdiction ? [String(data.jurisdiction)] : countries, trigger: 'managed', createdAt: Date.now() });
+        addPipeline({ id: pid, pubkey, repoUrl: companyId.trim(), chains: ['Solana'], jurisdictions: data.jurisdiction ? [String(data.jurisdiction)] : countries, trigger: 'managed', createdAt: Date.now() });
         // o setup já roda a 1ª atestação e ancora o selo — mostra a evidência na hora
         const fr = data.first_run as Record<string, unknown> | null | undefined;
         if (fr && fr.evidence_hash_hex) {
           setRunResult(fr);
           const frTx = (fr.tx ?? {}) as { innerTxHash?: string; explorerUrl?: string };
           addHistory({ pubkey, useCaseId: 'managed_compliance_v1', evidenceHashHex: String(fr.evidence_hash_hex), txHash: frTx.innerTxHash, verdict: fr.verdict ? String(fr.verdict) : undefined, score: typeof fr.score === 'number' ? fr.score : undefined, at: Date.now(), source: 'activate', chain: managedChain, explorerUrl: frTx.explorerUrl });
+        } else if (data.first_run_error_code === 'repo_private_connect_github') {
+          // Repo privado: abre o painel de "disponibilizar acesso no GitHub" (não manda pra Porta A).
+          setPrivateRepo({ repo: normRepo, granted: false });
         } else {
-          // setup cobrado mas a 1ª atestação não concluiu — avisa e oferece re-rodar (sem novo setup)
+          // pipeline registrado mas a 1ª atestação não concluiu — avisa e oferece re-rodar
           const why = data.first_run_error ? `: ${String(data.first_run_error)}` : '.';
-          setErr(`Setup pago e pipeline registrado, mas a 1ª atestação não concluiu${why} Clique em "Run pipeline now" para ancorar o selo.`);
+          setErr(`Pipeline registrado, mas a 1ª atestação não concluiu${why} Clique em "Run pipeline now" para ancorar o selo.`);
         }
-      }, 'activate');
+      });
     } finally { setBusy(false); }
   };
 
-  const onRun = async (xPayment?: string) => {
+  const onRun = async () => {
     setErr(null); setBusy(true); setRunResult(null);
     try {
-      const res = await managedRun({ pipeline_id: pipelineId || undefined, repo_url: pipelineId ? undefined : normRepo, company_id: companyId.trim(), countries, evaluate_ai: evaluateAi, pubkey: pubkey || undefined, chain: managedChain } as any, apiKey, xPayment);
+      const res = await managedRun({ pipeline_id: pipelineId || undefined, repo_url: pipelineId ? undefined : normRepo, company_id: companyId.trim(), countries, evaluate_ai: evaluateAi, pubkey: pubkey || undefined, chain: managedChain } as any, apiKey);
       handle(res, (data) => {
-        setPending(null);
         setRunResult(data);
         if (pubkey && data.evidence_hash_hex) {
           const tx = data.tx as { innerTxHash?: string; explorerUrl?: string } | undefined;
           addHistory({ pubkey, useCaseId: 'managed_compliance_v1', evidenceHashHex: String(data.evidence_hash_hex), txHash: tx?.innerTxHash, verdict: data.verdict ? String(data.verdict) : undefined, score: typeof data.score === 'number' ? data.score : undefined, at: Date.now(), source: 'activate', chain: managedChain, explorerUrl: tx?.explorerUrl });
         }
-      }, 'run');
+      });
     } finally { setBusy(false); }
-  };
-
-  const onPaid = (header: string) => {
-    const kind = pending?.kind;
-    setPending(null);
-    if (kind === 'activate') void onActivate(header);
-    else if (kind === 'run') void onRun(header);
   };
 
   return (
@@ -167,7 +185,7 @@ export default function AppActivate() {
       </p>
 
       {/* PORTA A — DPO-as-a-Service (GitHub contínuo). Só no estado inicial. */}
-      {!pipelineId && !runResult && !busy && (
+      {!pipelineId && !runResult && !busy && !privateRepo && (
         <div className="mt-8 p-6" style={{ border: `1px solid ${gh?.install ? PALETTE.verdigris : PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
@@ -187,6 +205,26 @@ export default function AppActivate() {
                 Conectado a <b style={{ fontFamily: FONTS.mono }}>{gh.install.account_login || 'sua conta'}</b> ·{' '}
                 <b>{gh.credits}</b> crédito{gh.credits === 1 ? '' : 's'} de CI. Cada PR vira um selo (Check Run) e debita 1 crédito.
               </p>
+              {repos && repos.length > 0 && (
+                <div className="mt-4" style={{ border: `.5px solid ${PALETTE.rule}`, borderRadius: 4, overflow: 'hidden' }}>
+                  <div style={{ padding: '8px 12px', background: PALETTE.paper, borderBottom: `.5px solid ${PALETTE.rule}` }}>
+                    <SmallLabel>Repositórios conectados · {repos.length}</SmallLabel>
+                  </div>
+                  {repos.slice(0, 12).map((r) => (
+                    <div key={`${r.installation_id}:${r.full_name}`} className="flex items-center justify-between gap-3"
+                      style={{ padding: '8px 12px', borderTop: `.5px solid ${PALETTE.rule}` }}>
+                      <span style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.ink, wordBreak: 'break-all' }}>{r.full_name}</span>
+                      <span className="flex items-center gap-2" style={{ flexShrink: 0 }}>
+                        <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: r.private ? PALETTE.terracotta : PALETTE.verdigris, border: `1px solid ${r.private ? PALETTE.terracotta : PALETTE.verdigris}`, borderRadius: 999, padding: '1px 8px' }}>
+                          {r.private ? 'private' : 'public'}
+                        </span>
+                        <a href={r.html_url} target="_blank" rel="noreferrer" style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, textDecoration: 'underline', textUnderlineOffset: 3 }}>↗</a>
+                      </span>
+                    </div>
+                  ))}
+                  {repos.length > 12 && <div style={{ padding: '6px 12px', borderTop: `.5px solid ${PALETTE.rule}`, fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete }}>+{repos.length - 12} mais…</div>}
+                </div>
+              )}
               <div className="mt-4 flex gap-3 flex-wrap">
                 <a href={githubInstallUrl()} target="_blank" rel="noreferrer" className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
                   style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, textDecoration: 'none' }}>
@@ -204,6 +242,10 @@ export default function AppActivate() {
                 Conecte seus repositórios uma vez. A cada push/PR, a DPO2U roda o pipeline de compliance,
                 posta um Check Run no PR e ancora um selo on-chain verificável em <code style={{ fontFamily: FONTS.mono }}>/verify</code>.
               </p>
+              <p className="mt-2 text-[12px]" style={{ color: PALETTE.concrete }}>
+                O GitHub fica vinculado <b>a esta wallet</b> ({truncatePubkey(pubkey)}). Se você já conectou com outra wallet,
+                troque para ela na carteira para ver os repositórios — ou conecte aqui para re-vincular.
+              </p>
               <button type="button" onClick={() => startGithubInstall(pubkey ?? undefined)} disabled={!pubkey}
                 className="mt-4 py-3 px-6 font-mono text-[13px] uppercase tracking-[.14em]"
                 style={{ background: pubkey ? PALETTE.terracotta : PALETTE.ruleStrong, color: '#fff', border: 'none', cursor: pubkey ? 'pointer' : 'not-allowed' }}>
@@ -215,7 +257,7 @@ export default function AppActivate() {
         </div>
       )}
 
-      {busy && !pending && (
+      {busy && (
         <div className="mt-8 p-6 flex items-center gap-4" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
           <span aria-hidden style={{ width: 20, height: 20, borderRadius: '50%', border: `2px solid ${PALETTE.ruleStrong}`, borderTopColor: PALETTE.terracotta, display: 'inline-block', animation: 'dpo2u-spin 0.8s linear infinite' }} />
           <div>
@@ -226,15 +268,14 @@ export default function AppActivate() {
         </div>
       )}
 
-      {!pipelineId && !runResult && !busy && (
+      {!pipelineId && !runResult && !busy && !privateRepo && (
         <div className="mt-8 flex flex-col gap-5">
           <div style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, paddingTop: 20 }}>
             <SmallLabel style={{ color: PALETTE.terracotta }}>Porta B · Attestation</SmallLabel>
             <h2 className="mt-1 text-[20px] font-medium" style={{ fontFamily: FONTS.display }}>Atestar um repositório agora</h2>
             <p className="mt-1 text-[13px]" style={{ color: PALETTE.inkSoft }}>
-              Atestação única, sob demanda — paga por atestação (x402)
-              {managedChain === 'solana' ? ' · Solana devnet (Solflare).' : ' · Stellar testnet (Freighter).'}
-              Não precisa instalar o App.
+              Atestação única, sob demanda — paga por atestação · Solana devnet (Solflare / Phantom).
+              {' '}Repo público: direto. Repo <b>privado</b>: a DPO2U te leva ao GitHub para autorizar o acesso e então atesta.
             </p>
           </div>
           <label className="flex flex-col gap-2">
@@ -319,7 +360,51 @@ export default function AppActivate() {
         </div>
       )}
 
-      {pipelineId && !runResult && !busy && (
+      {/* Repo privado → disponibilizar acesso no GitHub (precede o card "Pipeline registered"). */}
+      {privateRepo && !busy && (
+        <div className="mt-8 p-6" style={{ border: `1px solid ${privateRepo.granted ? PALETTE.verdigris : PALETTE.terracotta}`, borderRadius: 4, background: privateRepo.granted ? 'rgba(74,124,116,.08)' : 'rgba(193,84,57,.06)' }}>
+          <SmallLabel style={{ color: privateRepo.granted ? PALETTE.verdigris : PALETTE.terracotta }}>
+            {privateRepo.granted ? 'Acesso concedido' : 'Repositório privado'}
+          </SmallLabel>
+          <h2 className="mt-1 text-[20px] font-medium" style={{ fontFamily: FONTS.display }}>
+            {privateRepo.granted ? 'Pronto para atestar' : 'Autorize o acesso no GitHub'}
+          </h2>
+          <p className="mt-2 text-[14px]" style={{ color: PALETTE.inkSoft }}>
+            {privateRepo.granted ? (
+              <>Depois de autorizar <b style={{ fontFamily: FONTS.mono }}>{privateRepo.repo}</b> na aba do GitHub, volte aqui e clique em <b>Tentar novamente</b>. (Se o repositório ainda aparecer como privado, confirme que ele foi incluído na autorização.)</>
+            ) : (
+              <>A DPO2U não consegue ler <b style={{ fontFamily: FONTS.mono }}>{privateRepo.repo}</b> porque o repositório é <b>privado</b>.
+              {' '}Abrimos o GitHub <b>numa nova aba</b> para você autorizar o acesso (você escolhe exatamente quais repositórios liberar); depois volte a esta aba.</>
+            )}
+          </p>
+          <div className="mt-4 flex gap-3 flex-wrap">
+            {privateRepo.granted ? (
+              <>
+                <button type="button" onClick={onRetryPrivate} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
+                  style={{ background: PALETTE.ink, color: PALETTE.paper, border: 'none', cursor: 'pointer' }}>
+                  Tentar novamente →
+                </button>
+                <button type="button" onClick={onGrantPrivateAccess} disabled={!pubkey} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
+                  style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, background: 'transparent', cursor: pubkey ? 'pointer' : 'not-allowed' }}>
+                  Abrir GitHub de novo ↗
+                </button>
+              </>
+            ) : (
+              <button type="button" onClick={onGrantPrivateAccess} disabled={!pubkey} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
+                style={{ background: pubkey ? PALETTE.terracotta : PALETTE.ruleStrong, color: '#fff', border: 'none', cursor: pubkey ? 'pointer' : 'not-allowed' }}>
+                Disponibilizar acesso no GitHub ↗ (nova aba)
+              </button>
+            )}
+            <button type="button" onClick={onEditPrivateRepo} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
+              style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, background: 'transparent', cursor: 'pointer' }}>
+              Editar repositório
+            </button>
+          </div>
+          {!pubkey && !privateRepo.granted && <p className="mt-2 text-[11px]" style={{ color: PALETTE.concrete }}>Conecte a wallet primeiro.</p>}
+        </div>
+      )}
+
+      {pipelineId && !runResult && !busy && !privateRepo && (
         <div className="mt-8 p-6" style={{ border: `1px solid ${PALETTE.verdigris}`, borderRadius: 4, background: 'rgba(74,124,116,.08)' }}>
           <SmallLabel style={{ color: PALETTE.verdigris }}>Pipeline registered</SmallLabel>
           <h2 className="mt-2 text-[20px] font-medium" style={{ fontFamily: FONTS.display }}>{companyId}</h2>
@@ -348,15 +433,6 @@ export default function AppActivate() {
             <Link to="/app" className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]" style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, textDecoration: 'none' }}>Dashboard</Link>
           </div>
         </div>
-      )}
-
-      {pending && (
-        <ManagedPayModal
-          title={pending.kind === 'activate' ? 'Setup fee — Managed' : 'Per-attestation — Managed run'}
-          challenge={pending.challenge}
-          onPaid={onPaid}
-          onCancel={() => setPending(null)}
-        />
       )}
     </div>
   );

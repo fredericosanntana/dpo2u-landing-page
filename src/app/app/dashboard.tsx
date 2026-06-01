@@ -1,18 +1,17 @@
 /**
- * /app — dashboard. Fase D: real data.
- * Source: on-chain events (indexer-store, filtered by submitted_by === pubkey)
- * merged with the user's local attestation history. KPIs derived; log deep-links
- * to /verify. Empty-state when the wallet has no attestations yet.
+ * /app — dashboard (Solana-only). Fase D: real data.
+ * Source: on-chain attestations lidas das PDAs do compliance-registry (Solana)
+ * merged com o histórico local da wallet. KPIs derivados; log deep-links pra
+ * /verify/sol. Empty-state quando a wallet ainda não tem atestações.
  */
 import React, { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel } from '@/components/sealed/atoms';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
-import { useIndexerStore } from '@/lib/pilot/indexer-store';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
 import { useSolanaAttestations } from '@/lib/app/solana-indexer';
 import { githubStatus, type GithubStatus } from '@/lib/app/github-client';
-import { truncateHash } from '@/lib/pilot/stellar';
+import { truncateHash } from '@/lib/solana';
 
 const SEAL_PRICE = 0.0002;
 
@@ -22,7 +21,7 @@ interface Row {
   verdict: string | null;
   ts: number | null;
   onchain: boolean;
-  chain: 'stellar' | 'solana';
+  chain: 'solana';
   subject?: string; // Solana: subject da PDA (p/ link /verify/sol)
   explorerUrl?: string; // Solana: link direto pro explorer quando não há /verify
 }
@@ -48,14 +47,10 @@ function EmptyState() {
 }
 
 export default function AppDashboard() {
-  const { pubkey, chain, tier, workspace } = useWalletAuth();
-  const isSolana = chain === 'solana';
-  const events = useIndexerStore((s) => s.events);
-  const fetchOnce = useIndexerStore((s) => s.fetchOnce);
-  const stellarLoading = useIndexerStore((s) => s.loading);
+  const { pubkey, tier, workspace } = useWalletAuth();
   const history = useAttestationHistory((s) => s.refs);
-  // Solana: lê as PDAs do subject via getProgramAccounts (devnet). Só ativa em sessão Solana.
-  const solana = useSolanaAttestations(isSolana ? pubkey : null);
+  // Solana: lê as PDAs do subject via getProgramAccounts (devnet).
+  const solana = useSolanaAttestations(pubkey);
   // Status da conexão GitHub (chip no header).
   const [gh, setGh] = React.useState<GithubStatus | null>(null);
   useEffect(() => {
@@ -65,54 +60,30 @@ export default function AppDashboard() {
     return () => { alive = false; };
   }, [pubkey]);
 
-  // Stellar indexer (Horizon) só faz sentido em sessão Stellar.
-  useEffect(() => { if (!isSolana) void fetchOnce(); }, [isSolana, fetchOnce]);
-
-  const loading = isSolana ? solana.loading : stellarLoading;
+  const loading = solana.loading;
 
   const rows = useMemo<Row[]>(() => {
     const histMine = pubkey ? history.filter((h) => h.pubkey === pubkey) : [];
-
-    if (isSolana) {
-      // On-chain: PDAs lidas do compliance-registry. Local: histórico chain==='solana'.
-      const onchain: Row[] = solana.records.map((r) => ({
-        useCaseId: 'managed_compliance_v1',
-        evidenceHashHex: r.evidenceHashHex ?? r.commitmentHex,
-        verdict: r.verdict,
-        ts: r.issuedAt,
-        onchain: true,
-        chain: 'solana',
-        subject: r.subject,
-        explorerUrl: r.explorerUrl,
-      }));
-      const seen = new Set(solana.records.map((r) => (r.evidenceHashHex ?? r.commitmentHex).toLowerCase()));
-      const hist = histMine
-        .filter((h) => (h.chain ?? 'stellar') === 'solana')
-        .filter((h) => !seen.has(h.evidenceHashHex.toLowerCase()))
-        .map<Row>((h) => ({
-          useCaseId: h.useCaseId, evidenceHashHex: h.evidenceHashHex, verdict: h.verdict ?? null,
-          ts: h.at, onchain: false, chain: 'solana', subject: h.pubkey, explorerUrl: h.explorerUrl,
-        }));
-      return [...onchain, ...hist].sort((a, b) => (b.ts ?? 0) - (a.ts ?? 0));
-    }
-
-    // Stellar (default): eventos Horizon + histórico chain!=='solana'.
-    const mine = pubkey ? events.filter((e) => e.record.submitted_by === pubkey) : [];
-    const seen = new Set(mine.map((e) => `${e.use_case_id}:${e.evidence_hash_hex}`.toLowerCase()));
-    const rowsOnchain: Row[] = mine.map((e) => ({
-      useCaseId: e.use_case_id,
-      evidenceHashHex: e.evidence_hash_hex,
-      verdict: e.record.verdict,
-      ts: e.record.timestamp * 1000,
+    // On-chain: PDAs lidas do compliance-registry (Solana). Local: histórico da wallet.
+    const onchain: Row[] = solana.records.map((r) => ({
+      useCaseId: 'managed_compliance_v1',
+      evidenceHashHex: r.evidenceHashHex ?? r.commitmentHex,
+      verdict: r.verdict,
+      ts: r.issuedAt,
       onchain: true,
-      chain: 'stellar',
+      chain: 'solana',
+      subject: r.subject,
+      explorerUrl: r.explorerUrl,
     }));
+    const seen = new Set(solana.records.map((r) => (r.evidenceHashHex ?? r.commitmentHex).toLowerCase()));
     const hist = histMine
-      .filter((h) => (h.chain ?? 'stellar') !== 'solana')
-      .filter((h) => !seen.has(`${h.useCaseId}:${h.evidenceHashHex}`.toLowerCase()))
-      .map<Row>((h) => ({ useCaseId: h.useCaseId, evidenceHashHex: h.evidenceHashHex, verdict: h.verdict ?? null, ts: h.at, onchain: false, chain: 'stellar' }));
-    return [...rowsOnchain, ...hist].sort((a, b) => (b.ts ?? 0) - (a.ts ?? 0));
-  }, [events, history, pubkey, isSolana, solana.records]);
+      .filter((h) => !seen.has(h.evidenceHashHex.toLowerCase()))
+      .map<Row>((h) => ({
+        useCaseId: h.useCaseId, evidenceHashHex: h.evidenceHashHex, verdict: h.verdict ?? null,
+        ts: h.at, onchain: false, chain: 'solana', subject: h.pubkey, explorerUrl: h.explorerUrl,
+      }));
+    return [...onchain, ...hist].sort((a, b) => (b.ts ?? 0) - (a.ts ?? 0));
+  }, [history, pubkey, solana.records]);
 
   const count = rows.length;
   const spend = (count * SEAL_PRICE).toFixed(4);
@@ -172,11 +143,7 @@ export default function AppDashboard() {
                   <td style={{ padding: '10px 14px', fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.inkSoft }}>{truncateHash(r.evidenceHashHex)}</td>
                   <td style={{ padding: '10px 14px', fontSize: 12, color: PALETTE.concrete }}>{r.ts ? new Date(r.ts).toISOString().slice(0, 10) : '—'}</td>
                   <td style={{ padding: '10px 14px' }}>
-                    {r.chain === 'solana' ? (
-                      <Link to={`/verify/sol/uc/${encodeURIComponent(r.useCaseId)}/hash/${encodeURIComponent(r.evidenceHashHex)}/subject/${encodeURIComponent(r.subject ?? '')}`} style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>verify →</Link>
-                    ) : (
-                      <Link to={`/verify/uc/${encodeURIComponent(r.useCaseId)}/hash/${encodeURIComponent(r.evidenceHashHex)}`} style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>verify →</Link>
-                    )}
+                    <Link to={`/verify/sol/uc/${encodeURIComponent(r.useCaseId)}/hash/${encodeURIComponent(r.evidenceHashHex)}/subject/${encodeURIComponent(r.subject ?? '')}`} style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>verify →</Link>
                   </td>
                 </tr>
               ))}

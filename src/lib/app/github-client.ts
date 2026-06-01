@@ -5,7 +5,38 @@
 // liga essa instalação ao workspace (a pubkey da wallet conectada) via /connect, e lê
 // o /status (binding + créditos de CI). Read/POST simples — sem x402.
 
+import { parseX402Challenge, type X402Challenge } from '@/lib/pilot/payment-tx';
+
 const BASE = (import.meta.env.VITE_MCP_BASE_URL as string | undefined) ?? 'https://mcp.dpo2u.com';
+
+export type GithubCreditsCall =
+  | { kind: 'ok'; balance: number; added: number }
+  | { kind: 'payment_required'; challenge: X402Challenge }
+  | { kind: 'error'; message: string };
+
+/** Recarrega créditos de CI. O pagamento na Solana é via gateway (USDC SPL),
+ *  resolvido server-side. 1 pagamento = 1 pack de créditos. */
+export async function rechargeCredits(pubkey: string, xPayment?: string): Promise<GithubCreditsCall> {
+  try {
+    const headers: Record<string, string> = { 'content-type': 'application/json' };
+    if (xPayment) headers['x-payment'] = xPayment;
+    const res = await fetch(`${BASE.replace(/\/+$/, '')}/api/v1/github/credits`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ pubkey }),
+    });
+    if (res.status === 402) {
+      const challenge = parseX402Challenge(await res.json().catch(() => null));
+      if (!challenge) return { kind: 'error', message: 'desafio x402 malformado' };
+      return { kind: 'payment_required', challenge };
+    }
+    const json = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+    if (!res.ok) return { kind: 'error', message: String(json.message || json.error || `HTTP ${res.status}`) };
+    return { kind: 'ok', balance: Number(json.balance ?? 0), added: Number(json.added ?? 0) };
+  } catch (e) {
+    return { kind: 'error', message: e instanceof Error ? e.message : String(e) };
+  }
+}
 
 // Slug do GitHub App (a URL pública é github.com/apps/<slug>). Configurável por env pro
 // build; default = 'dpo2u-compliance' (slug provável do App "DPO2U Compliance" 3918317).
@@ -30,14 +61,14 @@ export interface GithubStatus {
   enabled: boolean;
   bound: boolean;
   credits: number;
-  install?: { installation_id: number; account_login: string; pubkey: string; chain: 'stellar' | 'solana' } | null;
+  install?: { installation_id: number; account_login: string; pubkey: string; chain: 'solana' } | null;
 }
 
 export interface GithubConnectResult {
   ok: boolean;
   installation_id?: number;
   pubkey?: string;
-  chain?: 'stellar' | 'solana';
+  chain?: 'solana';
   error?: string;
 }
 
@@ -63,7 +94,7 @@ export async function githubConnect(args: {
       ok: true,
       installation_id: typeof json.installation_id === 'number' ? json.installation_id : undefined,
       pubkey: typeof json.pubkey === 'string' ? json.pubkey : undefined,
-      chain: json.chain === 'solana' ? 'solana' : 'stellar',
+      chain: 'solana',
     };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : String(e) };
@@ -79,6 +110,26 @@ export async function githubStatus(pubkey?: string, installationId?: number): Pr
     const res = await fetch(`${BASE.replace(/\/+$/, '')}/api/v1/github/status?${qs.toString()}`);
     if (!res.ok) return null;
     return (await res.json()) as GithubStatus;
+  } catch {
+    return null;
+  }
+}
+
+export interface GithubRepo {
+  full_name: string;
+  private: boolean;
+  html_url: string;
+  pushed_at: string | null;
+  installation_id: number;
+}
+export interface GithubReposResult { enabled: boolean; total: number; repos: GithubRepo[] }
+
+/** Lista os repositórios conectados à DPO2U p/ esta wallet (read-only). */
+export async function githubRepos(pubkey: string): Promise<GithubReposResult | null> {
+  try {
+    const res = await fetch(`${BASE.replace(/\/+$/, '')}/api/v1/github/repos?pubkey=${encodeURIComponent(pubkey)}`);
+    if (!res.ok) return null;
+    return (await res.json()) as GithubReposResult;
   } catch {
     return null;
   }

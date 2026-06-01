@@ -1,19 +1,10 @@
-// managed-client.ts — cliente do tier Managed (gateway /api/v1/managed/*).
+// managed-client.ts — cliente do tier Managed (gateway /api/v1/managed/*). Solana-only.
 //
-// Reusa o protocolo x402 (payment-tx) + o exact/client @x402/stellar + Freighter signer
-// (mesmo padrão do PaymentModal do piloto), mas auto-contido pro app — não toca o fluxo
-// do piloto. Fluxo: POST → se 402, parse challenge → assina X-PAYMENT → reenvia.
+// O pagamento na Solana é resolvido server-side pelo payment-gateway (Invoice USDC SPL);
+// o app não assina pagamento client-side. Fluxo: POST → se 402, devolve o desafio pra UI
+// (que orienta o pagamento via gateway). parseX402Challenge é só parse de protocolo.
 
-import { ExactStellarScheme } from '@x402/stellar/exact/client';
-import { x402Version as X402_VERSION } from '@x402/core';
-import { freighterSigner } from '@/lib/pilot/freighter-signer';
-import {
-  parseX402Challenge,
-  toOfficialRequirement,
-  encodeFullPayload,
-  stellarNet,
-  type X402Challenge,
-} from '@/lib/pilot/payment-tx';
+import { parseX402Challenge, type X402Challenge } from '@/lib/pilot/payment-tx';
 
 const BASE = (import.meta.env.VITE_MCP_BASE_URL as string | undefined) ?? 'https://mcp.dpo2u.com';
 
@@ -47,18 +38,7 @@ async function post(path: string, body: unknown, apiKey?: string | null, xPaymen
   return { kind: 'ok', data: json };
 }
 
-/** Assina o pagamento x402 com Freighter e devolve o header X-PAYMENT. */
-export async function signX402Header(challenge: X402Challenge, payer: string): Promise<string> {
-  const net = stellarNet(challenge.network);
-  const requirement = toOfficialRequirement(challenge);
-  const signer = await freighterSigner(payer, net.passphrase);
-  const scheme = new ExactStellarScheme(signer, { url: net.rpcUrl });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const partial = await scheme.createPaymentPayload(X402_VERSION, requirement as any);
-  return encodeFullPayload({ x402Version: X402_VERSION, accepted: requirement, payload: partial.payload });
-}
-
-export type ManagedChain = 'stellar' | 'solana';
+export type ManagedChain = 'solana';
 /** Coordenadas da Invoice do payment-gateway (Solana) após a wallet assinar settle_invoice. */
 export interface SolanaPayment { tool_name: string; nonce: number | string }
 export interface ActivateBody { repo_url: string; jurisdiction?: string; email?: string; pubkey: string; chain?: ManagedChain; solana_payment?: SolanaPayment }
@@ -70,12 +50,26 @@ export const managedActivate = (body: ActivateBody, apiKey?: string | null, xPay
 export const managedRun = (body: RunBody, apiKey?: string | null, xPayment?: string): Promise<ManagedCall> =>
   post('/api/v1/managed/run', body, apiKey, xPayment);
 
+// Add-on pago de documentos (x402 por documento). DPIA exige campos estruturais em `params`.
+export type DocType = 'dpia' | 'privacy_policy' | 'security_policy' | 'retention_policy';
+export interface DocAddonBody {
+  pubkey: string;
+  repo_url: string;
+  doc_type: DocType;
+  jurisdiction?: string;
+  chain?: ManagedChain;
+  params?: Record<string, unknown>;
+  solana_payment?: SolanaPayment;
+}
+export const managedGenerateDoc = (body: DocAddonBody, apiKey?: string | null, xPayment?: string): Promise<ManagedCall> =>
+  post('/api/v1/managed/docs', body, apiKey, xPayment);
+
 export interface ManagedReceipt { resource: string; payer: string; amount: string; asset: string; txHash: string; paidAt: number }
 export interface ManagedUsage { pubkey: string; receipts: ManagedReceipt[]; pipelines: Array<Record<string, unknown>> }
 
 /** Uso real (billing) — ledger x402 + pipelines da pubkey. Read-only, sem pagamento.
- * Passa `chain` para o gateway validar a pubkey no formato certo (G… vs base58). */
-export async function getUsage(pubkey: string, chain: ManagedChain = 'stellar'): Promise<ManagedUsage | null> {
+ * Passa `chain` para o gateway validar a pubkey no formato Solana (base58). */
+export async function getUsage(pubkey: string, chain: ManagedChain = 'solana'): Promise<ManagedUsage | null> {
   try {
     const qs = `pubkey=${encodeURIComponent(pubkey)}&chain=${encodeURIComponent(chain)}`;
     const res = await fetch(`${BASE.replace(/\/+$/, '')}/api/v1/managed/usage?${qs}`);
