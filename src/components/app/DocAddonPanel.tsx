@@ -5,7 +5,7 @@
  * pagamento na Solana é server-side. DPIA pede campos reais (não fabricamos). Embutível
  * em qualquer página do /app (usado no /app/evidence).
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel } from '@/components/sealed/atoms';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
@@ -23,6 +23,9 @@ export function DocAddonPanel() {
   const { pubkey } = useWalletAuth();
   const [params] = useSearchParams();
   const [repo, setRepo] = useState(params.get('repo') ?? '');
+  // Pré-preenche o repo quando chega via deep-link (?repo=) de um CTA de "gap".
+  const repoParam = params.get('repo');
+  useEffect(() => { if (repoParam) setRepo(repoParam); }, [repoParam]);
   const [docType, setDocType] = useState<DocType>('privacy_policy');
   const [jurisdiction, setJurisdiction] = useState('lgpd');
   const [dpia, setDpia] = useState({ processingActivity: '', dataTypes: '', dataSubjects: '', purpose: '' });

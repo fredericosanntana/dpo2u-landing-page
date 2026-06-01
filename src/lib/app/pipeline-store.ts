@@ -9,6 +9,7 @@ export interface Pipeline {
   readonly id: string;
   readonly pubkey: string;
   readonly repoUrl: string;
+  readonly companyId?: string;
   readonly chains: string[];
   readonly jurisdictions: string[];
   readonly trigger: string;

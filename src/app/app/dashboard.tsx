@@ -11,6 +11,7 @@ import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
 import { useSolanaAttestations } from '@/lib/app/solana-indexer';
 import { githubStatus, type GithubStatus } from '@/lib/app/github-client';
+import { AttestationDetailSheet, type AttestationDetail, shortRepo } from '@/components/app/AttestationDetailSheet';
 import { truncateHash } from '@/lib/solana';
 
 const SEAL_PRICE = 0.0002;
@@ -24,6 +25,10 @@ interface Row {
   chain: 'solana';
   subject?: string; // Solana: subject da PDA (p/ link /verify/sol)
   explorerUrl?: string; // Solana: link direto pro explorer quando não há /verify
+  repo?: string; // contexto rico (do histórico local / summary)
+  score?: number;
+  gaps?: string[];
+  jurisdictions?: string[];
 }
 
 function EmptyState() {
@@ -62,32 +67,49 @@ export default function AppDashboard() {
 
   const loading = solana.loading;
 
+  const [detail, setDetail] = React.useState<AttestationDetail | null>(null);
+
   const rows = useMemo<Row[]>(() => {
     const histMine = pubkey ? history.filter((h) => h.pubkey === pubkey) : [];
-    // On-chain: PDAs lidas do compliance-registry (Solana). Local: histórico da wallet.
-    const onchain: Row[] = solana.records.map((r) => ({
-      useCaseId: 'managed_compliance_v1',
-      evidenceHashHex: r.evidenceHashHex ?? r.commitmentHex,
-      verdict: r.verdict,
-      ts: r.issuedAt,
-      onchain: true,
-      chain: 'solana',
-      subject: r.subject,
-      explorerUrl: r.explorerUrl,
-    }));
+    // Enriquecimento: o registro on-chain (autoridade do verdict/tx) é casado com o
+    // histórico local pelo hash p/ recuperar repo/score/gaps/jurisdições.
+    const byHash = new Map(histMine.map((h) => [h.evidenceHashHex.toLowerCase(), h]));
+    const onchain: Row[] = solana.records.map((r) => {
+      const local = byHash.get((r.evidenceHashHex ?? r.commitmentHex).toLowerCase());
+      return {
+        useCaseId: 'managed_compliance_v1',
+        evidenceHashHex: r.evidenceHashHex ?? r.commitmentHex,
+        verdict: r.verdict,
+        ts: r.issuedAt,
+        onchain: true,
+        chain: 'solana' as const,
+        subject: r.subject,
+        explorerUrl: r.explorerUrl,
+        repo: local?.repo,
+        score: local?.score,
+        gaps: local?.gaps,
+        jurisdictions: local?.jurisdictions,
+      };
+    });
     const seen = new Set(solana.records.map((r) => (r.evidenceHashHex ?? r.commitmentHex).toLowerCase()));
     const hist = histMine
       .filter((h) => !seen.has(h.evidenceHashHex.toLowerCase()))
       .map<Row>((h) => ({
         useCaseId: h.useCaseId, evidenceHashHex: h.evidenceHashHex, verdict: h.verdict ?? null,
         ts: h.at, onchain: false, chain: 'solana', subject: h.pubkey, explorerUrl: h.explorerUrl,
+        repo: h.repo, score: h.score, gaps: h.gaps, jurisdictions: h.jurisdictions,
       }));
     return [...onchain, ...hist].sort((a, b) => (b.ts ?? 0) - (a.ts ?? 0));
   }, [history, pubkey, solana.records]);
 
+  const toDetail = (r: Row): AttestationDetail => ({
+    repo: r.repo, useCaseId: r.useCaseId, verdict: r.verdict, score: r.score, gaps: r.gaps,
+    jurisdictions: r.jurisdictions, hash: r.evidenceHashHex, subject: r.subject, explorerUrl: r.explorerUrl, at: r.ts, onchain: r.onchain,
+  });
+
   const count = rows.length;
   const spend = (count * SEAL_PRICE).toFixed(4);
-  const jurisdictions = new Set(rows.map((r) => r.useCaseId)).size;
+  const repos = new Set(rows.map((r) => r.repo).filter(Boolean)).size;
   const flagged = rows.filter((r) => r.verdict === 'FAIL' || r.verdict === 'REVIEW').length;
 
   return (
@@ -113,7 +135,7 @@ export default function AppDashboard() {
       </div>
 
       <div className="mt-8 grid grid-cols-2 lg:grid-cols-4" style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
-        {[[String(count), 'attestations'], [`$${spend}`, 'seal spend'], [String(jurisdictions), 'jurisdictions'], [flagged ? String(flagged) : '✓', flagged ? 'flagged (fail/review)' : 'all clear']].map(([n, l], i) => (
+        {[[String(count), 'attestations'], [`$${spend}`, 'seal spend'], [repos ? String(repos) : '—', 'repositories'], [flagged ? String(flagged) : '✓', flagged ? 'flagged (fail/review)' : 'all clear']].map(([n, l], i) => (
           <div key={l} style={{ padding: '20px 18px', borderRight: i < 3 ? `.5px solid ${PALETTE.rule}` : 'none' }}>
             <div style={{ fontFamily: FONTS.display, fontWeight: 500, fontSize: 30, letterSpacing: '-.02em' }}>{n}</div>
             <SmallLabel style={{ marginTop: 6 }}>{l}</SmallLabel>
@@ -128,22 +150,25 @@ export default function AppDashboard() {
           <table className="w-full" style={{ borderCollapse: 'collapse', fontFamily: FONTS.body }}>
             <thead>
               <tr style={{ background: PALETTE.paper2, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
-                {['Use case', 'Verdict', 'Evidence hash', 'When', ''].map((h) => (
+                {['Repository', 'Verdict', 'Score', 'When', ''].map((h) => (
                   <th key={h} className="text-left" style={{ padding: '10px 14px', fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '.14em', textTransform: 'uppercase', color: PALETTE.concrete }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {rows.map((r, i) => (
-                <tr key={`${r.useCaseId}-${r.evidenceHashHex}-${i}`} style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
-                  <td style={{ padding: '10px 14px', fontFamily: FONTS.mono, fontSize: 13 }}>{r.useCaseId}</td>
+                <tr key={`${r.useCaseId}-${r.evidenceHashHex}-${i}`} onClick={() => setDetail(toDetail(r))} style={{ borderBottom: `.5px solid ${PALETTE.rule}`, cursor: 'pointer' }}>
+                  <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 500 }}>
+                    {shortRepo(r.repo)}
+                    {!r.repo && <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: PALETTE.concrete }}> · {truncateHash(r.evidenceHashHex)}</span>}
+                  </td>
                   <td style={{ padding: '10px 14px', fontSize: 13, color: r.verdict === 'PASS' ? PALETTE.verdigris : r.verdict === 'FAIL' ? PALETTE.terracotta : PALETTE.concrete }}>
                     {r.verdict ?? (r.onchain ? '—' : 'local')}
                   </td>
-                  <td style={{ padding: '10px 14px', fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.inkSoft }}>{truncateHash(r.evidenceHashHex)}</td>
+                  <td style={{ padding: '10px 14px', fontFamily: FONTS.mono, fontSize: 13, color: PALETTE.inkSoft }}>{typeof r.score === 'number' ? `${r.score}/100` : '—'}</td>
                   <td style={{ padding: '10px 14px', fontSize: 12, color: PALETTE.concrete }}>{r.ts ? new Date(r.ts).toISOString().slice(0, 10) : '—'}</td>
                   <td style={{ padding: '10px 14px' }}>
-                    <Link to={`/verify/sol/uc/${encodeURIComponent(r.useCaseId)}/hash/${encodeURIComponent(r.evidenceHashHex)}/subject/${encodeURIComponent(r.subject ?? '')}`} style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>verify →</Link>
+                    <button type="button" onClick={(e) => { e.stopPropagation(); setDetail(toDetail(r)); }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3, padding: 0 }}>detalhe →</button>
                   </td>
                 </tr>
               ))}
@@ -157,8 +182,10 @@ export default function AppDashboard() {
         <Link to="/app/evidence" className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]" style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, textDecoration: 'none' }}>Audit evidence</Link>
       </div>
       <p className="mt-6 text-[12px]" style={{ color: PALETTE.concrete, fontFamily: FONTS.mono }}>
-        Mostra atestações on-chain ancoradas por esta wallet + seu histórico local. Atestações executadas pela DPO2U (Managed) aparecem por correlação de histórico.
+        Mostra atestações on-chain ancoradas por esta wallet + seu histórico local. Clique numa linha para ver o repositório e os pontos de melhoria.
       </p>
+
+      {detail && <AttestationDetailSheet detail={detail} onClose={() => setDetail(null)} />}
     </div>
   );
 }

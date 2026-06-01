@@ -13,6 +13,7 @@ import { DocAddonPanel } from '@/components/app/DocAddonPanel';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
 import { useSolanaAttestations } from '@/lib/app/solana-indexer';
 import { CLUSTER, PROGRAM_IDS, explorerUrl as solExplorerUrl, truncateHash } from '@/lib/solana';
+import { AttestationDetailSheet, type AttestationDetail, shortRepo } from '@/components/app/AttestationDetailSheet';
 
 interface Seal {
   useCaseId: string;
@@ -25,14 +26,19 @@ interface Seal {
   chain: 'solana';
   subject?: string; // Solana: subject da PDA (link /verify/sol)
   explorerUrl?: string; // Solana: link direto pro explorer
+  repo?: string;
+  gaps?: string[];
+  jurisdictions?: string[];
 }
 
 export default function AppEvidence() {
   const { pubkey, tier, workspace } = useWalletAuth();
   const history = useAttestationHistory((s) => s.refs);
   const solana = useSolanaAttestations(pubkey);
+  const [detail, setDetail] = React.useState<AttestationDetail | null>(null);
 
-  // Merge: on-chain (PDAs, rico) + local (instantâneo), dedup por hash (on-chain ganha).
+  // Merge: on-chain (autoridade verdict/tx) + local (contexto rico repo/gaps/score), dedup
+  // por hash. O on-chain NÃO apaga o enriquecimento local — preserva repo/gaps/score.
   const seals = useMemo<Seal[]>(() => {
     if (!pubkey) return [];
     const byHash = new Map<string, Seal>();
@@ -40,29 +46,34 @@ export default function AppEvidence() {
     for (const r of myHistory) {
       byHash.set(r.evidenceHashHex.toLowerCase(), {
         useCaseId: r.useCaseId, hash: r.evidenceHashHex, verdict: r.verdict, score: r.score,
+        repo: r.repo, gaps: r.gaps, jurisdictions: r.jurisdictions,
         txHash: r.txHash, at: r.at, source: 'local', chain: 'solana', subject: r.pubkey, explorerUrl: r.explorerUrl,
       });
     }
     for (const a of solana.records) {
       const key = (a.evidenceHashHex ?? a.commitmentHex).toLowerCase();
+      const local = byHash.get(key);
       byHash.set(key, {
         useCaseId: 'managed_compliance_v1', hash: a.evidenceHashHex ?? a.commitmentHex,
-        verdict: a.verdict ?? undefined, at: a.issuedAt ?? 0, source: 'onchain', chain: 'solana',
-        subject: a.subject, explorerUrl: a.explorerUrl,
+        verdict: a.verdict ?? local?.verdict, score: local?.score,
+        repo: local?.repo, gaps: local?.gaps, jurisdictions: local?.jurisdictions,
+        txHash: local?.txHash, at: a.issuedAt ?? local?.at ?? 0, source: 'onchain', chain: 'solana',
+        subject: a.subject ?? local?.subject, explorerUrl: a.explorerUrl ?? local?.explorerUrl,
       });
     }
     return Array.from(byHash.values()).sort((a, b) => b.at - a.at);
   }, [history, pubkey, solana.records]);
 
-  const byJuris = useMemo(() => {
+  const byRepo = useMemo(() => {
     const m = new Map<string, { total: number; pass: number; fail: number; review: number }>();
     for (const s of seals) {
-      const cur = m.get(s.useCaseId) ?? { total: 0, pass: 0, fail: 0, review: 0 };
+      const key = shortRepo(s.repo);
+      const cur = m.get(key) ?? { total: 0, pass: 0, fail: 0, review: 0 };
       cur.total += 1;
       if (s.verdict === 'PASS') cur.pass += 1;
       else if (s.verdict === 'FAIL') cur.fail += 1;
       else if (s.verdict === 'REVIEW') cur.review += 1;
-      m.set(s.useCaseId, cur);
+      m.set(key, cur);
     }
     return Array.from(m.entries());
   }, [seals]);
@@ -71,6 +82,10 @@ export default function AppEvidence() {
   // verify_url Solana: resolve por (uc, hash, subject).
   const verifyUrl = (s: Seal): string =>
     `${origin}/verify/sol/uc/${s.useCaseId}/hash/${s.hash}/subject/${s.subject ?? ''}`;
+  const toDetail = (s: Seal): AttestationDetail => ({
+    repo: s.repo, useCaseId: s.useCaseId, verdict: s.verdict, score: s.score, gaps: s.gaps,
+    jurisdictions: s.jurisdictions, hash: s.hash, subject: s.subject, txHash: s.txHash, explorerUrl: s.explorerUrl, at: s.at, onchain: s.source === 'onchain',
+  });
 
   const exportJson = () => {
     const dossier = {
@@ -82,9 +97,12 @@ export default function AppEvidence() {
       attestations: seals.map((s) => ({
         chain: s.chain,
         use_case_id: s.useCaseId,
+        repo: s.repo,
+        jurisdictions: s.jurisdictions,
         evidence_hash_hex: s.hash,
         verdict: s.verdict,
         score: s.score,
+        gaps: s.gaps,
         tx_hash: s.txHash,
         explorer_url: s.explorerUrl,
         timestamp: new Date(s.at).toISOString(),
@@ -131,7 +149,7 @@ export default function AppEvidence() {
       <div className="grid grid-cols-2 lg:grid-cols-4" style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
         {[
           [String(seals.length), 'selos'],
-          [String(byJuris.length), 'use cases'],
+          [String(byRepo.length), 'repositórios'],
           [String(seals.filter((s) => s.verdict === 'PASS').length), 'PASS'],
           [String(seals.filter((s) => s.verdict && s.verdict !== 'PASS').length), 'fail / review'],
         ].map(([n, l], i) => (
@@ -154,47 +172,50 @@ export default function AppEvidence() {
             <SmallLabel style={{ marginBottom: 12 }}>Selos ancorados</SmallLabel>
             <div style={{ border: `.5px solid ${PALETTE.rule}`, borderRadius: 4, overflow: 'hidden' }}>
               {seals.map((s) => (
-                <div key={`${s.useCaseId}:${s.hash}`} className="flex items-center justify-between gap-3 flex-wrap"
-                  style={{ padding: '12px 14px', borderBottom: `.5px solid ${PALETTE.rule}` }}>
+                <div key={`${s.useCaseId}:${s.hash}`} onClick={() => setDetail(toDetail(s))} className="flex items-center justify-between gap-3 flex-wrap"
+                  style={{ padding: '12px 14px', borderBottom: `.5px solid ${PALETTE.rule}`, cursor: 'pointer' }}>
                   <div style={{ minWidth: 0 }}>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span style={{ fontFamily: FONTS.mono, fontSize: 11, fontWeight: 600, color: verdictColor(s.verdict) }}>
                         {s.verdict ?? '—'}{typeof s.score === 'number' ? ` · ${s.score}/100` : ''}
                       </span>
-                      <span style={{ fontFamily: FONTS.mono, fontSize: 12 }}>{s.useCaseId}</span>
+                      <span style={{ fontSize: 13, fontWeight: 500 }}>{shortRepo(s.repo)}</span>
+                      {s.gaps && s.gaps.length > 0 && (
+                        <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: PALETTE.terracotta, border: `1px solid ${PALETTE.terracotta}`, borderRadius: 999, padding: '1px 7px' }}>{s.gaps.length} a melhorar</span>
+                      )}
                     </div>
                     <div style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, wordBreak: 'break-all' }}>{truncateHash(s.hash)}</div>
                   </div>
                   <div className="flex items-center gap-3">
                     {(s.explorerUrl || s.txHash) && (
-                      <a href={s.explorerUrl ?? solExplorerUrl(s.txHash!, 'tx')} target="_blank" rel="noreferrer"
+                      <a href={s.explorerUrl ?? solExplorerUrl(s.txHash!, 'tx')} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
                         style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, textDecoration: 'underline', textUnderlineOffset: 3 }}>tx ↗</a>
                     )}
-                    <Link to={`/verify/sol/uc/${s.useCaseId}/hash/${s.hash}/subject/${s.subject ?? ''}`}
+                    <button type="button" onClick={(e) => { e.stopPropagation(); setDetail(toDetail(s)); }}
                       className="py-1.5 px-3 font-mono text-[11px] uppercase tracking-[.12em]"
-                      style={{ background: PALETTE.ink, color: PALETTE.paper, textDecoration: 'none' }}>Ver prova →</Link>
+                      style={{ background: PALETTE.ink, color: PALETTE.paper, border: 'none', cursor: 'pointer' }}>Detalhe →</button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* By use case */}
+          {/* By repository */}
           <div className="mt-8">
-            <SmallLabel style={{ marginBottom: 12 }}>By use case</SmallLabel>
+            <SmallLabel style={{ marginBottom: 12 }}>By repository</SmallLabel>
             <div style={{ border: `.5px solid ${PALETTE.rule}`, borderRadius: 4, overflow: 'hidden' }}>
               <table className="w-full" style={{ borderCollapse: 'collapse', fontFamily: FONTS.body }}>
                 <thead>
                   <tr style={{ background: PALETTE.paper2, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
-                    {['Use case', 'Total', 'PASS', 'FAIL', 'REVIEW'].map((h) => (
+                    {['Repository', 'Total', 'PASS', 'FAIL', 'REVIEW'].map((h) => (
                       <th key={h} className="text-left" style={{ padding: '8px 14px', fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '.14em', textTransform: 'uppercase', color: PALETTE.concrete }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {byJuris.map(([uc, s]) => (
-                    <tr key={uc} style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
-                      <td style={{ padding: '8px 14px', fontFamily: FONTS.mono, fontSize: 13 }}>{uc}</td>
+                  {byRepo.map(([repo, s]) => (
+                    <tr key={repo} style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
+                      <td style={{ padding: '8px 14px', fontFamily: FONTS.mono, fontSize: 13 }}>{repo}</td>
                       <td style={{ padding: '8px 14px', fontSize: 13 }}>{s.total}</td>
                       <td style={{ padding: '8px 14px', fontSize: 13, color: PALETTE.verdigris }}>{s.pass}</td>
                       <td style={{ padding: '8px 14px', fontSize: 13, color: PALETTE.terracotta }}>{s.fail}</td>
@@ -217,12 +238,14 @@ export default function AppEvidence() {
           </div>
 
           <p className="mt-4 text-[12px]" style={{ color: PALETTE.concrete }}>
-            Selective disclosure: o dossiê expõe veredito, use case, timestamp e hash da evidência — o score e os dados subjacentes permanecem privados.
+            O dossiê expõe repositório, veredito, score, jurisdições e os pontos de melhoria — selo verificável publicamente em <Link to="/verify" style={{ color: PALETTE.terracotta }}>/verify</Link>. Os dados-fonte do repositório permanecem fora da chain.
           </p>
         </>
       )}
 
       <DocAddonPanel />
+
+      {detail && <AttestationDetailSheet detail={detail} onClose={() => setDetail(null)} />}
     </div>
   );
 }

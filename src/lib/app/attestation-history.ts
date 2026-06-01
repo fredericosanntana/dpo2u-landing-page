@@ -21,6 +21,11 @@ export interface HistoryRef {
   readonly chain?: 'solana';
   // Solana: link direto pro explorer.
   readonly explorerUrl?: string;
+  // Contexto rico (capturado do gateway) — identifica o repo e os pontos de melhoria.
+  readonly repo?: string; // ex.: github.com/owner/repo
+  readonly jurisdictions?: string[];
+  readonly gaps?: string[];
+  readonly controls?: Record<string, boolean>;
 }
 
 interface HistoryState {

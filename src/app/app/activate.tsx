@@ -124,13 +124,13 @@ export default function AppActivate() {
       handle(res, (data) => {
         const pid = String(data.pipeline_id || '');
         setPipelineId(pid);
-        addPipeline({ id: pid, pubkey, repoUrl: companyId.trim(), chains: ['Solana'], jurisdictions: data.jurisdiction ? [String(data.jurisdiction)] : countries, trigger: 'managed', createdAt: Date.now() });
+        addPipeline({ id: pid, pubkey, repoUrl: `github.com/${normRepo}`, companyId: companyId.trim(), chains: ['Solana'], jurisdictions: data.jurisdiction ? [String(data.jurisdiction)] : countries, trigger: 'managed', createdAt: Date.now() });
         // o setup já roda a 1ª atestação e ancora o selo — mostra a evidência na hora
         const fr = data.first_run as Record<string, unknown> | null | undefined;
         if (fr && fr.evidence_hash_hex) {
           setRunResult(fr);
           const frTx = (fr.tx ?? {}) as { innerTxHash?: string; explorerUrl?: string };
-          addHistory({ pubkey, useCaseId: 'managed_compliance_v1', evidenceHashHex: String(fr.evidence_hash_hex), txHash: frTx.innerTxHash, verdict: fr.verdict ? String(fr.verdict) : undefined, score: typeof fr.score === 'number' ? fr.score : undefined, at: Date.now(), source: 'activate', chain: managedChain, explorerUrl: frTx.explorerUrl });
+          addHistory({ pubkey, useCaseId: 'managed_compliance_v1', evidenceHashHex: String(fr.evidence_hash_hex), txHash: frTx.innerTxHash, verdict: fr.verdict ? String(fr.verdict) : undefined, score: typeof fr.score === 'number' ? fr.score : undefined, at: Date.now(), source: 'activate', chain: managedChain, explorerUrl: frTx.explorerUrl, repo: fr.repo_url ? String(fr.repo_url) : `github.com/${normRepo}`, jurisdictions: countries, gaps: Array.isArray(fr.gaps) ? (fr.gaps as unknown[]).map(String) : undefined, controls: fr.controls && typeof fr.controls === 'object' ? (fr.controls as Record<string, boolean>) : undefined });
         } else if (data.first_run_error_code === 'repo_private_connect_github') {
           // Repo privado: abre o painel de "disponibilizar acesso no GitHub" (não manda pra Porta A).
           setPrivateRepo({ repo: normRepo, granted: false });
@@ -151,7 +151,7 @@ export default function AppActivate() {
         setRunResult(data);
         if (pubkey && data.evidence_hash_hex) {
           const tx = data.tx as { innerTxHash?: string; explorerUrl?: string } | undefined;
-          addHistory({ pubkey, useCaseId: 'managed_compliance_v1', evidenceHashHex: String(data.evidence_hash_hex), txHash: tx?.innerTxHash, verdict: data.verdict ? String(data.verdict) : undefined, score: typeof data.score === 'number' ? data.score : undefined, at: Date.now(), source: 'activate', chain: managedChain, explorerUrl: tx?.explorerUrl });
+          addHistory({ pubkey, useCaseId: 'managed_compliance_v1', evidenceHashHex: String(data.evidence_hash_hex), txHash: tx?.innerTxHash, verdict: data.verdict ? String(data.verdict) : undefined, score: typeof data.score === 'number' ? data.score : undefined, at: Date.now(), source: 'activate', chain: managedChain, explorerUrl: tx?.explorerUrl, repo: data.repo_url ? String(data.repo_url) : (normRepo ? `github.com/${normRepo}` : undefined), jurisdictions: countries, gaps: Array.isArray(data.gaps) ? (data.gaps as unknown[]).map(String) : undefined, controls: data.controls && typeof data.controls === 'object' ? (data.controls as Record<string, boolean>) : undefined });
         }
       });
     } finally { setBusy(false); }
@@ -423,10 +423,28 @@ export default function AppActivate() {
       {runResult && (
         <div className="mt-8 p-6" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
           <SmallLabel>Selo ancorado</SmallLabel>
+          <div className="mt-1 text-[14px]" style={{ fontFamily: FONTS.mono, color: PALETTE.ink, wordBreak: 'break-all' }}>
+            {String(runResult.repo_url || (normRepo ? `github.com/${normRepo}` : '—'))}
+          </div>
           <h2 className="mt-2 text-[22px] font-medium" style={{ fontFamily: FONTS.display, color: runResult.verdict === 'PASS' ? PALETTE.verdigris : runResult.verdict === 'FAIL' ? PALETTE.terracotta : PALETTE.ink }}>
             {String(runResult.verdict)} · score {String(runResult.score)}/100
           </h2>
-          <p className="mt-1 text-[12px]" style={{ fontFamily: FONTS.mono, color: PALETTE.concrete, wordBreak: 'break-all' }}>hash: {String(runResult.evidence_hash_hex || '').slice(0, 24)}…</p>
+          {Array.isArray(runResult.gaps) && (runResult.gaps as unknown[]).length > 0 && (
+            <div className="mt-4">
+              <SmallLabel>Pontos de melhoria · {(runResult.gaps as unknown[]).length}</SmallLabel>
+              <ul className="mt-2" style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {(runResult.gaps as unknown[]).map((g, i) => (
+                  <li key={i} style={{ display: 'flex', gap: 8, fontSize: 14, color: PALETTE.inkSoft }}>
+                    <span style={{ color: PALETTE.terracotta, flex: 'none' }}>•</span><span>{String(g)}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link to={`/app/evidence?repo=${encodeURIComponent(normRepo)}`} className="inline-block mt-3 font-mono text-[12px]" style={{ color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                Gerar documentos pra resolver →
+              </Link>
+            </div>
+          )}
+          <p className="mt-3 text-[12px]" style={{ fontFamily: FONTS.mono, color: PALETTE.concrete, wordBreak: 'break-all' }}>hash: {String(runResult.evidence_hash_hex || '').slice(0, 24)}…</p>
           <div className="mt-4 flex gap-3 flex-wrap">
             {runResult.verify_path && <Link to={String(runResult.verify_path)} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]" style={{ background: PALETTE.ink, color: PALETTE.paper, textDecoration: 'none' }}>Ver prova /verify →</Link>}
             <button type="button" onClick={() => { setRunResult(null); }} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]" style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, background: 'transparent', cursor: 'pointer' }}>Run again</button>

@@ -14,6 +14,7 @@ import {
   fetchSolanaAttestation,
   type SolanaAttestationRecord,
 } from '@/lib/app/solana-attestation';
+import { fetchAttestationSummary, type AttestationSummary } from '@/lib/app/attestation-summary';
 
 type Phase =
   | { k: 'verifying' }
@@ -23,6 +24,8 @@ type Phase =
 export default function VerifySolanaPage() {
   const { uc, hash, subject } = useParams<{ uc?: string; hash?: string; subject?: string }>();
   const [phase, setPhase] = useState<Phase>({ k: 'verifying' });
+  // Contexto off-chain (repo, score, gaps) — complementar ao verdict trustless da PDA.
+  const [summary, setSummary] = useState<AttestationSummary | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -35,6 +38,8 @@ export default function VerifySolanaPage() {
         const commitment = await deriveCommitment(uc, hash);
         const record = await fetchSolanaAttestation({ subject, commitment });
         if (!cancelled) setPhase({ k: 'done', record });
+        const sum = await fetchAttestationSummary(hash, subject);
+        if (!cancelled) setSummary(sum);
       } catch (e) {
         if (!cancelled) setPhase({ k: 'error', message: e instanceof Error ? e.message : String(e) });
       }
@@ -95,17 +100,36 @@ export default function VerifySolanaPage() {
                 <div className="flex items-baseline justify-between gap-4 flex-wrap">
                   <h2 className="text-[24px] font-medium" style={{ fontFamily: FONTS.display, color: verdict === 'PASS' ? PALETTE.verdigris : verdict === 'FAIL' ? PALETTE.terracotta : PALETTE.ink }}>
                     {verdict ?? 'SEALED'}
+                    {summary && typeof summary.score === 'number' && (
+                      <span style={{ fontFamily: FONTS.mono, fontSize: 14, color: PALETTE.inkSoft }}> · score {summary.score}/100</span>
+                    )}
                   </h2>
                   <a href={phase.record.explorerUrl} target="_blank" rel="noopener noreferrer" style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
                     ver no explorer →
                   </a>
                 </div>
+                {summary?.repo_url && (
+                  <a href={`https://${summary.repo_url.replace(/^https?:\/\//, '')}`} target="_blank" rel="noreferrer"
+                    style={{ display: 'inline-block', marginTop: 6, fontFamily: FONTS.mono, fontSize: 13, color: PALETTE.ink, textDecoration: 'underline', textUnderlineOffset: 3 }}>{summary.repo_url} ↗</a>
+                )}
                 <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-[13px]" style={{ color: PALETTE.inkSoft }}>
                   <div><dt className="font-mono text-[10px] uppercase tracking-[.16em]" style={{ color: PALETTE.concrete }}>use case</dt><dd>{uc}</dd></div>
                   <div><dt className="font-mono text-[10px] uppercase tracking-[.16em]" style={{ color: PALETTE.concrete }}>issued at</dt><dd>{phase.record.issuedAt ? new Date(phase.record.issuedAt).toISOString().slice(0, 16).replace('T', ' ') + ' UTC' : '—'}</dd></div>
                   <div className="sm:col-span-2"><dt className="font-mono text-[10px] uppercase tracking-[.16em]" style={{ color: PALETTE.concrete }}>evidence hash</dt><dd style={{ fontFamily: FONTS.mono, fontSize: 11, wordBreak: 'break-all' }}>{phase.record.evidenceHashHex ?? '—'}</dd></div>
                   <div className="sm:col-span-2"><dt className="font-mono text-[10px] uppercase tracking-[.16em]" style={{ color: PALETTE.concrete }}>attestation PDA</dt><dd style={{ fontFamily: FONTS.mono, fontSize: 11, wordBreak: 'break-all' }}>{phase.record.pda}</dd></div>
                 </dl>
+                {summary?.gaps && summary.gaps.length > 0 && (
+                  <div className="mt-5">
+                    <SmallLabel>Pontos de melhoria · {summary.gaps.length}</SmallLabel>
+                    <ul className="mt-2" style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {summary.gaps.map((g, i) => (
+                        <li key={i} style={{ display: 'flex', gap: 8, fontSize: 13, color: PALETTE.inkSoft }}>
+                          <span style={{ color: PALETTE.terracotta, flex: 'none' }}>•</span><span>{g}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </>
             ) : (
               <p className="text-[15px]" style={{ color: PALETTE.inkSoft }}>
