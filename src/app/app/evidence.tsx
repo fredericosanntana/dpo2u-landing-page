@@ -1,18 +1,19 @@
 /**
- * /app/evidence — audit-evidence dossier (Fase E). Solana-only.
- * Junta os selos desta wallet: histórico LOCAL (instantâneo — os selos Managed são
- * ancorados pela DPO2U, não pela pubkey do usuário) + atestações on-chain lidas das
- * PDAs do compliance-registry (Solana), dedup por hash. KPIs, breakdown por use case,
- * lista de selos com link /verify/sol, export JSON / print PDF.
+ * /app/evidence — audit-evidence dossier (Phase E). Stellar-only.
+ * Gathers this wallet's seals: LOCAL history (instant — Managed seals are anchored by
+ * DPO2U, not by the user's pubkey) + on-chain attestations read from the Soroban
+ * contract events (filtered by submitted_by), deduped by hash. KPIs, breakdown by use
+ * case, list of seals with /verify link, export JSON / print PDF.
  */
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
+import { KpiGrid, btnClass } from '@/components/app/ui';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { DocAddonPanel } from '@/components/app/DocAddonPanel';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
-import { useSolanaAttestations } from '@/lib/app/solana-indexer';
-import { CLUSTER, PROGRAM_IDS, explorerUrl as solExplorerUrl, truncateHash } from '@/lib/solana';
+import { useStellarAttestations } from '@/lib/app/stellar-indexer';
+import { stellarExpertUrl, truncateHash, DEFAULT_CONTRACT } from '@/lib/pilot/stellar';
 import { AttestationDetailSheet, type AttestationDetail, shortRepo } from '@/components/app/AttestationDetailSheet';
 
 interface Seal {
@@ -23,9 +24,9 @@ interface Seal {
   txHash?: string;
   at: number; // ms
   source: 'onchain' | 'local';
-  chain: 'solana';
-  subject?: string; // Solana: subject da PDA (link /verify/sol)
-  explorerUrl?: string; // Solana: link direto pro explorer
+  chain: 'stellar';
+  subject?: string; // Stellar: submitter account (submitted_by)
+  explorerUrl?: string; // direct link to Stellar Expert
   repo?: string;
   gaps?: string[];
   jurisdictions?: string[];
@@ -34,11 +35,11 @@ interface Seal {
 export default function AppEvidence() {
   const { pubkey, tier, workspace } = useWalletAuth();
   const history = useAttestationHistory((s) => s.refs);
-  const solana = useSolanaAttestations(pubkey);
+  const stellar = useStellarAttestations(pubkey);
   const [detail, setDetail] = React.useState<AttestationDetail | null>(null);
 
-  // Merge: on-chain (autoridade verdict/tx) + local (contexto rico repo/gaps/score), dedup
-  // por hash. O on-chain NÃO apaga o enriquecimento local — preserva repo/gaps/score.
+  // Merge: on-chain (verdict/tx authority) + local (rich context repo/gaps/score), dedup
+  // by hash. On-chain does NOT erase the local enrichment — it preserves repo/gaps/score.
   const seals = useMemo<Seal[]>(() => {
     if (!pubkey) return [];
     const byHash = new Map<string, Seal>();
@@ -47,22 +48,22 @@ export default function AppEvidence() {
       byHash.set(r.evidenceHashHex.toLowerCase(), {
         useCaseId: r.useCaseId, hash: r.evidenceHashHex, verdict: r.verdict, score: r.score,
         repo: r.repo, gaps: r.gaps, jurisdictions: r.jurisdictions,
-        txHash: r.txHash, at: r.at, source: 'local', chain: 'solana', subject: r.pubkey, explorerUrl: r.explorerUrl,
+        txHash: r.txHash, at: r.at, source: 'local', chain: 'stellar', subject: r.pubkey, explorerUrl: r.explorerUrl,
       });
     }
-    for (const a of solana.records) {
-      const key = (a.evidenceHashHex ?? a.commitmentHex).toLowerCase();
+    for (const a of stellar.records) {
+      const key = a.evidenceHashHex.toLowerCase();
       const local = byHash.get(key);
       byHash.set(key, {
-        useCaseId: 'managed_compliance_v1', hash: a.evidenceHashHex ?? a.commitmentHex,
+        useCaseId: a.useCaseId, hash: a.evidenceHashHex,
         verdict: a.verdict ?? local?.verdict, score: local?.score,
         repo: local?.repo, gaps: local?.gaps, jurisdictions: local?.jurisdictions,
-        txHash: local?.txHash, at: a.issuedAt ?? local?.at ?? 0, source: 'onchain', chain: 'solana',
-        subject: a.subject ?? local?.subject, explorerUrl: a.explorerUrl ?? local?.explorerUrl,
+        txHash: a.txHash ?? local?.txHash, at: a.issuedAt ?? local?.at ?? 0, source: 'onchain', chain: 'stellar',
+        subject: a.submittedBy ?? local?.subject, explorerUrl: a.explorerUrl ?? local?.explorerUrl,
       });
     }
     return Array.from(byHash.values()).sort((a, b) => b.at - a.at);
-  }, [history, pubkey, solana.records]);
+  }, [history, pubkey, stellar.records]);
 
   const byRepo = useMemo(() => {
     const m = new Map<string, { total: number; pass: number; fail: number; review: number }>();
@@ -79,9 +80,9 @@ export default function AppEvidence() {
   }, [seals]);
 
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
-  // verify_url Solana: resolve por (uc, hash, subject).
+  // verify_url Stellar (trustless): resolves by (uc, hash) via verify_attestation on the contract.
   const verifyUrl = (s: Seal): string =>
-    `${origin}/verify/sol/uc/${s.useCaseId}/hash/${s.hash}/subject/${s.subject ?? ''}`;
+    `${origin}/verify/uc/${s.useCaseId}/hash/${s.hash}`;
   const toDetail = (s: Seal): AttestationDetail => ({
     repo: s.repo, useCaseId: s.useCaseId, verdict: s.verdict, score: s.score, gaps: s.gaps,
     jurisdictions: s.jurisdictions, hash: s.hash, subject: s.subject, txHash: s.txHash, explorerUrl: s.explorerUrl, at: s.at, onchain: s.source === 'onchain',
@@ -92,7 +93,7 @@ export default function AppEvidence() {
       generatedAt: new Date().toISOString(),
       workspace: workspace.label,
       tier: tier.label,
-      anchor: { chain: 'solana', network: `solana:${CLUSTER}`, program: PROGRAM_IDS.complianceRegistry.toBase58() },
+      anchor: { chain: 'stellar', network: `stellar:${DEFAULT_CONTRACT.network}`, contract: DEFAULT_CONTRACT.id },
       total: seals.length,
       attestations: seals.map((s) => ({
         chain: s.chain,
@@ -130,50 +131,43 @@ export default function AppEvidence() {
           </h1>
         </div>
         <div className="flex gap-2">
-          <button type="button" onClick={() => solana.refetch()} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
-            style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, background: 'transparent', cursor: 'pointer' }}>Atualizar</button>
-          <button type="button" onClick={exportJson} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
-            style={{ background: PALETTE.ink, color: PALETTE.paper, border: 'none', cursor: 'pointer' }}>Export JSON</button>
-          <button type="button" onClick={() => window.print()} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
-            style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, background: 'transparent', cursor: 'pointer' }}>Print / PDF</button>
+          <button type="button" onClick={() => stellar.refetch()} className={btnClass('ghost')}>Refresh</button>
+          <button type="button" onClick={exportJson} className={btnClass('ink')}>Export JSON</button>
+          <button type="button" onClick={() => window.print()} className={btnClass('ghost')}>Print / PDF</button>
         </div>
       </div>
 
       <p className="mt-2 text-[14px]" style={{ color: PALETTE.inkSoft }}>
-        {workspace.label} · {tier.label} · {seals.length} selo{seals.length === 1 ? '' : 's'} (Solana {CLUSTER}).
+        {workspace.label} · {tier.label} · {seals.length} seal{seals.length === 1 ? '' : 's'} (Stellar {DEFAULT_CONTRACT.network}).
       </p>
 
       <Rule style={{ margin: '28px 0' }} color={PALETTE.ruleStrong} />
 
       {/* KPIs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4" style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
-        {[
-          [String(seals.length), 'selos'],
-          [String(byRepo.length), 'repositórios'],
-          [String(seals.filter((s) => s.verdict === 'PASS').length), 'PASS'],
-          [String(seals.filter((s) => s.verdict && s.verdict !== 'PASS').length), 'fail / review'],
-        ].map(([n, l], i) => (
-          <div key={l} style={{ padding: '18px 16px', borderRight: i < 3 ? `.5px solid ${PALETTE.rule}` : 'none' }}>
-            <div style={{ fontFamily: FONTS.display, fontWeight: 500, fontSize: 28 }}>{n}</div>
-            <SmallLabel style={{ marginTop: 6 }}>{l}</SmallLabel>
-          </div>
-        ))}
-      </div>
+      <KpiGrid items={[
+        { value: String(seals.length), label: 'seals' },
+        { value: String(byRepo.length), label: 'repositories' },
+        { value: String(seals.filter((s) => s.verdict === 'PASS').length), label: 'PASS' },
+        { value: String(seals.filter((s) => s.verdict && s.verdict !== 'PASS').length), label: 'fail / review' },
+      ]} />
 
       {seals.length === 0 ? (
         <p className="mt-8 text-[14px]" style={{ color: PALETTE.inkSoft }}>
-          Nenhum selo ainda. Ative um pipeline — a DPO2U roda a compliance e ancora o primeiro selo on-chain.
+          No seals yet. Activate a pipeline — DPO2U runs the compliance checks and anchors the first seal on-chain.
           {' '}<Link to="/app/activate" style={{ color: PALETTE.terracotta }}>Activate →</Link>
         </p>
       ) : (
         <>
-          {/* Lista de selos */}
+          {/* Seal list */}
           <div className="mt-8">
-            <SmallLabel style={{ marginBottom: 12 }}>Selos ancorados</SmallLabel>
+            <SmallLabel style={{ marginBottom: 12 }}>Anchored seals</SmallLabel>
             <div style={{ border: `.5px solid ${PALETTE.rule}`, borderRadius: 4, overflow: 'hidden' }}>
               {seals.map((s) => (
-                <div key={`${s.useCaseId}:${s.hash}`} onClick={() => setDetail(toDetail(s))} className="flex items-center justify-between gap-3 flex-wrap"
-                  style={{ padding: '12px 14px', borderBottom: `.5px solid ${PALETTE.rule}`, cursor: 'pointer' }}>
+                <div key={`${s.useCaseId}:${s.hash}`} className="appui-row flex items-center justify-between gap-3 flex-wrap"
+                  tabIndex={0} role="button" aria-label={`Seal ${shortRepo(s.repo)} — open details`}
+                  onClick={() => setDetail(toDetail(s))}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDetail(toDetail(s)); } }}
+                  style={{ padding: '12px 14px', borderBottom: `.5px solid ${PALETTE.rule}` }}>
                   <div style={{ minWidth: 0 }}>
                     <div className="flex items-center gap-2 flex-wrap">
                       <span style={{ fontFamily: FONTS.mono, fontSize: 11, fontWeight: 600, color: verdictColor(s.verdict) }}>
@@ -181,19 +175,17 @@ export default function AppEvidence() {
                       </span>
                       <span style={{ fontSize: 13, fontWeight: 500 }}>{shortRepo(s.repo)}</span>
                       {s.gaps && s.gaps.length > 0 && (
-                        <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: PALETTE.terracotta, border: `1px solid ${PALETTE.terracotta}`, borderRadius: 999, padding: '1px 7px' }}>{s.gaps.length} a melhorar</span>
+                        <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: PALETTE.terracotta, border: `1px solid ${PALETTE.terracotta}`, borderRadius: 999, padding: '1px 7px' }}>{s.gaps.length} to improve</span>
                       )}
                     </div>
                     <div style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, wordBreak: 'break-all' }}>{truncateHash(s.hash)}</div>
                   </div>
                   <div className="flex items-center gap-3">
                     {(s.explorerUrl || s.txHash) && (
-                      <a href={s.explorerUrl ?? solExplorerUrl(s.txHash!, 'tx')} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
+                      <a href={s.explorerUrl ?? stellarExpertUrl('tx', s.txHash!)} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}
                         style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, textDecoration: 'underline', textUnderlineOffset: 3 }}>tx ↗</a>
                     )}
-                    <button type="button" onClick={(e) => { e.stopPropagation(); setDetail(toDetail(s)); }}
-                      className="py-1.5 px-3 font-mono text-[11px] uppercase tracking-[.12em]"
-                      style={{ background: PALETTE.ink, color: PALETTE.paper, border: 'none', cursor: 'pointer' }}>Detalhe →</button>
+                    <span aria-hidden className={btnClass('ink', 'sm')}>Detail →</span>
                   </div>
                 </div>
               ))}
@@ -227,18 +219,18 @@ export default function AppEvidence() {
             </div>
           </div>
 
-          {/* On-chain anchor — por chain */}
+          {/* On-chain anchor — per chain */}
           <div className="mt-6 p-4" style={{ background: PALETTE.ink, color: PALETTE.paper, borderRadius: 4 }}>
-            <SmallLabel style={{ color: 'rgba(241,236,227,.7)' }}>On-chain anchor · Solana {CLUSTER}</SmallLabel>
-            <div style={{ fontFamily: FONTS.mono, fontSize: 12, marginTop: 6, wordBreak: 'break-all' }}>{PROGRAM_IDS.complianceRegistry.toBase58()}</div>
-            <a href={solExplorerUrl(PROGRAM_IDS.complianceRegistry.toBase58())} target="_blank" rel="noreferrer"
+            <SmallLabel style={{ color: 'rgba(241,236,227,.7)' }}>On-chain anchor · Stellar {DEFAULT_CONTRACT.network}</SmallLabel>
+            <div style={{ fontFamily: FONTS.mono, fontSize: 12, marginTop: 6, wordBreak: 'break-all' }}>{DEFAULT_CONTRACT.id}</div>
+            <a href={stellarExpertUrl('contract', DEFAULT_CONTRACT.id)} target="_blank" rel="noreferrer"
               style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
-              Ver no Solana Explorer →
+              View on Stellar Expert →
             </a>
           </div>
 
           <p className="mt-4 text-[12px]" style={{ color: PALETTE.concrete }}>
-            O dossiê expõe repositório, veredito, score, jurisdições e os pontos de melhoria — selo verificável publicamente em <Link to="/verify" style={{ color: PALETTE.terracotta }}>/verify</Link>. Os dados-fonte do repositório permanecem fora da chain.
+            The dossier exposes repository, verdict, score, jurisdictions and improvement points — each seal is publicly verifiable at <Link to="/verify" style={{ color: PALETTE.terracotta }}>/verify</Link>. The repository's source data stays off-chain.
           </p>
         </>
       )}

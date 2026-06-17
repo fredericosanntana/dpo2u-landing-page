@@ -1,13 +1,13 @@
 /**
  * /dsr — Data Subject Rights portal v0 (read-only history).
  *
- * Sprint 2 milestone S2.5. Done criteria: "UI React consome /api/v1/dsr, lista
- * tickets do tenant. PASS = login dummy mostra 1 ticket fake."
+ * Sprint 2 milestone S2.5. Done criteria: "React UI consumes /api/v1/dsr, lists
+ * the tenant's tickets. PASS = dummy login shows 1 fake ticket."
  *
  * Spec basis:
- *   - LGPD Art. 18 (Brazil) — 6 direitos do titular, prazo 15 dias úteis (ANPD)
- *   - GDPR Arts. 15-22 (EU) — 8 direitos, prazo 30 dias (Art. 12(3))
- *   - CCPA §1798.110-130 (California) — 45 dias com extensão de 45
+ *   - LGPD Art. 18 (Brazil) — 6 data-subject rights, 15 business-day deadline (ANPD)
+ *   - GDPR Arts. 15-22 (EU) — 8 rights, 30-day deadline (Art. 12(3))
+ *   - CCPA §1798.110-130 (California) — 45 days with a 45-day extension
  *
  * v0 scope:
  *   - Dummy login (email → localStorage)
@@ -34,19 +34,19 @@ const STORAGE_KEY = 'dpo2u_dsr_dummy_email';
 const MCP_BASE = 'https://mcp.dpo2u.com';
 
 const TYPE_LABEL: Record<DSRRequestType, string> = {
-    access: 'Acesso',
-    correction: 'Retificação',
-    erasure: 'Exclusão',
-    portability: 'Portabilidade',
-    objection: 'Oposição',
-    restriction: 'Restrição',
+    access: 'Access',
+    correction: 'Rectification',
+    erasure: 'Erasure',
+    portability: 'Portability',
+    objection: 'Objection',
+    restriction: 'Restriction',
 };
 
 const STATUS_LABEL: Record<DSRStatus, string> = {
-    received: 'Recebido',
-    processing: 'Em processamento',
-    resolved: 'Resolvido',
-    rejected: 'Rejeitado',
+    received: 'Received',
+    processing: 'Processing',
+    resolved: 'Resolved',
+    rejected: 'Rejected',
 };
 
 const STATUS_COLOR: Record<DSRStatus, string> = {
@@ -71,7 +71,7 @@ function fmtSla(submittedAt: string, dueAt: string): string {
     const due = new Date(dueAt).getTime();
     if (Number.isNaN(submitted) || Number.isNaN(due)) return '—';
     const days = Math.round((due - submitted) / (1000 * 60 * 60 * 24));
-    return `${days}d janela`;
+    return `${days}d window`;
 }
 
 function isValidEmail(s: string): boolean {
@@ -106,14 +106,14 @@ async function fetchTickets(email: string): Promise<LoadState> {
             status: 'ok',
             items: SAMPLE_DSR_TICKETS.map((t) => ({ ...t, tenantId: email, email })),
             source: 'sample',
-            note: `Backend respondeu ${res.status}. Mostrando dados de amostra (v0).`,
+            note: `Backend responded ${res.status}. Showing sample data (v0).`,
         };
     } catch (err) {
         return {
             status: 'ok',
             items: SAMPLE_DSR_TICKETS.map((t) => ({ ...t, tenantId: email, email })),
             source: 'sample',
-            note: 'Rede indisponível. Mostrando dados de amostra (v0).',
+            note: 'Network unavailable. Showing sample data (v0).',
         };
     }
 }
@@ -131,7 +131,7 @@ function LoginGate({ onLogin }: { onLogin: (email: string) => void }) {
         e.preventDefault();
         const trimmed = email.trim();
         if (!isValidEmail(trimmed)) {
-            setError('Email inválido.');
+            setError('Invalid email.');
             return;
         }
         setError(null);
@@ -148,11 +148,11 @@ function LoginGate({ onLogin }: { onLogin: (email: string) => void }) {
                 className="text-[22px] md:text-[26px] font-medium mb-3"
                 style={{ fontFamily: FONTS.display, letterSpacing: '-0.01em' }}
             >
-                Identifique-se para ver seus tickets.
+                Identify yourself to see your tickets.
             </h2>
             <p className="text-[14px] text-dpo2u-ink/75 leading-[1.55] mb-5">
-                Auth real (OAuth + DID) entra na Sprint 3. Por enquanto, o email é o
-                tenant id; ficam salvos só localmente (localStorage).
+                Real auth (OAuth + DID) lands in Sprint 3. For now, the email is the
+                tenant id; it is stored locally only (localStorage).
             </p>
             <form onSubmit={submit} noValidate>
                 <label className="block mb-4">
@@ -165,7 +165,7 @@ function LoginGate({ onLogin }: { onLogin: (email: string) => void }) {
                             color: PALETTE.ink,
                         }}
                     >
-                        Email do titular
+                        Data subject email
                     </span>
                     <input
                         type="email"
@@ -176,7 +176,7 @@ function LoginGate({ onLogin }: { onLogin: (email: string) => void }) {
                             setEmail(e.target.value);
                             if (error) setError(null);
                         }}
-                        placeholder="voce@exemplo.com"
+                        placeholder="you@example.com"
                         className={inputCls}
                     />
                     {error && (
@@ -190,7 +190,7 @@ function LoginGate({ onLogin }: { onLogin: (email: string) => void }) {
                     className="inline-flex items-center justify-center gap-2 py-3 px-6 font-mono text-[13px] uppercase tracking-[0.14em] transition-colors"
                     style={{ background: PALETTE.ink, color: PALETTE.paper }}
                 >
-                    Entrar →
+                    Sign in →
                 </button>
             </form>
         </section>
@@ -205,12 +205,12 @@ function TicketTable({ items }: { items: DSRTicket[] }) {
                 style={{ borderColor: PALETTE.rule }}
             >
                 <p className="text-[15px] text-dpo2u-ink/70 mb-4">
-                    Sem tickets ainda. Quando você quiser submeter um pedido (acesso,
-                    exclusão, portabilidade, etc.), faremos isso pela interface de
-                    submissão na próxima sprint.
+                    No tickets yet. When you want to submit a request (access,
+                    erasure, portability, etc.), we'll handle it through the
+                    submission interface in the next sprint.
                 </p>
                 <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-dpo2u-ink/50">
-                    Submissão DSR — v1 (próxima sprint)
+                    DSR submission — v1 (next sprint)
                 </p>
             </div>
         );
@@ -222,9 +222,9 @@ function TicketTable({ items }: { items: DSRTicket[] }) {
                     <tr style={{ borderBottom: `1px solid ${PALETTE.ruleStrong}` }}>
                         {[
                             'Ticket',
-                            'Tipo',
-                            'Jurisdição',
-                            'Submetido',
+                            'Type',
+                            'Jurisdiction',
+                            'Submitted',
                             'Status',
                             'SLA',
                         ].map((h) => (
@@ -257,7 +257,7 @@ function TicketTable({ items }: { items: DSRTicket[] }) {
                                             fontFamily: FONTS.mono,
                                             color: PALETTE.verdigris,
                                         }}
-                                        title="PDA on-chain da resolução"
+                                        title="On-chain resolution PDA"
                                     >
                                         ✓ pda {t.attestationPda}
                                     </div>
@@ -297,7 +297,7 @@ function TicketTable({ items }: { items: DSRTicket[] }) {
                             >
                                 {fmtSla(t.submittedAt, t.slaDueAt)}
                                 <div className="text-[10px] text-dpo2u-ink/50">
-                                    vence {fmtDate(t.slaDueAt)}
+                                    due {fmtDate(t.slaDueAt)}
                                 </div>
                             </td>
                         </tr>
@@ -314,7 +314,7 @@ export default function DSRPage() {
     usePageHead({
         title: 'DSR Portal — DPO2U',
         description:
-            'Data Subject Rights portal (LGPD Art. 18 / GDPR Arts. 15-22). Histórico de tickets do titular — acesso, retificação, exclusão, portabilidade. v0 read-only.',
+            'Data Subject Rights portal (LGPD Art. 18 / GDPR Arts. 15-22). Data-subject ticket history — access, rectification, erasure, portability. v0 read-only.',
         path: '/dsr',
     });
 
@@ -385,13 +385,13 @@ export default function DSRPage() {
                         className="text-[40px] md:text-[56px] leading-[1.04] font-medium"
                         style={{ fontFamily: FONTS.display, letterSpacing: '-0.02em' }}
                     >
-                        Data Subject Rights — Histórico.
+                        Data Subject Rights — History.
                     </h1>
                     <p className="mt-6 max-w-[64ch] text-[16px] md:text-[18px] text-dpo2u-ink/75">
-                        Os 6 direitos do titular (LGPD Art. 18 / GDPR Arts. 15-22) listados
-                        por ticket — quando você submete um pedido, ele aparece aqui com
-                        status, SLA e link pra atestação on-chain da resolução, quando
-                        houver. v0 read-only: submissão entra na próxima sprint.
+                        The 6 data-subject rights (LGPD Art. 18 / GDPR Arts. 15-22) listed
+                        per ticket — when you submit a request, it shows up here with
+                        status, SLA and a link to the on-chain attestation of the
+                        resolution, when one exists. v0 read-only: submission lands next sprint.
                     </p>
                 </header>
 
@@ -408,7 +408,7 @@ export default function DSRPage() {
                             }}
                         >
                             <div className="flex items-center gap-3">
-                                <SmallLabel>Sessão</SmallLabel>
+                                <SmallLabel>Session</SmallLabel>
                                 <code
                                     className="text-[13px]"
                                     style={{ fontFamily: FONTS.mono, color: PALETTE.ink }}
@@ -421,7 +421,7 @@ export default function DSRPage() {
                                         color: PALETTE.paper,
                                         background: PALETTE.concrete,
                                     }}
-                                    title="Auth real entra na Sprint 3"
+                                    title="Real auth lands in Sprint 3"
                                 >
                                     dummy
                                 </span>
@@ -431,7 +431,7 @@ export default function DSRPage() {
                                     {load.status === 'ok'
                                         ? `${ticketCount} ticket${ticketCount === 1 ? '' : 's'}`
                                         : load.status === 'loading'
-                                            ? 'carregando…'
+                                            ? 'loading…'
                                             : '—'}
                                 </SmallLabel>
                                 <button
@@ -439,7 +439,7 @@ export default function DSRPage() {
                                     className="font-mono text-[12px] uppercase tracking-[0.14em] border px-3 py-1.5 hover:bg-dpo2u-ink hover:text-dpo2u-ivory transition-colors"
                                     style={{ borderColor: PALETTE.ruleStrong }}
                                 >
-                                    Sair
+                                    Sign out
                                 </button>
                             </div>
                         </section>
@@ -457,11 +457,11 @@ export default function DSRPage() {
                                     className="font-mono text-[11px] uppercase tracking-[0.14em] mb-1"
                                     style={{ color: PALETTE.terracotta }}
                                 >
-                                    Modo amostra
+                                    Sample mode
                                 </p>
                                 <p className="text-[13px] text-dpo2u-ink/80">
                                     {load.note ??
-                                        'Endpoint /api/v1/dsr/tickets ainda não está exposto pra leitura pública. Mostrando 2 tickets de amostra (LGPD) pra demonstrar o fluxo.'}
+                                        'The /api/v1/dsr/tickets endpoint is not yet exposed for public reads. Showing 2 sample tickets (LGPD) to demonstrate the flow.'}
                                 </p>
                             </div>
                         )}
@@ -469,7 +469,7 @@ export default function DSRPage() {
                         {/* Table */}
                         {load.status === 'loading' && (
                             <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-dpo2u-ink/60">
-                                carregando tickets…
+                                loading tickets…
                             </p>
                         )}
                         {load.status === 'ok' && <TicketTable items={load.items} />}
@@ -487,24 +487,24 @@ export default function DSRPage() {
                     style={{ borderColor: PALETTE.ruleStrong }}
                 >
                     <SmallLabel style={{ marginBottom: 12 }}>
-                        — Referências regulatórias —
+                        — Regulatory references —
                     </SmallLabel>
                     <ul className="space-y-2 text-[13px] text-dpo2u-ink/75 leading-[1.6]">
                         <li>
                             <strong className="text-dpo2u-ink">LGPD Art. 18</strong> — 6
-                            direitos do titular: confirmação, acesso, correção,
-                            anonimização/bloqueio/eliminação, portabilidade, informação
-                            sobre compartilhamento. SLA 15 dias úteis (ANPD).
+                            data-subject rights: confirmation, access, correction,
+                            anonymization/blocking/deletion, portability, information
+                            about sharing. SLA 15 business days (ANPD).
                         </li>
                         <li>
                             <strong className="text-dpo2u-ink">GDPR Arts. 15-22</strong> —
                             access, rectification, erasure, restriction, portability,
-                            objection, automated decisions. SLA 30 dias (Art. 12(3),
-                            extensível para 60).
+                            objection, automated decisions. SLA 30 days (Art. 12(3),
+                            extendable to 60).
                         </li>
                         <li>
                             <strong className="text-dpo2u-ink">CCPA §1798.110-130</strong> —
-                            right-to-know + right-to-delete. SLA 45 dias com extensão de 45.
+                            right-to-know + right-to-delete. SLA 45 days with a 45-day extension.
                         </li>
                     </ul>
                     <div className="mt-8 flex flex-wrap gap-6 font-mono text-[12px] uppercase tracking-[0.14em]">
@@ -512,7 +512,7 @@ export default function DSRPage() {
                             to="/coverage"
                             className="text-dpo2u-ink/80 border-b border-dpo2u-ink/30 hover:border-dpo2u-terracotta hover:text-dpo2u-terracotta transition-colors pb-0.5"
                         >
-                            → Coverage (17 jurisdições)
+                            → Coverage (24 jurisdictions)
                         </Link>
                         <Link
                             to="/privacy"

@@ -1,9 +1,9 @@
 /**
  * /pricing — 3 tiers (Free / Builder / Team) + comparison table + FAQ.
  *
- * Stripe billing live em fase 2 — atualmente CTA vai pro /alpha-signup pra
- * pilot pricing manual. Pricing publico fecha o gap "builder bouncepa em 30s
- * sem pricing visível" identificado no gap report 2026-05-11.
+ * Stripe billing goes live in phase 2 — for now the CTA points to /alpha-signup for
+ * manual pilot pricing. Public pricing closes the "builder bounces in 30s with no
+ * visible pricing" gap identified in the 2026-05-11 gap report.
  */
 
 import React from 'react';
@@ -86,24 +86,24 @@ const COMPARISON_ROWS = [
 
 const FAQ = [
   {
-    q: 'O que exatamente eu pago?',
-    a: 'A unidade de valor — e de cobrança — é a atestação. O selo on-chain custa $0.0002 (o custo de ancorar uma atestação). No tier Open Source você roda o SDK e paga só o selo no momento de ancorar. Managed e DPO-aaS adicionam uma camada de serviço (executar o pipeline / DPO responsável) cujo preço está em calibração.',
+    q: 'What exactly do I pay for?',
+    a: 'The unit of value — and of billing — is the attestation. The on-chain seal costs $0.0002 (the cost of anchoring one attestation). On the Open Source tier you run the SDK and pay only the seal at the moment you anchor. Managed and DPO-aaS add a service layer (running the pipeline / accountable DPO) whose price is in calibration.',
   },
   {
-    q: 'O SDK é mesmo grátis?',
-    a: 'Sim. O SDK open-source é gratuito (npm + cargo). Você só paga o selo on-chain de $0.0002 quando ancora uma atestação. Sem mensalidade no tier OSS.',
+    q: 'Is the SDK really free?',
+    a: 'Yes. The open-source SDK is free (npm + cargo). You only pay the $0.0002 on-chain seal when you anchor an attestation. No subscription on the OSS tier.',
   },
   {
-    q: 'Por que o preço do Managed/DPO está "em calibração"?',
-    a: 'Estamos validando disposição-a-pagar com clientes-alvo antes de fixar o número público. Em vez de publicar um preço que vamos mudar, conversamos caso a caso. Fale conosco via alpha signup.',
+    q: 'Why is Managed/DPO pricing "in calibration"?',
+    a: 'We are validating willingness-to-pay with target customers before fixing the public number. Instead of publishing a price we will change, we talk case by case. Reach us via alpha signup.',
   },
   {
-    q: 'Qual chain está no ar?',
-    a: 'Stellar é a chain live (testnet validada on-chain; mainnet em rollout faseado). Solana, EVM, Polkadot e Midnight estão no roadmap — marcadas como tal, sem alegar live.',
+    q: 'Which chain is live?',
+    a: 'Stellar (Soroban) is the protocol chain: testnet validated on-chain, mainnet in phased rollout. The attestation contract is immutable and verification is trustless by (use_case_id, evidence_hash).',
   },
   {
-    q: 'Funciona em quantas jurisdições?',
-    a: '24 jurisdições + 8 frameworks de governança de IA, no mesmo stack. Cross-check multi-jurisdição (LGPD vs GDPR vs DPDP, etc.) incluído.',
+    q: 'How many jurisdictions does it cover?',
+    a: '24 jurisdictions + 8 AI-governance frameworks, in the same stack. Multi-jurisdiction cross-check (LGPD vs GDPR vs DPDP, etc.) included.',
   },
 ];
 
@@ -111,7 +111,7 @@ export default function PricingPage() {
   usePageHead({
     title: 'Pricing — DPO2U',
     description:
-      'Open-core ladder para compliance on-chain — Open Source (SDK grátis + $0.0002/attestation), Managed Protocol e DPO-as-a-Service. A atestação é a unidade de cobrança. 24 jurisdições, 8 frameworks de IA. Preço Managed/DPO em calibração — fale conosco.',
+      'Open-core ladder for on-chain compliance — Open Source (free SDK + $0.0002/attestation), Managed Protocol and DPO-as-a-Service. The attestation is the billing unit. 24 jurisdictions, 8 AI frameworks. Managed/DPO pricing in calibration — talk to us.',
     path: '/pricing',
   });
 

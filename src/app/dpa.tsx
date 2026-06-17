@@ -1,10 +1,10 @@
 /**
  * /dpa — Data Processing Agreement (template).
  *
- * Página legal no design selado. Cláusulas de processador GDPR Art. 28 + LGPD
- * Art. 39 (operador), com enquadramento honesto: é o template padrão da DPO2U,
- * executado por contrato assinado (não vincula automaticamente pelo acesso).
- * Phase 0 / gate G6 — "non-negotiable for a compliance company".
+ * Legal page in the sealed design. GDPR Art. 28 + LGPD Art. 39 processor clauses,
+ * with honest framing: it is DPO2U's standard template, executed by a signed contract
+ * (access alone does not automatically bind). Phase 0 / gate G6 —
+ * "non-negotiable for a compliance company".
  */
 import React from 'react';
 import { usePageHead } from '@/lib/page-head';
@@ -12,44 +12,44 @@ import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
 
 const CLAUSES: { h: string; b: string }[] = [
   {
-    h: '1. Objeto, duração e natureza do tratamento',
-    b: 'Este Acordo de Processamento de Dados (DPA) rege o tratamento de dados pessoais realizado pela DPO2U ("Operador" / "Processor") por conta do Cliente ("Controlador" / "Controller") no escopo dos serviços contratados (geração de DPIA/auditoria, atestação de compliance on-chain e serviços associados). A duração acompanha o contrato principal. As categorias de titulares e de dados são as descritas no contrato/ordem de serviço.',
+    h: '1. Subject matter, duration and nature of processing',
+    b: 'This Data Processing Agreement (DPA) governs the processing of personal data carried out by DPO2U ("Processor" / "Operador") on behalf of the Client ("Controller" / "Controlador") within the scope of the contracted services (DPIA/audit generation, on-chain compliance attestation and associated services). The duration follows the main contract. The categories of data subjects and of data are those described in the contract/service order.',
   },
   {
-    h: '2. Tratamento apenas sob instrução documentada — GDPR Art. 28(3)(a) · LGPD Art. 39',
-    b: 'O Operador trata os dados pessoais somente com base em instruções documentadas do Controlador, inclusive quanto a transferências internacionais, salvo obrigação legal — caso em que o Operador informa o Controlador antes do tratamento, exceto se a lei o proibir.',
+    h: '2. Processing only on documented instructions — GDPR Art. 28(3)(a) · LGPD Art. 39',
+    b: 'The Processor processes personal data only on documented instructions from the Controller, including with regard to international transfers, unless required to do so by law — in which case the Processor informs the Controller before processing, unless the law prohibits it.',
   },
   {
-    h: '3. Confidencialidade — GDPR Art. 28(3)(b)',
-    b: 'O Operador assegura que as pessoas autorizadas a tratar os dados se comprometeram com a confidencialidade ou estão sob dever legal de sigilo.',
+    h: '3. Confidentiality — GDPR Art. 28(3)(b)',
+    b: 'The Processor ensures that persons authorized to process the personal data have committed themselves to confidentiality or are under an appropriate statutory obligation of confidentiality.',
   },
   {
-    h: '4. Segurança do tratamento — GDPR Art. 32 · LGPD Art. 46-49',
-    b: 'O Operador implementa medidas técnicas e organizacionais adequadas ao risco: criptografia em trânsito e em repouso quando aplicável, controle de acesso baseado em papéis, registro de auditoria, e — onde o produto exige — minimização via design (atestação ancora hash/commitment, não PII em claro). O score permanece privado; a prova é pública.',
+    h: '4. Security of processing — GDPR Art. 32 · LGPD Art. 46-49',
+    b: 'The Processor implements technical and organizational measures appropriate to the risk: encryption in transit and at rest where applicable, role-based access control, audit logging, and — where the product requires it — minimization by design (the attestation anchors a hash/commitment, not cleartext PII). The score stays private; the proof is public.',
   },
   {
-    h: '5. Subprocessadores — GDPR Art. 28(2)(4)',
-    b: 'O Operador só contrata subprocessadores mediante autorização (geral ou específica) do Controlador, impondo-lhes por contrato as mesmas obrigações de proteção de dados. A lista de subprocessadores e quaisquer alterações são comunicadas ao Controlador, que pode objetar.',
+    h: '5. Subprocessors — GDPR Art. 28(2)(4)',
+    b: 'The Processor engages subprocessors only with the Controller’s authorization (general or specific), imposing on them by contract the same data-protection obligations. The list of subprocessors and any changes are communicated to the Controller, who may object.',
   },
   {
-    h: '6. Assistência ao Controlador — GDPR Art. 28(3)(e)(f)',
-    b: 'O Operador auxilia o Controlador, na medida do possível, a responder a pedidos de titulares (acesso, correção, eliminação, portabilidade, oposição — GDPR Art. 15-22 / LGPD Art. 18), e a cumprir os deveres de segurança, notificação de incidente, DPIA/RIPD e consulta prévia (GDPR Art. 32-36 / LGPD Art. 38, 48).',
+    h: '6. Assistance to the Controller — GDPR Art. 28(3)(e)(f)',
+    b: 'The Processor assists the Controller, as far as possible, in responding to data-subject requests (access, rectification, erasure, portability, objection — GDPR Art. 15-22 / LGPD Art. 18), and in meeting its obligations of security, breach notification, DPIA/RIPD and prior consultation (GDPR Art. 32-36 / LGPD Art. 38, 48).',
   },
   {
-    h: '7. Notificação de incidente — GDPR Art. 33 · LGPD Art. 48',
-    b: 'O Operador notifica o Controlador sem demora injustificada ao tomar conhecimento de violação de dados pessoais, fornecendo informações suficientes para que o Controlador cumpra suas obrigações de comunicação à autoridade (ANPD/DPA) e aos titulares nos prazos legais.',
+    h: '7. Breach notification — GDPR Art. 33 · LGPD Art. 48',
+    b: 'The Processor notifies the Controller without undue delay after becoming aware of a personal data breach, providing sufficient information for the Controller to meet its obligations to notify the supervisory authority (ANPD/DPA) and the data subjects within the statutory deadlines.',
   },
   {
-    h: '8. Eliminação ou devolução ao término — GDPR Art. 28(3)(g)',
-    b: 'Encerrado o serviço, o Operador, a critério do Controlador, elimina ou devolve os dados pessoais e apaga as cópias existentes, salvo retenção exigida por lei. Para dados ancorados on-chain, aplica-se a estratégia de erasure documentada (off-chain + hash / cryptographic shredding / tombstone), preservando a imutabilidade do registro sem expor PII.',
+    h: '8. Deletion or return on termination — GDPR Art. 28(3)(g)',
+    b: 'On termination of the service, the Processor, at the Controller’s choice, deletes or returns the personal data and erases existing copies, save for retention required by law. For data anchored on-chain, the documented erasure strategy applies (off-chain + hash / cryptographic shredding / tombstone), preserving the immutability of the record without exposing PII.',
   },
   {
-    h: '9. Auditoria e inspeção — GDPR Art. 28(3)(h)',
-    b: 'O Operador disponibiliza ao Controlador as informações necessárias para demonstrar conformidade e permite auditorias/inspeções. A própria atestação on-chain (selo verificável publicamente) serve como evidência contínua e independente do estado de compliance.',
+    h: '9. Audit and inspection — GDPR Art. 28(3)(h)',
+    b: 'The Processor makes available to the Controller the information necessary to demonstrate compliance and allows for and contributes to audits/inspections. The on-chain attestation itself (a publicly verifiable seal) serves as continuous, independent evidence of the compliance state.',
   },
   {
-    h: '10. Transferências internacionais',
-    b: 'Qualquer transferência internacional ocorre apenas mediante salvaguardas adequadas (cláusulas-padrão, adequação ou outra base legal), conforme instrução do Controlador e a jurisdição aplicável dentre as 24 cobertas.',
+    h: '10. International transfers',
+    b: 'Any international transfer occurs only under appropriate safeguards (standard contractual clauses, adequacy or another legal basis), as instructed by the Controller and per the applicable jurisdiction among the 24 covered.',
   },
 ];
 
@@ -57,7 +57,7 @@ export default function DPAPage() {
   usePageHead({
     title: 'Data Processing Agreement (DPA) — DPO2U',
     description:
-      'Template de Acordo de Processamento de Dados (DPA) da DPO2U — cláusulas de operador GDPR Art. 28 + LGPD Art. 39: instrução documentada, confidencialidade, segurança (Art. 32), subprocessadores, assistência ao titular, notificação de incidente, eliminação/devolução, auditoria e transferências internacionais.',
+      'DPO2U Data Processing Agreement (DPA) template — GDPR Art. 28 + LGPD Art. 39 processor clauses: documented instructions, confidentiality, security (Art. 32), subprocessors, data-subject assistance, breach notification, deletion/return, audit and international transfers.',
     path: '/dpa',
   });
 
@@ -80,9 +80,9 @@ export default function DPAPage() {
           Template · GDPR Art. 28 + LGPD Art. 39 · last updated {new Date().toISOString().slice(0, 10)}
         </p>
         <p className="mt-6 max-w-[64ch] text-[17px] leading-[1.6]" style={{ color: PALETTE.inkSoft }}>
-          Este é o template padrão de DPA da DPO2U enquanto Operador de dados. Ele é executado por
-          contrato assinado entre Controlador e Operador — o acesso a esta página não constitui, por si,
-          um acordo vinculante. Para executar um DPA, fale com{' '}
+          This is DPO2U’s standard DPA template as a data Processor. It is executed by a signed
+          contract between Controller and Processor — accessing this page does not, by itself,
+          constitute a binding agreement. To execute a DPA, contact{' '}
           <a href="mailto:dpo@dpo2u.com" style={{ color: PALETTE.terracotta, textDecoration: 'underline' }}>dpo@dpo2u.com</a>.
         </p>
 
@@ -104,10 +104,10 @@ export default function DPAPage() {
 
         <Rule style={{ margin: '40px 0 24px' }} color={PALETTE.ruleStrong} />
         <p className="text-[13px]" style={{ color: PALETTE.concrete }}>
-          Não constitui aconselhamento jurídico. Documento-modelo; a versão executável é fornecida e
-          assinada no onboarding. Ver também{' '}
+          This is not legal advice. Template document; the executable version is provided and
+          signed at onboarding. See also{' '}
           <a href="/privacy" style={{ color: PALETTE.terracotta, textDecoration: 'underline' }}>Privacy</a>{' '}
-          e <a href="/terms" style={{ color: PALETTE.terracotta, textDecoration: 'underline' }}>Terms</a>.
+          and <a href="/terms" style={{ color: PALETTE.terracotta, textDecoration: 'underline' }}>Terms</a>.
         </p>
       </div>
     </div>

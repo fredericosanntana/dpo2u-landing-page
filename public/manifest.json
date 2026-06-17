@@ -1,7 +1,7 @@
 {
-  "name": "DPO2U - Compliance LGPD com IA",
+  "name": "DPO2U - Compliance as a protocol",
   "short_name": "DPO2U",
-  "description": "Sistema multiagente para transformação digital das empresas com foco em privacidade de dados e compliance LGPD/GDPR.",
+  "description": "Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 24 jurisdictions, selective-disclosure proofs.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -24,7 +24,7 @@
     }
   ],
   "categories": ["business", "productivity", "legal"],
-  "lang": "pt-BR",
+  "lang": "en",
   "scope": "/",
   "orientation": "portrait-primary"
 }

@@ -64,7 +64,7 @@ export interface DSRListResponse {
 /**
  * Sample tickets surfaced when the backend `GET /api/v1/dsr/tickets` endpoint
  * is not yet live (HTTP 404) or auth is missing (HTTP 401). The PASS criteria
- * for S2.5 requires "login dummy mostra 1 ticket fake" — these cover that.
+ * for S2.5 requires "dummy login shows 1 fake ticket" — these cover that.
  *
  * Marked clearly with `id` prefix "SAMPLE-" so UX never confuses sample with real.
  */
@@ -76,12 +76,12 @@ export const SAMPLE_DSR_TICKETS: DSRTicket[] = [
     jurisdiction: 'LGPD',
     email: 'sample@dpo2u.com',
     fullName: 'Maria S.',
-    description: 'Solicito cópia de todos os dados pessoais tratados.',
+    description: 'I request a copy of all personal data being processed.',
     submittedAt: '2026-04-15T09:12:00Z',
     updatedAt: '2026-04-18T16:40:00Z',
     status: 'resolved',
     slaDueAt: '2026-05-06T09:12:00Z',
-    resolutionNote: 'Entregue via portal seguro em 3 dias úteis. Pacote PDF + JSON.',
+    resolutionNote: 'Delivered via secure portal in 3 business days. PDF + JSON package.',
     attestationPda: 'SEaL3vQ…x9Q2r7',
   },
   {
@@ -90,11 +90,11 @@ export const SAMPLE_DSR_TICKETS: DSRTicket[] = [
     type: 'erasure',
     jurisdiction: 'LGPD',
     email: 'sample@dpo2u.com',
-    description: 'Pedido de exclusão (LGPD Art. 18 VI).',
+    description: 'Erasure request (LGPD Art. 18 VI).',
     submittedAt: '2026-05-02T14:03:00Z',
     updatedAt: '2026-05-05T10:21:00Z',
     status: 'processing',
     slaDueAt: '2026-05-23T14:03:00Z',
-    resolutionNote: 'Em triagem — dados de tx on-chain têm base legal de retenção (5 anos).',
+    resolutionNote: 'In triage — on-chain tx data has a legal retention basis (5 years).',
   },
 ];

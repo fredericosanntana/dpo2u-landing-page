@@ -1,5 +1,5 @@
 /**
- * Tab "Narrativa" - História viva do sistema com métricas reais
+ * Tab "Narrative" — living history of the system with real metrics
  */
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -61,34 +61,34 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
               </div>
               <div>
                 <div className="text-2xl font-bold">{summary.active_agents}/{summary.total_agents}</div>
-                <div className="text-sm text-muted-foreground">Agentes Ativos</div>
+                <div className="text-sm text-muted-foreground">Active Agents</div>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Narrativa Dinâmica */}
+      {/* Dynamic narrative */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Brain className="h-5 w-5 text-primary" />
-            A História Viva do Sistema DPO2U
+            The Living History of the DPO2U System
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           <section className="space-y-3">
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="bg-primary/10 text-primary">
-                Capítulo I: O Cérebro IA
+                Chapter I: The AI Brain
               </Badge>
               <div className="flex-1 h-px bg-border" />
             </div>
             <p className="text-sm leading-relaxed text-foreground/80">
-              No coração do sistema DPO2U pulsa uma inteligência artificial distribuída. Com{' '}
-              <span className="font-semibold text-primary">{summary.total_agents} agentes especializados</span>,
-              dos quais <span className="font-semibold text-brand-emerald-600">{summary.active_agents} estão ativos</span>,
-              o sistema mantém uma taxa de auto-cura impressionante de{' '}
+              At the heart of the DPO2U system pulses a distributed artificial intelligence. With{' '}
+              <span className="font-semibold text-primary">{summary.total_agents} specialized agents</span>,
+              of which <span className="font-semibold text-brand-emerald-600">{summary.active_agents} are active</span>,
+              the system keeps an impressive self-healing rate of{' '}
               <span className="font-semibold text-primary">{auto_healing.success_rate}%</span>.
             </p>
           </section>
@@ -96,17 +96,17 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
           <section className="space-y-3">
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="bg-secondary/10 text-secondary">
-                Capítulo II: A Memória Coletiva
+                Chapter II: The Collective Memory
               </Badge>
               <div className="flex-1 h-px bg-border" />
             </div>
             <p className="text-sm leading-relaxed text-foreground/80">
-              O LEANN, nosso sistema de busca semântica, indexou{' '}
-              <span className="font-semibold text-secondary">{services.leann?.notes_count || 0} documentos</span>,
-              criando uma rede neural de conhecimento. O Zettelkasten expandiu com{' '}
-              <span className="font-semibold text-brand-emerald-600">{zettelkasten.notes_count} notas interconectadas</span>
+              LEANN, our semantic search system, indexed{' '}
+              <span className="font-semibold text-secondary">{services.leann?.notes_count || 0} documents</span>,
+              building a neural network of knowledge. The Zettelkasten expanded with{' '}
+              <span className="font-semibold text-brand-emerald-600">{zettelkasten.notes_count} interconnected notes</span>
               {zettelkasten.daily_growth > 0 && (
-                <span> (+{zettelkasten.daily_growth} hoje)</span>
+                <span> (+{zettelkasten.daily_growth} today)</span>
               )}.
             </p>
           </section>
@@ -114,7 +114,7 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
           <section className="space-y-3">
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="bg-orange-500/10 text-orange-500">
-                Capítulo III: O Pulso Operacional
+                Chapter III: The Operational Pulse
               </Badge>
               <div className="flex-1 h-px bg-border" />
             </div>
@@ -125,46 +125,46 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
                 <div className="text-xs font-medium">{system.cpu.percent.toFixed(1)}%</div>
               </div>
               <div className="space-y-1">
-                <div className="text-xs text-muted-foreground">Memória</div>
+                <div className="text-xs text-muted-foreground">Memory</div>
                 <Progress value={system.memory.percent} className="h-2" />
                 <div className="text-xs font-medium">{system.memory.percent.toFixed(1)}%</div>
               </div>
               <div className="space-y-1">
-                <div className="text-xs text-muted-foreground">Disco</div>
+                <div className="text-xs text-muted-foreground">Disk</div>
                 <Progress value={system.disk.percent} className="h-2" />
                 <div className="text-xs font-medium">{system.disk.percent.toFixed(1)}%</div>
               </div>
             </div>
             <p className="text-sm leading-relaxed text-foreground/80">
-              Há <span className="font-semibold text-brand-sapphire-600">{formatUptime(summary.uptime_hours)}</span> o sistema opera
-              ininterruptamente, processando <span className="font-semibold">{system.processes} processos</span> com
-              saúde classificada como <Badge variant="outline" className="text-brand-emerald-600">{summary.system_health}</Badge>.
+              For <span className="font-semibold text-brand-sapphire-600">{formatUptime(summary.uptime_hours)}</span> the system has been
+              running uninterrupted, processing <span className="font-semibold">{system.processes} processes</span> with
+              health classified as <Badge variant="outline" className="text-brand-emerald-600">{summary.system_health}</Badge>.
             </p>
           </section>
 
           <section className="space-y-3">
             <div className="flex items-center gap-2">
               <Badge variant="secondary" className="bg-brand-purple-500/10 text-brand-purple-500">
-                Capítulo IV: A Evolução Contínua
+                Chapter IV: Continuous Evolution
               </Badge>
               <div className="flex-1 h-px bg-border" />
             </div>
             <p className="text-sm leading-relaxed text-foreground/80">
-              Cada interação alimenta o aprendizado coletivo. Com{' '}
-              <span className="font-semibold text-brand-purple-600">{summary.tasks_completed_today} tarefas completadas hoje</span>,
-              o sistema evolui continuamente, refinando padrões de decisão e elevando sua eficiência operacional.
-              Esta narrativa se reescreve a cada ciclo, uma sinfonia de código e inteligência.
+              Every interaction feeds the collective learning. With{' '}
+              <span className="font-semibold text-brand-purple-600">{summary.tasks_completed_today} tasks completed today</span>,
+              the system evolves continuously, refining decision patterns and raising its operational efficiency.
+              This narrative rewrites itself every cycle, a symphony of code and intelligence.
             </p>
           </section>
         </CardContent>
       </Card>
 
-      {/* Status da Saúde do Sistema */}
+      {/* System health status */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <Card className="p-4">
           <div className="flex items-center gap-2">
             <Activity className="h-4 w-4" />
-            <span className="text-sm font-medium">Sistema</span>
+            <span className="text-sm font-medium">System</span>
             <Badge variant={summary.system_health === 'excellent' ? 'default' : 'secondary'}>
               {summary.system_health}
             </Badge>
@@ -190,7 +190,7 @@ export function NarrativaTab({ data }: NarrativaTabProps) {
         <Card className="p-4">
           <div className="flex items-center gap-2">
             <Database className="h-4 w-4" />
-            <span className="text-sm font-medium">Conectado</span>
+            <span className="text-sm font-medium">Connected</span>
             <div className="w-2 h-2 bg-brand-emerald-500 rounded-full" />
           </div>
         </Card>

@@ -1,5 +1,5 @@
 /**
- * Tab "Agentes" - Grid de cards com os 32 agentes
+ * Tab "Agents" — grid of cards for the 32 agents
  */
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +31,7 @@ interface AgentesTabProps {
   data: MetricsData;
 }
 
-// Mapear domínios para ícones
+// Map domains to icons
 const getDomainIcon = (domain: string, name: string) => {
   const lowerDomain = domain.toLowerCase();
   const lowerName = name.toLowerCase();
@@ -52,7 +52,7 @@ const getDomainIcon = (domain: string, name: string) => {
   return Bot; // Default icon
 };
 
-// Mapear domínios para cores
+// Map domains to colors
 const getDomainColor = (domain: string, name: string) => {
   const lowerDomain = domain.toLowerCase();
   const lowerName = name.toLowerCase();
@@ -68,7 +68,7 @@ const getDomainColor = (domain: string, name: string) => {
   return 'bg-brand-platinum-600/10 text-brand-platinum-600 border-brand-platinum-600/20';
 };
 
-// Formatar nome do agente
+// Format agent name
 const formatAgentName = (name: string) => {
   return name
     .split('-')
@@ -76,9 +76,9 @@ const formatAgentName = (name: string) => {
     .join(' ');
 };
 
-// Formatar última execução
+// Format last execution
 const formatLastExecution = (lastExecution: string | null) => {
-  if (!lastExecution) return 'Nunca executado';
+  if (!lastExecution) return 'Never run';
   
   const date = new Date(lastExecution);
   const now = new Date();
@@ -86,21 +86,21 @@ const formatLastExecution = (lastExecution: string | null) => {
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
   const diffDays = Math.floor(diffHours / 24);
   
-  if (diffDays > 0) return `${diffDays}d atrás`;
-  if (diffHours > 0) return `${diffHours}h atrás`;
-  return 'Recente';
+  if (diffDays > 0) return `${diffDays}d ago`;
+  if (diffHours > 0) return `${diffHours}h ago`;
+  return 'Recent';
 };
 
 export function AgentesTab({ data }: AgentesTabProps) {
   const { agents, summary } = data;
   
-  // Separar agentes por status
+  // Split agents by status
   const activeAgents = agents.filter(agent => agent.status === 'online');
   const offlineAgents = agents.filter(agent => agent.status === 'offline');
-  
-  // Agrupar por domínio
+
+  // Group by domain
   const groupedAgents = agents.reduce((acc, agent) => {
-    const domain = agent.domain || 'Outros';
+    const domain = agent.domain || 'Other';
     if (!acc[domain]) acc[domain] = [];
     acc[domain].push(agent);
     return acc;
@@ -108,14 +108,14 @@ export function AgentesTab({ data }: AgentesTabProps) {
 
   return (
     <div className="space-y-6">
-      {/* Estatísticas gerais */}
+      {/* General stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card className="p-4">
           <div className="flex items-center gap-2">
             <Users className="h-5 w-5 text-primary" />
             <div>
               <div className="text-2xl font-bold">{summary.total_agents}</div>
-              <div className="text-sm text-muted-foreground">Total de Agentes</div>
+              <div className="text-sm text-muted-foreground">Total Agents</div>
             </div>
           </div>
         </Card>
@@ -145,13 +145,13 @@ export function AgentesTab({ data }: AgentesTabProps) {
             <Clock className="h-5 w-5 text-brand-sapphire-500" />
             <div>
               <div className="text-2xl font-bold text-brand-sapphire-600">{summary.tasks_completed_today}</div>
-              <div className="text-sm text-muted-foreground">Tarefas Hoje</div>
+              <div className="text-sm text-muted-foreground">Tasks Today</div>
             </div>
           </div>
         </Card>
       </div>
 
-      {/* Filtros */}
+      {/* Filters */}
       <div className="flex flex-wrap gap-2">
         <Button variant="outline" size="sm">
           <Circle className="h-4 w-4 mr-1 fill-brand-emerald-500 text-brand-emerald-500" />
@@ -163,7 +163,7 @@ export function AgentesTab({ data }: AgentesTabProps) {
         </Button>
       </div>
 
-      {/* Grid de Agentes */}
+      {/* Agents grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {agents.map((agent) => {
           const IconComponent = getDomainIcon(agent.domain, agent.name);
@@ -199,41 +199,41 @@ export function AgentesTab({ data }: AgentesTabProps) {
               </CardHeader>
               
               <CardContent className="pt-0 space-y-3">
-                {/* Domínio */}
+                {/* Domain */}
                 {agent.domain && (
                   <div>
-                    <div className="text-xs font-medium text-muted-foreground mb-1">Domínio</div>
+                    <div className="text-xs font-medium text-muted-foreground mb-1">Domain</div>
                     <p className="text-xs line-clamp-2">{agent.domain}</p>
                   </div>
                 )}
-                
-                {/* Métricas */}
+
+                {/* Metrics */}
                 <div className="grid grid-cols-2 gap-3 text-xs">
                   <div>
-                    <div className="font-medium text-muted-foreground">Execuções</div>
+                    <div className="font-medium text-muted-foreground">Executions</div>
                     <div className="font-semibold">{agent.executions}</div>
                   </div>
                   <div>
-                    <div className="font-medium text-muted-foreground">Taxa Sucesso</div>
+                    <div className="font-medium text-muted-foreground">Success Rate</div>
                     <div className="font-semibold">{agent.success_rate.toFixed(1)}%</div>
                   </div>
                 </div>
-                
-                {/* Última execução */}
+
+                {/* Last execution */}
                 <div>
-                  <div className="text-xs font-medium text-muted-foreground mb-1">Última Execução</div>
+                  <div className="text-xs font-medium text-muted-foreground mb-1">Last Run</div>
                   <div className="text-xs">{formatLastExecution(agent.last_execution)}</div>
                 </div>
-                
+
                 {/* Expertise */}
                 {agent.expertise && (
                   <div>
-                    <div className="text-xs font-medium text-muted-foreground mb-1">Especialização</div>
+                    <div className="text-xs font-medium text-muted-foreground mb-1">Specialization</div>
                     <p className="text-xs line-clamp-2 text-foreground/80">{agent.expertise}</p>
                   </div>
                 )}
-                
-                {/* Tempo médio */}
+
+                {/* Average time */}
                 {agent.avg_duration > 0 && (
                   <div className="flex items-center gap-1">
                     <Clock className="h-3 w-3 text-muted-foreground" />
@@ -248,15 +248,15 @@ export function AgentesTab({ data }: AgentesTabProps) {
         })}
       </div>
 
-      {/* Agentes por Domínio */}
+      {/* Agents by domain */}
       <Card>
         <CardHeader>
-          <CardTitle>Distribuição por Domínio</CardTitle>
+          <CardTitle>Distribution by Domain</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
             {Object.entries(groupedAgents)
-              .filter(([domain]) => domain !== 'Outros' && domain !== '')
+              .filter(([domain]) => domain !== 'Other' && domain !== '')
               .sort(([,a], [,b]) => b.length - a.length)
               .slice(0, 8)
               .map(([domain, domainAgents]) => (

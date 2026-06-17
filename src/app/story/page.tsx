@@ -16,7 +16,7 @@ import {
   Network
 } from "lucide-react";
 
-// Import do novo hook e componentes
+// Import of the new hook and components
 import { useMetricsAPI } from "@/hooks/useMetricsAPI";
 import { NarrativaTab, AgentesTab, OperacaoTab } from "./components";
 
@@ -32,7 +32,7 @@ export default function StoryPage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
           <div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full mx-auto" />
-          <p className="text-muted-foreground">Conectando ao sistema multiagente...</p>
+          <p className="text-muted-foreground">Connecting to the multi-agent system…</p>
         </div>
       </div>
     );
@@ -45,19 +45,19 @@ export default function StoryPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-destructive">
               <AlertCircle className="h-5 w-5" />
-              Erro de Conexão
+              Connection error
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Não foi possível conectar à API do sistema multiagente.
+              Could not connect to the multi-agent system API.
             </p>
             <p className="text-xs text-muted-foreground">
-              Erro: {error}
+              Error: {error}
             </p>
             <Button onClick={refresh} className="w-full">
               <RefreshCw className="h-4 w-4 mr-2" />
-              Tentar Novamente
+              Try again
             </Button>
           </CardContent>
         </Card>
@@ -68,7 +68,7 @@ export default function StoryPage() {
   if (!data) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground">Nenhum dado disponível</p>
+        <p className="text-muted-foreground">No data available</p>
       </div>
     );
   }
@@ -81,11 +81,11 @@ export default function StoryPage() {
           <div className="flex items-start justify-between">
             <div className="space-y-2">
               <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                DPO2U — Sistema Multiagente
+                DPO2U — Multi-Agent System
               </h1>
               <p className="text-muted-foreground max-w-2xl">
-                Uma narrativa viva do ecossistema híbrido: IA Brain → Orquestração → Execução → Operação.
-                Conectado em tempo real ao API Gateway.
+                A living narrative of the hybrid ecosystem: AI Brain → Orchestration → Execution → Operations.
+                Connected in real time to the API Gateway.
               </p>
             </div>
             
@@ -96,15 +96,15 @@ export default function StoryPage() {
               className="flex items-center gap-2"
             >
               <RefreshCw className="h-4 w-4" />
-              Atualizar
+              Refresh
             </Button>
           </div>
 
-          {/* Status de Conexão */}
+          {/* Connection status */}
           <div className="flex items-center gap-4">
             <Badge className="bg-brand-emerald-500/10 text-brand-emerald-600 border-brand-emerald-500/20">
               <CheckCircle2 className="h-3 w-3 mr-1" />
-              Conectado
+              Connected
             </Badge>
             <Badge variant="outline">
               <Activity className="h-3 w-3 mr-1" />
@@ -112,16 +112,16 @@ export default function StoryPage() {
             </Badge>
             <Badge variant="outline">
               <Server className="h-3 w-3 mr-1" />
-              {data.summary.total_agents} Agentes
+              {data.summary.total_agents} Agents
             </Badge>
             <Badge variant="outline">
               <Network className="h-3 w-3 mr-1" />
-              Última atualização: {new Date(data.timestamp).toLocaleTimeString()}
+              Last update: {new Date(data.timestamp).toLocaleTimeString()}
             </Badge>
           </div>
         </div>
 
-        {/* KPIs Principais */}
+        {/* Main KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
             <CardContent className="p-4">
@@ -145,7 +145,7 @@ export default function StoryPage() {
                 </div>
                 <div>
                   <div className="text-lg font-bold">{data.summary.active_agents}/{data.summary.total_agents}</div>
-                  <div className="text-xs text-muted-foreground">Agentes</div>
+                  <div className="text-xs text-muted-foreground">Agents</div>
                 </div>
               </div>
             </CardContent>
@@ -173,7 +173,7 @@ export default function StoryPage() {
                 </div>
                 <div>
                   <div className="text-lg font-bold">{data.system.memory.percent.toFixed(1)}%</div>
-                  <div className="text-xs text-muted-foreground">Memória</div>
+                  <div className="text-xs text-muted-foreground">Memory</div>
                 </div>
               </div>
             </CardContent>
@@ -187,27 +187,27 @@ export default function StoryPage() {
                 </div>
                 <div>
                   <div className="text-lg font-bold">{data.zettelkasten.notes_count}</div>
-                  <div className="text-xs text-muted-foreground">Notas Zet.</div>
+                  <div className="text-xs text-muted-foreground">Zet. Notes</div>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Tabs Principais */}
+        {/* Main tabs */}
         <Tabs defaultValue="narrativa" className="w-full">
           <TabsList className="grid w-full grid-cols-3 h-12">
             <TabsTrigger value="narrativa" className="text-sm">
               <Brain className="h-4 w-4 mr-2" />
-              Narrativa
+              Narrative
             </TabsTrigger>
             <TabsTrigger value="agentes" className="text-sm">
               <Activity className="h-4 w-4 mr-2" />
-              Agentes ({data.summary.total_agents})
+              Agents ({data.summary.total_agents})
             </TabsTrigger>
             <TabsTrigger value="operacao" className="text-sm">
               <Server className="h-4 w-4 mr-2" />
-              Operação
+              Operations
             </TabsTrigger>
           </TabsList>
 

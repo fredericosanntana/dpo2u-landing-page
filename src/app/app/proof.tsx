@@ -1,0 +1,122 @@
+// /app/proof/uc/:uc/hash/:hash — Act 3 (Proof) of the funnel: the VERIFIABLE DOSSIER.
+// Bundles the on-chain seal (tx) + public verification (/verify) + the IPFS evidence
+// (when present) + export — ready to hand to a regulator/auditor/buyer.
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { FONTS, PALETTE, SmallLabel, WaxSeal } from '@/components/sealed/atoms';
+import { btnClass } from '@/components/app/ui';
+import { StatusBadge } from '@/components/app/ui/StatusBadge';
+import { verifyAttestation, truncateHash, truncateContract } from '@/lib/pilot/stellar';
+import { DEFAULT_CONTRACT } from '@/lib/pilot/contracts';
+import { OBLIGATIONS, txExplorerUrl } from '@/lib/status-registry';
+
+const EXPLORER = DEFAULT_CONTRACT.explorer_base;
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="py-3" style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
+      <SmallLabel>{label}</SmallLabel>
+      <div className="mt-1" style={{ fontFamily: FONTS.mono, fontSize: 13, wordBreak: 'break-all' }}>{children}</div>
+    </div>
+  );
+}
+
+export default function AppProof() {
+  const { uc = '', hash = '' } = useParams();
+  const [verdict, setVerdict] = useState<string | null>(null);
+  const [found, setFound] = useState<boolean | null>(null);
+  const [ts, setTs] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const obligation = OBLIGATIONS.find((o) => o.useCaseId === uc);
+  const verifyUrl = `/verify/uc/${uc}/hash/${hash}`;
+
+  useEffect(() => {
+    let alive = true;
+    setLoading(true);
+    void verifyAttestation({ useCaseId: uc, evidenceHashHex: hash })
+      .then((r) => {
+        if (!alive) return;
+        const rec = r as unknown as { found?: boolean; verdict?: string; timestamp?: number };
+        setFound(rec.found ?? true);
+        setVerdict(rec.verdict ?? null);
+        setTs(rec.timestamp ?? null);
+      })
+      .catch(() => { if (alive) setFound(false); })
+      .finally(() => { if (alive) setLoading(false); });
+    return () => { alive = false; };
+  }, [uc, hash]);
+
+  const exportDossier = () => {
+    const blob = new Blob([JSON.stringify({
+      use_case_id: uc, evidence_hash: hash, verdict, verified_onchain: found,
+      contract: DEFAULT_CONTRACT.id, network: DEFAULT_CONTRACT.network,
+      verify_url: `https://dpo2u.com${verifyUrl}`,
+      seal_tx: obligation?.proofTx ?? null, generated_at: new Date().toISOString(),
+    }, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `dossier-${uc}-${hash.slice(0, 12)}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  return (
+    <div className="max-w-[820px]">
+      <SmallLabel>Proof · Step 3 of 3 — Verifiable dossier</SmallLabel>
+      <div className="flex items-start justify-between gap-4 mt-2">
+        <h1 className="text-[28px] md:text-[36px] font-medium" style={{ fontFamily: FONTS.display, letterSpacing: '-0.02em' }}>
+          {obligation?.title ?? uc}
+        </h1>
+        <WaxSeal size={56} />
+      </div>
+      <div className="mt-2 flex items-center gap-3">
+        <StatusBadge status={obligation?.status ?? 'live'} />
+        {loading ? (
+          <span style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.concrete }}>verifying on-chain…</span>
+        ) : found ? (
+          <span style={{ fontFamily: FONTS.mono, fontSize: 12, color: verdict === 'PASS' ? PALETTE.verdigris : PALETTE.terracotta }}>
+            ● {verdict ?? 'recorded'} · verified on-chain
+          </span>
+        ) : (
+          <span style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.terracotta }}>○ not found on-chain</span>
+        )}
+      </div>
+
+      <div className="mt-6" style={{ border: `.5px solid ${PALETTE.ruleStrong}`, borderRadius: 6, background: PALETTE.paper2, padding: '4px 18px 14px' }}>
+        <Field label="Verdict">{verdict ?? (loading ? '…' : '—')}</Field>
+        <Field label="Evidence hash (sha-256)">{hash}</Field>
+        <Field label="Use case">{uc}</Field>
+        <Field label="Contract (Soroban testnet)">
+          <a href={`${EXPLORER}/contract/${DEFAULT_CONTRACT.id}`} target="_blank" rel="noreferrer" style={{ color: PALETTE.terracotta }}>
+            {truncateContract(DEFAULT_CONTRACT.id)} ↗
+          </a>
+        </Field>
+        {obligation?.proofTx && (
+          <Field label="Seal (transaction)">
+            <a href={txExplorerUrl(obligation.proofTx)} target="_blank" rel="noreferrer" style={{ color: PALETTE.terracotta }}>
+              {truncateHash(obligation.proofTx)} ↗
+            </a>
+          </Field>
+        )}
+        {ts && <Field label="When">{new Date(ts * 1000).toISOString()}</Field>}
+        <Field label="Evidence on IPFS">
+          <span style={{ color: PALETTE.concrete }}>
+            encrypted (AES-256) when the artifact is generated by the engine — CID anchored on-chain.{' '}
+            <StatusBadge status="live" label="Lighthouse" />
+          </span>
+        </Field>
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Link to={verifyUrl} className={btnClass('ink')}>Public verification →</Link>
+        <button type="button" onClick={exportDossier} className={btnClass('ghost')}>Export dossier (JSON)</button>
+        <Link to="/app/evidence" className={btnClass('ghost')}>All dossiers</Link>
+      </div>
+      <p className="mt-6 text-[12px]" style={{ color: PALETTE.concrete, fontFamily: FONTS.mono }}>
+        The proof is public and trustless: anyone re-reads the contract by (use_case_id, evidence_hash) without a wallet.
+        Private score, public proof. Testnet.
+      </p>
+    </div>
+  );
+}

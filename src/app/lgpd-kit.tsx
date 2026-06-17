@@ -55,9 +55,9 @@ export default function LgpdKitPage() {
                             animate="animate"
                             className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-tight tracking-tight"
                         >
-                            <span className="text-white drop-shadow-sm">Sua Adequação LGPD</span> <br />
+                            <span className="text-white drop-shadow-sm">Your LGPD Compliance</span> <br />
                             <span className="bg-gradient-to-r from-brand-emerald-400 via-brand-ocean-400 to-brand-sapphire-400 bg-clip-text text-transparent drop-shadow-lg">
-                                Inteligente & Automática
+                                Smart & Automatic
                             </span>
                         </motion.h1>
 
@@ -67,7 +67,7 @@ export default function LgpdKitPage() {
                             animate="animate"
                             className="text-xl md:text-2xl text-brand-platinum-400 mb-12 max-w-3xl mx-auto font-light leading-relaxed"
                         >
-                            Abandone planilhas complexas. Utilize nossa tecnologia de agentes IA para gerar toda a documentação jurídica e técnica do seu negócio em minutos.
+                            Ditch complex spreadsheets. Use our AI-agent technology to generate all the legal and technical documentation for your business in minutes.
                         </motion.p>
 
                         <motion.div
@@ -82,14 +82,14 @@ export default function LgpdKitPage() {
                                 onClick={() => window.location.href = '/analise'}
                             >
                                 <Zap className="mr-2 h-5 w-5 fill-current" />
-                                Iniciar Diagnóstico Grátis
+                                Start Free Assessment
                             </Button>
                             <Button
                                 variant="outline"
                                 size="xl"
                                 className="bg-white/5 border-white/10 text-white hover:bg-white/10 hover:border-white/20 backdrop-blur-sm px-8 py-7 text-lg rounded-2xl font-medium transition-all"
                             >
-                                Ver Demonstração
+                                Watch Demo
                             </Button>
                         </motion.div>
 
@@ -99,8 +99,8 @@ export default function LgpdKitPage() {
                             animate="animate"
                             className="mt-8 text-sm text-brand-platinum-600 font-medium"
                         >
-                            <span className="text-brand-emerald-400">✓</span> Sem cartão de crédito necessário &nbsp;
-                            <span className="text-brand-emerald-400">✓</span> Resultado imediato
+                            <span className="text-brand-emerald-400">✓</span> No credit card required &nbsp;
+                            <span className="text-brand-emerald-400">✓</span> Instant result
                         </motion.p>
                     </div>
                 </div>
@@ -113,10 +113,10 @@ export default function LgpdKitPage() {
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="text-center mb-20">
                         <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 text-white leading-tight">
-                            O Kit de Compliance <span className="text-brand-emerald-400">Mais Completo</span>
+                            The Most Complete <span className="text-brand-emerald-400">Compliance Kit</span>
                         </h2>
                         <p className="text-lg text-brand-platinum-500 max-w-2xl mx-auto">
-                            Nossa IA analisa 32 pontos de controle e gera documentos personalizados juridicamente válidos.
+                            Our AI analyzes 32 control points and generates personalized, legally valid documents.
                         </p>
                     </div>
 
@@ -130,38 +130,38 @@ export default function LgpdKitPage() {
                         {[
                             {
                                 icon: FileText,
-                                title: 'Política de Privacidade',
-                                desc: 'Gerada sob medida com cláusulas específicas para seu setor e tipo de coleta de dados.',
+                                title: 'Privacy Policy',
+                                desc: 'Tailor-made with clauses specific to your sector and the type of data you collect.',
                                 color: 'blue'
                             },
                             {
                                 icon: Lock,
-                                title: 'Termos de Uso',
-                                desc: 'Regras claras de utilização protegendo sua propriedade intelectual e responsabilidades.',
+                                title: 'Terms of Use',
+                                desc: 'Clear usage rules protecting your intellectual property and responsibilities.',
                                 color: 'emerald'
                             },
                             {
                                 icon: Activity,
-                                title: 'Relatório DPIA',
-                                desc: 'Avaliação de Impacto à Proteção de Dados completa para processos de alto risco.',
+                                title: 'DPIA Report',
+                                desc: 'A complete Data Protection Impact Assessment for high-risk processing.',
                                 color: 'purple'
                             },
                             {
                                 icon: Shield,
-                                title: 'Política de Segurança',
-                                desc: 'Normas internas de SI, controle de acesso e resposta a incidentes cibernéticos.',
+                                title: 'Security Policy',
+                                desc: 'Internal infosec standards, access control and cyber-incident response.',
                                 color: 'orange'
                             },
                             {
                                 icon: CheckCircle,
-                                title: 'Gestão de Cookies',
-                                desc: 'Script de banner de consentimento pronto para copiar e colar no seu site.',
+                                title: 'Cookie Management',
+                                desc: 'A consent-banner script ready to copy and paste into your site.',
                                 color: 'cyan'
                             },
                             {
                                 icon: Star,
-                                title: 'Selo de Adequação',
-                                desc: 'Certificado visual para transmitir confiança aos visitantes do seu site.',
+                                title: 'Compliance Badge',
+                                desc: 'A visual certificate to convey trust to your site visitors.',
                                 color: 'yellow'
                             }
                         ].map((item, idx) => (
@@ -185,17 +185,17 @@ export default function LgpdKitPage() {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div>
                             <div className="inline-flex items-center px-3 py-1 bg-brand-sapphire-500/10 border border-brand-sapphire-500/20 rounded-full mb-6">
-                                <span className="text-xs font-bold text-brand-sapphire-300 uppercase tracking-widest">Processo Simplificado</span>
+                                <span className="text-xs font-bold text-brand-sapphire-300 uppercase tracking-widest">Simplified Process</span>
                             </div>
                             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8 text-white leading-tight">
-                                Do Zero ao Compliance <br />
-                                <span className="text-brand-platinum-600">em 3 Passos</span>
+                                From Zero to Compliance <br />
+                                <span className="text-brand-platinum-600">in 3 Steps</span>
                             </h2>
                             <div className="space-y-10">
                                 {[
-                                    { step: '01', title: 'Diagnóstico Inteligente', desc: 'Responda perguntas dinâmicas adaptadas ao seu modelo de negócio.' },
-                                    { step: '02', title: 'Processamento IA', desc: 'Nossos agentes cruzam seus dados com a legislação vigente.' },
-                                    { step: '03', title: 'Entrega Imediata', desc: 'Receba seu kit completo editável e pronto para implementação.' }
+                                    { step: '01', title: 'Smart Assessment', desc: 'Answer dynamic questions tailored to your business model.' },
+                                    { step: '02', title: 'AI Processing', desc: 'Our agents cross-check your data against current legislation.' },
+                                    { step: '03', title: 'Instant Delivery', desc: 'Receive your complete kit, editable and ready to implement.' }
                                 ].map((step, idx) => (
                                     <div key={idx} className="flex gap-6 group">
                                         <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl font-serif font-bold text-brand-platinum-700 group-hover:text-brand-emerald-400 group-hover:border-brand-emerald-500/30 transition-all">
@@ -217,7 +217,7 @@ export default function LgpdKitPage() {
                                     <div className="w-24 h-24 mx-auto bg-brand-emerald-500/10 rounded-full flex items-center justify-center mb-4 animate-pulse">
                                         <Lock className="h-10 w-10 text-brand-emerald-400" />
                                     </div>
-                                    <p className="text-brand-platinum-400 font-serif text-lg">Gerando Documentos...</p>
+                                    <p className="text-brand-platinum-400 font-serif text-lg">Generating Documents…</p>
                                     <div className="w-48 h-1 bg-brand-chrome-800 rounded-full mx-auto mt-4 overflow-hidden">
                                         <div className="h-full bg-brand-emerald-500 w-2/3 animate-[shimmer_2s_infinite]"></div>
                                     </div>
@@ -235,20 +235,20 @@ export default function LgpdKitPage() {
 
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-8">
-                        Proteja Sua Empresa Hoje
+                        Protect Your Company Today
                     </h2>
                     <p className="text-brand-platinum-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                        Junte-se a empresas modernas que escolheram a segurança jurídica automática do DPO2U.
+                        Join modern companies that chose DPO2U's automatic legal security.
                     </p>
                     <Button
                         size="xl"
                         className="bg-white text-brand-sapphire-900 hover:bg-brand-platinum-200 font-bold px-12 py-8 text-xl rounded-2xl shadow-2xl hover:scale-105 transition-all duration-300"
                         onClick={() => window.location.href = '/analise'}
                     >
-                        Começar Adequação
+                        Start Compliance
                         <ArrowRight className="ml-3 h-6 w-6" />
                     </Button>
-                    <p className="mt-8 text-brand-platinum-600 text-sm">Garantia de 7 dias ou seu dinheiro de volta</p>
+                    <p className="mt-8 text-brand-platinum-600 text-sm">7-day money-back guarantee</p>
                 </div>
             </section>
 
