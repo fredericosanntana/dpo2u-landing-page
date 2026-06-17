@@ -10,7 +10,7 @@ import {
 
 const products = [
   { num: '01', name: 'Compliance Engine', desc: 'Automated LGPD/GDPR compliance', href: '/compliance-automate', icon: Shield, color: 'text-emerald-400' },
-  { num: '02', name: 'AI Compliance Brain', desc: '17 MCP tools for AI agents', href: '/mcp-brain', icon: Brain, color: 'text-blue-400' },
+  { num: '02', name: 'AI Compliance Brain', desc: 'AI-native compliance tools for agents', href: '/mcp-brain', icon: Brain, color: 'text-blue-400' },
   { num: '03', name: 'ZK Compliance Protocol', desc: 'Zero-knowledge proofs on Midnight', href: '/midnight-protocol', icon: Fingerprint, color: 'text-purple-400' },
   { num: '04', name: 'Self-Funding Agents', desc: '$NIGHT/$DUST autonomous economics', href: '/self-funding-agent', icon: Coins, color: 'text-amber-400' },
   { num: '05', name: 'Private AI Stack', desc: 'On-chain security layer', href: '/private-stack', icon: Lock, color: 'text-cyan-400' },

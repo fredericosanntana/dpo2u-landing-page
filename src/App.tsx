@@ -15,6 +15,7 @@ import AnalysisPage from '@/app/analise';
 import AboutPage from '@/app/about';
 import PrivacyPage from '@/app/privacy';
 import TermsPage from '@/app/terms';
+import BrazilPage from '@/app/brazil';
 
 const NotFound = () => (
     <div className="flex items-center justify-center min-h-screen">
@@ -40,6 +41,7 @@ function App() {
                             <Route path="/analise" element={<AnalysisPage />} />
                             <Route path="/privacy" element={<PrivacyPage />} />
                             <Route path="/terms" element={<TermsPage />} />
+                            <Route path="/br" element={<BrazilPage />} />
                             <Route path="*" element={<NotFound />} />
                         </Routes>
                     </div>

@@ -77,7 +77,7 @@ export default function MCPPage() {
                             className="text-xl md:text-2xl mb-12 text-brand-platinum-300 leading-relaxed font-light"
                         >
                             An intelligent bridge between your local infrastructure and AI.
-                            <span className="text-brand-emerald-400 font-medium"> 17 Specialized Tools</span> for auditing, compliance, and homomorphic encryption, running 100% on your server.
+                            <span className="text-brand-emerald-400 font-medium"> Public MCP and OpenAPI-discoverable tools</span> for auditing, compliance, and homomorphic encryption, running 100% on your server.
                         </motion.p>
 
                         <motion.div
@@ -164,7 +164,7 @@ export default function MCPPage() {
                 <div className="container mx-auto container-padding">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 dark:text-white mb-6">
-                            17 Specialized Tools for Privacy Compliance
+                            Specialized Tools for Privacy Compliance
                         </h2>
                         <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
                             Full automation for LGPD, GDPR, and Information Security.
@@ -225,7 +225,7 @@ export default function MCPPage() {
                     </div>
 
                     <div className="text-center mt-12">
-                        <p className="text-sm text-gray-500 italic">...plus 6 more advanced security and analysis tools.</p>
+                        <p className="text-sm text-gray-500 italic">...plus additional security, governance, on-chain, and analysis tools exposed in the public inventory.</p>
                     </div>
                 </div>
             </AnimatedSection>

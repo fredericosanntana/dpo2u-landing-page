@@ -118,7 +118,8 @@ export default function Footer() {
         <div className="border-t border-brand-sapphire-800 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-slate-400 text-sm text-center md:text-left">
-              <p>&copy; 2026 DPO2U. All rights reserved.</p>
+              <p className="font-medium text-slate-300">Compliance as a Protocol. Web3 for LGPD compliance.</p>
+              <p className="mt-1">&copy; 2026 DPO2U. All rights reserved.</p>
             </div>
 
             <div className="flex items-center space-x-6">

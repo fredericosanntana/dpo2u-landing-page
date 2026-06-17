@@ -154,7 +154,7 @@ export default function HomePage() {
 
               <motion.p variants={fadeInUp} className="mt-8 text-sm text-slate-500 font-light flex items-center">
                 <Star className="h-4 w-4 mr-2 text-amber-500" />
-                Live on Midnight Testnet &middot; ZK-SNARKs &middot; MCP Server Protocol
+                Public MCP endpoint live &middot; OpenAPI discovery &middot; Privacy-first architecture
               </motion.p>
 
               {/* Web2 → DPO2U → Midnight Diagram */}

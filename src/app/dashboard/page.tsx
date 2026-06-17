@@ -142,7 +142,7 @@ export default function DashboardPage() {
             </div>
             <span>Command Center</span>
           </h1>
-          <p className="text-slate-400 flex items-center space-x-2">
+          <div className="text-slate-400 flex flex-wrap items-center gap-2">
             <span>Sistema Multiagentes Híbrido DPO2U</span>
             <Badge 
               variant="outline" 
@@ -156,7 +156,21 @@ export default function DashboardPage() {
                data?.metrics?.systemHealth?.status === 'good' ? 'Bom' :
                data?.metrics?.systemHealth?.status === 'fair' ? 'Regular' : 'Crítico'}
             </Badge>
-          </p>
+            {data?.dataMode && (
+              <Badge
+                variant="outline"
+                className={
+                  data.dataMode === 'live'
+                    ? 'border-emerald-500/40 text-emerald-300 text-xs'
+                    : data.dataMode === 'degraded'
+                      ? 'border-amber-500/40 text-amber-300 text-xs'
+                      : 'border-blue-500/40 text-blue-300 text-xs'
+                }
+              >
+                {data.dataMode === 'live' ? 'LIVE MODE' : data.dataMode === 'degraded' ? 'DEGRADED MODE' : 'DEMO MODE'}
+              </Badge>
+            )}
+          </div>
         </div>
         
         {/* Controls */}
@@ -223,6 +237,17 @@ export default function DashboardPage() {
           <span>Uptime: {data.metrics.uptime}</span>
         )}
       </div>
+
+      {data?.dataDisclaimer && (
+        <Card className="border-blue-500/20 bg-blue-500/5">
+          <CardContent className="p-4 text-sm text-blue-100">
+            <strong className="mr-2">
+              {data.dataMode === 'demo' ? 'Demo Mode:' : data.dataMode === 'degraded' ? 'Degraded Mode:' : 'Live Mode:'}
+            </strong>
+            <span>{data.dataDisclaimer}</span>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Alerts Banner */}
       {showAlerts && data?.alerts && data.alerts.length > 0 && (

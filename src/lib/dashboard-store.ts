@@ -12,6 +12,8 @@ export interface DashboardState {
   agents: Agent[];
   metrics: SystemMetrics | null;
   health: HealthStatus | null;
+  dataMode: 'live' | 'demo' | 'degraded' | null;
+  dataDisclaimer: string | null;
   
   // UI state
   loading: boolean;
@@ -53,6 +55,8 @@ export const useDashboardStore = create<DashboardState>()(
     agents: [],
     metrics: null,
     health: null,
+    dataMode: null,
+    dataDisclaimer: null,
     
     loading: false,
     error: null,
@@ -82,6 +86,8 @@ export const useDashboardStore = create<DashboardState>()(
           agents: data.agents || [],
           metrics: data.metrics,
           health: data.health,
+          dataMode: data.data_mode || null,
+          dataDisclaimer: data.data_disclaimer || null,
           loading: false,
           lastUpdated: new Date(),
         });
@@ -270,11 +276,15 @@ export const useSystemMetrics = () => {
   const metrics = useDashboardStore((state) => state.metrics);
   const health = useDashboardStore((state) => state.health);
   const systemStatus = useDashboardStore((state) => state.getSystemStatus());
+  const dataMode = useDashboardStore((state) => state.dataMode);
+  const dataDisclaimer = useDashboardStore((state) => state.dataDisclaimer);
   
   return {
     metrics,
     health,
     systemStatus,
+    dataMode,
+    dataDisclaimer,
   };
 };
 

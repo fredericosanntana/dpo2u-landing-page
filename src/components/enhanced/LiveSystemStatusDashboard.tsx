@@ -40,10 +40,10 @@ const LiveSystemStatusDashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
 
-  // Mock data generator for visual demonstration
+  // Visual demo data until a canonical live telemetry backend is wired
   useEffect(() => {
     const fetchData = () => {
-      // Simulate live metrics
+      // Simulate demo metrics
       const mockData: SystemStatus = {
         timestamp: new Date().toISOString(),
         system: {
@@ -100,13 +100,20 @@ const LiveSystemStatusDashboard: React.FC = () => {
               </div>
               <div>
                 <div className="text-white font-semibold">Private Infrastructure</div>
-                <div className="text-xs text-gray-400">Real-Time Monitoring</div>
+                <div className="text-xs text-gray-400">Illustrative Demo View</div>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-              <div className="text-xs text-emerald-400 font-medium">ONLINE</div>
+              <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+              <div className="text-xs text-blue-300 font-medium">DEMO MODE</div>
             </div>
+          </div>
+
+          <div className="mb-4 rounded-xl border border-blue-400/20 bg-blue-500/10 px-3 py-2 text-xs text-blue-100">
+            This panel is an illustrative visualization. It does not represent canonical live production telemetry yet.
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 mb-4">
           </div>
 
           {/* Live Metrics Grid */}

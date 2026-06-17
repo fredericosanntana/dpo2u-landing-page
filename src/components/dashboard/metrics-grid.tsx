@@ -215,7 +215,7 @@ const StatusBadge: React.FC<{
 };
 
 export const MetricsGrid: React.FC = () => {
-  const { metrics, health, systemStatus } = useSystemMetrics();
+  const { metrics, health, systemStatus, dataMode, dataDisclaimer } = useSystemMetrics();
 
   // Format uptime
   const formatUptime = (uptime: number): string => {
@@ -262,6 +262,12 @@ export const MetricsGrid: React.FC = () => {
         </CardHeader>
         <CardContent>
           <StatusBadge status={systemStatus} services={health.services} />
+          {dataMode && dataMode !== 'live' && dataDisclaimer && (
+            <div className="mt-4 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+              <strong className="mr-1">{dataMode === 'demo' ? 'Demo Mode:' : 'Degraded Mode:'}</strong>
+              {dataDisclaimer}
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -320,11 +326,11 @@ export const MetricsGrid: React.FC = () => {
 
         <MetricCard
           title="LEANN Documents"
-          value="2,856"
+          value={health.services.leann ? 'Disponível via backend canônico' : '—'}
           icon={Activity}
-          status="healthy"
-          trend="up"
-          description="Documentos indexados no LEANN"
+          status={health.services.leann ? 'healthy' : 'warning'}
+          trend="stable"
+          description="Contagem removida do hardcode; conectar endpoint canônico para exibir inventário real"
         />
 
         <MetricCard
@@ -339,11 +345,11 @@ export const MetricsGrid: React.FC = () => {
 
         <MetricCard
           title="Active Agents"
-          value="28"
+          value={health.services.orchestrator ? 'Disponível via backend canônico' : '—'}
           icon={Activity}
-          status="healthy"
+          status={health.services.orchestrator ? 'healthy' : 'warning'}
           trend="stable"
-          description="Agentes registrados no sistema"
+          description="Contagem removida do hardcode; ligar contrato real para exibir agentes ativos"
         />
       </div>
     </div>

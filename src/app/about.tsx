@@ -38,7 +38,7 @@ const stats = [
   { value: 12, label: 'Smart Contracts (7 Base + 5 Midnight)', icon: FileCode2, color: 'blue' as const },
   { value: 97, label: 'Tests Passing', suffix: '/97', icon: Shield, color: 'green' as const },
   { value: 6, label: 'Active AI Agents', icon: Bot, color: 'purple' as const },
-  { value: 17, label: 'MCP Compliance Tools', icon: Brain, color: 'blue' as const },
+  { value: 1, label: 'Canonical MCP Surface', icon: Brain, color: 'blue' as const },
   { value: 27, label: 'Midnight SDK Packages', suffix: '+', icon: Package, color: 'green' as const },
 ];
 

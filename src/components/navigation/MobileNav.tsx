@@ -49,7 +49,7 @@ const productItems: NavItem[] = [
   {
     title: 'AI Compliance Brain',
     href: '/mcp-brain',
-    description: '17 MCP tools for AI agents',
+    description: 'AI-native compliance tools for agents',
     icon: Brain,
     num: '02',
   },

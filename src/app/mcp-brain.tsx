@@ -57,7 +57,7 @@ export default function MCPBrainPage() {
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold mb-8 leading-tight text-white"
             >
-              17 Tools for <br />
+              AI-Native Tools for <br />
               <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent">
                 Programmable Compliance
               </span>
@@ -106,9 +106,9 @@ export default function MCPBrainPage() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center">
               {[
                 { icon: Terminal, label: 'External AI Agent', sub: 'Claude / GPT / Custom' },
-                { icon: Server, label: 'DPO2U MCP Server', sub: '17 compliance tools' },
+                { icon: Server, label: 'DPO2U MCP Server', sub: 'Public MCP + REST/OpenAPI' },
                 { icon: Database, label: 'Local Intelligence', sub: 'LEANN + OpenFHE' },
-                { icon: Fingerprint, label: 'ZK Output', sub: 'Ready for Midnight' },
+                { icon: Fingerprint, label: 'ZK Output', sub: 'Attestation-ready workflows' },
               ].map((step, idx) => (
                 <React.Fragment key={step.label}>
                   {idx > 0 && <ArrowRight className="h-6 w-6 text-emerald-500/50 hidden md:block flex-shrink-0" />}
@@ -188,10 +188,10 @@ export default function MCPBrainPage() {
         <div className="container mx-auto container-padding">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 dark:text-white mb-6">
-              17 Specialized Tools for Privacy Compliance
+              Specialized Tools for Privacy Compliance
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Full automation for LGPD, GDPR, and Information Security — including 2 Midnight-specific tools.
+              Automation for LGPD, GDPR, multi-jurisdiction analysis, AI governance, and privacy operations.
             </p>
           </div>
 
@@ -249,7 +249,7 @@ export default function MCPBrainPage() {
           </div>
 
           <div className="text-center mt-12">
-            <p className="text-sm text-gray-500 italic">...plus 6 more advanced security and analysis tools.</p>
+            <p className="text-sm text-gray-500 italic">...plus additional security, governance, on-chain, and analysis tools exposed in the public inventory.</p>
           </div>
         </div>
       </AnimatedSection>

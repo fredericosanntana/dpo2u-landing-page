@@ -39,6 +39,8 @@ export interface DashboardData {
   health: HealthStatus;
   metrics: SystemMetrics;
   agents: Agent[];
+  data_mode: 'live' | 'demo' | 'degraded';
+  data_disclaimer?: string;
   leann_status: {
     documents: number;
     status: string;
@@ -190,42 +192,50 @@ class APIClient {
     try {
       // Try to get complete dashboard data if endpoint exists
       try {
-        return this.fetchWithCache<DashboardData>('/api/dashboard/complete', 30000);
+        const liveData = await this.fetchWithCache<DashboardData>('/api/dashboard/complete', 30000);
+        return {
+          ...liveData,
+          data_mode: liveData.data_mode || 'live',
+          data_disclaimer: liveData.data_disclaimer,
+        };
       } catch {
-        // Fallback: aggregate data from individual endpoints
-        const [health, agents, dashboardStats, alerts] = await Promise.allSettled([
+        // Fallback: aggregate whatever is real, but do not fabricate operational-looking metrics
+        const [health, metrics, agents, alerts, leann] = await Promise.allSettled([
           this.getHealth(),
+          this.getSystemMetrics(),
           this.getAgents(),
-          this.getDashboardStats(),
           this.getDashboardAlerts(),
+          this.getLEANNStatus(),
         ]);
 
-        // Mock system metrics if not available
-        const mockMetrics: SystemMetrics = {
-          cpu_usage: 30 + Math.random() * 20,
-          memory_usage: 29 + Math.random() * 15,
-          disk_usage: 17 + Math.random() * 10,
-          load_average: [1.2, 1.1, 0.9],
-          uptime: Date.now() - (7 * 24 * 60 * 60 * 1000), // 7 days ago
-          timestamp: new Date().toISOString(),
-        };
-
-        // Generate mock agents if not available
-        const mockAgents: Agent[] = this.generateMockAgents();
+        const resolvedCount = [health, metrics, agents, alerts, leann].filter(result => result.status === 'fulfilled').length;
+        const dataMode: DashboardData['data_mode'] = resolvedCount === 0 ? 'demo' : 'degraded';
+        const dataDisclaimer = resolvedCount === 0
+          ? 'Nenhum backend canônico do dashboard respondeu. Esta superfície deve ser tratada como demonstração até a integração live ser concluída.'
+          : 'Dashboard operando em modo degradado. Apenas os dados que responderam do backend canônico estão sendo exibidos; campos ausentes não são simulados.';
 
         return {
           health: health.status === 'fulfilled' ? health.value : {
-            status: 'degraded',
-            services: { leann: true, orchestrator: false, docker: true },
+            status: resolvedCount === 0 ? 'unhealthy' : 'degraded',
+            services: { leann: false, orchestrator: false, docker: false },
             timestamp: new Date().toISOString(),
-            latency_ms: 15,
+            latency_ms: 0,
           },
-          metrics: mockMetrics,
-          agents: agents.status === 'fulfilled' ? agents.value : mockAgents,
+          metrics: metrics.status === 'fulfilled' ? metrics.value : {
+            cpu_usage: 0,
+            memory_usage: 0,
+            disk_usage: 0,
+            load_average: [0, 0, 0],
+            uptime: 0,
+            timestamp: new Date().toISOString(),
+          },
+          agents: agents.status === 'fulfilled' ? agents.value : [],
+          data_mode: dataMode,
+          data_disclaimer: dataDisclaimer,
           leann_status: {
-            documents: 2856,
-            status: 'active',
-            last_scan: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
+            documents: leann.status === 'fulfilled' && typeof leann.value?.documents === 'number' ? leann.value.documents : 0,
+            status: leann.status === 'fulfilled' ? (leann.value?.status || 'unknown') : 'unavailable',
+            last_scan: leann.status === 'fulfilled' && leann.value?.last_scan ? leann.value.last_scan : new Date(0).toISOString(),
           },
           alerts: alerts.status === 'fulfilled' ? alerts.value : [],
         };

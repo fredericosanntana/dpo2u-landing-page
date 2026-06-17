@@ -237,7 +237,7 @@ export const SystemMonitor: React.FC = () => {
   const setAutoRefresh = useDashboardStore((state) => state.setAutoRefresh);
   const setRefreshInterval = useDashboardStore((state) => state.setRefreshInterval);
   
-  const [historicalData, setHistoricalData] = useState(() => generateMockHistoricalData());
+  const [historicalData, setHistoricalData] = useState<any[]>([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Update historical data when new metrics arrive
@@ -378,18 +378,26 @@ export const SystemMonitor: React.FC = () => {
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-1">
                 <Database className="h-4 w-4" />
-                <span>LEANN: 2,856 docs</span>
+                <span>LEANN: {data?.leann_status?.documents ?? 0} docs</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Users className="h-4 w-4" />
-                <span>28 agentes</span>
+                <span>{data?.agents?.length ?? 0} agentes</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Globe className="h-4 w-4" />
-                <span>API Gateway ativo</span>
+                <span>
+                  {data?.data_mode === 'live' ? 'API Gateway live' : data?.data_mode === 'degraded' ? 'API Gateway degradado' : 'API Gateway indisponível'}
+                </span>
               </div>
             </div>
           </div>
+          {data?.data_disclaimer && (
+            <div className="mt-4 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+              <strong className="mr-1">{data.data_mode === 'demo' ? 'Demo Mode:' : 'Degraded Mode:'}</strong>
+              {data.data_disclaimer}
+            </div>
+          )}
         </CardContent>
       </Card>
 
@@ -425,6 +433,14 @@ export const SystemMonitor: React.FC = () => {
           max={30}
         />
       </div>
+
+      {historicalData.length === 0 && (
+        <Card className="border-slate-200 bg-slate-50">
+          <CardContent className="py-4 text-sm text-slate-600">
+            Histórico canônico ainda indisponível. Os gráficos começam a preencher apenas quando métricas reais chegam do backend configurado.
+          </CardContent>
+        </Card>
+      )}
 
       {/* Additional Monitors */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
