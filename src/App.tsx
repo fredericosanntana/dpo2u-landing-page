@@ -16,14 +16,13 @@ import AppLayout from '@/components/app/AppLayout';
 // section on home (#mcp) and as the MCP Tool Reference section on /research.
 // Server-side 301 redirect (server.js) sends /mcp → /#mcp for back-compat.
 import HomePage from '@/app/page';
-const SolanaProtocolPage  = lazy(() => import('@/app/solana-protocol'));
+const ProtocolPage        = lazy(() => import('@/app/protocol'));
 const AboutPage           = lazy(() => import('@/app/about'));
 const ResearchPage        = lazy(() => import('@/app/research'));
 const PrivacyPage         = lazy(() => import('@/app/privacy'));
 const TermsPage           = lazy(() => import('@/app/terms'));
 const DPAPage             = lazy(() => import('@/app/dpa'));
 const VerifyPublicPage    = lazy(() => import('@/app/verify/[id]'));
-const VerifySolanaPage    = lazy(() => import('@/app/verify/sol'));
 const AlphaSignupPage     = lazy(() => import('@/app/alpha-signup'));
 const AlphaPage           = lazy(() => import('@/app/alpha'));
 const CoveragePage        = lazy(() => import('@/app/coverage'));
@@ -58,10 +57,14 @@ const PilotV2Oracle       = lazy(() => import('@/app/pilot/v2/oracle'));
 const LoginPage           = lazy(() => import('@/app/login'));
 const AppDashboard        = lazy(() => import('@/app/app/dashboard'));
 const AppActivate         = lazy(() => import('@/app/app/activate'));
+const AppMidnight         = lazy(() => import('@/app/app/midnight'));
 const AppEvidence         = lazy(() => import('@/app/app/evidence'));
 const AppEscrow           = lazy(() => import('@/app/app/escrow'));
 const AppBilling          = lazy(() => import('@/app/app/billing'));
 const AppSettings         = lazy(() => import('@/app/app/settings'));
+const AppStart            = lazy(() => import('@/app/app/start'));
+const AppRun              = lazy(() => import('@/app/app/run'));
+const AppProof            = lazy(() => import('@/app/app/proof'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
 const RouteFallback = () => (
@@ -133,18 +136,20 @@ function App() {
                                 /mcp removed 2026-04-29; server.js issues a 301 redirect
                                 to /#mcp for any direct hits. */}
                             <Route path="/"                 element={<HomePage />}           />
-                            <Route path="/solana-protocol"  element={<SolanaProtocolPage />} />
+                            <Route path="/protocol"         element={<ProtocolPage />}       />
                             <Route path="/about"            element={<AboutPage />}          />
                             <Route path="/research"         element={<ResearchPage />}       />
                             <Route path="/privacy"          element={<PrivacyPage />}        />
                             <Route path="/terms"            element={<TermsPage />}          />
                             <Route path="/dpa"              element={<DPAPage />}            />
-                            {/* Public attestation proof (Fase B) — shareable, trustless */}
-                            {/* Solana variant ANTES do /verify/:id pra não casar 'sol' como :id */}
-                            <Route path="/verify/sol/uc/:uc/hash/:hash/subject/:subject" element={<VerifySolanaPage />} />
+                            {/* Public attestation proof (Fase B) — shareable, trustless (Stellar) */}
                             <Route path="/verify/:id"       element={<VerifyPublicPage />}   />
                             <Route path="/verify/uc/:uc/hash/:hash" element={<VerifyPublicPage />} />
                             <Route path="/verify"           element={<VerifyPublicPage />}   />
+                            {/* Midnight alpha — wallet-free, self-funding onboarding (chain=midnight via
+                                .dpo2u.yml). Public chrome, NO RequireWallet → renders without a wallet. */}
+                            <Route path="/app/midnight"     element={<AppMidnight />}         />
+                            <Route path="/midnight"         element={<AppMidnight />}         />
                             {/* Retired pre-app intake — superseded by the functional app (Fase C-E).
                                 /register-dapp → /app/activate · /demo → /login (open the app). */}
                             <Route path="/register-dapp"    element={<Navigate to="/app/activate" replace />} />
@@ -190,8 +195,12 @@ function App() {
                             <Route path="/pilot/v2/supplier"           element={<PilotV2Supplier />} />
                             <Route path="/pilot/v2/oracle"             element={<PilotV2Oracle />} />
 
-                            {/* Legacy redirects — retired in the 2026-04-24 rebrand + 2026-04-28 sprint */}
-                            <Route path="/midnight-protocol"    element={<Navigate to="/solana-protocol" replace />} />
+                            {/* Legacy redirects — retired in the 2026-04-24 rebrand + 2026-04-28 sprint
+                                + Sprint Stellar (2026-06): /solana-protocol e /midnight-protocol → /protocol;
+                                /verify/sol/* → /verify (a verificação Stellar resolve por uc+hash). */}
+                            <Route path="/solana-protocol"      element={<Navigate to="/protocol" replace />} />
+                            <Route path="/midnight-protocol"    element={<Navigate to="/protocol" replace />} />
+                            <Route path="/verify/sol/*"         element={<Navigate to="/verify" replace />} />
                             <Route path="/mcp-brain"            element={<Navigate to="/research#mcp-reference" replace />} />
                             <Route path="/mcp"                  element={<Navigate to="/" replace />} />
                             <Route path="/self-funding-agent"   element={<Navigate to="/"                replace />} />
@@ -220,6 +229,10 @@ function App() {
                               <Route path="/app/escrow" element={<AppEscrow />} />
                               <Route path="/app/billing" element={<AppBilling />} />
                               <Route path="/app/settings" element={<AppSettings />} />
+                              {/* Funil Meta→Execução→Prova */}
+                              <Route path="/app/start" element={<AppStart />} />
+                              <Route path="/app/run/:vertical" element={<AppRun />} />
+                              <Route path="/app/proof/uc/:uc/hash/:hash" element={<AppProof />} />
                           </Route>
                         </Routes>
                         </Suspense>
