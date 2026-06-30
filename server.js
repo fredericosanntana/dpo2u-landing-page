@@ -109,8 +109,8 @@ app.head('/demo', (req, res) => res.redirect(301, '/login'));
 app.use('/downloads', express.static(path.join(__dirname, 'public/downloads')));
 
 // `redirect: false` prevents express.static from emitting 301s for the
-// per-route prerendered directories (e.g. /solana-protocol → /solana-protocol/).
-// We resolve those in the SPA fallback below so the canonical /solana-protocol
+// per-route prerendered directories (e.g. /protocol → /protocol/).
+// We resolve those in the SPA fallback below so the canonical /protocol
 // URL stays without a trailing slash.
 app.use(express.static(path.join(__dirname, 'dist'), { redirect: false }));
 
@@ -767,7 +767,7 @@ function buildDemoDpia({ companyName, jurisdiction, processingActivity, dataSubj
         '',
         'Demo recommendations are generic. Real audit (Tier Team) produces:',
         '- Article-by-article compliance checklist with score',
-        '- On-chain attestation PDA (Solana — devnet today, mainnet phase 2)',
+        '- On-chain attestation (Stellar Soroban — testnet today, mainnet phase 2)',
         '- White-label PDF + machine-readable JSON output',
         '- Cross-jurisdiction matrix if you operate in multiple regimes',
         '',
@@ -884,7 +884,7 @@ app.use((req, res) => {
     // Valid client-side SPA routes without a prerendered dir (dynamic params or
     // app/legal pages) — serve the shell with 200, not a soft-404. /verify is
     // shareable; /dpa is a linked legal page; /app + /login are the auth'd app.
-    const SPA_OK = ['/verify', '/dpa', '/login', '/app'];
+    const SPA_OK = ['/verify', '/dpa', '/login', '/app', '/midnight'];
     if (SPA_OK.some((p) => req.path === p || req.path.startsWith(`${p}/`))) {
         return res.status(200).sendFile(path.join(__dirname, 'dist', 'index.html'));
     }
