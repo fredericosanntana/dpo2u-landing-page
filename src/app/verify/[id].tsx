@@ -16,12 +16,29 @@ import { FONTS, PALETTE, SmallLabel, Rule, WaxSeal, DPO2UWordmark } from '@/comp
 import { VerifyResultCard } from '@/components/pilot/VerifyResultCard';
 import { verifyAttestation, type VerifyResult } from '@/lib/pilot/stellar';
 import { resolveById, type ResolvedRef } from '@/lib/app/verify-resolver';
+import { verifyAttestationMidnight, type MidnightVerify } from '@/lib/pilot/midnight-verify';
 
 type Phase =
   | { k: 'resolving' }
   | { k: 'verifying'; ref: ResolvedRef }
-  | { k: 'done'; ref: ResolvedRef; result: VerifyResult }
+  | { k: 'done'; ref: ResolvedRef; result: VerifyResult; chain: 'stellar' | 'midnight'; midnight?: MidnightVerify }
   | { k: 'error'; message: string };
+
+// Adapt a Midnight attestation into the shared VerifyResult shape so VerifyResultCard renders it.
+function midnightToResult(mn: MidnightVerify): VerifyResult {
+  return {
+    found: true,
+    contract_id: mn.contract_id ?? '',
+    record: {
+      verdict: mn.verdict ?? 'REVIEW',
+      predicate_set: mn.use_case_id,
+      predicate_version: 1,
+      submitted_by: mn.submitted_by ?? '',
+      timestamp: mn.timestamp ?? Math.floor(Date.now() / 1000),
+      metadata_hash_hex: mn.metadata_hash,
+    },
+  } as unknown as VerifyResult;
+}
 
 export default function VerifyPublicPage() {
   const { id, uc, hash } = useParams<{ id?: string; uc?: string; hash?: string }>();
@@ -34,8 +51,15 @@ export default function VerifyPublicPage() {
         useCaseId: ref.useCaseId,
         evidenceHashHex: ref.evidenceHashHex,
       });
-      setPhase({ k: 'done', ref, result });
+      if (result.found) { setPhase({ k: 'done', ref, result, chain: 'stellar' }); return; }
+      // Not on Stellar → try the Midnight registry (same UI). Score-private, proof public.
+      const mn = await verifyAttestationMidnight(ref.useCaseId, ref.evidenceHashHex);
+      if (mn) { setPhase({ k: 'done', ref, result: midnightToResult(mn), chain: 'midnight', midnight: mn }); return; }
+      setPhase({ k: 'done', ref, result, chain: 'stellar' });
     } catch (e) {
+      // Stellar read threw — still try Midnight before surfacing an error.
+      const mn = await verifyAttestationMidnight(ref.useCaseId, ref.evidenceHashHex).catch(() => null);
+      if (mn) { setPhase({ k: 'done', ref, result: midnightToResult(mn), chain: 'midnight', midnight: mn }); return; }
       setPhase({ k: 'error', message: e instanceof Error ? e.message : String(e) });
     }
   }, []);
@@ -93,7 +117,7 @@ export default function VerifyPublicPage() {
           </div>
           <SmallLabel style={{ marginTop: 18 }}>
             {phase.k === 'done'
-              ? phase.result.found ? 'VERIFIED ON-CHAIN · STELLAR' : 'NOT FOUND ON-CHAIN'
+              ? phase.result.found ? `VERIFIED ON-CHAIN · ${phase.chain === 'midnight' ? 'MIDNIGHT' : 'STELLAR'}` : 'NOT FOUND ON-CHAIN'
               : phase.k === 'error' ? 'COULD NOT VERIFY' : 'VERIFYING…'}
           </SmallLabel>
           <h1
@@ -104,7 +128,7 @@ export default function VerifyPublicPage() {
             <span style={{ color: PALETTE.terracotta }}>.</span>
           </h1>
           <p className="mt-3 text-[15px]" style={{ color: PALETTE.inkSoft }}>
-            Lido diretamente do contrato via Soroban RPC pública. Nenhuma credencial DPO2U usada.
+            Lido diretamente do contrato on-chain via RPC/indexer público. Nenhuma credencial DPO2U usada.
           </p>
         </div>
 
@@ -132,6 +156,8 @@ export default function VerifyPublicPage() {
               result={phase.result}
               useCaseId={phase.ref.useCaseId}
               evidenceHashHex={phase.ref.evidenceHashHex}
+              chain={phase.chain}
+              midnight={phase.midnight}
             />
 
             {/* selective disclosure */}

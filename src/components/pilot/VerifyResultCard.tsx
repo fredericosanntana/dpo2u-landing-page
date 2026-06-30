@@ -4,11 +4,14 @@ import type { VerifyResult } from '@dpo2u/stellar-sdk';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { truncateContract, truncateHash, DEFAULT_CONTRACT, stellarExpertUrl } from '@/lib/pilot/stellar';
+import { type MidnightVerify, midnightVerifyBase } from '@/lib/pilot/midnight-verify';
 
 interface Props {
   readonly result: VerifyResult;
   readonly useCaseId: string;
   readonly evidenceHashHex: string;
+  readonly chain?: 'stellar' | 'midnight';
+  readonly midnight?: MidnightVerify;
 }
 
 function copyToClipboard(text: string, onDone: () => void): void {
@@ -17,7 +20,7 @@ function copyToClipboard(text: string, onDone: () => void): void {
   }
 }
 
-export function VerifyResultCard({ result, useCaseId, evidenceHashHex }: Props) {
+export function VerifyResultCard({ result, useCaseId, evidenceHashHex, chain = 'stellar', midnight }: Props) {
   const [copiedCitation, setCopiedCitation] = useState(false);
   const [copiedHash, setCopiedHash] = useState(false);
 
@@ -70,8 +73,11 @@ export function VerifyResultCard({ result, useCaseId, evidenceHashHex }: Props) 
     ? 'text-dpo2u-terracotta'
     : 'text-dpo2u-gold';
 
+  const isMn = chain === 'midnight' && !!midnight;
   const ts = new Date(r.timestamp * 1000);
-  const citation = `Verificado on-chain (Stellar testnet): ${useCaseId} @ ${truncateHash(evidenceHashHex)} → ${r.verdict} (predicate ${r.predicate_set}@v${r.predicate_version}, ${ts.toISOString()}). Contract ${result.contract_id}. ${stellarExpertUrl('contract', result.contract_id)}`;
+  const citation = isMn
+    ? `Verificado on-chain (Midnight ${midnight!.network}): ${useCaseId} @ ${truncateHash(evidenceHashHex)} → ${r.verdict}. tx ${midnight!.tx} · block ${midnight!.block}. ComplianceRegistry ${result.contract_id}. Score privado (ZK).`
+    : `Verificado on-chain (Stellar testnet): ${useCaseId} @ ${truncateHash(evidenceHashHex)} → ${r.verdict} (predicate ${r.predicate_set}@v${r.predicate_version}, ${ts.toISOString()}). Contract ${result.contract_id}. ${stellarExpertUrl('contract', result.contract_id)}`;
 
   return (
     <div className={cn('rounded-xl border p-6 sm:p-8 shadow-sm', accent)}>
@@ -106,16 +112,38 @@ export function VerifyResultCard({ result, useCaseId, evidenceHashHex }: Props) 
               <dt className="text-dpo2u-ink/60">Metadata hash</dt>
               <dd className="text-dpo2u-ink font-mono text-xs break-all">{truncateHash(r.metadata_hash_hex, 12, 8)}</dd>
             </div>
+            {isMn && (
+              <>
+                <div>
+                  <dt className="text-dpo2u-ink/60">Network</dt>
+                  <dd className="text-dpo2u-ink font-mono">Midnight {midnight!.network}</dd>
+                </div>
+                {midnight!.repo && (
+                  <div>
+                    <dt className="text-dpo2u-ink/60">Repository</dt>
+                    <dd className="text-dpo2u-ink font-mono break-all">{midnight!.repo}</dd>
+                  </div>
+                )}
+                <div>
+                  <dt className="text-dpo2u-ink/60">Transaction</dt>
+                  <dd className="text-dpo2u-ink font-mono text-xs break-all">{truncateHash(midnight!.tx ?? '', 10, 8)}</dd>
+                </div>
+                <div>
+                  <dt className="text-dpo2u-ink/60">Block</dt>
+                  <dd className="text-dpo2u-ink font-mono">{midnight!.block ?? '—'}</dd>
+                </div>
+              </>
+            )}
           </dl>
 
           <div className="flex flex-wrap items-center gap-2 pt-2">
             <a
-              href={stellarExpertUrl('contract', result.contract_id)}
+              href={isMn ? `${midnightVerifyBase}/verify/${useCaseId}/${evidenceHashHex}` : stellarExpertUrl('contract', result.contract_id)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 rounded-lg bg-dpo2u-ink px-4 py-2 text-sm font-medium text-dpo2u-ivory hover:bg-dpo2u-ink/85 transition-colors"
             >
-              Ver no Stellar Expert <ExternalLink className="h-3.5 w-3.5" />
+              {isMn ? 'Ver registro on-chain (Midnight)' : 'Ver no Stellar Expert'} <ExternalLink className="h-3.5 w-3.5" />
             </a>
             <Button
               variant="outline"
@@ -143,12 +171,21 @@ export function VerifyResultCard({ result, useCaseId, evidenceHashHex }: Props) 
           </div>
 
           <div className="pt-2 border-t border-dpo2u-ink/10">
-            <p className="text-xs text-dpo2u-ink/60 font-body italic">
-              Verificação feita diretamente contra o contrato {truncateContract(result.contract_id)} via Soroban
-              RPC pública. Nenhuma credencial DPO2U foi usada. Você pode reproduzir essa consulta com{' '}
-              <code className="bg-dpo2u-ink/5 px-1 py-0.5 rounded font-mono text-[10px]">npm i -g @dpo2u/stellar-sdk</code> e{' '}
-              <code className="bg-dpo2u-ink/5 px-1 py-0.5 rounded font-mono text-[10px]">dpo2u-attest verify {useCaseId} {truncateHash(evidenceHashHex, 6, 4)}</code>.
-            </p>
+            {isMn ? (
+              <p className="text-xs text-dpo2u-ink/60 font-body italic">
+                Verificação direta contra a ComplianceRegistry {truncateContract(result.contract_id)} na Midnight {midnight!.network}.
+                O score é privado (ZK) — só o veredito + hashes vão à cadeia. Reproduza com{' '}
+                <code className="bg-dpo2u-ink/5 px-1 py-0.5 rounded font-mono text-[10px]">npx tsx scripts/verify-seal.ts &lt;ComplianceRegistry&gt; {truncateHash(evidenceHashHex, 6, 4)}</code>{' '}
+                ou consulte o indexer público.
+              </p>
+            ) : (
+              <p className="text-xs text-dpo2u-ink/60 font-body italic">
+                Verificação feita diretamente contra o contrato {truncateContract(result.contract_id)} via Soroban
+                RPC pública. Nenhuma credencial DPO2U foi usada. Você pode reproduzir essa consulta com{' '}
+                <code className="bg-dpo2u-ink/5 px-1 py-0.5 rounded font-mono text-[10px]">npm i -g @dpo2u/stellar-sdk</code> e{' '}
+                <code className="bg-dpo2u-ink/5 px-1 py-0.5 rounded font-mono text-[10px]">dpo2u-attest verify {useCaseId} {truncateHash(evidenceHashHex, 6, 4)}</code>.
+              </p>
+            )}
           </div>
         </div>
       </div>
