@@ -14,7 +14,7 @@ interface NavLinkSpec {
 }
 
 const NAV_LINKS: NavLinkSpec[] = [
-  { label: 'Protocol',     to: '/solana-protocol' },
+  { label: 'Protocol',     to: '/protocol' },
   { label: 'Coverage',     to: '/coverage' },
   { label: 'Pricing',      to: '/pricing' },
   { label: 'Docs',         to: '/research' },

@@ -29,7 +29,7 @@ export default function HomePage() {
   usePageHead({
     title: 'DPO2U — Compliance as a protocol.',
     description:
-      'The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot & Midnight (Stellar live). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve. Score stays private, proof is public. 1.94s · $0.0002 per seal · since 2021.',
+      'The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — natively on Stellar (Soroban). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve. Score stays private, proof is public. 1.94s · $0.0002 per seal · since 2021.',
     path: '/',
   });
   return (

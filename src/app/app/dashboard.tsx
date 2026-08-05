@@ -1,18 +1,19 @@
 /**
- * /app — dashboard (Solana-only). Fase D: real data.
- * Source: on-chain attestations lidas das PDAs do compliance-registry (Solana)
- * merged com o histórico local da wallet. KPIs derivados; log deep-links pra
- * /verify/sol. Empty-state quando a wallet ainda não tem atestações.
+ * /app — dashboard (Stellar-only). Fase D: real data.
+ * Source: on-chain attestations lidas dos eventos do contrato Soroban (filtradas
+ * por submitted_by) merged com o histórico local da wallet. KPIs derivados; log
+ * deep-links pra /verify. Empty-state quando a wallet ainda não tem atestações.
  */
 import React, { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel } from '@/components/sealed/atoms';
+import { KpiGrid, btnClass } from '@/components/app/ui';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { useAttestationHistory } from '@/lib/app/attestation-history';
-import { useSolanaAttestations } from '@/lib/app/solana-indexer';
+import { useStellarAttestations } from '@/lib/app/stellar-indexer';
 import { githubStatus, type GithubStatus } from '@/lib/app/github-client';
 import { AttestationDetailSheet, type AttestationDetail, shortRepo } from '@/components/app/AttestationDetailSheet';
-import { truncateHash } from '@/lib/solana';
+import { truncateHash } from '@/lib/pilot/stellar';
 
 const SEAL_PRICE = 0.0002;
 
@@ -22,9 +23,9 @@ interface Row {
   verdict: string | null;
   ts: number | null;
   onchain: boolean;
-  chain: 'solana';
-  subject?: string; // Solana: subject da PDA (p/ link /verify/sol)
-  explorerUrl?: string; // Solana: link direto pro explorer quando não há /verify
+  chain: 'stellar';
+  subject?: string; // Stellar: conta submitter (submitted_by)
+  explorerUrl?: string; // link direto pro Stellar Expert
   repo?: string; // contexto rico (do histórico local / summary)
   score?: number;
   gaps?: string[];
@@ -33,7 +34,7 @@ interface Row {
 
 function EmptyState() {
   const STEPS = [
-    { n: 1, h: 'Connect a repository', p: 'Activate a managed pipeline — we execute the primitives and seal each event.', to: '/app/activate', cta: 'Activate →' },
+    { n: 1, h: 'Choose what to prove', p: 'VASP PoR, CVM token, agent runtime, data-protection, or a BCB 5710/5711 filing — we run the engine and seal it.', to: '/app/start', cta: 'Start →' },
     { n: 2, h: 'Or run the SDK yourself', p: 'Anchor seals from your own CI/CD. $0.0002 per attestation.', to: '/research', cta: 'Read the docs →' },
     { n: 3, h: 'Share a public proof', p: 'Every seal gets a shareable, trustless /verify link.', to: '/verify', cta: 'See verify →' },
   ];
@@ -54,8 +55,9 @@ function EmptyState() {
 export default function AppDashboard() {
   const { pubkey, tier, workspace } = useWalletAuth();
   const history = useAttestationHistory((s) => s.refs);
-  // Solana: lê as PDAs do subject via getProgramAccounts (devnet).
-  const solana = useSolanaAttestations(pubkey);
+  const clearHistory = useAttestationHistory((s) => s.clear);
+  // Stellar: lê os eventos do contrato Soroban e filtra por submitted_by === pubkey.
+  const stellar = useStellarAttestations(pubkey);
   // Status da conexão GitHub (chip no header).
   const [gh, setGh] = React.useState<GithubStatus | null>(null);
   useEffect(() => {
@@ -65,7 +67,7 @@ export default function AppDashboard() {
     return () => { alive = false; };
   }, [pubkey]);
 
-  const loading = solana.loading;
+  const loading = stellar.loading;
 
   const [detail, setDetail] = React.useState<AttestationDetail | null>(null);
 
@@ -74,16 +76,16 @@ export default function AppDashboard() {
     // Enriquecimento: o registro on-chain (autoridade do verdict/tx) é casado com o
     // histórico local pelo hash p/ recuperar repo/score/gaps/jurisdições.
     const byHash = new Map(histMine.map((h) => [h.evidenceHashHex.toLowerCase(), h]));
-    const onchain: Row[] = solana.records.map((r) => {
-      const local = byHash.get((r.evidenceHashHex ?? r.commitmentHex).toLowerCase());
+    const onchain: Row[] = stellar.records.map((r) => {
+      const local = byHash.get(r.evidenceHashHex.toLowerCase());
       return {
-        useCaseId: 'managed_compliance_v1',
-        evidenceHashHex: r.evidenceHashHex ?? r.commitmentHex,
+        useCaseId: r.useCaseId,
+        evidenceHashHex: r.evidenceHashHex,
         verdict: r.verdict,
         ts: r.issuedAt,
         onchain: true,
-        chain: 'solana' as const,
-        subject: r.subject,
+        chain: 'stellar' as const,
+        subject: r.submittedBy,
         explorerUrl: r.explorerUrl,
         repo: local?.repo,
         score: local?.score,
@@ -91,16 +93,16 @@ export default function AppDashboard() {
         jurisdictions: local?.jurisdictions,
       };
     });
-    const seen = new Set(solana.records.map((r) => (r.evidenceHashHex ?? r.commitmentHex).toLowerCase()));
+    const seen = new Set(stellar.records.map((r) => r.evidenceHashHex.toLowerCase()));
     const hist = histMine
       .filter((h) => !seen.has(h.evidenceHashHex.toLowerCase()))
       .map<Row>((h) => ({
         useCaseId: h.useCaseId, evidenceHashHex: h.evidenceHashHex, verdict: h.verdict ?? null,
-        ts: h.at, onchain: false, chain: 'solana', subject: h.pubkey, explorerUrl: h.explorerUrl,
+        ts: h.at, onchain: false, chain: 'stellar', subject: h.pubkey, explorerUrl: h.explorerUrl,
         repo: h.repo, score: h.score, gaps: h.gaps, jurisdictions: h.jurisdictions,
       }));
     return [...onchain, ...hist].sort((a, b) => (b.ts ?? 0) - (a.ts ?? 0));
-  }, [history, pubkey, solana.records]);
+  }, [history, pubkey, stellar.records]);
 
   const toDetail = (r: Row): AttestationDetail => ({
     repo: r.repo, useCaseId: r.useCaseId, verdict: r.verdict, score: r.score, gaps: r.gaps,
@@ -119,28 +121,28 @@ export default function AppDashboard() {
         {count > 0 ? 'Your attestations' : 'Welcome to your workspace'}<span style={{ color: PALETTE.terracotta }}>.</span>
       </h1>
       <p className="mt-2 text-[15px]" style={{ color: PALETTE.inkSoft }}>
-        {workspace.label} · {tier.label} · {count > 0 ? `${count} attestation${count === 1 ? '' : 's'}` : 'nenhuma atestação ainda'}
-        {loading ? ' · sincronizando…' : ''}
+        {workspace.label} · {tier.label} · {count > 0 ? `${count} attestation${count === 1 ? '' : 's'}` : 'no attestations yet'}
+        {loading ? ' · syncing…' : ''}
       </p>
       <div className="mt-3">
         {gh?.install ? (
           <Link to="/app/settings" style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.verdigris, border: `1px solid ${PALETTE.verdigris}`, borderRadius: 999, padding: '3px 10px', textDecoration: 'none' }}>
-            ● GitHub conectado · {gh.credits} créditos CI
+            ● GitHub connected · {gh.credits} CI credits
           </Link>
         ) : (
           <Link to="/app/activate" style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete, border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 999, padding: '3px 10px', textDecoration: 'none' }}>
-            ○ GitHub não conectado · conectar →
+            ○ GitHub not connected · connect →
           </Link>
         )}
       </div>
 
-      <div className="mt-8 grid grid-cols-2 lg:grid-cols-4" style={{ borderTop: `.5px solid ${PALETTE.ruleStrong}`, borderBottom: `.5px solid ${PALETTE.ruleStrong}` }}>
-        {[[String(count), 'attestations'], [`$${spend}`, 'seal spend'], [repos ? String(repos) : '—', 'repositories'], [flagged ? String(flagged) : '✓', flagged ? 'flagged (fail/review)' : 'all clear']].map(([n, l], i) => (
-          <div key={l} style={{ padding: '20px 18px', borderRight: i < 3 ? `.5px solid ${PALETTE.rule}` : 'none' }}>
-            <div style={{ fontFamily: FONTS.display, fontWeight: 500, fontSize: 30, letterSpacing: '-.02em' }}>{n}</div>
-            <SmallLabel style={{ marginTop: 6 }}>{l}</SmallLabel>
-          </div>
-        ))}
+      <div className="mt-8">
+        <KpiGrid items={[
+          { value: String(count), label: 'attestations' },
+          { value: `${spend} USDC`, label: 'seal spend (testnet)' },
+          { value: repos ? String(repos) : '—', label: 'repositories' },
+          { value: flagged ? String(flagged) : '✓', label: flagged ? 'flagged (fail/review)' : 'all clear' },
+        ]} />
       </div>
 
       {count === 0 ? (
@@ -157,7 +159,16 @@ export default function AppDashboard() {
             </thead>
             <tbody>
               {rows.map((r, i) => (
-                <tr key={`${r.useCaseId}-${r.evidenceHashHex}-${i}`} onClick={() => setDetail(toDetail(r))} style={{ borderBottom: `.5px solid ${PALETTE.rule}`, cursor: 'pointer' }}>
+                <tr
+                  key={`${r.useCaseId}-${r.evidenceHashHex}-${i}`}
+                  className="appui-row"
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`Attestation ${shortRepo(r.repo)} — open details`}
+                  onClick={() => setDetail(toDetail(r))}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDetail(toDetail(r)); } }}
+                  style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}
+                >
                   <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 500 }}>
                     {shortRepo(r.repo)}
                     {!r.repo && <span style={{ fontFamily: FONTS.mono, fontSize: 10, color: PALETTE.concrete }}> · {truncateHash(r.evidenceHashHex)}</span>}
@@ -168,7 +179,7 @@ export default function AppDashboard() {
                   <td style={{ padding: '10px 14px', fontFamily: FONTS.mono, fontSize: 13, color: PALETTE.inkSoft }}>{typeof r.score === 'number' ? `${r.score}/100` : '—'}</td>
                   <td style={{ padding: '10px 14px', fontSize: 12, color: PALETTE.concrete }}>{r.ts ? new Date(r.ts).toISOString().slice(0, 10) : '—'}</td>
                   <td style={{ padding: '10px 14px' }}>
-                    <button type="button" onClick={(e) => { e.stopPropagation(); setDetail(toDetail(r)); }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3, padding: 0 }}>detalhe →</button>
+                    <span aria-hidden style={{ fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>detail →</span>
                   </td>
                 </tr>
               ))}
@@ -178,11 +189,21 @@ export default function AppDashboard() {
       )}
 
       <div className="mt-8 flex flex-wrap gap-3">
-        <Link to="/app/activate" className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]" style={{ background: PALETTE.ink, color: PALETTE.paper, textDecoration: 'none' }}>Activate pipeline →</Link>
-        <Link to="/app/evidence" className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]" style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, textDecoration: 'none' }}>Audit evidence</Link>
+        <Link to="/app/start" className={btnClass('ink')}>Prove something →</Link>
+        <Link to="/app/activate" className={btnClass('ghost')}>Activate pipeline</Link>
+        <Link to="/app/evidence" className={btnClass('ghost')}>Audit evidence</Link>
+        {count > 0 && (
+          <button
+            type="button"
+            onClick={() => { if (window.confirm('Clear this browser’s local attestation history? (does not affect on-chain seals or the server)')) clearHistory(); }}
+            className={btnClass('ghost')}
+          >
+            Clear history
+          </button>
+        )}
       </div>
       <p className="mt-6 text-[12px]" style={{ color: PALETTE.concrete, fontFamily: FONTS.mono }}>
-        Mostra atestações on-chain ancoradas por esta wallet + seu histórico local. Clique numa linha para ver o repositório e os pontos de melhoria.
+        Shows on-chain seals anchored by this wallet plus your local history. Select a row to see the repository and its improvement points.
       </p>
 
       {detail && <AttestationDetailSheet detail={detail} onClose={() => setDetail(null)} />}

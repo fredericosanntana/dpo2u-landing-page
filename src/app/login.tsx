@@ -1,6 +1,6 @@
 /**
  * /login — wallet connect ("Seal in"). PRD §7.6 / screens auth card.
- * Solana-only: Solflare + Phantom; WalletConnect/GitHub roadmap.
+ * Stellar-only: Freighter; WalletConnect/GitHub roadmap.
  */
 import React from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { WALLET_ADAPTERS } from '@/lib/app/wallet-multi';
 
 export default function LoginPage() {
-  usePageHead({ title: 'Connect — DPO2U', description: 'Conecte sua wallet para entrar no app DPO2U.', path: '/login' });
+  usePageHead({ title: 'Connect — DPO2U', description: 'Connect your wallet to enter the DPO2U app.', path: '/login' });
   const { pubkey, connect, connecting, error } = useWalletAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,7 +40,7 @@ export default function LoginPage() {
           Seal in<span style={{ color: PALETTE.terracotta }}>.</span>
         </h1>
         <p className="mt-3 text-[15px]" style={{ color: PALETTE.inkSoft }}>
-          Conecte sua wallet para abrir o app. Você paga por atestação — sem assinatura recorrente no tier OSS.
+          Connect your wallet to open the app. You pay per attestation — no recurring subscription on the OSS tier.
         </p>
 
         <div className="mt-8 flex flex-col gap-3 text-left">
@@ -85,7 +85,7 @@ export default function LoginPage() {
           <p className="mt-4 text-[13px]" style={{ color: PALETTE.terracotta, fontFamily: FONTS.mono }}>{error}</p>
         )}
         <p className="mt-6 text-[12px]" style={{ color: PALETTE.concrete }}>
-          Sessão client-only — a chave fica na sua wallet. Ver <Link to="/privacy" style={{ color: PALETTE.terracotta }}>Privacy</Link>.
+          Client-only session — your key stays in your wallet. See <Link to="/privacy" style={{ color: PALETTE.terracotta }}>Privacy</Link>.
         </p>
       </div>
     </div>

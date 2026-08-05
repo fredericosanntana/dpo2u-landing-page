@@ -66,9 +66,9 @@ export default function Traction() {
           note="Endpoint live. OAuth. 54 tools responding under 2s end-to-end. Polled every 60s."
         />
         <TractionCard
-          metric="6 / 6"
-          value="Anchor programs"
-          note="audit · registry · proof-verifier · seal-mint · revocation · oracle. All deployed on Solana devnet."
+          metric="✓ LIVE"
+          value="Soroban contract"
+          note="register · verify · configure · authorize. anticorruption-attestation deployed on Stellar testnet, immutable."
         />
         <TractionCard
           metric="2021 → 2026"

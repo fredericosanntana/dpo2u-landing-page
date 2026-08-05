@@ -1,13 +1,11 @@
-// Multi-wallet adapters behind a common interface. Solana-only.
+// Wallet adapters behind a common interface. Stellar-only.
 //
-// O app disponibiliza apenas Solana: Solflare e Phantom (wallets nativas Solana).
-// O caminho da chain antiga foi removido daqui (continua só no /pilot).
+// O app disponibiliza apenas Stellar via Freighter (a wallet nativa Soroban).
+// O adapter envolve `@/lib/pilot/freighter` (mesmo wrapper SEP-43 do piloto).
 // WalletConnect/GitHub OAuth são roadmap (precisam de backend).
 
 import type { WalletChain } from './wallet-session';
-
-// Cluster Solana configurado (default devnet) — lido sem carregar @solana/web3.js.
-const SOLANA_CLUSTER = (import.meta.env.VITE_SOLANA_CLUSTER as string | undefined) ?? 'devnet';
+import { connect as freighterConnect, getStatus } from '@/lib/pilot/freighter';
 
 export interface WalletConnectResult {
   readonly ok: boolean;
@@ -27,63 +25,33 @@ export interface WalletAdapter {
   connect(): Promise<WalletConnectResult>;
 }
 
-// Phantom (Solana) — minimal, dynamic so @solana/web3.js doesn't load unless used.
-export const phantomAdapter: WalletAdapter = {
-  id: 'phantom',
-  label: 'Phantom (Solana)',
-  chain: 'solana',
+// Freighter (Stellar) — extensão de browser. Conectar ancora o selo no contrato
+// Soroban; a própria wallet assina (self-custody) ou prova posse da chave (managed).
+export const freighterAdapter: WalletAdapter = {
+  id: 'freighter',
+  label: 'Freighter (Stellar)',
+  chain: 'stellar',
   enabled: true,
   async isAvailable() {
-    if (typeof window === 'undefined') return false;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return Boolean((window as any).solana?.isPhantom);
+    const st = await getStatus();
+    return st.available;
   },
   async connect() {
-    if (typeof window === 'undefined') return { ok: false, chain: 'solana', error: 'No window' };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sol = (window as any).solana;
-    if (!sol?.isPhantom) return { ok: false, chain: 'solana', error: 'Phantom não detectado.' };
-    try {
-      const res = await sol.connect();
-      const pubkey = res?.publicKey?.toString?.() ?? sol.publicKey?.toString?.();
-      if (!pubkey) return { ok: false, chain: 'solana', error: 'Sem pubkey.' };
-      return { ok: true, chain: 'solana', pubkey, network: SOLANA_CLUSTER };
-    } catch (e) {
-      return { ok: false, chain: 'solana', error: e instanceof Error ? e.message : 'Conexão recusada.' };
+    const st = await freighterConnect();
+    if (!st.publicKey) {
+      return { ok: false, chain: 'stellar', error: st.error ?? 'Freighter não conectou.' };
     }
+    return {
+      ok: true,
+      chain: 'stellar',
+      pubkey: st.publicKey,
+      network: st.network,
+      networkPassphrase: st.networkPassphrase,
+    };
   },
 };
 
-// Solflare (Solana) — habilitada por padrão. window.solflare injeta isSolflare +
-// connect() + publicKey. Conectar Solflare ancora o selo na Solana (o gateway assina;
-// ver activate.tsx + solana-driver no gateway).
-export const solflareAdapter: WalletAdapter = {
-  id: 'solflare',
-  label: 'Solflare (Solana)',
-  chain: 'solana',
-  enabled: true,
-  async isAvailable() {
-    if (typeof window === 'undefined') return false;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return Boolean((window as any).solflare?.isSolflare);
-  },
-  async connect() {
-    if (typeof window === 'undefined') return { ok: false, chain: 'solana', error: 'No window' };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const sf = (window as any).solflare;
-    if (!sf?.isSolflare) return { ok: false, chain: 'solana', error: 'Solflare não detectada — instale a extensão.' };
-    try {
-      await sf.connect();
-      const pubkey = sf.publicKey?.toString?.();
-      if (!pubkey) return { ok: false, chain: 'solana', error: 'Sem pubkey.' };
-      return { ok: true, chain: 'solana', pubkey, network: SOLANA_CLUSTER };
-    } catch (e) {
-      return { ok: false, chain: 'solana', error: e instanceof Error ? e.message : 'Conexão recusada.' };
-    }
-  },
-};
-
-export const WALLET_ADAPTERS: readonly WalletAdapter[] = [solflareAdapter, phantomAdapter];
+export const WALLET_ADAPTERS: readonly WalletAdapter[] = [freighterAdapter];
 
 export function getAdapter(id: string): WalletAdapter | undefined {
   return WALLET_ADAPTERS.find((a) => a.id === id);

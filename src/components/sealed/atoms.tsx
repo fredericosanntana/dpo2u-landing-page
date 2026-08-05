@@ -175,9 +175,9 @@ export function SealTerminal({ autoplay = true, speed = 18, style }:
     { t: 'blank',  text: '' },
     { t: 'prompt', text: '$ node' },
     { t: 'js',     text: "> import { DPO2U } from 'dpo2u-sdk'" },
-    { t: 'js',     text: "> const dpo2u = new DPO2U({ network: 'solana' })" },
+    { t: 'js',     text: "> const dpo2u = new DPO2U({ network: 'stellar' })" },
     { t: 'js',     text: "> await dpo2u.attest({ jurisdiction: 'LGPD', subject: 'order_9312' })" },
-    { t: 'out',    text: '⌛ proving with SP1 v6 groth16 · 156,128 CU' },
+    { t: 'out',    text: '⌛ anchoring on Soroban · register_attestation' },
     { t: 'ok',     text: '✓ sealed in 1.94s · $0.00019' },
     { t: 'obj',    text: "{ hash: 'bafkreih6f…k7q', pda: 'SEaL3…x9Q2',\n  jurisdiction: 'LGPD', status: 'sealed' }" },
   ]), []);

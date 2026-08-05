@@ -47,7 +47,7 @@ const ROUTES = [
   {
     path: '/',
     title: 'DPO2U — Compliance as a protocol.',
-    description: 'The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot & Midnight (Stellar live). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. Score private, proof public. 1.94s · $0.0002 per seal · since 2021.',
+    description: 'The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — natively on Stellar (Soroban). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. Score private, proof public. 1.94s · $0.0002 per seal · since 2021.',
   },
   {
     path: '/verify',
@@ -60,16 +60,16 @@ const ROUTES = [
     description: 'DPO2U processor DPA template — GDPR Art. 28 + LGPD Art. 39: documented instruction, confidentiality, security (Art. 32), sub-processors, data-subject assistance, breach notification, deletion/return, audit, and international transfers.',
   },
   {
-    path: '/solana-protocol',
-    title: 'Solana Protocol — 12 ZK programs on devnet | DPO2U',
-    description: 'Twelve DPO2U Solana programs across compliance, consent, MiCAR ART, agent infra, and 4 jurisdiction-specific (POPIA, CCPA, PIPEDA, PIPA Korea) — SP1 Groth16 proofs. ~$0.0002/attestation, 156k CU, 356-byte proofs.',
+    path: '/protocol',
+    title: 'Protocol — compliance on Stellar (Soroban) | DPO2U',
+    description: 'DPO2U is compliance as a protocol on Stellar. An immutable Soroban contract anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over Soroban RPC. ~$0.0002 per seal, read-only verify is free.',
   },
   // /mcp removed 2026-04-29 — Sealed globalization sprint. Content lives on
   // home (#mcp) + /research#mcp-reference. server.js issues a 301 → /#mcp.
   {
     path: '/about',
     title: 'About — Origin story & F13 manifesto | DPO2U',
-    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with twelve Solana programs and 54 typed MCP tools. The full story.',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with a Soroban compliance protocol on Stellar and a typed MCP tool suite. The full story.',
   },
   {
     path: '/research',
@@ -84,7 +84,7 @@ const ROUTES = [
   {
     path: '/terms',
     title: 'Terms of Service | DPO2U',
-    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U Solana programs on devnet.',
+    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U Soroban contract on Stellar testnet.',
   },
   {
     path: '/alpha-signup',
@@ -126,17 +126,17 @@ const ROUTES = [
   {
     path: '/coverage/mexico',
     title: 'LFPDPPP (Mexico) — Compliance kit for fintech ITF | DPO2U',
-    description: 'Mexico LFPDPPP compliance on Solana — INAI authority, ARCO rights (Acceso/Rectificación/Cancelación/Oposición), Art. 36 cross-border adequacy. Built for 8 ITF fintech licenses + 3M crypto retail wallets. 17 jurisdictions, 6 AI gov frameworks.',
+    description: 'Mexico LFPDPPP compliance on Stellar — INAI authority, ARCO rights (Acceso/Rectificación/Cancelación/Oposición), Art. 36 cross-border adequacy. Built for 8 ITF fintech licenses + 3M crypto retail wallets. 17 jurisdictions, 6 AI gov frameworks.',
   },
   {
     path: '/coverage/vietnam',
     title: 'Vietnam Decree 13 / Law 91/2025 — Cross-border DPIA on-chain | DPO2U',
-    description: 'Vietnam Personal Data Protection Decree 13/2023 + Law 91/2025 compliance on Solana — MPS authority, Art. 25 cross-border DPIA mandatória, Art. 23 breach 72h notification. Most restrictive APAC cross-border regime, attested on-chain.',
+    description: 'Vietnam Personal Data Protection Decree 13/2023 + Law 91/2025 compliance on Stellar — MPS authority, Art. 25 cross-border DPIA mandatória, Art. 23 breach 72h notification. Most restrictive APAC cross-border regime, attested on-chain.',
   },
   {
     path: '/coverage/malaysia',
     title: 'PDPA-MY 2024 — DPO mandatory + Data portability on-chain | DPO2U',
-    description: 'Malaysia PDPA 2010 + Amendment 2024 compliance on Solana — PDPC authority, s. 12A DPO mandatory (NEW 2024), s. 43A data portability (NEW), s. 12B breach 72h. First SEA regime com DPO mandatory; built for 5 SC-licensed crypto RMOs + Malaysian Web3 builders.',
+    description: 'Malaysia PDPA 2010 + Amendment 2024 compliance on Stellar — PDPC authority, s. 12A DPO mandatory (NEW 2024), s. 43A data portability (NEW), s. 12B breach 72h. First SEA regime com DPO mandatory; built for 5 SC-licensed crypto RMOs + Malaysian Web3 builders.',
   },
 ];
 
@@ -212,7 +212,7 @@ const W = 'style="max-width:820px;margin:40px auto;padding:0 24px;font-family:Ge
 const BODY = {
   '/': `<main ${W}><h1>Compliance as a protocol</h1>
 <p>DPO2U turns regulatory compliance into a verifiable, on-chain attestation — the score stays private, the proof is public. The HTTPS of compliance, for Web3.</p>
-<p>The only protocol that seals both regimes — data privacy and AI governance — across 24 jurisdictions and 8 AI-governance frameworks. Provable compliance for anything that processes data, issues tokens, or runs AI, across Solana, Stellar (live), EVM, Polkadot and Midnight.</p>
+<p>The only protocol that seals both regimes — data privacy and AI governance — across 24 jurisdictions and 8 AI-governance frameworks. Provable compliance for anything that processes data, issues tokens, or runs AI, natively on Stellar (Soroban).</p>
 <h2>Two ways in</h2><ul><li><strong>I'm building</strong> — run the open-source SDK and DPO2U's compliance primitives inside your own CI/CD.</li><li><strong>Run it for me</strong> — we execute the pipeline for you, or become your accountable DPO of record.</li></ul>
 <h2>The open-core ladder</h2><ul><li><strong>Open Source</strong> — free SDK + $0.0002 per on-chain attestation.</li><li><strong>Managed Protocol</strong> — we run the pipeline (platform pricing in calibration).</li><li><strong>DPO-as-a-Service</strong> — a named, accountable DPO of record.</li></ul>
 <p>Independent research house since 2021. Founder: Frederico Santana — DPO for 15 years, FGV Master's in Law, Technology & Innovation, co-author of ERC-8004. 1.94s per seal · $0.0002 per attestation · 70+ countries.</p></main>`,

@@ -50,7 +50,7 @@ export default function Hero() {
               color: PALETTE.inkSoft,
             }}
           >
-            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot &amp; Midnight. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve.
+            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — native on Stellar (Soroban). 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve.
             <br /><br />
             <b style={{ color: PALETTE.ink }}>The only protocol that seals both regimes</b> — data privacy and AI governance. Score stays private. Proof is public.
             <br />

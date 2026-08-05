@@ -39,7 +39,7 @@ export default function SealedFooter() {
               maxWidth: 380,
             }}
           >
-            DPO2U is a São Paulo compliance house. <b style={{ color: PALETTE.ink }}>Founded 2021.</b> Now turning five years of regulatory engineering into on-chain primitives — for every Solana project that processes data, issues tokens, or runs AI. 17 jurisdictions. 70 countries. 6 AI governance frameworks.
+            DPO2U is a São Paulo compliance house. <b style={{ color: PALETTE.ink }}>Founded 2021.</b> Now turning five years of regulatory engineering into on-chain primitives on Stellar — for every project that processes data, issues tokens, or runs AI. 24 jurisdictions. 70 countries. 8 AI governance frameworks.
           </div>
           <div
             style={{
@@ -65,9 +65,9 @@ export default function SealedFooter() {
         <FooterCol
           title="Product"
           items={[
-            ['Protocol', '/solana-protocol'],
+            ['Protocol', '/protocol'],
             ['MCP endpoint', '/#mcp'],
-            ['Architecture', '/solana-protocol'],
+            ['Architecture', '/protocol'],
             ['Alpha showcase', '/alpha'],
             ['Alpha signup', '/alpha-signup'],
             ['Register a dApp', '/register-dapp'],
@@ -90,7 +90,7 @@ export default function SealedFooter() {
             ['MCP reference', '/research#mcp-reference'],
             ['GitHub', 'https://github.com/fredericosanntana'],
             ['npm: dpo2u-sdk', 'https://www.npmjs.com/'],
-            ['Solana Explorer', 'https://explorer.solana.com/?cluster=devnet'],
+            ['Stellar Expert', 'https://stellar.expert/explorer/testnet'],
           ]}
         />
       </div>

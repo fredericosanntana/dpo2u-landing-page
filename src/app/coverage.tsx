@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { usePageHead } from '@/lib/page-head';
 import { FONTS, PALETTE, SmallLabel } from '@/components/sealed/atoms';
 import JurisdictionMap from '@/components/sealed/sections/JurisdictionMap';
-import GovernanceBadge from '@/components/solana/GovernanceBadge';
 
 // Aliases pra URL slugs longos → codes existentes. Suporta /coverage/mexico
 // e /coverage/lfpdppp etc. Sem match, scroll é no-op (página normal).
@@ -262,7 +261,7 @@ export default function CoveragePage() {
   usePageHead({
     title: 'Coverage — Twenty-four jurisdictions, one primitive | DPO2U',
     description:
-      'Visual map of the twenty-four regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), PDPA-MY (Malaysia), Kenya DPA, Ghana DPA, Colombia Ley 1581, Tanzania PDPA, and Uganda DPPA. Plus the AI Governance vertical (eight frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, UNESCO Recommendation on Ethics of AI, Singapore IMDA Model AI Governance Framework for Agentic AI v1.0, and the L1-L5 AI Governance Stack methodology (Kenney 2026). Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). 15 legal-source manifests anchored on Solana devnet under cross-program seeds::program reference. EMEA + Americas + APAC + LatAm in one composition step.',
+      'Visual map of the twenty-four regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), PDPA-MY (Malaysia), Kenya DPA, Ghana DPA, Colombia Ley 1581, Tanzania PDPA, and Uganda DPPA. Plus the AI Governance vertical (eight frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, UNESCO Recommendation on Ethics of AI, Singapore IMDA Model AI Governance Framework for Agentic AI v1.0, and the L1-L5 AI Governance Stack methodology (Kenney 2026). Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). Legal-source manifests anchored on Stellar (Soroban) testnet, referenced by the attestation contract. EMEA + Americas + APAC + LatAm in one composition step.',
     path: params.code ? `/coverage/${slugCode}` : '/coverage',
   });
 
@@ -326,7 +325,7 @@ export default function CoveragePage() {
             marginTop: 28,
           }}
         >
-          — 15 Solana programs · 70 MCP tools · 8 AI governance frameworks · 15 legal-source manifests anchored on-chain · 5 programs cross-reference manifest via Anchor seeds::program · devnet live · last updated 2026-05-15 —
+          — Soroban compliance contract · 70 MCP tools · 8 AI governance frameworks · legal-source manifests anchored on-chain · trustless verify by (use_case_id, evidence_hash) · Stellar testnet live · last updated 2026-06-05 —
         </p>
       </section>
 
@@ -448,7 +447,7 @@ export default function CoveragePage() {
         </dl>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
           <a
-            href="/solana-protocol"
+            href="/protocol"
             style={{
               fontFamily: FONTS.mono,
               fontSize: 11,
@@ -459,7 +458,7 @@ export default function CoveragePage() {
               paddingBottom: 2,
             }}
           >
-            → Live attestation on Solana · /solana-protocol
+            → Live attestation on Stellar · /protocol
           </a>
           <a
             href="https://www.soumu.go.jp/hiroshimaaiprocess/en/supporters.html"
@@ -744,16 +743,6 @@ export default function CoveragePage() {
         </div>
       </section>
 
-      {/* Governance — Squads v4 multisig (5 separate multisigs governing
-          program upgrades, MiCAR reserve, compressed attestation revokes,
-          treasury, and emergency halt). Renders only after squads-config.json
-          is deployed. See /root/dpo2u-solana/docs/GOVERNANCE.md. */}
-      <section
-        className="px-6 lg:px-14 py-12"
-        style={{ background: PALETTE.paper, borderBottom: `.5px solid ${PALETTE.rule}` }}
-      >
-        <GovernanceBadge />
-      </section>
 
       {/* Footer note */}
       <section
@@ -785,7 +774,7 @@ export default function CoveragePage() {
           code or alias (PDPL → UAE, ZA → POPIA, NG → NDPA, US/CA-US → CCPA, CA → PIPEDA, QC → LAW25, JP/JAPAN → APPI, CASP → MiCA Title V).
           Each entry powers <em>compare_jurisdictions</em>,{' '}
           <em>check_compliance</em>, and the on-chain attestation schemas in the
-          DPO2U Solana programs.
+          DPO2U Soroban contract on Stellar.
         </p>
       </section>
     </article>

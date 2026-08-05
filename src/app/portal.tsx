@@ -159,9 +159,10 @@ function formatTimestamp(iso: string): string {
   }
 }
 
-function solscanUrl(txHash: string, cluster: 'devnet' | 'mainnet-beta'): string {
-  const c = cluster === 'mainnet-beta' ? '' : `?cluster=${cluster}`;
-  return `https://solscan.io/tx/${txHash}${c}`;
+function explorerTxUrl(txHash: string, cluster: 'devnet' | 'mainnet-beta'): string {
+  // Stellar Expert: 'mainnet-beta' (sample-data legacy value) maps to public, else testnet.
+  const net = cluster === 'mainnet-beta' ? 'public' : 'testnet';
+  return `https://stellar.expert/explorer/${net}/tx/${txHash}`;
 }
 
 function scoreColor(score: number | null, status: AttestationStatus): string {
@@ -206,7 +207,7 @@ function LoginForm({ onLogin }: { onLogin: (id: string) => void }) {
         className="text-[15px] md:text-[16px] mb-8"
         style={{ color: 'rgba(12,13,16,.75)', maxWidth: '52ch' }}
       >
-        Sign in with your tenant ID to see every compliance attestation sealed on Solana for
+        Sign in with your tenant ID to see every compliance attestation sealed on Stellar for
         your organisation — score, jurisdiction, tx hash, payload link.
       </p>
 
@@ -266,7 +267,7 @@ function LoginForm({ onLogin }: { onLogin: (id: string) => void }) {
         className="mt-2 text-[13px]"
         style={{ color: 'rgba(12,13,16,.6)', maxWidth: '52ch' }}
       >
-        Real wallet-bound auth (Sign-In-With-Solana) lands Sprint 3. For now the
+        Real wallet-bound auth (Sign-In-With-Stellar / Freighter) lands Sprint 3. For now the
         portal uses a local-only tenant id stored in your browser.
       </p>
     </div>
@@ -330,7 +331,7 @@ function AttestationTable({ items }: { items: Attestation[] }) {
               Signer
             </th>
             <th className="text-left py-3 pr-4 font-mono text-[11px] uppercase tracking-[0.14em]" style={{ color: PALETTE.concrete }}>
-              Tx · Solscan
+              Tx · Stellar Expert
             </th>
             <th className="text-left py-3 pr-4 font-mono text-[11px] uppercase tracking-[0.14em]" style={{ color: PALETTE.concrete }}>
               Status
@@ -380,7 +381,7 @@ function AttestationTable({ items }: { items: Attestation[] }) {
                 </td>
                 <td className="py-4 pr-4 align-top">
                   <a
-                    href={solscanUrl(a.txHash, a.cluster)}
+                    href={explorerTxUrl(a.txHash, a.cluster)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-mono text-[12px] underline-offset-2 hover:underline"
@@ -467,7 +468,7 @@ function AttestationCards({ items }: { items: Attestation[] }) {
 
               <span style={{ color: PALETTE.concrete, textTransform: 'uppercase', letterSpacing: '0.08em' }}>Tx</span>
               <a
-                href={solscanUrl(a.txHash, a.cluster)}
+                href={explorerTxUrl(a.txHash, a.cluster)}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: PALETTE.terracotta }}
@@ -541,7 +542,7 @@ function EmptyState({ tenantId }: { tenantId: string }) {
         style={{ color: 'rgba(12,13,16,.7)' }}
       >
         Run your first compliance audit. We'll generate a DPIA in 90 seconds and seal the
-        result on Solana — your portal will show it here after that.
+        result on Stellar — your portal will show it here after that.
       </p>
       <Link
         to="/demo"
@@ -590,7 +591,7 @@ function BackendPendingBanner() {
         — Backend wire-up pending —
       </p>
       <p className="text-[13px]" style={{ color: 'rgba(12,13,16,.75)' }}>
-        Showing sample data from the 8 known devnet attestations. The tenant-scoped
+        Showing sample data from the 8 known testnet attestations. The tenant-scoped
         endpoint{' '}
         <code style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.ink }}>
           GET /api/v1/attestations
@@ -663,7 +664,7 @@ function PortalHeader({
           <p className="text-[14px] md:text-[15px]" style={{ color: 'rgba(12,13,16,.7)' }}>
             {count === 0
               ? 'No attestations sealed yet.'
-              : `${count} attestation${count === 1 ? '' : 's'} on Solana ${isSample ? 'devnet' : ''}. Read-only · Sprint 3 adds actions.`}
+              : `${count} attestation${count === 1 ? '' : 's'} on Stellar ${isSample ? 'testnet' : ''}. Read-only · Sprint 3 adds actions.`}
           </p>
         </div>
         <div className="flex items-center gap-4">
@@ -698,7 +699,7 @@ export default function PortalPage() {
   usePageHead({
     title: 'Customer portal — DPO2U',
     description:
-      'Tenant audit history. Every compliance attestation we sealed for your organisation on Solana — score, jurisdiction, tx hash, payload link. Read-only v0.',
+      'Tenant audit history. Every compliance attestation we sealed for your organisation on Stellar — score, jurisdiction, tx hash, payload link. Read-only v0.',
     path: '/portal',
   });
 

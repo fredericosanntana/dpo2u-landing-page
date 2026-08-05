@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
+import { AppButton, btnClass } from '@/components/app/ui';
 import { useWalletAuth } from '@/components/app/WalletAuthProvider';
 import { useAuthStore, maskApiKey } from '@/lib/pilot/auth-store';
 import { githubStatus, githubRepos, startGithubInstall, githubInstallUrl, type GithubStatus, type GithubRepo } from '@/lib/app/github-client';
@@ -53,10 +54,7 @@ export default function AppSettings() {
       </div>
 
       <div className="mt-6">
-        <button type="button" onClick={() => { disconnect(); navigate('/'); }} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
-          style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, background: 'transparent', cursor: 'pointer' }}>
-          Disconnect wallet
-        </button>
+        <AppButton variant="ghost" onClick={() => { disconnect(); navigate('/'); }}>Disconnect wallet</AppButton>
       </div>
 
       <Rule style={{ margin: '32px 0' }} color={PALETTE.ruleStrong} />
@@ -65,14 +63,14 @@ export default function AppSettings() {
       {gh?.install ? (
         <div className="p-4" style={{ border: `1px solid ${PALETTE.verdigris}`, borderRadius: 4, background: 'rgba(74,124,116,.08)' }}>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Field label="Conta GitHub" value={gh.install.account_login || '—'} />
+            <Field label="GitHub account" value={gh.install.account_login || '—'} />
             <Field label="Installation" value={String(gh.install.installation_id)} />
-            <Field label="Créditos CI" value={String(gh.credits)} />
+            <Field label="CI credits" value={String(gh.credits)} />
           </div>
           {repos && repos.length > 0 && (
             <div className="mt-4" style={{ border: `.5px solid ${PALETTE.rule}`, borderRadius: 4, overflow: 'hidden' }}>
               <div style={{ padding: '8px 12px', background: PALETTE.paper, borderBottom: `.5px solid ${PALETTE.rule}` }}>
-                <SmallLabel>Repositórios conectados · {repos.length}</SmallLabel>
+                <SmallLabel>Connected repositories · {repos.length}</SmallLabel>
               </div>
               {repos.slice(0, 20).map((r) => (
                 <div key={`${r.installation_id}:${r.full_name}`} className="flex items-center justify-between gap-3"
@@ -86,49 +84,35 @@ export default function AppSettings() {
                   </span>
                 </div>
               ))}
-              {repos.length > 20 && <div style={{ padding: '6px 12px', borderTop: `.5px solid ${PALETTE.rule}`, fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete }}>+{repos.length - 20} mais…</div>}
+              {repos.length > 20 && <div style={{ padding: '6px 12px', borderTop: `.5px solid ${PALETTE.rule}`, fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete }}>+{repos.length - 20} more…</div>}
             </div>
           )}
           <div className="mt-4 flex gap-3 flex-wrap">
-            <a href={githubInstallUrl()} target="_blank" rel="noreferrer" className="py-2 px-4 font-mono text-[11px] uppercase tracking-[.14em]"
-              style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, textDecoration: 'none' }}>Gerenciar repos ↗</a>
-            <Link to="/app/billing" className="py-2 px-4 font-mono text-[11px] uppercase tracking-[.14em]"
-              style={{ background: PALETTE.ink, color: PALETTE.paper, textDecoration: 'none' }}>Recarregar créditos →</Link>
+            <a href={githubInstallUrl()} target="_blank" rel="noreferrer" className={btnClass('ghost', 'sm')}>Manage repos ↗</a>
+            <Link to="/app/billing" className={btnClass('ink', 'sm')}>Recharge credits →</Link>
           </div>
         </div>
       ) : (
         <div className="p-4" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
           <p className="text-[14px] mb-3" style={{ color: PALETTE.inkSoft }}>
-            Esta wallet (<b style={{ fontFamily: FONTS.mono }}>{truncatePubkey(pubkey)}</b>) ainda não tem GitHub conectado.
-            O vínculo é <b>por wallet</b> — se você conectou com outra wallet, troque para ela na carteira; ou conecte aqui (re-vincula a instalação a esta wallet).
+            This wallet (<b style={{ fontFamily: FONTS.mono }}>{truncatePubkey(pubkey)}</b>) has no GitHub connected yet.
+            The link is <b>per wallet</b> — if you connected with another wallet, switch to it; or connect here (re-binds the installation to this wallet).
           </p>
-          <button type="button" onClick={() => startGithubInstall(pubkey ?? undefined)} disabled={!pubkey}
-            className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
-            style={{ background: pubkey ? PALETTE.terracotta : PALETTE.ruleStrong, color: '#fff', border: 'none', cursor: pubkey ? 'pointer' : 'not-allowed' }}>
-            Conectar GitHub →
-          </button>
+          <AppButton variant="terracotta" disabled={!pubkey} onClick={() => startGithubInstall(pubkey ?? undefined)}>Connect GitHub →</AppButton>
         </div>
       )}
 
       <Rule style={{ margin: '32px 0' }} color={PALETTE.ruleStrong} />
 
-      <SmallLabel style={{ marginBottom: 8 }}>OSS gateway API key</SmallLabel>
+      <SmallLabel style={{ marginBottom: 8 }}>Advanced · gateway API key</SmallLabel>
       <p className="text-[13px] mb-3" style={{ color: PALETTE.inkSoft }}>
-        Escrita no gateway (submit/erasure) ainda usa chave API OSS — auth por assinatura de wallet é roadmap. Atual: <b style={{ fontFamily: FONTS.mono }}>{maskApiKey(apiKey)}</b>.
+        Most users don't need this. Direct gateway writes (submit/erasure) still use an OSS API key — wallet-signature
+        auth is on the roadmap. Current: <b style={{ fontFamily: FONTS.mono }}>{maskApiKey(apiKey)}</b>.
       </p>
       <div className="flex gap-2 flex-wrap">
-        <input value={keyInput} onChange={(e) => setKeyInput(e.target.value)} placeholder="dpo2u_sk_…" className="px-4 py-2.5 flex-1 min-w-[220px]"
-          style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper, fontFamily: FONTS.mono, fontSize: 13 }} />
-        <button type="button" onClick={() => { if (keyInput.trim()) { setSession({ apiKey: keyInput.trim() }); setKeyInput(''); } }}
-          className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]" style={{ background: PALETTE.ink, color: PALETTE.paper, border: 'none', cursor: 'pointer' }}>
-          Save key
-        </button>
-        {apiKey && (
-          <button type="button" onClick={() => clearKey()} className="py-2.5 px-5 font-mono text-[12px] uppercase tracking-[.14em]"
-            style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.concrete, background: 'transparent', cursor: 'pointer' }}>
-            Clear
-          </button>
-        )}
+        <input value={keyInput} onChange={(e) => setKeyInput(e.target.value)} placeholder="dpo2u_sk_…" className="appui-input flex-1 min-w-[220px]" style={{ width: 'auto' }} />
+        <AppButton onClick={() => { if (keyInput.trim()) { setSession({ apiKey: keyInput.trim() }); setKeyInput(''); } }}>Save key</AppButton>
+        {apiKey && <AppButton variant="ghost" onClick={() => clearKey()}>Clear</AppButton>}
       </div>
     </div>
   );

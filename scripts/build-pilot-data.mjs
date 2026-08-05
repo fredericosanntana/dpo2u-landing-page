@@ -11,6 +11,8 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+// LGPD: remove nomes de pessoas físicas (firmas individuais) dos dados públicos.
+import { redactAlert, redactAttested } from './redact-pilot-pii.mjs';
 
 const RUNS = '/root/dpo2u-stellar/docs/demos/runs';
 const FULL = path.join(RUNS, '2026-05-21-real-pilot-alerts-full.json');
@@ -137,8 +139,12 @@ const attested = [
   ...(leniency.attested_alerts || []).map(attestedRow),
 ].filter((a) => a.tx);
 
+// LGPD: redige pessoas físicas antes de projetar os assets públicos.
+const alertsPublic = alerts.map((a) => redactAlert(a).alert);
+const attestedPublic = attested.map((a) => redactAttested(a).row);
+
 fs.mkdirSync(OUT, { recursive: true });
-fs.writeFileSync(path.join(OUT, 'alerts.json'), JSON.stringify({ generated_at: full.generated_at, alerts }));
+fs.writeFileSync(path.join(OUT, 'alerts.json'), JSON.stringify({ generated_at: full.generated_at, alerts: alertsPublic }));
 fs.writeFileSync(
   path.join(OUT, 'stats.json'),
   JSON.stringify(
@@ -158,7 +164,7 @@ fs.writeFileSync(
         sanction_pncp_valor_em_risco: sanctionPncp.summary?.valor_total_em_risco ?? 0,
         sanction_pncp_window_days: sanctionPncp.window_days ?? null,
       },
-      attested,
+      attested: attestedPublic,
     },
     null,
     1,

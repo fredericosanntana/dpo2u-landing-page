@@ -1,0 +1,88 @@
+/* Sealed app UI — shared interaction states for the /app primitives.
+   Inline styles can't express :hover/:active/:focus-visible, so the brand-styled
+   interactive states live here. Colors mirror the sealed PALETTE (atoms.tsx). */
+
+.appui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 11px 20px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s, transform 0.05s;
+  user-select: none;
+}
+.appui-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--dpo2u-ivory, #ffffff), 0 0 0 4px var(--dpo2u-terracotta, #c85c3b);
+}
+.appui-btn:active:not(:disabled):not([aria-disabled='true']) { transform: translateY(1px); }
+.appui-btn:disabled, .appui-btn[aria-disabled='true'] { cursor: not-allowed; opacity: 0.5; }
+
+.appui-btn--ink { background: var(--dpo2u-ink, #0c0d10); color: var(--dpo2u-ivory, #ffffff); border-color: var(--dpo2u-ink, #0c0d10); }
+.appui-btn--ink:hover:not(:disabled):not([aria-disabled='true']) { background: #23252b; border-color: #23252b; }
+
+.appui-btn--terracotta { background: var(--dpo2u-terracotta, #c85c3b); color: #ffffff; border-color: var(--dpo2u-terracotta, #c85c3b); }
+.appui-btn--terracotta:hover:not(:disabled):not([aria-disabled='true']) { background: #b34e30; border-color: #b34e30; }
+
+.appui-btn--ghost { background: transparent; color: var(--dpo2u-ink, #0c0d10); border-color: rgba(12, 13, 16, 0.32); }
+.appui-btn--ghost:hover:not(:disabled):not([aria-disabled='true']) { background: rgba(12, 13, 16, 0.05); }
+
+.appui-btn--sm { padding: 7px 14px; font-size: 11px; letter-spacing: 0.12em; }
+
+.appui-input {
+  width: 100%;
+  border: 1px solid rgba(12, 13, 16, 0.32);
+  border-radius: 4px;
+  background: var(--dpo2u-ivory, #ffffff);
+  font-family: 'JetBrains Mono', Menlo, monospace;
+  font-size: 14px;
+  padding: 12px 16px;
+  color: var(--dpo2u-ink, #0c0d10);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.appui-input::placeholder { color: #9a9a90; }
+.appui-input:focus {
+  outline: none;
+  border-color: var(--dpo2u-terracotta, #c85c3b);
+  box-shadow: 0 0 0 3px rgba(200, 92, 59, 0.12);
+}
+.appui-input[aria-invalid='true'] { border-color: var(--dpo2u-terracotta, #c85c3b); }
+
+/* Clickable / keyboard-focusable table rows. */
+.appui-row { cursor: pointer; transition: background 0.12s; }
+.appui-row:hover { background: rgba(12, 13, 16, 0.035); }
+.appui-row:focus-visible {
+  outline: none;
+  background: rgba(200, 92, 59, 0.06);
+  box-shadow: inset 2px 0 0 var(--dpo2u-terracotta, #c85c3b);
+}
+
+/* Selectable choice card (Activate path chooser, jurisdiction chips). */
+.appui-choice { transition: border-color 0.15s, background 0.15s, transform 0.05s; cursor: pointer; }
+.appui-choice:hover { border-color: rgba(12, 13, 16, 0.45); }
+.appui-choice:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(200, 92, 59, 0.18); }
+
+.appui-spin { animation: appui-spin 0.8s linear infinite; }
+@keyframes appui-spin { to { transform: rotate(360deg); } }
+
+@keyframes appui-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.appui-toast { animation: appui-toast-in 0.18s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .appui-btn, .appui-row, .appui-choice, .appui-input { transition: none; }
+  .appui-spin { animation-duration: 1.6s; }
+  .appui-toast { animation: none; }
+}

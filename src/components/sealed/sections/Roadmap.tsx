@@ -4,8 +4,8 @@ import { SmallLabel, FONTS, PALETTE } from '../atoms';
 
 const MILESTONES = [
   { t: '2021 → 2025', label: 'Foundation', items: ['DPO2U founded · São Paulo', 'LGPD reference engine in production', '50M+ CNPJs in regulatory scope', 'Web2 SaaS, fintech & exchange clients'] },
-  { t: '2026 · Q2',   label: 'Now',         items: ['Devnet live · 14 programs', '66 MCP tools · OAuth', '17 jurisdictions · 70 countries · EMEA + Americas + APAC', 'Hiroshima ICOC G7 + AI Governance vertical (six frameworks)', 'CAIDP + UNESCO + UN Global Dialogue alignment', 'Colosseum Frontier submission'] },
-  { t: '2026 · Q3-Q4',label: 'Mainnet',     items: ['Solana mainnet deploy', 'dpo2u-sdk v1.0 npm', 'SOC2 + HIPAA primitives', 'KSA PDPL · LATAM expansion'] },
+  { t: '2026 · Q2',   label: 'Now',         items: ['Stellar testnet live · Soroban contract', '70 MCP tools · OAuth', '24 jurisdictions · 70 countries · EMEA + Americas + APAC', 'Hiroshima ICOC G7 + AI Governance vertical (eight frameworks)', 'CAIDP + UNESCO + UN Global Dialogue alignment', 'Colosseum Frontier submission'] },
+  { t: '2026 · Q3-Q4',label: 'Mainnet',     items: ['Stellar mainnet deploy', 'dpo2u-sdk v1.0 npm', 'SOC2 + HIPAA primitives', 'KSA PDPL · LATAM expansion'] },
   { t: '2027',        label: 'Open',        items: ['Permissionless verifier set', 'On-chain attestation marketplace', 'Cross-chain proofs · zk-bridges'] },
 ];
 

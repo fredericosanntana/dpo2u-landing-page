@@ -238,7 +238,7 @@ export default function AlphaPage() {
                                             textTransform: 'uppercase',
                                         }}
                                     >
-                                        ON SOLANA
+                                        ON STELLAR
                                     </span>
                                 </div>
                             </article>

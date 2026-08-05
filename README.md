@@ -29,7 +29,7 @@ src/
 ├── app/                # Page components (Vite-style routing via React Router)
 │   ├── page.tsx        # Homepage (F2 hero + F13 sub-hero)
 │   ├── research.tsx    # Research house (F5 — Compliance as a Computable Primitive)
-│   ├── solana-protocol.tsx # 14 Anchor programs on devnet
+│   ├── protocol.tsx    # Compliance-as-protocol on Stellar (Soroban) — live contract + verify
 │   ├── mcp.tsx         # 66 MCP tools across 17 jurisdictions + 6 AI gov frameworks
 │   ├── about.tsx       # Origin story, manifesto, F13
 │   ├── register-dapp.tsx   # Alpha registry intake — Wizard, ~58 fields

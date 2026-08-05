@@ -64,7 +64,7 @@ const SECTIONS: Section[] = [
         <ul className="space-y-2 mt-3 list-disc ml-5">
           <li><strong>BillionMail</strong> (self-hosted in BR) — SMTP outbound delivery. Internal processor: same controller (no third-party DPA needed).</li>
           <li><strong>Anthropic Claude API</strong> (US) — LLM-backed tool generation. DPA in place + "Do Not Train" toggle activated (Apr 2026).</li>
-          <li><strong>Solana devnet RPC</strong> (US) — broadcast of on-chain attestations only. No PII reaches RPC; only opaque commitment hashes.</li>
+          <li><strong>Stellar Soroban RPC</strong> — broadcast of on-chain attestations only. No PII reaches RPC; only opaque commitment hashes.</li>
           <li><strong>Google OAuth</strong> (US) — authentication only. DPA in place via Google Cloud Terms.</li>
           <li><strong>Stripe</strong> (US) — subscription billing only. DPA in place via Stripe DPA standard.</li>
         </ul>

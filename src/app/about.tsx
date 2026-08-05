@@ -47,7 +47,7 @@ const TIMELINE: TimelineItem[] = [
   {
     year: '2026',
     title: 'On-chain',
-    body: 'Migration to Solana for native ZK verification. Fourteen Anchor programs live on devnet (incl. POPIA / CCPA / PIPEDA / PIPA Korea jurisdiction-specific primitives + Hiroshima ICOC G7 AI-process attestation + Pinocchio Composed-Stack orchestrator). SP1 v6 verifier patched, alt_bn128 syscall for Groth16. $0.0002 per attestation.',
+    body: 'Compliance as a protocol on Stellar (Soroban). An immutable contract anchors PASS/FAIL/REVIEW attestations; a zero-knowledge layer proves score ≥ threshold without revealing the score. Anyone verifies trustlessly by (use_case_id, evidence_hash) over Soroban RPC — no wallet, no fee. $0.0002 per attestation.',
   },
 ];
 
@@ -64,7 +64,7 @@ const PUBLICATIONS: Publication[] = [
     type: 'Whitepaper v1.1',
     year: '2026',
     description:
-      'How MCP tools + SP1 v6 zero-knowledge proofs + Solana on-chain registry transform compliance into a verifiable, cost-efficient cryptographic asset.',
+      'How MCP tools + zero-knowledge proofs + a Soroban on-chain registry on Stellar transform compliance into a verifiable, cost-efficient cryptographic asset.',
   },
   {
     title: 'ERC-8004: Autonomous Agent Standard',
@@ -87,7 +87,7 @@ const MANIFESTO_PARAGRAPHS: Array<{ text: string; pullQuote?: boolean }> = [
   { text: 'Five years ago, DPO2U began as twenty lines in a Zettelkasten.' },
   { text: 'We did not want to found a SaaS for compliance. We wanted to understand why compliance had become an industry of monthly dashboards, hours-of-lawyer, and signed PDFs — when the underlying claim is, at heart, verifiable mathematics.' },
   { text: 'Publish before you sell. Research before you code. Code before you hire. That order is the thesis: research first, primitive next, product third.', pullQuote: true },
-  { text: 'Five years on: seventeen jurisdictions operationalised in code (LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA — São Paulo to San Francisco to Lagos to Dubai to Tokyo). Plus AI Governance vertical (six frameworks: Japan AI Promotion Act + Hiroshima ICOC G7 + EU AI Act + Korea AI Basic Act + CAIDP Universal Guidelines + UNESCO RAM, aligned with CAIDP submission to the UN Global Dialogue on AI Governance). Fourteen Anchor programs on Solana devnet. Sixty-six typed MCP tools. A public Zettelkasten — thousands of atomic notes feeding all of it.' },
+  { text: 'Five years on: seventeen jurisdictions operationalised in code (LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA — São Paulo to San Francisco to Lagos to Dubai to Tokyo). Plus AI Governance vertical (six frameworks: Japan AI Promotion Act + Hiroshima ICOC G7 + EU AI Act + Korea AI Basic Act + CAIDP Universal Guidelines + UNESCO RAM, aligned with CAIDP submission to the UN Global Dialogue on AI Governance). A Soroban compliance contract on Stellar testnet. Seventy typed MCP tools. A public Zettelkasten — thousands of atomic notes feeding all of it.' },
   { text: 'No dashboard. No monthly subscription with a PDF report. No consultant billing by the hour.' },
   { text: 'We are not the $50k compliance consultancy. We are not Vanta, Drata, or OneTrust. We are the research house that writes the primitive that makes them obsolete.' },
   { text: 'We are the DPO who ships code. The lawyer who learned to compute. The house that proved — in zero-knowledge proofs on-chain — that compliance can be mathematics.', pullQuote: true },
@@ -96,7 +96,7 @@ const MANIFESTO_PARAGRAPHS: Array<{ text: string; pullQuote?: boolean }> = [
 export default function AboutPage() {
   usePageHead({
     title: 'About — Origin story & F13 manifesto | DPO2U',
-    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with fourteen Solana programs, 66 typed MCP tools, and six AI governance frameworks aligned with CAIDP and the UN Global Dialogue on AI Governance. The full story.',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with a Soroban compliance protocol on Stellar, 70 typed MCP tools, and eight AI governance frameworks aligned with CAIDP and the UN Global Dialogue on AI Governance. The full story.',
     path: '/about',
   });
 
@@ -207,7 +207,7 @@ export default function AboutPage() {
           className="text-[36px] sm:text-[48px] lg:text-[60px]"
         >
           From a Zettelkasten<br />
-          <span style={{ fontStyle: 'italic' }}>to a Solana devnet.</span>
+          <span style={{ fontStyle: 'italic' }}>to a Stellar testnet.</span>
         </h2>
 
         <div

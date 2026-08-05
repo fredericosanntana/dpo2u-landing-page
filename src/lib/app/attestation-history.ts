@@ -1,9 +1,9 @@
-// Local history of attestations the user submitted through the app. Solana-only.
+// Local history of attestations the user submitted through the app. Stellar-only.
 //
-// On-chain, the submitter is the DPO2U operator/program, not necessarily the
+// On-chain, the submitter is the DPO2U gateway account, not necessarily the
 // user's wallet — so we keep a client-side record of (useCaseId, hash) the user
 // originated, keyed by their pubkey. The dashboard merges these with on-chain
-// attestations read from the Solana compliance-registry PDAs (solana-indexer).
+// attestations read from the Soroban contract events (stellar-indexer).
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -17,9 +17,9 @@ export interface HistoryRef {
   readonly score?: number;
   readonly at: number;
   readonly source: 'activate' | 'manual' | 'github-ci';
-  // Solana-only: o selo é ancorado na Solana.
-  readonly chain?: 'solana';
-  // Solana: link direto pro explorer.
+  // Stellar-only: o selo é ancorado no contrato Soroban.
+  readonly chain?: 'stellar';
+  // Link direto pro Stellar Expert.
   readonly explorerUrl?: string;
   // Contexto rico (capturado do gateway) — identifica o repo e os pontos de melhoria.
   readonly repo?: string; // ex.: github.com/owner/repo

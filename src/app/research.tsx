@@ -28,7 +28,7 @@ const WHITEPAPERS: Whitepaper[] = [
     version: 'v1.1',
     year: '2026',
     summary:
-      'Foundational whitepaper. Reframes compliance — from SaaS-dashboards and consulting-by-hour to typed tools and zero-knowledge attestations — with a concrete implementation on Solana.',
+      'Foundational whitepaper. Reframes compliance — from SaaS-dashboards and consulting-by-hour to typed tools and zero-knowledge attestations — with a concrete implementation on Stellar (Soroban).',
     status: 'available',
     href: '/research#whitepaper',
   },
@@ -60,7 +60,7 @@ interface NewsletterIssue {
 const NEWSLETTER: NewsletterIssue[] = [
   { date: '2026-04-22', title: 'Why Colosseum matters for compliance research',      reading: '6 min' },
   { date: '2026-04-15', title: 'Seventeen jurisdictions, one primitive layer',           reading: '8 min' },
-  { date: '2026-04-08', title: 'SP1 v6 on Solana: the 120-LOC patch',                 reading: '12 min' },
+  { date: '2026-04-08', title: 'Score-private compliance proofs on Soroban',           reading: '12 min' },
   { date: '2026-04-01', title: 'ZK proofs vs. auditor PDFs',                         reading: '5 min' },
   { date: '2026-03-25', title: 'Publish-first: why we write before we ship',         reading: '4 min' },
 ];
@@ -97,8 +97,8 @@ const MCP_SKILLS: MCPSkill[] = [
   {
     name: 'dpo2u-consent-record',
     title: 'On-chain consent record',
-    desc: 'Record or revoke a DPDP India / LGPD consent event on Solana via the consent-manager program. Purpose hashing + AES-GCM payload + ZK-bound consent via SP1 verifier.',
-    tags: ['Solana', 'DPDP', 'ZK'],
+    desc: 'Record or revoke a DPDP India / LGPD consent event on Stellar (Soroban) via the consent contract. Purpose hashing + AES-GCM payload + ZK-bound consent via the zero-knowledge verifier.',
+    tags: ['Stellar', 'DPDP', 'ZK'],
   },
 ];
 
@@ -108,7 +108,7 @@ const MCP_CONFIG = `{
       "command": "npx",
       "args": ["-y", "@dpo2u/mcp-server"],
       "env": {
-        "DPO2U_CLUSTER": "devnet"
+        "STELLAR_NETWORK": "testnet"
       }
     }
   }
@@ -463,8 +463,8 @@ export default function ResearchPage() {
               <Button kind="terracotta" href="https://github.com/fredericosanntana/dpo2u-zettelkasten">
                 Browse the Zettelkasten ↗
               </Button>
-              <Button kind="ghost" href="https://github.com/fredericosanntana/dpo2u-solana">
-                Solana code ↗
+              <Button kind="ghost" href="https://github.com/fredericosanntana/dpo2u-stellar">
+                Stellar code ↗
               </Button>
             </div>
           </div>

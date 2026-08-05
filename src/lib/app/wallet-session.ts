@@ -1,14 +1,14 @@
-// Wallet session for the authenticated app (Fase C). Solana-only.
+// Wallet session for the authenticated app (Fase C). Stellar-only.
 //
-// Client-only: connecting a Solana wallet (Solflare/Phantom) proves key
-// possession and opens the app. No backend auth in the MVP — writes to the
-// gateway still use the OSS API key path. Persisted separately from the pilot
-// operator session (key `dpo2u.app.wallet`, distinct from `dpo2u.pilot.auth`).
+// Client-only: connecting a Stellar wallet (Freighter) proves key possession
+// and opens the app. No backend auth in the MVP — writes to the gateway still
+// use the OSS API key path. Persisted separately from the pilot operator
+// session (key `dpo2u.app.wallet`, distinct from `dpo2u.pilot.auth`).
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type WalletChain = 'solana';
+export type WalletChain = 'stellar';
 
 interface WalletState {
   readonly chain: WalletChain | null;

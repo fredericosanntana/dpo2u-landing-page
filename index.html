@@ -12,7 +12,7 @@
     <link rel="canonical" href="https://dpo2u.com/" />
 
     <title>DPO2U — Compliance as a protocol.</title>
-    <meta name="description" content="The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot & Midnight (Stellar live). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve. Score stays private, proof is public. 1.94s · $0.0002 per seal · since 2021." />
+    <meta name="description" content="The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — natively on Stellar (Soroban). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve. Score stays private, proof is public. 1.94s · $0.0002 per seal · since 2021." />
     <meta name="author" content="DPO2U" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="theme-color" content="#F1ECE3" media="(prefers-color-scheme: light)" />
@@ -22,14 +22,14 @@
     <!-- PWA manifest -->
     <link rel="manifest" href="/manifest.json" />
 
-    <!-- Preconnect: live Solana devnet widgets warm TLS at hydration. -->
-    <link rel="preconnect" href="https://api.devnet.solana.com" crossorigin />
-    <link rel="dns-prefetch" href="https://api.devnet.solana.com" />
+    <!-- Preconnect: live Soroban testnet RPC warms TLS at hydration. -->
+    <link rel="preconnect" href="https://soroban-testnet.stellar.org" crossorigin />
+    <link rel="dns-prefetch" href="https://horizon-testnet.stellar.org" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="DPO2U — Compliance as a protocol." />
-    <meta property="og:description" content="The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot & Midnight (Stellar live). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve. Score stays private, proof is public. 1.94s · $0.0002 per seal · since 2021." />
+    <meta property="og:description" content="The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — natively on Stellar (Soroban). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve. Score stays private, proof is public. 1.94s · $0.0002 per seal · since 2021." />
     <meta property="og:url" content="https://dpo2u.com" />
     <meta property="og:site_name" content="DPO2U" />
     <meta property="og:image" content="https://dpo2u.com/og-image.png" />
@@ -60,7 +60,7 @@
       "url": "https://dpo2u.com",
       "logo": "https://dpo2u.com/favicon.svg",
       "image": "https://dpo2u.com/og-image.png",
-      "description": "Compliance as a protocol — the HTTPS of compliance for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — across Solana, Stellar, EVM, Polkadot and Midnight (Stellar live). Twenty-four jurisdictions across seventy+ countries plus eight AI-governance frameworks. The only protocol that seals both regimes: data privacy and AI governance. Aligned with CAIDP submission to the UN Global Dialogue on AI Governance (UN GA Resolution 79/325).",
+      "description": "Compliance as a protocol — the HTTPS of compliance for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — natively on Stellar (Soroban). Twenty-four jurisdictions across seventy+ countries plus eight AI-governance frameworks. The only protocol that seals both regimes: data privacy and AI governance. Aligned with CAIDP submission to the UN Global Dialogue on AI Governance (UN GA Resolution 79/325).",
       "foundingDate": "2021",
       "founder": [
         {
@@ -77,7 +77,7 @@
       ],
       "sameAs": [
         "https://github.com/fredericosanntana",
-        "https://github.com/fredericosanntana/dpo2u-solana",
+        "https://github.com/fredericosanntana/dpo2u-stellar",
         "https://x.com/fredsanntana",
         "https://linkedin.com/in/fredericosantana"
       ],
@@ -105,7 +105,8 @@
         "Singapore IMDA Model AI Governance Framework for Agentic AI",
         "AI Governance Stack Methodology",
         "Zero-Knowledge Proofs",
-        "Solana",
+        "Stellar",
+        "Soroban",
         "Model Context Protocol"
       ]
     }
@@ -118,7 +119,7 @@
       "@type": "WebSite",
       "name": "DPO2U",
       "url": "https://dpo2u.com",
-      "description": "Compliance as a protocol. Zero-knowledge compliance attestation across Solana, Stellar, EVM, Polkadot and Midnight, founded 2021.",
+      "description": "Compliance as a protocol. Zero-knowledge compliance attestation on Stellar (Soroban), founded 2021.",
       "inLanguage": "en",
       "publisher": {
         "@type": "Organization",
@@ -154,7 +155,7 @@
           "name": "How fast is a DPO2U attestation?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "1.94 seconds end-to-end. $0.0002 per seal. SP1 v6 Groth16 in 156,128 compute units, anchored to a Solana PDA."
+            "text": "1.94 seconds end-to-end. $0.0002 per seal. Anchored as an immutable attestation on an immutable Soroban contract on Stellar; verified trustlessly over Soroban RPC."
           }
         },
         {

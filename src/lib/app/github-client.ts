@@ -14,8 +14,8 @@ export type GithubCreditsCall =
   | { kind: 'payment_required'; challenge: X402Challenge }
   | { kind: 'error'; message: string };
 
-/** Recarrega créditos de CI. O pagamento na Solana é via gateway (USDC SPL),
- *  resolvido server-side. 1 pagamento = 1 pack de créditos. */
+/** Recarrega créditos de CI. O pagamento na Stellar é via x402 (USDC SAC) —
+ *  quando retorna 402, o app assina com Freighter e reenvia. 1 pagamento = 1 pack. */
 export async function rechargeCredits(pubkey: string, xPayment?: string): Promise<GithubCreditsCall> {
   try {
     const headers: Record<string, string> = { 'content-type': 'application/json' };
@@ -27,7 +27,7 @@ export async function rechargeCredits(pubkey: string, xPayment?: string): Promis
     });
     if (res.status === 402) {
       const challenge = parseX402Challenge(await res.json().catch(() => null));
-      if (!challenge) return { kind: 'error', message: 'desafio x402 malformado' };
+      if (!challenge) return { kind: 'error', message: 'Malformed x402 challenge.' };
       return { kind: 'payment_required', challenge };
     }
     const json = (await res.json().catch(() => ({}))) as Record<string, unknown>;
@@ -61,14 +61,14 @@ export interface GithubStatus {
   enabled: boolean;
   bound: boolean;
   credits: number;
-  install?: { installation_id: number; account_login: string; pubkey: string; chain: 'solana' } | null;
+  install?: { installation_id: number; account_login: string; pubkey: string; chain: 'stellar' } | null;
 }
 
 export interface GithubConnectResult {
   ok: boolean;
   installation_id?: number;
   pubkey?: string;
-  chain?: 'solana';
+  chain?: 'stellar';
   error?: string;
 }
 
@@ -94,7 +94,7 @@ export async function githubConnect(args: {
       ok: true,
       installation_id: typeof json.installation_id === 'number' ? json.installation_id : undefined,
       pubkey: typeof json.pubkey === 'string' ? json.pubkey : undefined,
-      chain: 'solana',
+      chain: 'stellar',
     };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : String(e) };

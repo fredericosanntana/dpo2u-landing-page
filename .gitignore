@@ -10,3 +10,6 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+# artefato incremental do tsc — muda a cada build, não é fonte (add 2026-08-04)
+*.tsbuildinfo
