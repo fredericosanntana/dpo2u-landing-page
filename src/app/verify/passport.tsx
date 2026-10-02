@@ -42,14 +42,14 @@ export default function PassportPage() {
 
   const wrap: React.CSSProperties = { maxWidth: 760, margin: '0 auto', padding: '48px 16px 96px', fontFamily: FONTS.body, color: PALETTE.ink };
 
-  if (!state) return <main style={wrap}><p aria-live="polite">Consultando o passaporte…</p></main>;
+  if (!state) return <div style={wrap}><p aria-live="polite">Consultando o passaporte…</p></div>;
   if (state.ok === false) {
     return (
-      <main style={wrap}>
+      <div style={wrap}>
         <h1 style={{ fontFamily: FONTS.display, fontSize: 32 }}>Passaporte não encontrado</h1>
         <p>{state.reason === 'not-found' ? 'Nenhum passaporte com este identificador.' : 'Não foi possível consultar agora. Tente de novo em instantes.'}</p>
         <Link to="/verify">Verificar uma atestação</Link>
-      </main>
+      </div>
     );
   }
 
@@ -59,7 +59,7 @@ export default function PassportPage() {
   const alert = st.tone === 'alert';
 
   return (
-    <main style={wrap}>
+    <div style={wrap}>
       <SmallLabel>Passaporte de conformidade · padrão PSAV-parceiro</SmallLabel>
       <h1 style={{ fontFamily: FONTS.display, fontSize: 'clamp(26px, 6vw, 36px)', margin: '8px 0 4px' }}>{TIER_LABEL[p.tier]}</h1>
       <p style={{ fontFamily: FONTS.mono, fontSize: 13, color: PALETTE.concrete, wordBreak: 'break-all' }}>{p.id}</p>
@@ -129,6 +129,6 @@ export default function PassportPage() {
         Esta página mostra só o veredito. A evidência fica com o parceiro e com a patrocinadora autorizada.
         O passaporte apoia a diligência da SPSAV (Res. BCB 520, arts. 32–42), não a substitui.
       </p>
-    </main>
+    </div>
   );
 }
