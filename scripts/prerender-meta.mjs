@@ -55,6 +55,11 @@ const ROUTES = [
     description: 'Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain. The verdict, jurisdiction, timestamp and evidence hash are public; the score stays private.',
   },
   {
+    path: '/psav',
+    title: 'Padrão PSAV-parceiro — diligência verificável para SPSAV e prestadores | DPO2U',
+    description: 'SPSAV autorizada e prestador de serviço relevante (Res. BCB 520, arts. 32–42): diligência artigo por artigo, revisor nomeado e passaporte de conformidade selado em blockchain. Prazos: 30/10/2026 (art. 88) e 06/11/2026 (art. 91).',
+  },
+  {
     path: '/dpa',
     title: 'Data Processing Agreement (DPA) — DPO2U',
     description: 'DPO2U processor DPA template — GDPR Art. 28 + LGPD Art. 39: documented instruction, confidentiality, security (Art. 32), sub-processors, data-subject assistance, breach notification, deletion/return, audit, and international transfers.',
@@ -226,6 +231,11 @@ const BODY = {
   '/research': `<main ${W}><h1>Compliance as a computable primitive</h1>
 <p>DPO2U is the research house that ships code. Compliance is exposed three ways: an open-source SDK, an MCP server, and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
 <p>Coverage spans 24 jurisdictions and 8 AI-governance frameworks, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
+  '/psav': `<main ${W} lang="pt-BR"><h1>Padrão PSAV-parceiro</h1>
+<p>A Res. BCB 520/2025 permite que uma sociedade prestadora de serviços de ativos virtuais (SPSAV) autorizada contrate prestadores de serviço relevante — tecnologia, custódia, liquidez, formador de mercado, conta (art. 33). O prestador atua por conta e sob as diretrizes da SPSAV, que permanece responsável (arts. 35 e 36).</p>
+<p>A DPO2U entrega, por prestador contratado, a diligência que o art. 34 exige: regras artigo por artigo (34, 35, 37, 40, 41, 42), revisão por revisor nomeado e um passaporte de conformidade selado em blockchain que mostra de onde vem cada veredito — máquina, revisor ou terceiro independente.</p>
+<h2>Prazos</h2><ul><li>30/10/2026 — prazo para quem já opera pedir autorização (Res. BCB 520, art. 88, I).</li><li>06/11/2026 — instituições autorizadas deixam de operar com contraparte não autorizada (Res. BCB 520, art. 91, redação da Res. BCB 589/2026).</li></ul>
+<p>O selo prova integridade e data da avaliação; não prova, sozinho, conformidade, e não substitui a diligência da SPSAV, a auditoria independente nem a autorização do Banco Central. Conteúdo informativo, não é aconselhamento jurídico.</p></main>`,
   '/verify': `<main ${W}><h1>Verify an attestation</h1>
 <p>Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain — no DPO2U credential required. Verification is keyed by use-case id and evidence hash; the verdict, jurisdiction/predicate, timestamp and evidence hash are public, while the score and underlying data stay private. Score private, proof public.</p></main>`,
   '/dpa': `<main ${W}><h1>Data Processing Agreement (DPA)</h1>
