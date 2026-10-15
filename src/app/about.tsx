@@ -73,7 +73,7 @@ const MANIFESTO_PARAGRAPHS: Array<{ text: string; pullQuote?: boolean }> = [
   { text: 'Five years ago, DPO2U began as twenty lines in a Zettelkasten.' },
   { text: 'We did not want to found a SaaS for compliance. We wanted to understand why compliance had become an industry of monthly dashboards, hours-of-lawyer, and signed PDFs — when the underlying claim is, at heart, verifiable mathematics.' },
   { text: 'Publish before you sell. Research before you code. Code before you hire. That order is the thesis: research first, primitive next, product third.', pullQuote: true },
-  { text: 'Today: 25 jurisdictions in the norms engine, each with source and date. Res. BCB 520 written as code: 55 obligations with article, check and proof (v0). ZK circuits in Circom (Groth16, BN254) and Compact contracts (Midnight). 77 MCP tools. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.' },
+  { text: 'Today: 25 jurisdictions in the norms engine, each with source and date. ZK circuits in Circom (Groth16, BN254) and Compact contracts (Midnight). 77 MCP tools. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.' },
   { text: 'No dashboard. No monthly subscription with a PDF report. No consultant billing by the hour.' },
   { text: 'We are not the $50k compliance consultancy. We are the research house that writes the primitive.' },
   { text: 'We are the DPO who ships code. The lawyer who learned to compute. The house that proved — in zero-knowledge proofs on-chain — that compliance can be mathematics.', pullQuote: true },
