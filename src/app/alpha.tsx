@@ -238,7 +238,7 @@ export default function AlphaPage() {
                                             textTransform: 'uppercase',
                                         }}
                                     >
-                                        ON STELLAR
+                                        ON MIDNIGHT
                                     </span>
                                 </div>
                             </article>

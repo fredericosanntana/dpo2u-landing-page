@@ -99,7 +99,7 @@ export default function VerifyPublicPage() {
   usePageHead({
     title: ref ? `Verify · ${ref.useCaseId} — DPO2U` : 'Verify attestation — DPO2U',
     description:
-      'Verificação pública e trustless de uma atestação de compliance DPO2U, lida diretamente do contrato on-chain (Stellar). Score privado, prova pública.',
+      'Verificação pública e trustless de uma atestação de compliance DPO2U, lida diretamente do contrato on-chain. Score privado, prova pública.',
     path: id ? `/verify/${id}` : '/verify',
   });
 

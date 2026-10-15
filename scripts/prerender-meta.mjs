@@ -47,12 +47,17 @@ const ROUTES = [
   {
     path: '/',
     title: 'DPO2U — Compliance as a protocol.',
-    description: 'The HTTPS of compliance, for Web3. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — natively on Stellar (Soroban). The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. Score private, proof public. 1.94s · $0.0002 per seal · since 2021.',
+    description: 'The HTTPS of compliance. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — built for Midnight, where the record stays shielded and disclosure is a rule, not an exposure. The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. Score private, proof public. 1.94s · $0.0002 per seal · since 2021.',
   },
   {
     path: '/verify',
     title: 'Verify an attestation — DPO2U',
     description: 'Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain. The verdict, jurisdiction, timestamp and evidence hash are public; the score stays private.',
+  },
+  {
+    path: '/psav',
+    title: 'Padrão PSAV-parceiro — diligência verificável para SPSAV e prestadores | DPO2U',
+    description: 'SPSAV autorizada e prestador de serviço relevante (Res. BCB 520, arts. 32–42): diligência artigo por artigo, revisor nomeado e passaporte de conformidade selado em blockchain. Prazos: 30/10/2026 (art. 88) e 06/11/2026 (art. 91).',
   },
   {
     path: '/dpa',
@@ -61,15 +66,15 @@ const ROUTES = [
   },
   {
     path: '/protocol',
-    title: 'Protocol — compliance on Stellar (Soroban) | DPO2U',
-    description: 'DPO2U is compliance as a protocol on Stellar. An immutable Soroban contract anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over Soroban RPC. ~$0.0002 per seal, read-only verify is free.',
+    title: 'Protocol — compliance on Midnight | DPO2U',
+    description: 'DPO2U is compliance as a protocol on Midnight. An immutable compliance contract anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. ~$0.0002 per seal, read-only verify is free.',
   },
   // /mcp removed 2026-04-29 — Sealed globalization sprint. Content lives on
   // home (#mcp) + /research#mcp-reference. server.js issues a 301 → /#mcp.
   {
     path: '/about',
     title: 'About — Origin story & F13 manifesto | DPO2U',
-    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with a Soroban compliance protocol on Stellar and a typed MCP tool suite. The full story.',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with a Midnight compliance protocol on Midnight and a typed MCP tool suite. The full story.',
   },
   {
     path: '/research',
@@ -84,7 +89,7 @@ const ROUTES = [
   {
     path: '/terms',
     title: 'Terms of Service | DPO2U',
-    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U Soroban contract on Stellar testnet.',
+    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U compliance contract on Midnight.',
   },
   {
     path: '/alpha-signup',
@@ -110,7 +115,7 @@ const ROUTES = [
   {
     path: '/sentinela-anticorrupcao',
     title: 'Sentinela Anticorrupção — alertas D+0 nacional | DPO2U',
-    description: 'Painel público de alertas anticorrupção em contratações públicas brasileiras. Cruzamento D+0 entre vencedoras de pregão (PNCP, cobertura nacional) e sanções vigentes (CEIS/CNEP/CEPIM da CGU). Atestação on-chain Stellar Soroban testnet. 1.273 alertas detectados; R$ 1,39M em risco mapeados na Sprint M.',
+    description: 'Painel público de alertas anticorrupção em contratações públicas brasileiras. Cruzamento D+0 entre vencedoras de pregão (PNCP, cobertura nacional) e sanções vigentes (CEIS/CNEP/CEPIM da CGU). Atestação on-chain Stellar Midnight testnet. 1.273 alertas detectados; R$ 1,39M em risco mapeados na Sprint M.',
   },
   {
     path: '/pilot/alertas',
@@ -126,17 +131,17 @@ const ROUTES = [
   {
     path: '/coverage/mexico',
     title: 'LFPDPPP (Mexico) — Compliance kit for fintech ITF | DPO2U',
-    description: 'Mexico LFPDPPP compliance on Stellar — INAI authority, ARCO rights (Acceso/Rectificación/Cancelación/Oposición), Art. 36 cross-border adequacy. Built for 8 ITF fintech licenses + 3M crypto retail wallets. 17 jurisdictions, 6 AI gov frameworks.',
+    description: 'Mexico LFPDPPP compliance on Midnight — INAI authority, ARCO rights (Acceso/Rectificación/Cancelación/Oposición), Art. 36 cross-border adequacy. Built for 8 ITF fintech licenses + 3M crypto retail wallets. 17 jurisdictions, 6 AI gov frameworks.',
   },
   {
     path: '/coverage/vietnam',
     title: 'Vietnam Decree 13 / Law 91/2025 — Cross-border DPIA on-chain | DPO2U',
-    description: 'Vietnam Personal Data Protection Decree 13/2023 + Law 91/2025 compliance on Stellar — MPS authority, Art. 25 cross-border DPIA mandatória, Art. 23 breach 72h notification. Most restrictive APAC cross-border regime, attested on-chain.',
+    description: 'Vietnam Personal Data Protection Decree 13/2023 + Law 91/2025 compliance on Midnight — MPS authority, Art. 25 cross-border DPIA mandatória, Art. 23 breach 72h notification. Most restrictive APAC cross-border regime, attested on-chain.',
   },
   {
     path: '/coverage/malaysia',
     title: 'PDPA-MY 2024 — DPO mandatory + Data portability on-chain | DPO2U',
-    description: 'Malaysia PDPA 2010 + Amendment 2024 compliance on Stellar — PDPC authority, s. 12A DPO mandatory (NEW 2024), s. 43A data portability (NEW), s. 12B breach 72h. First SEA regime com DPO mandatory; built for 5 SC-licensed crypto RMOs + Malaysian Web3 builders.',
+    description: 'Malaysia PDPA 2010 + Amendment 2024 compliance on Midnight — PDPC authority, s. 12A DPO mandatory (NEW 2024), s. 43A data portability (NEW), s. 12B breach 72h. First SEA regime com DPO mandatory; built for 5 SC-licensed crypto RMOs + Malaysian Web3 builders.',
   },
 ];
 
@@ -212,7 +217,7 @@ const W = 'style="max-width:820px;margin:40px auto;padding:0 24px;font-family:Ge
 const BODY = {
   '/': `<main ${W}><h1>Compliance as a protocol</h1>
 <p>DPO2U turns regulatory compliance into a verifiable, on-chain attestation — the score stays private, the proof is public. The HTTPS of compliance, for Web3.</p>
-<p>The only protocol that seals both regimes — data privacy and AI governance — across 24 jurisdictions and 8 AI-governance frameworks. Provable compliance for anything that processes data, issues tokens, or runs AI, natively on Stellar (Soroban).</p>
+<p>The only protocol that seals both regimes — data privacy and AI governance — across 24 jurisdictions and 8 AI-governance frameworks. Provable compliance for anything that processes data, issues tokens, or runs AI, built for Midnight.</p>
 <h2>Two ways in</h2><ul><li><strong>I'm building</strong> — run the open-source SDK and DPO2U's compliance primitives inside your own CI/CD.</li><li><strong>Run it for me</strong> — we execute the pipeline for you, or become your accountable DPO of record.</li></ul>
 <h2>The open-core ladder</h2><ul><li><strong>Open Source</strong> — free SDK + $0.0002 per on-chain attestation.</li><li><strong>Managed Protocol</strong> — we run the pipeline (platform pricing in calibration).</li><li><strong>DPO-as-a-Service</strong> — a named, accountable DPO of record.</li></ul>
 <p>Independent research house since 2021. Founder: Frederico Santana — DPO for 15 years, FGV Master's in Law, Technology & Innovation, co-author of ERC-8004. 1.94s per seal · $0.0002 per attestation · 70+ countries.</p></main>`,
@@ -226,6 +231,11 @@ const BODY = {
   '/research': `<main ${W}><h1>Compliance as a computable primitive</h1>
 <p>DPO2U is the research house that ships code. Compliance is exposed three ways: an open-source SDK, an MCP server, and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
 <p>Coverage spans 24 jurisdictions and 8 AI-governance frameworks, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
+  '/psav': `<main ${W} lang="pt-BR"><h1>Padrão PSAV-parceiro</h1>
+<p>A Res. BCB 520/2025 permite que uma sociedade prestadora de serviços de ativos virtuais (SPSAV) autorizada contrate prestadores de serviço relevante — tecnologia, custódia, liquidez, formador de mercado, conta (art. 33). O prestador atua por conta e sob as diretrizes da SPSAV, que permanece responsável (arts. 35 e 36).</p>
+<p>A DPO2U entrega, por prestador contratado, a diligência que o art. 34 exige: regras artigo por artigo (34, 35, 37, 40, 41, 42), revisão por revisor nomeado e um passaporte de conformidade selado em blockchain que mostra de onde vem cada veredito — máquina, revisor ou terceiro independente.</p>
+<h2>Prazos</h2><ul><li>30/10/2026 — prazo para quem já opera pedir autorização (Res. BCB 520, art. 88, I).</li><li>06/11/2026 — instituições autorizadas deixam de operar com contraparte não autorizada (Res. BCB 520, art. 91, redação da Res. BCB 589/2026).</li></ul>
+<p>O selo prova integridade e data da avaliação; não prova, sozinho, conformidade, e não substitui a diligência da SPSAV, a auditoria independente nem a autorização do Banco Central. Conteúdo informativo, não é aconselhamento jurídico.</p></main>`,
   '/verify': `<main ${W}><h1>Verify an attestation</h1>
 <p>Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain — no DPO2U credential required. Verification is keyed by use-case id and evidence hash; the verdict, jurisdiction/predicate, timestamp and evidence hash are public, while the score and underlying data stay private. Score private, proof public.</p></main>`,
   '/dpa': `<main ${W}><h1>Data Processing Agreement (DPA)</h1>

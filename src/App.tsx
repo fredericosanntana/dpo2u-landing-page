@@ -23,6 +23,8 @@ const PrivacyPage         = lazy(() => import('@/app/privacy'));
 const TermsPage           = lazy(() => import('@/app/terms'));
 const DPAPage             = lazy(() => import('@/app/dpa'));
 const VerifyPublicPage    = lazy(() => import('@/app/verify/[id]'));
+const PassportPage        = lazy(() => import('@/app/verify/passport'));
+const PsavLandingPage     = lazy(() => import('@/app/psav'));
 const AlphaSignupPage     = lazy(() => import('@/app/alpha-signup'));
 const AlphaPage           = lazy(() => import('@/app/alpha'));
 const CoveragePage        = lazy(() => import('@/app/coverage'));
@@ -143,6 +145,8 @@ function App() {
                             <Route path="/terms"            element={<TermsPage />}          />
                             <Route path="/dpa"              element={<DPAPage />}            />
                             {/* Public attestation proof (Fase B) — shareable, trustless (Stellar) */}
+                            <Route path="/psav"              element={<PsavLandingPage />} />
+                            <Route path="/verify/passport/:id" element={<PassportPage />} />
                             <Route path="/verify/:id"       element={<VerifyPublicPage />}   />
                             <Route path="/verify/uc/:uc/hash/:hash" element={<VerifyPublicPage />} />
                             <Route path="/verify"           element={<VerifyPublicPage />}   />

@@ -1,6 +1,6 @@
 // /app/run/:vertical — Act 2 (Execution) LIVE. Form → gateway
 // (/api/v1/attestation/submit) → the engine runs (resolvers + predicates) → seals on
-// Soroban → navigates to the dossier (/app/proof). Closes the Start→Execution→Proof loop
+// Midnight → navigates to the dossier (/app/proof). Closes the Start→Execution→Proof loop
 // with a REAL on-chain attestation (testnet). Honest: the agent depends on the mcp-server.
 import React, { useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -66,7 +66,7 @@ function buildEvidence(vertical: string, v: Record<string, string | boolean>): R
   // agent
   return {
     agent_id: v.agent_id, organization: v.organization, framework: 'MGF-AGENTIC',
-    capabilities: ['A2', 'A4'], toolset_description: 'treasury agent (x402 + Soroban)',
+    capabilities: ['A2', 'A4'], toolset_description: 'treasury agent (x402 + on-chain seal)',
     deployment_tier: 'pilot', uses_prohibited_category: !!v.uses_prohibited_category,
   };
 }
@@ -192,7 +192,7 @@ export default function AppRun() {
         <Link to="/app/start" className={btnClass('ghost')}>Switch obligation</Link>
       </div>
       <p className="mt-5 text-[12px]" style={{ color: PALETTE.concrete, fontFamily: FONTS.mono }}>
-        Seals a REAL attestation on Soroban testnet (gateway-signed). Private score, public proof.
+        Seals a REAL attestation on Midnight testnet (gateway-signed). Private score, public proof.
       </p>
     </div>
   );

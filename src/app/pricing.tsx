@@ -31,7 +31,7 @@ const TIERS: Tier[] = [
       'Full open-source SDK (npm + cargo)',
       'Run the compliance primitives in your own CI/CD',
       'You hold the keys — no platform in the loop',
-      'All chains (Stellar live · others roadmap)',
+      'All chains (Midnight live · others roadmap)',
       '24 jurisdictions + 8 AI-governance frameworks',
       'Selective disclosure (ZK) — score private, proof public',
     ],
@@ -75,7 +75,7 @@ const COMPARISON_ROWS = [
   ['Platform fee', '—', 'In calibration', 'Custom retainer'],
   ['Jurisdictions', 'All 24', 'All 24', 'All 24'],
   ['AI-governance frameworks', 'All 8', 'All 8', 'All 8'],
-  ['Chains', 'All (Stellar live)', 'All (Stellar live)', 'All (Stellar live)'],
+  ['Chains', 'All (Midnight live)', 'All (Midnight live)', 'All (Midnight live)'],
   ['Selective disclosure (ZK)', '✓', '✓', '✓'],
   ['Managed pipeline + dashboard', '—', '✓', '✓'],
   ['Audit-evidence export (dossier)', 'self-serve', '✓', '✓'],
@@ -99,7 +99,7 @@ const FAQ = [
   },
   {
     q: 'Which chain is live?',
-    a: 'Stellar (Soroban) is the protocol chain: testnet validated on-chain, mainnet in phased rollout. The attestation contract is immutable and verification is trustless by (use_case_id, evidence_hash).',
+    a: 'Midnight is the protocol chain. The record is written to the ledger in shielded state and the compliance logic decides when it is revealed and to whom — an entitled regulator sees that entry, not the whole ledger. Verification is trustless by (use_case_id, evidence_hash). Preview network today; mainnet gated on external audit and the signing ceremony.',
   },
   {
     q: 'How many jurisdictions does it cover?',

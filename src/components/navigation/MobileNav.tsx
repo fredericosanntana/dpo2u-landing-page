@@ -38,8 +38,8 @@ interface NavItem {
 
 const productItems: NavItem[] = [
   {
-    title: 'Solana Protocol',
-    href: '/solana-protocol',
+    title: 'Midnight',
+    href: '/midnight',
     description: 'SP1 v6 ZK verifier + 6 Anchor programs on devnet',
     icon: Fingerprint,
     num: '01',

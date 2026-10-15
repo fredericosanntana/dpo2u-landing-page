@@ -20,9 +20,9 @@ export default function Footer() {
                 </div>
               </div>
               <p className="text-brand-platinum-400 text-lg mb-6 max-w-md leading-relaxed">
-                The first LGPD-native zero-knowledge compliance attestation stack
-                on Solana. SP1 v6 verifier, 6 Anchor programs on devnet,
-                $0.0002 per attestation.
+                The first LGPD-native zero-knowledge compliance attestation stack.
+                On Midnight, the agent that seals also funds itself — it holds NIGHT,
+                and NIGHT regenerates the DUST that pays for the next proof.
               </p>
 
               {/* Social Links */}
@@ -56,7 +56,7 @@ export default function Footer() {
               <h4 className="font-semibold text-white text-lg mb-6">Products</h4>
               <ul className="space-y-4">
                 {[
-                  { label: 'Solana Protocol', href: '/solana-protocol' },
+                  { label: 'Midnight', href: '/midnight' },
                   { label: 'MCP Brain', href: '/mcp' },
                   { label: 'Compliance Engine', href: '/compliance-automate' },
                   { label: 'About DPO2U', href: '/about' },
@@ -76,10 +76,10 @@ export default function Footer() {
               <h4 className="font-semibold text-white text-lg mb-6">Technology</h4>
               <ul className="space-y-4">
                 {[
-                  { label: 'Solana Network', href: 'https://solana.com', external: true },
-                  { label: 'SP1 v6 Verifier', href: '/solana-protocol#verifier' },
-                  { label: 'Anchor Programs', href: '/solana-protocol#programs' },
-                  { label: 'GitHub Repo', href: 'https://github.com/fredericosanntana/dpo2u-solana', external: true },
+                  { label: 'Midnight Network', href: 'https://midnight.network', external: true },
+                  { label: 'Compliance demo', href: '/downloads/demo/dpo2u-midnight-demo.mp4' },
+                  { label: 'Protocol', href: '/protocol' },
+                  { label: 'GitHub', href: 'https://github.com/fredericosanntana', external: true },
                   { label: 'dpo2u.com.br (PT-BR)', href: 'https://dpo2u.com.br', external: true },
                 ].map((item) => (
                   <li key={item.label}>
@@ -100,14 +100,15 @@ export default function Footer() {
                 Ready to build verifiable compliance?
               </h4>
               <p className="text-brand-platinum-400 mb-6 max-w-2xl mx-auto">
-                Zero-knowledge attestations on Solana — prove compliance without
-                leaking the score. Six Anchor programs live on devnet.
+                Zero-knowledge attestations — prove compliance without leaking the score.
+                On Midnight the record stays shielded, and disclosure is a rule: an entitled
+                regulator sees that entry, not the whole ledger.
               </p>
               <a
-                href="/solana-protocol"
+                href="/midnight"
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-brand-purple-500 to-brand-sapphire-500 text-white font-semibold rounded-xl hover:opacity-90 transition-opacity"
               >
-                Explore Solana Protocol
+                Explore Midnight
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </div>

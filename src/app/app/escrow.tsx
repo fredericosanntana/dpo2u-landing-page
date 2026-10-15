@@ -71,7 +71,7 @@ export default function AppEscrow() {
       </div>
 
       <p className="mt-2 text-[14px]" style={{ color: PALETTE.inkSoft }}>
-        {workspace.label} · Funds locked in smart contracts on Stellar.
+        {workspace.label} · Funds locked in compliance smart contracts.
         Release happens automatically when the MCP engine attests compliance.
       </p>
 

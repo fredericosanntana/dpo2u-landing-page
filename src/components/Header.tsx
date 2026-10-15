@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 
 const products = [
-  { num: '01', name: 'Solana Protocol', desc: 'SP1 v6 ZK verifier + 6 Anchor programs', href: '/solana-protocol', icon: Fingerprint, color: 'text-brand-purple-400' },
+  { num: '01', name: 'Midnight', desc: 'Self-funding compliance agent · selective disclosure', href: '/midnight', icon: Fingerprint, color: 'text-brand-purple-400' },
   { num: '02', name: 'MCP Brain', desc: 'Compliance tools for AI agents', href: '/mcp', icon: Brain, color: 'text-brand-sapphire-400' },
   { num: '03', name: 'Compliance Engine', desc: 'LGPD/GDPR audit wizard', href: '/compliance-automate', icon: Shield, color: 'text-brand-emerald-400' },
 ];

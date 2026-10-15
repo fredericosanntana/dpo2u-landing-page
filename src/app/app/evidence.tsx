@@ -25,7 +25,7 @@ interface Seal {
   at: number; // ms
   source: 'onchain' | 'local';
   chain: 'stellar';
-  subject?: string; // Stellar: submitter account (submitted_by)
+  subject?: string; // submitter account (submitted_by)
   explorerUrl?: string; // direct link to Stellar Expert
   repo?: string;
   gaps?: string[];

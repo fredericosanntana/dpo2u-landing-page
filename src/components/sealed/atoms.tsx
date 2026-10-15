@@ -177,7 +177,7 @@ export function SealTerminal({ autoplay = true, speed = 18, style }:
     { t: 'js',     text: "> import { DPO2U } from 'dpo2u-sdk'" },
     { t: 'js',     text: "> const dpo2u = new DPO2U({ network: 'stellar' })" },
     { t: 'js',     text: "> await dpo2u.attest({ jurisdiction: 'LGPD', subject: 'order_9312' })" },
-    { t: 'out',    text: '⌛ anchoring on Soroban · register_attestation' },
+    { t: 'out',    text: '⌛ anchoring on Midnight · attestUseCase' },
     { t: 'ok',     text: '✓ sealed in 1.94s · $0.00019' },
     { t: 'obj',    text: "{ hash: 'bafkreih6f…k7q', pda: 'SEaL3…x9Q2',\n  jurisdiction: 'LGPD', status: 'sealed' }" },
   ]), []);
@@ -257,7 +257,7 @@ export function Attestation({ style }: { style?: React.CSSProperties }) {
     ['pda',          'SEaL3vQ…x9Q2r7'],
     ['jurisdiction', 'LGPD · Art. 37'],
     ['subject',      'order_9312'],
-    ['prover',       'SP1 v6 · groth16'],
+    ['prover',       'Compact · groth16'],
     ['cu',           '156,128'],
     ['timestamp',    '2026-04-29T14:02:11Z'],
     ['signer',       'DPO2U MCP · mcp.dpo2u.com'],

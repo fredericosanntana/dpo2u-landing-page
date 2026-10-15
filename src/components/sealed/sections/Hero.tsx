@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-10 lg:gap-16 items-start">
         <div>
           <SmallLabel style={{ marginBottom: 24 }}>
-            ISSUE N°001 · COLOSSEUM FRONTIER 2026 · SÃO PAULO · EST. 2021
+            ISSUE N°001 · MIDNIGHT · SÃO PAULO · EST. 2021
           </SmallLabel>
           <h1
             style={{
@@ -50,7 +50,7 @@ export default function Hero() {
               color: PALETTE.inkSoft,
             }}
           >
-            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — native on Stellar (Soroban). 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve.
+            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — built for Midnight, where the record stays shielded. 25 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve.
             <br /><br />
             <b style={{ color: PALETTE.ink }}>The only protocol that seals both regimes</b> — data privacy and AI governance. Score stays private. Proof is public.
             <br />
@@ -145,12 +145,12 @@ export default function Hero() {
           <div style={{ marginTop: 14, textAlign: 'center' }}>
             <SmallLabel>SEAL N° 000 004 821 · 2026-04-29</SmallLabel>
           </div>
-          {/* 90-second pitch — portrait reel embedded under the seal so it sits
-              alongside the stat grid in the left column on desktop. Caps width
-              so the 9:16 reel doesn't dominate the right column. */}
+          {/* Product demo — 16:9, embedded under the seal. Wider cap than the old
+              9:16 pitch reel it replaced, so the landscape frame stays legible
+              in the right column without dominating the stat grid. */}
           <div style={{ marginTop: 24, textAlign: 'center' }}>
             <SmallLabel style={{ marginBottom: 10, display: 'block' }}>
-              § PITCH · 90s
+              § DEMO · MIDNIGHT
             </SmallLabel>
             <video
               controls
@@ -158,15 +158,15 @@ export default function Hero() {
               playsInline
               style={{
                 width: '100%',
-                maxWidth: 280,
+                maxWidth: 420,
                 background: PALETTE.ink,
                 border: `.5px solid ${PALETTE.ruleStrong}`,
                 display: 'block',
                 margin: '0 auto',
               }}
             >
-              <source src="/downloads/pitch/dpo2u-pitch-2026.mp4" type="video/mp4" />
-              <a href="/downloads/pitch/dpo2u-pitch-2026.mp4">Download the pitch (mp4)</a>
+              <source src="/downloads/demo/dpo2u-midnight-demo.mp4" type="video/mp4" />
+              <a href="/downloads/demo/dpo2u-midnight-demo.mp4">Download the demo (mp4)</a>
             </video>
             <div style={{ marginTop: 10 }}>
               <button

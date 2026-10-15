@@ -151,7 +151,7 @@ export function AttestationDetailSheet({ detail, onClose }: { detail: Attestatio
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <SmallLabel>Anchored</SmallLabel>
-              <span style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.concrete }}>{d.at ? new Date(d.at).toISOString().slice(0, 10) : '—'} · Stellar</span>
+              <span style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.concrete }}>{d.at ? new Date(d.at).toISOString().slice(0, 10) : '—'} · on-chain</span>
             </div>
             <div className="flex gap-3" style={{ marginTop: 6 }}>
               {txHref && <a href={txHref} target="_blank" rel="noreferrer" className="py-2 px-4 font-mono text-[11px] uppercase tracking-[.12em]" style={{ border: `1px solid ${PALETTE.ruleStrong}`, color: PALETTE.ink, textDecoration: 'none' }}>tx ↗</a>}

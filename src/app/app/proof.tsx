@@ -87,7 +87,7 @@ export default function AppProof() {
         <Field label="Verdict">{verdict ?? (loading ? '…' : '—')}</Field>
         <Field label="Evidence hash (sha-256)">{hash}</Field>
         <Field label="Use case">{uc}</Field>
-        <Field label="Contract (Soroban testnet)">
+        <Field label="Contract (Midnight testnet)">
           <a href={`${EXPLORER}/contract/${DEFAULT_CONTRACT.id}`} target="_blank" rel="noreferrer" style={{ color: PALETTE.terracotta }}>
             {truncateContract(DEFAULT_CONTRACT.id)} ↗
           </a>

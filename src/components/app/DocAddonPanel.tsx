@@ -110,7 +110,7 @@ export function DocAddonPanel() {
       </h2>
       <p className="mt-2 text-[14px]" style={{ color: PALETTE.inkSoft }}>
         Paid via x402 (USDC SAC) per document, signed with Freighter. If the repository is connected (Door A) to this wallet, the document is attached to the repo's compliance issue.
-        {' '}(Stellar testnet for now.)
+        {' '}(Midnight preview for now.)
       </p>
 
       {/* Full bundle: closes ALL observable gaps in one PR + projects the post-merge score */}

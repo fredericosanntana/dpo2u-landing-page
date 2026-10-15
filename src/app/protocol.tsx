@@ -1,4 +1,4 @@
-// /protocol — DPO2U compliance-as-a-protocol on Stellar (Soroban).
+// /protocol — DPO2U compliance-as-a-protocol on Stellar .
 // Sprint Stellar (2026-06): substitui /solana-protocol. Reusa o registro de
 // contratos (contracts.ts) + o indexer de eventos (indexer-store) do piloto.
 // Chain-neutral na rota; o conteúdo é Stellar-native e honesto: 1 contrato
@@ -18,12 +18,12 @@ const FLOW_STEPS = [
   {
     n: '02',
     title: 'register_attestation',
-    desc: 'An authorized submitter anchors (use_case_id, verdict, evidence_hash, metadata_hash) into the Soroban contract. The signer satisfies submitter.require_auth() — self-custody via Freighter or gateway-signed.',
+    desc: 'An authorized submitter anchors (use_case_id, verdict, evidence_hash, metadata_hash) into the compliance contract. The signer satisfies submitter.require_auth() — self-custody via Freighter or gateway-signed.',
   },
   {
     n: '03',
     title: 'verify_attestation',
-    desc: 'Anyone reads the contract by (use_case_id, evidence_hash) over Soroban RPC — no wallet, no fee. Returns the verdict, predicate version, submitter and timestamp. This is what /verify renders.',
+    desc: 'Anyone reads the contract by (use_case_id, evidence_hash) over public RPC — no wallet, no fee. Returns the verdict, predicate version, submitter and timestamp. This is what /verify renders.',
   },
   {
     n: '04',
@@ -88,7 +88,7 @@ function LiveContractStats() {
         ))}
       </div>
       <div style={{ padding: '10px 22px', borderTop: `.5px solid ${PALETTE.rule}`, fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete }}>
-        {error ? `indexer: ${error}` : loading ? 'reading the chain…' : `read-only · Soroban ${DEFAULT_CONTRACT.network} · refreshed every 30s`}
+        {error ? `indexer: ${error}` : loading ? 'reading the chain…' : `read-only · Midnight ${DEFAULT_CONTRACT.network} · refreshed every 30s`}
       </div>
     </div>
   );
@@ -96,8 +96,8 @@ function LiveContractStats() {
 
 export default function ProtocolPage() {
   usePageHead({
-    title: 'Protocol — compliance on Stellar (Soroban) | DPO2U',
-    description: 'DPO2U is compliance as a protocol on Stellar. An immutable Soroban contract anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over Soroban RPC. ~$0.0002 per seal, read-only verify is free.',
+    title: 'Protocol — compliance on Midnight | DPO2U',
+    description: 'DPO2U is compliance as a protocol on Midnight. The record is kept shielded and disclosure is a rule, not an exposure; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. ~$0.0002 per seal, read-only verify is free.',
     path: '/protocol',
   });
 
@@ -110,7 +110,7 @@ export default function ProtocolPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 items-start">
           <div>
             <SmallLabel style={{ marginBottom: 16, color: PALETTE.terracotta }}>
-              PROTOCOL · ON-CHAIN PRIMITIVES · STELLAR SOROBAN · LIVE TESTNET
+              PROTOCOL · ON-CHAIN PRIMITIVES · MIDNIGHT · SELECTIVE DISCLOSURE
             </SmallLabel>
             <h1
               style={{ fontFamily: FONTS.display, fontWeight: 500, lineHeight: 1.02, letterSpacing: '-.035em', margin: 0 }}
@@ -126,11 +126,11 @@ export default function ProtocolPage() {
               <code style={{ fontFamily: FONTS.mono, color: PALETTE.terracotta, background: PALETTE.paper2, padding: '2px 6px', borderRadius: 2 }}>
                 attestation
               </code>{' '}
-              on an immutable Soroban contract. Anyone verifies it trustlessly by{' '}
+              on an immutable compliance contract. Anyone verifies it trustlessly by{' '}
               <code style={{ fontFamily: FONTS.mono, color: PALETTE.terracotta, background: PALETTE.paper2, padding: '2px 6px', borderRadius: 2 }}>
                 (use_case_id, evidence_hash)
               </code>{' '}
-              over Soroban RPC — no wallet, no fee. The source data stays off-chain; the proof of compliance is public.
+              over public RPC — no wallet, no fee. The source data stays off-chain; the proof of compliance is public.
             </p>
           </div>
           <div className="flex justify-center lg:justify-end pt-2">
@@ -163,9 +163,9 @@ export default function ProtocolPage() {
       {/* The contract */}
       <section id="contract" className="px-6 lg:px-14 py-24" style={{ borderBottom: `.5px solid ${PALETTE.rule}` }}>
         <SectionHeader
-          marker={`§ II · SOROBAN CONTRACT · STELLAR ${DEFAULT_CONTRACT.network.toUpperCase()}`}
+          marker={`§ II · COMPLIANCE CONTRACT · ${DEFAULT_CONTRACT.network.toUpperCase()}`}
           title={<>One contract, <span style={{ fontStyle: 'italic' }}>immutable.</span></>}
-          lede="The first Soroban contract of the DPO2U compliance-as-protocol stack. Clickable to Stellar Expert. Same contract /verify and the app read end-to-end."
+          lede="The first compliance contract of the DPO2U compliance-as-protocol stack. Clickable to Stellar Expert. Same contract /verify and the app read end-to-end."
         />
 
         <div className="mt-14" style={{ border: `.5px solid ${PALETTE.ruleStrong}`, background: PALETTE.paper }}>
@@ -189,7 +189,7 @@ export default function ProtocolPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3">
             {[
-              ['Network', `Soroban ${DEFAULT_CONTRACT.network}`],
+              ['Network', `Midnight ${DEFAULT_CONTRACT.network}`],
               ['Deployed', DEFAULT_CONTRACT.deployed_at.slice(0, 10)],
               ['WASM hash', truncateContract(DEFAULT_CONTRACT.wasm_hash, 8, 6)],
             ].map(([l, v], i) => (
@@ -253,7 +253,7 @@ export default function ProtocolPage() {
 │ score              : [PRIVATE]       │
 │ submitted_by       : GDJSDCHT…       │
 └──────────────────────────────────────┘
-✓ verified on Soroban ${DEFAULT_CONTRACT.network} [Stellar Expert↗]`}
+✓ verified on Midnight ${DEFAULT_CONTRACT.network} [Stellar Expert↗]`}
             </pre>
           </div>
         </div>
@@ -271,7 +271,7 @@ export default function ProtocolPage() {
           </h2>
           <p style={{ fontFamily: FONTS.body, fontSize: 17, lineHeight: 1.6, color: PALETTE.inkSoft, marginTop: 24 }}>
             The trustless verifier ships as an npm package. No wallet, no key — verification is a read-only
-            Soroban call. Or open any{' '}
+            Midnight call. Or open any{' '}
             <code style={{ fontFamily: FONTS.mono, color: PALETTE.terracotta }}>/verify</code> link in the browser.
           </p>
           <div style={{ marginTop: 24, background: PALETTE.paper2, border: `.5px solid ${PALETTE.ruleStrong}`, padding: 20, borderRadius: 4 }}>

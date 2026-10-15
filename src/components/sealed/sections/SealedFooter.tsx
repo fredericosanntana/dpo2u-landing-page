@@ -39,7 +39,7 @@ export default function SealedFooter() {
               maxWidth: 380,
             }}
           >
-            DPO2U is a São Paulo compliance house. <b style={{ color: PALETTE.ink }}>Founded 2021.</b> Now turning five years of regulatory engineering into on-chain primitives on Stellar — for every project that processes data, issues tokens, or runs AI. 24 jurisdictions. 70 countries. 8 AI governance frameworks.
+            DPO2U is a São Paulo compliance house. <b style={{ color: PALETTE.ink }}>Founded 2021.</b> Now turning five years of regulatory engineering into on-chain primitives on Midnight — for every project that processes data, issues tokens, or runs AI. 24 jurisdictions. 70 countries. 8 AI governance frameworks.
           </div>
           <div
             style={{
@@ -79,7 +79,7 @@ export default function SealedFooter() {
             ['About DPO2U', '/about'],
             ['Manifesto', '/about'],
             ['Research', '/research'],
-            ['Colosseum 2026', '/research'],
+            ['Research', '/research'],
             ['Contact', 'mailto:fredericosanntana@gmail.com'],
           ]}
         />

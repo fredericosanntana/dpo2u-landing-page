@@ -207,7 +207,7 @@ function LoginForm({ onLogin }: { onLogin: (id: string) => void }) {
         className="text-[15px] md:text-[16px] mb-8"
         style={{ color: 'rgba(12,13,16,.75)', maxWidth: '52ch' }}
       >
-        Sign in with your tenant ID to see every compliance attestation sealed on Stellar for
+        Sign in with your tenant ID to see every compliance attestation we sealed for
         your organisation — score, jurisdiction, tx hash, payload link.
       </p>
 
@@ -542,7 +542,7 @@ function EmptyState({ tenantId }: { tenantId: string }) {
         style={{ color: 'rgba(12,13,16,.7)' }}
       >
         Run your first compliance audit. We'll generate a DPIA in 90 seconds and seal the
-        result on Stellar — your portal will show it here after that.
+        result on-chain — your portal will show it here after that.
       </p>
       <Link
         to="/demo"
@@ -664,7 +664,7 @@ function PortalHeader({
           <p className="text-[14px] md:text-[15px]" style={{ color: 'rgba(12,13,16,.7)' }}>
             {count === 0
               ? 'No attestations sealed yet.'
-              : `${count} attestation${count === 1 ? '' : 's'} on Stellar ${isSample ? 'testnet' : ''}. Read-only · Sprint 3 adds actions.`}
+              : `${count} attestation${count === 1 ? '' : 's'} on-chain ${isSample ? '(sample)' : ''}. Read-only · Sprint 3 adds actions.`}
           </p>
         </div>
         <div className="flex items-center gap-4">
@@ -699,7 +699,7 @@ export default function PortalPage() {
   usePageHead({
     title: 'Customer portal — DPO2U',
     description:
-      'Tenant audit history. Every compliance attestation we sealed for your organisation on Stellar — score, jurisdiction, tx hash, payload link. Read-only v0.',
+      'Tenant audit history. Every compliance attestation we sealed for your organisation — score, jurisdiction, tx hash, payload link. Read-only v0.',
     path: '/portal',
   });
 

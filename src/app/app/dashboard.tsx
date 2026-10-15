@@ -24,7 +24,7 @@ interface Row {
   ts: number | null;
   onchain: boolean;
   chain: 'stellar';
-  subject?: string; // Stellar: conta submitter (submitted_by)
+  subject?: string; // submitter account (submitted_by)
   explorerUrl?: string; // link direto pro Stellar Expert
   repo?: string; // contexto rico (do histórico local / summary)
   score?: number;

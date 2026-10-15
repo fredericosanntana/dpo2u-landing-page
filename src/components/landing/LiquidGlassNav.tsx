@@ -2,13 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Shield, Brain, Fingerprint, ChevronDown } from 'lucide-react';
 
 const PRODUCTS = [
-  { num: '01', name: 'Solana Protocol',   desc: 'SP1 v6 ZK verifier + 6 Anchor programs on devnet', href: '/solana-protocol',     icon: Fingerprint, color: 'text-brand-purple-400' },
+  { num: '01', name: 'Midnight',          desc: 'Self-funding agent · selective disclosure',        href: '/midnight',            icon: Fingerprint, color: 'text-brand-purple-400' },
   { num: '02', name: 'MCP Brain',         desc: 'Model Context Protocol tools for compliance agents', href: '/mcp',                 icon: Brain,       color: 'text-brand-sapphire-400' },
   { num: '03', name: 'Compliance Engine', desc: 'LGPD/GDPR automated audit wizard',                   href: '/compliance-automate', icon: Shield,      color: 'text-brand-emerald-400' },
 ];
 
 const NAV_LINKS = [
-  { label: 'Protocol', href: '/solana-protocol' },
+  { label: 'Protocol', href: '/protocol' },
   { label: 'MCP',      href: '/mcp' },
   { label: 'About',    href: '/about' },
 ];

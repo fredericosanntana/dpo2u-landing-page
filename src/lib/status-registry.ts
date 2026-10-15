@@ -87,7 +87,7 @@ export interface Capability {
 }
 
 export const CAPABILITIES: Capability[] = [
-  { key: 'seal', label: 'On-chain seal (Soroban testnet)', status: 'live', note: 'anticorruption CC4TJGDR… + por_filing CCUYKSMQHQ…' },
+  { key: 'seal', label: 'On-chain seal', status: 'live', note: 'anticorruption CC4TJGDR… + por_filing CCUYKSMQHQ…' },
   { key: 'verify', label: 'Public verification /verify', status: 'live', note: 'trustless read by (use_case_id, evidence_hash)' },
   { key: 'ipfs', label: 'Evidence on IPFS (Lighthouse/Filecoin)', status: 'live', note: 'AES-256 + CID; fail-closed (no fabricated CID)' },
   { key: 'zk', label: 'ZK private score (ceremony done)', status: 'live', note: 'Groth16/BLS12-381; vk from the May 29 ceremony (drand)' },

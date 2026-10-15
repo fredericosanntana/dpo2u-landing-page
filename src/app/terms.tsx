@@ -14,7 +14,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function TermsPage() {
   usePageHead({
     title: 'Terms of Service | DPO2U',
-    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U Soroban contract on Stellar testnet.',
+    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U compliance contract on Midnight.',
     path: '/terms',
   });
 

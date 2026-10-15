@@ -70,10 +70,10 @@ export default function AppBilling() {
         Usage &amp; plan<span style={{ color: PALETTE.terracotta }}>.</span>
       </h1>
       <p className="mt-2 text-[15px]" style={{ color: PALETTE.inkSoft }}>
-        Attestation is the unit of billing. Current plan: <b>{tier.label}</b>. (Stellar testnet)
+        Attestation is the unit of billing. Current plan: <b>{tier.label}</b>. (Midnight preview)
       </p>
       <div className="mt-4 p-4" style={{ border: `1px solid ${PALETTE.ruleStrong}`, borderRadius: 4, background: PALETTE.paper2 }}>
-        <SmallLabel>Payment on Stellar</SmallLabel>
+        <SmallLabel>Payment</SmallLabel>
         <p className="mt-1 text-[14px]" style={{ color: PALETTE.inkSoft }}>
           Payment is via <b>x402</b> (USDC SAC on-chain) — the app shows you the exact amount, you sign in Freighter,
           and it retries with the X-PAYMENT header. Running on <b>testnet</b> for now.
@@ -90,7 +90,7 @@ export default function AppBilling() {
         ]} />
       </div>
 
-      {/* Recharge CI credits (GitHub App) — payment via x402 on Stellar (USDC SAC). */}
+      {/* Recharge CI credits (GitHub App) — payment via x402 (USDC). */}
       <div className="mt-4 flex items-center gap-3 flex-wrap">
         <AppButton disabled={!pubkey} loading={rechargeBusy} onClick={() => void onRecharge()}>
           {rechargeBusy ? 'Recharging…' : 'Recharge CI credits →'}

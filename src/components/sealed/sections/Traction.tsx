@@ -67,8 +67,8 @@ export default function Traction() {
         />
         <TractionCard
           metric="✓ LIVE"
-          value="Soroban contract"
-          note="register · verify · configure · authorize. anticorruption-attestation deployed on Stellar testnet, immutable."
+          value="Compliance contract"
+          note="register · verify · configure · authorize. anticorruption-attestation deployed and immutable."
         />
         <TractionCard
           metric="2021 → 2026"
