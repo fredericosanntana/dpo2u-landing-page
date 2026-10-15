@@ -88,7 +88,7 @@ const MCP_SKILLS: MCPSkill[] = [
   {
     name: 'dpo2u-consent-record',
     title: 'On-chain consent record',
-    desc: 'Record or revoke a DPDP India / LGPD consent event on-chain (pre-mainnet) via the consent contract. Purpose hashing + AES-GCM payload + ZK-bound consent via the zero-knowledge verifier.',
+    desc: 'Record or revoke a DPDP India / LGPD consent event on-chain (testnet/devnet) via the consent contract. Purpose hashing + AES-GCM payload + ZK-bound consent via the zero-knowledge verifier.',
     tags: ['Stellar', 'DPDP', 'ZK'],
   },
 ];

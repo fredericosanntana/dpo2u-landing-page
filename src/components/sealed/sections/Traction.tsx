@@ -57,7 +57,7 @@ export default function Traction() {
         className="text-[40px] sm:text-[52px] lg:text-[60px]"
       >
         What runs today.<br />
-        <span style={{ fontStyle: 'italic' }}>Pre-mainnet.</span>
+        <span style={{ fontStyle: 'italic' }}>On the record.</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <TractionCard
@@ -72,8 +72,8 @@ export default function Traction() {
         />
         <TractionCard
           metric="NETWORK STATUS"
-          value="Pre-mainnet"
-          note="Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet."
+          value="Mainnet anchor · Stellar"
+          note="Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview."
         />
       </div>
     </div>

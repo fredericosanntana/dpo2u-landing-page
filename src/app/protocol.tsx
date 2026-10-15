@@ -97,7 +97,7 @@ function LiveContractStats() {
 export default function ProtocolPage() {
   usePageHead({
     title: 'Protocol — compliance as a protocol | DPO2U',
-    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.',
+    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.',
     path: '/protocol',
   });
 
@@ -131,7 +131,7 @@ export default function ProtocolPage() {
                 (use_case_id, evidence_hash)
               </code>{' '}
               over public RPC — no wallet, no fee. The source data stays off-chain; the proof of compliance is public.
-              {' '}Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.
+              {' '}Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.
             </p>
           </div>
           <div className="flex justify-center lg:justify-end pt-2">

@@ -294,7 +294,7 @@ export default function MobileNav() {
               variant="primary"
               size="lg"
               onClick={() => {
-                window.location.href = 'mailto:contato@dpo2u.com.br';
+                window.location.href = 'mailto:contato@dpo2u.com';
                 setIsOpen(false);
               }}
               className="w-full flex items-center justify-center space-x-2"

@@ -108,7 +108,7 @@ export default function LiquidGlassNav() {
               🇧🇷 PT
             </a>
             <a
-              href="mailto:contato@dpo2u.com.br"
+              href="mailto:contato@dpo2u.com"
               className="bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 text-white rounded-full px-4 py-1.5 text-sm font-medium hover:opacity-90 transition-opacity"
             >
               Get in Touch
@@ -161,7 +161,7 @@ export default function LiquidGlassNav() {
           ))}
           <div className="flex gap-3 mt-4">
             <a href="https://dpo2u.com.br" className="text-sm text-zinc-500 border border-white/10 rounded-full px-4 py-2">🇧🇷 PT</a>
-            <a href="mailto:contato@dpo2u.com.br" className="text-sm bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 text-white rounded-full px-4 py-2">Get in Touch</a>
+            <a href="mailto:contato@dpo2u.com" className="text-sm bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 text-white rounded-full px-4 py-2">Get in Touch</a>
           </div>
         </div>
       )}

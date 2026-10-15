@@ -17,7 +17,7 @@ import { DEADLINES, STATS, countdownText } from '@/lib/psav/landing';
 
 type Audience = 'spsav' | 'prestador';
 
-const CONTACT = 'mailto:contato@dpo2u.com.br';
+const CONTACT = 'mailto:contato@dpo2u.com';
 
 // O terracota do site (#C85C3B) não atinge 4.5:1 em texto pequeno (3.81 sobre o card,
 // 4.16 com branco por cima — medido com axe). Nesta página usamos a mesma matiz,

@@ -47,7 +47,7 @@ const TIMELINE: TimelineItem[] = [
   {
     year: '2026',
     title: 'On-chain',
-    body: 'Compliance as a protocol. A zero-knowledge layer proves score ≥ threshold without revealing the score. Anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC — no wallet, no fee. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.',
+    body: 'Compliance as a protocol. A zero-knowledge layer proves score ≥ threshold without revealing the score. Anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC — no wallet, no fee. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.',
   },
 ];
 
@@ -73,7 +73,7 @@ const MANIFESTO_PARAGRAPHS: Array<{ text: string; pullQuote?: boolean }> = [
   { text: 'Five years ago, DPO2U began as twenty lines in a Zettelkasten.' },
   { text: 'We did not want to found a SaaS for compliance. We wanted to understand why compliance had become an industry of monthly dashboards, hours-of-lawyer, and signed PDFs — when the underlying claim is, at heart, verifiable mathematics.' },
   { text: 'Publish before you sell. Research before you code. Code before you hire. That order is the thesis: research first, primitive next, product third.', pullQuote: true },
-  { text: 'Today: 25 jurisdictions in the norms engine, each with source and date. ZK circuits in Circom (Groth16, BN254) and Compact contracts (Midnight). 77 MCP tools. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.' },
+  { text: 'Today: 25 jurisdictions in the norms engine, each with source and date. ZK circuits in Circom (Groth16, BN254) and Compact contracts (Midnight). 77 MCP tools. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.' },
   { text: 'No dashboard. No monthly subscription with a PDF report. No consultant billing by the hour.' },
   { text: 'We are not the $50k compliance consultancy. We are the research house that writes the primitive.' },
   { text: 'We are the DPO who ships code. The lawyer who learned to compute. The house that proved — in zero-knowledge proofs on-chain — that compliance can be mathematics.', pullQuote: true },
@@ -82,7 +82,7 @@ const MANIFESTO_PARAGRAPHS: Array<{ text: string; pullQuote?: boolean }> = [
 export default function AboutPage() {
   usePageHead({
     title: 'About — Origin story & F13 manifesto | DPO2U',
-    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. The full story.',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. The full story.',
     path: '/about',
   });
 
@@ -294,8 +294,8 @@ export default function AboutPage() {
           Based in São Paulo, BR.
         </p>
         <div className="mt-10 flex gap-3 flex-wrap">
-          <Button kind="terracotta" href="mailto:contato@dpo2u.com.br">
-            contato@dpo2u.com.br →
+          <Button kind="terracotta" href="mailto:contato@dpo2u.com">
+            contato@dpo2u.com →
           </Button>
           <Button kind="ghost" href="https://github.com/fredericosanntana">
             GitHub

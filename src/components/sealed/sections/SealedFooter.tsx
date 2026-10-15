@@ -39,7 +39,7 @@ export default function SealedFooter() {
               maxWidth: 380,
             }}
           >
-            DPO2U is a São Paulo compliance house. <b style={{ color: PALETTE.ink }}>Founded 2021.</b> Turning regulatory engineering into on-chain primitives — for every project that processes data, issues tokens, or runs AI. 25 jurisdictions. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.
+            DPO2U is a São Paulo compliance house. <b style={{ color: PALETTE.ink }}>Founded 2021.</b> Turning regulatory engineering into on-chain primitives — for every project that processes data, issues tokens, or runs AI. 25 jurisdictions. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.
           </div>
           <div
             style={{
@@ -80,7 +80,7 @@ export default function SealedFooter() {
             ['Manifesto', '/about'],
             ['Research', '/research'],
             ['Research', '/research'],
-            ['Contact', 'mailto:contato@dpo2u.com.br'],
+            ['Contact', 'mailto:contato@dpo2u.com'],
           ]}
         />
         <FooterCol

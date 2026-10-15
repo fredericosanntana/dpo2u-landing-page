@@ -82,7 +82,7 @@ export default function Header() {
               className="hidden sm:inline-flex bg-brand-sapphire-600 hover:opacity-90 border-0 shadow-lg transform hover:scale-105 transition-all"
               onClick={() => {
                 trackCTA('get_in_touch', 'header_desktop');
-                window.location.href = 'mailto:contato@dpo2u.com.br';
+                window.location.href = 'mailto:contato@dpo2u.com';
               }}
             >
               Get in Touch

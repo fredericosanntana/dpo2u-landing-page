@@ -325,7 +325,7 @@ export default function CoveragePage() {
             marginTop: 28,
           }}
         >
-          — Compliance contract on Stellar testnet · 77 MCP tools · trustless verify by (use_case_id, evidence_hash) · Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. —
+          — Compliance contract on Stellar testnet · 77 MCP tools · trustless verify by (use_case_id, evidence_hash) · Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. —
         </p>
       </section>
 

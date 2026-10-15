@@ -1,7 +1,7 @@
 /**
  * /pricing — em revisão (hotfix S0, 15/10/2026).
  *
- * O preço por selo e o "Midnight live" saíram do ar até haver mainnet. A página
+ * O preço por selo e o "Midnight live" saíram do ar (em revisão). A página
  * mantém os três jeitos de contratar, sem número, e o CTA de contato.
  * Reversão: git show snapshot/live-2026-10-02:src/app/pricing.tsx
  */
@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 import { usePageHead } from '@/lib/page-head';
 import { FONTS, PALETTE } from '@/components/sealed/atoms';
 
-const CONTACT_EMAIL = 'contato@dpo2u.com.br';
-const NETWORK_STATUS = 'Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.';
+const CONTACT_EMAIL = 'contato@dpo2u.com';
+const NETWORK_STATUS = 'Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.';
 
 const WAYS = [
   { name: 'Run it yourself', pitch: 'You run the compliance primitives in your own CI/CD and hold the keys. SDK in private alpha.' },
@@ -24,7 +24,7 @@ export default function PricingPage() {
   usePageHead({
     title: 'Pricing — DPO2U',
     description:
-      'Pricing is under review until the first mainnet deployment. ' + NETWORK_STATUS + ' Talk to us for a pilot.',
+      'Pricing is under review. ' + NETWORK_STATUS + ' Talk to us for a pilot.',
     path: '/pricing',
   });
 
@@ -43,7 +43,7 @@ export default function PricingPage() {
             Pricing under review.
           </h1>
           <p className="mt-6 max-w-[62ch] text-[17px] md:text-[19px] text-dpo2u-ink/75">
-            We are not publishing prices until the first mainnet deployment. Pilots are
+            We are not publishing prices yet. Pilots are
             scoped case by case — talk to us.
           </p>
           <p className="mt-3 max-w-[62ch] font-mono text-[12px] uppercase tracking-[0.14em] text-dpo2u-terracotta">

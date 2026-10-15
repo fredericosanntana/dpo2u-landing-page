@@ -18,7 +18,7 @@ const FOOTER_LINKS = {
     { label: 'About', href: '/about' },
     { label: 'Privacy', href: '/privacy' },
     { label: 'Terms', href: '/terms' },
-    { label: 'Contact', href: 'mailto:contato@dpo2u.com.br' },
+    { label: 'Contact', href: 'mailto:contato@dpo2u.com' },
   ],
 };
 
@@ -79,7 +79,7 @@ export default function LiquidGlassLayout({ children }: LiquidGlassLayoutProps) 
             <div className="flex gap-6">
               <a href="/privacy" className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">Privacy</a>
               <a href="/terms" className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">Terms</a>
-              <a href="mailto:contato@dpo2u.com.br" className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">Contact</a>
+              <a href="mailto:contato@dpo2u.com" className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">Contact</a>
             </div>
           </div>
         </div>

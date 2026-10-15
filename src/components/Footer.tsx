@@ -42,7 +42,7 @@ export default function Footer() {
               <div className="space-y-3">
                 <div className="flex items-center text-brand-platinum-500">
                   <div className="w-2 h-2 bg-brand-emerald-500 rounded-full mr-3"></div>
-                  <span className="text-sm">contato@dpo2u.com.br</span>
+                  <span className="text-sm">contato@dpo2u.com</span>
                 </div>
                 <div className="flex items-center text-brand-platinum-500">
                   <div className="w-2 h-2 bg-brand-purple-500 rounded-full mr-3"></div>

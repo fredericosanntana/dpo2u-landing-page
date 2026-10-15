@@ -165,7 +165,7 @@ const FAQSection: React.FC = () => {
                 the DPO2U private stack is right for your needs.
               </p>
               <a
-                href="mailto:contato@dpo2u.com.br"
+                href="mailto:contato@dpo2u.com"
                 className="inline-flex px-6 py-3 bg-gradient-to-r from-brand-sapphire-600 to-brand-sapphire-700 text-white rounded-xl font-medium hover:from-brand-sapphire-700 hover:to-brand-sapphire-800 transition-colors"
               >
                 Schedule Assessment

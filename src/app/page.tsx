@@ -29,7 +29,7 @@ export default function HomePage() {
   usePageHead({
     title: 'DPO2U — Compliance as a protocol.',
     description:
-      'The HTTPS of compliance. Provable compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. Score stays private, proof is public.',
+      'The HTTPS of compliance. Provable compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. Score stays private, proof is public.',
     path: '/',
   });
   return (

@@ -452,7 +452,7 @@ app.post('/api/alpha-signup', alphaSignupLimiter, async (req, res) => {
         console.error(`[alpha-signup] persist failed for ${submissionId}:`, e?.message || e);
         return res.status(500).json({
             error: 'persist_failed',
-            message: 'Submission could not be saved server-side. Email contato@dpo2u.com.br and we will book the call manually.',
+            message: 'Submission could not be saved server-side. Email contato@dpo2u.com and we will book the call manually.',
             submissionId,
         });
     }
@@ -616,7 +616,7 @@ app.post('/api/alpha-signup', alphaSignupLimiter, async (req, res) => {
     } catch (e) {
         console.error('[alpha-signup] chairman email failed:', e?.stderr || e?.message || e);
         return res.status(500).json({
-            error: 'Submission saved but Chairman notification failed. Try again or email contato@dpo2u.com.br directly.',
+            error: 'Submission saved but Chairman notification failed. Try again or email contato@dpo2u.com directly.',
             submissionId,
         });
     }
@@ -637,7 +637,7 @@ app.post('/api/alpha-signup', alphaSignupLimiter, async (req, res) => {
         return res.status(200).json({
             submissionId,
             status: 'submitted',
-            warning: 'Submission received but confirmation email failed to send. Check your spam folder, or contact contato@dpo2u.com.br.',
+            warning: 'Submission received but confirmation email failed to send. Check your spam folder, or contact contato@dpo2u.com.',
         });
     }
 

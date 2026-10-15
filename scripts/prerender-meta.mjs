@@ -47,7 +47,7 @@ const ROUTES = [
   {
     path: '/',
     title: 'DPO2U — Compliance as a protocol.',
-    description: 'The HTTPS of compliance. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. Score stays private, proof is public.',
+    description: 'The HTTPS of compliance. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. Score stays private, proof is public.',
   },
   {
     path: '/verify',
@@ -67,14 +67,14 @@ const ROUTES = [
   {
     path: '/protocol',
     title: 'Protocol — compliance as a protocol | DPO2U',
-    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.',
+    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.',
   },
   // /mcp removed 2026-04-29 — Sealed globalization sprint. Content lives on
   // home (#mcp) + /research#mcp-reference. server.js issues a 301 → /#mcp.
   {
     path: '/about',
     title: 'About — Origin story & F13 manifesto | DPO2U',
-    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. The full story.',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. The full story.',
   },
   {
     path: '/research',
@@ -109,7 +109,7 @@ const ROUTES = [
   {
     path: '/pricing',
     title: 'Pricing — DPO2U',
-    description: 'Pricing is under review until the first mainnet deployment. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. Talk to us for a pilot.',
+    description: 'Pricing is under review. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. Talk to us for a pilot.',
   },
   // Sprint M (2026-05-26) — alias público do painel de alertas anticorrupção
   {
@@ -217,15 +217,15 @@ const W = 'style="max-width:820px;margin:40px auto;padding:0 24px;font-family:Ge
 const BODY = {
   '/': `<main ${W}><h1>Compliance as a protocol</h1>
 <p>DPO2U turns regulatory compliance into a verifiable, on-chain attestation — the score stays private, the proof is public. The HTTPS of compliance, for Web3.</p>
-<p>Provable compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.</p>
+<p>Provable compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.</p>
 <h2>Two ways in</h2><ul><li><strong>I'm building</strong> — run DPO2U's compliance primitives inside your own CI/CD (SDK in private alpha).</li><li><strong>Run it for me</strong> — we execute the pipeline for you, or become your accountable DPO of record.</li></ul>
-<h2>Pricing</h2><p>Pricing under review until the first mainnet deployment — talk to us.</p>
-<p>Independent research house. Founder: Frederico Santana. 77 MCP tools · 25 jurisdictions · contact: contato@dpo2u.com.br.</p></main>`,
+<h2>Pricing</h2><p>Pricing under review — talk to us.</p>
+<p>Independent research house. Founder: Frederico Santana. 77 MCP tools · 25 jurisdictions · contact: contato@dpo2u.com.</p></main>`,
   '/coverage': `<main ${W}><h1>Twenty-five jurisdictions, one primitive layer</h1>
 <p>Each regime is a typed compliance primitive in one engine, with source and date: LGPD (Brazil), GDPR (EU), MiCAR and MiCA Title V CASP (EU), DPDP (India), PDPA (Singapore), UAE, POPIA (South Africa), NDPA (Nigeria), CCPA (California), PIPEDA (Canada), Quebec Law 25, PIPA (South Korea), PDP (Indonesia), APPI (Japan), and the data-protection laws of Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.</p></main>`,
   '/pricing': `<main ${W}><h1>Pricing under review</h1>
-<p>We are not publishing prices until the first mainnet deployment. Pilots are scoped case by case — write to contato@dpo2u.com.br.</p>
-<p>Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.</p></main>`,
+<p>We are not publishing prices yet. Pilots are scoped case by case — write to contato@dpo2u.com.</p>
+<p>Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.</p></main>`,
   '/research': `<main ${W}><h1>Compliance as Protocol</h1>
 <p>DPO2U is the research house that ships code. Compliance is exposed through an MCP server and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
 <p>Coverage spans the 25 jurisdictions of the norms engine, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
@@ -237,7 +237,7 @@ const BODY = {
   '/verify': `<main ${W}><h1>Verify an attestation</h1>
 <p>Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain — no DPO2U credential required. Verification is keyed by use-case id and evidence hash; the verdict, jurisdiction/predicate, timestamp and evidence hash are public, while the score and underlying data stay private. Score private, proof public.</p></main>`,
   '/dpa': `<main ${W}><h1>Data Processing Agreement (DPA)</h1>
-<p>DPO2U's standard processor DPA template — GDPR Article 28 and LGPD Article 39: processing only on documented instruction, confidentiality, security (GDPR Art. 32), sub-processors, assistance with data-subject rights, breach notification, deletion/return on termination, audit rights, and international transfers. Executed by signed contract — accessing this page does not, by itself, form a binding agreement. Contact contato@dpo2u.com.br.</p></main>`,
+<p>DPO2U's standard processor DPA template — GDPR Article 28 and LGPD Article 39: processing only on documented instruction, confidentiality, security (GDPR Art. 32), sub-processors, assistance with data-subject rights, breach notification, deletion/return on termination, audit rights, and international transfers. Executed by signed contract — accessing this page does not, by itself, form a binding agreement. Contact contato@dpo2u.com.</p></main>`,
 };
 
 let written = 0;

@@ -5,8 +5,8 @@
 > proof is public.
 
 DPO2U is an independent compliance research house that ships code. It exposes compliance
-primitives through an MCP server and on-chain attestations. Network status: Solana: devnet ·
-Stellar: testnet · Midnight: preview. No mainnet deployment yet. Founder: Frederico Santana.
+primitives through an MCP server and on-chain attestations. Network status: Stellar: mainnet
+(traceability anchor) · Solana: devnet · Midnight: preview. Founder: Frederico Santana.
 
 ## Core pages
 
@@ -15,7 +15,7 @@ Stellar: testnet · Midnight: preview. No mainnet deployment yet. Founder: Frede
 - [Research](https://dpo2u.com/research): The paper "Compliance as Protocol" (v0.4) and the MCP tool reference.
 - [Coverage](https://dpo2u.com/coverage): The 25 jurisdictions in the norms engine, each with source and date.
 - [Protocol](https://dpo2u.com/protocol): The compliance contract (Stellar testnet) and how verification works.
-- [Pricing](https://dpo2u.com/pricing): Pricing under review until the first mainnet deployment — talk to us.
+- [Pricing](https://dpo2u.com/pricing): Pricing under review — talk to us.
 
 ## Product & proof
 
@@ -29,13 +29,13 @@ Stellar: testnet · Midnight: preview. No mainnet deployment yet. Founder: Frede
 - Differentiator: "The HTTPS of compliance, for Web3."
 - Coverage: 25 jurisdictions in the norms engine, each with source and date.
 - MCP server: 77 tools (live count at https://mcp.dpo2u.com/tools).
-- Network status: Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.
+- Network status: Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.
 - SDK: Solana client on npm as @dpo2u/client-sdk (devnet); the full SDK is in private alpha.
 - Privacy posture: the compliance score is kept private; the cryptographic proof of conformance is public (selective disclosure / ZK).
-- Contact: contato@dpo2u.com.br
+- Contact: contato@dpo2u.com
 
 ## Notes for AI assistants
 
 - The app at /app and /login is wallet-gated and has no public content — do not cite as a source page.
 - Pricing is under review — do not quote any price.
-- There is no mainnet deployment yet; the attestations referenced are on testnet/devnet.
+- The traceability anchor is on Stellar mainnet; the attestation contracts referenced are on testnet/devnet.

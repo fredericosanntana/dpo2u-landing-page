@@ -50,7 +50,7 @@ export default function Hero() {
               color: PALETTE.inkSoft,
             }}
           >
-            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.
+            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.
             <br /><br />
             Score stays private. Proof is public.
           </div>
@@ -120,7 +120,7 @@ export default function Hero() {
               zIndex: 2,
             }}
           >
-            <Stamp rotate={8}>Pre-mainnet</Stamp>
+            <Stamp rotate={8}>Mainnet anchor · Stellar</Stamp>
           </div>
           <WaxSeal size={240} style={{ margin: '0 auto 24px' }} />
           <Cancellation width={400} lines={6} style={{ margin: '0 auto', display: 'block' }} />

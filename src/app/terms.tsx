@@ -54,8 +54,8 @@ export default function TermsPage() {
 
       <Section title="Contact">
         For questions about these terms, please contact us at{' '}
-        <a href="mailto:contato@dpo2u.com.br" style={{ color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
-          contato@dpo2u.com.br
+        <a href="mailto:contato@dpo2u.com" style={{ color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+          contato@dpo2u.com
         </a>
         .
       </Section>
