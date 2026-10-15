@@ -35,7 +35,7 @@ interface Row {
 function EmptyState() {
   const STEPS = [
     { n: 1, h: 'Choose what to prove', p: 'VASP PoR, CVM token, agent runtime, data-protection, or a BCB 5710/5711 filing — we run the engine and seal it.', to: '/app/start', cta: 'Start →' },
-    { n: 2, h: 'Or run the SDK yourself', p: 'Anchor seals from your own CI/CD. $0.0002 per attestation.', to: '/research', cta: 'Read the docs →' },
+    { n: 2, h: 'Or run the SDK yourself', p: 'Anchor seals from your own CI/CD. SDK in private alpha.', to: 'https://docs.dpo2u.com', cta: 'Read the docs →' },
     { n: 3, h: 'Share a public proof', p: 'Every seal gets a shareable, trustless /verify link.', to: '/verify', cta: 'See verify →' },
   ];
   return (

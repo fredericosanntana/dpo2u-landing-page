@@ -13,3 +13,6 @@ node_modules/
 
 # artefato incremental do tsc — muda a cada build, não é fonte (add 2026-08-04)
 *.tsbuildinfo
+
+# S0 15/10/2026: .env.local sai do versionamento (config local do build; continua no disco)
+.env.local

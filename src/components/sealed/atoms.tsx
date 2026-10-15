@@ -170,15 +170,15 @@ export function Cancellation({
 export function SealTerminal({ autoplay = true, speed = 18, style }:
   { autoplay?: boolean; speed?: number; style?: React.CSSProperties }) {
   const lines = React.useMemo(() => ([
-    { t: 'prompt', text: '$ npm install dpo2u-sdk' },
+    { t: 'prompt', text: '$ npm install @dpo2u/client-sdk' },
     { t: 'sys',    text: 'added 1 package in 1.2s' },
     { t: 'blank',  text: '' },
     { t: 'prompt', text: '$ node' },
-    { t: 'js',     text: "> import { DPO2U } from 'dpo2u-sdk'" },
+    { t: 'js',     text: "> import { DPO2U } from '@dpo2u/client-sdk'" },
     { t: 'js',     text: "> const dpo2u = new DPO2U({ network: 'stellar' })" },
     { t: 'js',     text: "> await dpo2u.attest({ jurisdiction: 'LGPD', subject: 'order_9312' })" },
-    { t: 'out',    text: '⌛ anchoring on Midnight · attestUseCase' },
-    { t: 'ok',     text: '✓ sealed in 1.94s · $0.00019' },
+    { t: 'out',    text: '⌛ anchoring on devnet · attestUseCase' },
+    { t: 'ok',     text: '✓ sealed · devnet' },
     { t: 'obj',    text: "{ hash: 'bafkreih6f…k7q', pda: 'SEaL3…x9Q2',\n  jurisdiction: 'LGPD', status: 'sealed' }" },
   ]), []);
   const [n, setN] = React.useState(0);

@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-10 lg:gap-16 items-start">
         <div>
           <SmallLabel style={{ marginBottom: 24 }}>
-            ISSUE N°001 · MIDNIGHT · SÃO PAULO · EST. 2021
+            ISSUE N°001 · SÃO PAULO · EST. 2021
           </SmallLabel>
           <h1
             style={{
@@ -50,20 +50,18 @@ export default function Hero() {
               color: PALETTE.inkSoft,
             }}
           >
-            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — built for Midnight, where the record stays shielded. 25 jurisdictions, 70+ countries, 8 AI-governance frameworks. From DPIA generation to MiCA proof-of-reserve.
+            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.
             <br /><br />
-            <b style={{ color: PALETTE.ink }}>The only protocol that seals both regimes</b> — data privacy and AI governance. Score stays private. Proof is public.
-            <br />
-            Without a lawyer. Without a dashboard your buyer can see.
+            Score stays private. Proof is public.
           </div>
           <div
             style={{ marginTop: 36 }}
             className="flex gap-3 items-center flex-wrap"
           >
-            <Button kind="terracotta" href="#sdk">
-              <span style={{ fontFamily: FONTS.mono, fontSize: 13.5 }}>$ npm install dpo2u-sdk</span>
+            <Button kind="terracotta" href="https://www.npmjs.com/package/@dpo2u/client-sdk">
+              <span style={{ fontFamily: FONTS.mono, fontSize: 13.5 }}>$ npm install @dpo2u/client-sdk</span>
             </Button>
-            <Button kind="ghost" href="/research">Read the docs →</Button>
+            <Button kind="ghost" href="https://docs.dpo2u.com">Read the docs →</Button>
             <span
               style={{
                 fontFamily: FONTS.mono,
@@ -72,7 +70,7 @@ export default function Hero() {
                 letterSpacing: '.15em',
                 marginLeft: 8,
               }}
-            >v0.4.1 · MIT · TS-first</span>
+            >Solana client · devnet · SDK in private alpha</span>
           </div>
           <div
             className="mt-14 grid grid-cols-2 lg:grid-cols-4"
@@ -82,10 +80,10 @@ export default function Hero() {
             }}
           >
             {[
-              ['1.94s', 'per attestation'],
-              ['$0.0002', 'per seal'],
-              ['24', 'jurisdictions'],
-              ['5 yrs', 'since 2021'],
+              ['25', 'jurisdictions'],
+              ['77', 'MCP tools'],
+              ['55', 'BCB 520 obligations as code'],
+              ['0.00021 SOL', 'est. per attestation · devnet'],
             ].map(([n, l], i) => (
               <div
                 key={l}
@@ -122,7 +120,7 @@ export default function Hero() {
               zIndex: 2,
             }}
           >
-            <Stamp rotate={8}>Live · Testnet</Stamp>
+            <Stamp rotate={8}>Pre-mainnet</Stamp>
           </div>
           <WaxSeal size={240} style={{ margin: '0 auto 24px' }} />
           <Cancellation width={400} lines={6} style={{ margin: '0 auto', display: 'block' }} />

@@ -83,7 +83,7 @@ export default function DPAPage() {
           This is DPO2U’s standard DPA template as a data Processor. It is executed by a signed
           contract between Controller and Processor — accessing this page does not, by itself,
           constitute a binding agreement. To execute a DPA, contact{' '}
-          <a href="mailto:dpo@dpo2u.com" style={{ color: PALETTE.terracotta, textDecoration: 'underline' }}>dpo@dpo2u.com</a>.
+          <a href="mailto:contato@dpo2u.com.br" style={{ color: PALETTE.terracotta, textDecoration: 'underline' }}>contato@dpo2u.com.br</a>.
         </p>
 
         <Rule style={{ margin: '40px 0' }} color={PALETTE.ruleStrong} />

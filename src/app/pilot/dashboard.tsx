@@ -117,7 +117,7 @@ export default function PilotDashboardPage() {
                 <li style={{ marginBottom: 10 }}>
                   <strong style={{ color: PALETTE.ink }}>Decode.</strong> O{' '}
                   <code style={monoCode}>decodeAttestationRecord</code> do{' '}
-                  <code style={monoCode}>@dpo2u/stellar-sdk</code> converte ScVal → JS.
+                  SDK de verificação da DPO2U (Stellar) converte ScVal → JS.
                 </li>
                 <li style={{ marginBottom: 10 }}>
                   <strong style={{ color: PALETTE.ink }}>Cache.</strong> Os últimos 200 eventos ficam em{' '}

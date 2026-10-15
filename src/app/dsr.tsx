@@ -512,7 +512,7 @@ export default function DSRPage() {
                             to="/coverage"
                             className="text-dpo2u-ink/80 border-b border-dpo2u-ink/30 hover:border-dpo2u-terracotta hover:text-dpo2u-terracotta transition-colors pb-0.5"
                         >
-                            → Coverage (24 jurisdictions)
+                            → Coverage (25 jurisdictions)
                         </Link>
                         <Link
                             to="/privacy"

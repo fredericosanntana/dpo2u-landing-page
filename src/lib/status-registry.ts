@@ -6,7 +6,7 @@
 export type Status = 'live' | 'roadmap' | 'gated';
 
 export const STATUS_LABEL: Record<Status, string> = {
-  live: 'Live · testnet',
+  live: 'Testnet',
   roadmap: 'Roadmap',
   gated: 'Gated',
 };
@@ -63,7 +63,7 @@ export const OBLIGATIONS: Obligation[] = [
   {
     key: 'data',
     title: 'Data protection (LGPD/GDPR…)',
-    blurb: 'DPIA, policy, privacy score — 24 jurisdictions. Evidence encrypted on IPFS.',
+    blurb: 'DPIA, policy, privacy score — 25 jurisdictions. Evidence encrypted on IPFS.',
     status: 'live',
     route: '/app/activate',
   },

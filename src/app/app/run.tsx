@@ -192,7 +192,7 @@ export default function AppRun() {
         <Link to="/app/start" className={btnClass('ghost')}>Switch obligation</Link>
       </div>
       <p className="mt-5 text-[12px]" style={{ color: PALETTE.concrete, fontFamily: FONTS.mono }}>
-        Seals a REAL attestation on Midnight testnet (gateway-signed). Private score, public proof.
+        Seals a real testnet attestation (gateway-signed). Private score, public proof.
       </p>
     </div>
   );

@@ -56,24 +56,24 @@ export default function Traction() {
         }}
         className="text-[40px] sm:text-[52px] lg:text-[60px]"
       >
-        Five years. Fourteen programs.<br />
-        <span style={{ fontStyle: 'italic' }}>Live today.</span>
+        What runs today.<br />
+        <span style={{ fontStyle: 'italic' }}>Pre-mainnet.</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <TractionCard
           metric="✓ HEALTH"
           value="mcp.dpo2u.com"
-          note="Endpoint live. OAuth. 54 tools responding under 2s end-to-end. Polled every 60s."
+          note="Endpoint live. 77 tools listed at mcp.dpo2u.com/tools."
         />
         <TractionCard
-          metric="✓ LIVE"
+          metric="✓ TESTNET"
           value="Compliance contract"
-          note="register · verify · configure · authorize. anticorruption-attestation deployed and immutable."
+          note="register · verify · configure · authorize. anticorruption-attestation deployed and immutable on Stellar testnet."
         />
         <TractionCard
-          metric="2021 → 2026"
-          value="Five-year track record"
-          note="DPO2U has shipped LGPD compliance to production since 2021 — five years of operating compliance for SaaS, fintech, exchanges, and AI startups across Brazil and the EU."
+          metric="NETWORK STATUS"
+          value="Pre-mainnet"
+          note="Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet."
         />
       </div>
     </div>

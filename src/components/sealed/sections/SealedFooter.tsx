@@ -39,7 +39,7 @@ export default function SealedFooter() {
               maxWidth: 380,
             }}
           >
-            DPO2U is a São Paulo compliance house. <b style={{ color: PALETTE.ink }}>Founded 2021.</b> Now turning five years of regulatory engineering into on-chain primitives on Midnight — for every project that processes data, issues tokens, or runs AI. 24 jurisdictions. 70 countries. 8 AI governance frameworks.
+            DPO2U is a São Paulo compliance house. <b style={{ color: PALETTE.ink }}>Founded 2021.</b> Turning regulatory engineering into on-chain primitives — for every project that processes data, issues tokens, or runs AI. 25 jurisdictions. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.
           </div>
           <div
             style={{
@@ -80,16 +80,15 @@ export default function SealedFooter() {
             ['Manifesto', '/about'],
             ['Research', '/research'],
             ['Research', '/research'],
-            ['Contact', 'mailto:fredericosanntana@gmail.com'],
+            ['Contact', 'mailto:contato@dpo2u.com.br'],
           ]}
         />
         <FooterCol
           title="Developers"
           items={[
-            ['Docs', '/research'],
+            ['Docs', 'https://docs.dpo2u.com'],
             ['MCP reference', '/research#mcp-reference'],
             ['GitHub', 'https://github.com/fredericosanntana'],
-            ['npm: dpo2u-sdk', 'https://www.npmjs.com/'],
             ['Stellar Expert', 'https://stellar.expert/explorer/testnet'],
           ]}
         />

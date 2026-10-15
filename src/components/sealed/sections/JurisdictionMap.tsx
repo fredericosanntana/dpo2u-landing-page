@@ -174,7 +174,7 @@ export default function JurisdictionMap() {
         height="100%"
         style={{ display: 'block' }}
         role="img"
-        aria-label="World map showing 18 privacy + crypto jurisdictions covered by DPO2U"
+        aria-label="World map of privacy and crypto jurisdictions covered by DPO2U"
       >
         {/* Country shapes — uncovered = paper2 light gray;
             covered (DPO2U jurisdiction) = terracotta @ 18% pra ficar
@@ -270,7 +270,7 @@ export default function JurisdictionMap() {
           fill={PALETTE.concrete}
           letterSpacing="0.14em"
         >
-          17 JURISDICTIONS · 70 COUNTRIES ADDRESSED
+          JURISDICTIONS IN THE NORMS ENGINE
         </text>
       </svg>
 

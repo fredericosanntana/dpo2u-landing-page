@@ -3,9 +3,9 @@ import React from 'react';
 import { SmallLabel, FONTS, PALETTE } from '../atoms';
 
 const MILESTONES = [
-  { t: '2021 → 2025', label: 'Foundation', items: ['DPO2U founded · São Paulo', 'LGPD reference engine in production', '50M+ CNPJs in regulatory scope', 'Web2 SaaS, fintech & exchange clients'] },
-  { t: '2026 · Q2',   label: 'Now',         items: ['Midnight preview live · shielded compliance contract', '70 MCP tools · OAuth', '25 jurisdictions · 67 countries · EMEA + Americas + APAC', 'Hiroshima ICOC G7 + AI Governance vertical (eight frameworks)', 'CAIDP + UNESCO + UN Global Dialogue alignment', 'Self-funding agent measured on Midnight'] },
-  { t: '2026 · Q3-Q4',label: 'Mainnet',     items: ['Midnight mainnet deploy', 'dpo2u-sdk v1.0 npm', 'SOC2 + HIPAA primitives', 'KSA PDPL · LATAM expansion'] },
+  { t: '2021 → 2025', label: 'Foundation', items: ['DPO2U founded · São Paulo', 'Paper “Compliance as Protocol” (v0.4)', 'LGPD kit generator as an MCP tool'] },
+  { t: '2026',        label: 'Now',         items: ['Solana: devnet · Stellar: testnet · Midnight: preview', '77 MCP tools', '25 jurisdictions in the norms engine, with source and date', 'Res. BCB 520 as code: 55 obligations (v0)', 'ZK verifier (Groth16) on Stellar testnet'] },
+  { t: 'Next',        label: 'Mainnet',     items: ['First mainnet deploy (after audit)', 'SDK out of private alpha', 'SOC2 + HIPAA primitives', 'KSA PDPL · LATAM expansion'] },
   { t: '2027',        label: 'Open',        items: ['Permissionless verifier set', 'On-chain attestation marketplace', 'Cross-chain proofs · zk-bridges'] },
 ];
 
@@ -28,7 +28,7 @@ export default function Roadmap() {
         }}
         className="text-[40px] sm:text-[52px] lg:text-[60px]"
       >
-        Five years in. <span style={{ fontStyle: 'italic' }}>Now on-chain.</span>
+        From research <span style={{ fontStyle: 'italic' }}>to protocol.</span>
       </h2>
       <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0">
         <div

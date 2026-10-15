@@ -8,10 +8,10 @@ const DOORS = [
   {
     tag: "I'm building",
     h: 'Run the primitives in your own stack.',
-    p: 'Install the open-source SDK and run DPO2U’s compliance primitives inside your CI/CD. Open source, any stack — you hold the keys.',
-    code: '$ npm install @dpo2u/sdk',
-    note: 'SDK in private alpha',
-    cta: { label: 'Read the docs →', to: '/research' },
+    p: 'Run DPO2U’s compliance primitives inside your CI/CD — you hold the keys.',
+    code: '$ npm install @dpo2u/client-sdk',
+    note: 'Solana client (devnet) · SDK in private alpha',
+    cta: { label: 'Read the docs →', to: 'https://docs.dpo2u.com' },
   },
   {
     tag: 'Run it for me',

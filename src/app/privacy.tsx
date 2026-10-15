@@ -15,10 +15,10 @@ const SECTIONS: Section[] = [
         <br />
         Contact:{' '}
         <a
-          href="mailto:fredericosanntana@gmail.com"
+          href="mailto:contato@dpo2u.com.br"
           className="border-b border-dpo2u-ink/30 hover:border-dpo2u-indigo hover:text-dpo2u-indigo transition-colors"
         >
-          fredericosanntana@gmail.com
+          contato@dpo2u.com.br
         </a>
         .
       </>
@@ -101,10 +101,10 @@ const SECTIONS: Section[] = [
       <>
         For any privacy-related matter, write to{' '}
         <a
-          href="mailto:fredericosanntana@gmail.com"
+          href="mailto:contato@dpo2u.com.br"
           className="border-b border-dpo2u-ink/30 hover:border-dpo2u-indigo hover:text-dpo2u-indigo transition-colors"
         >
-          fredericosanntana@gmail.com
+          contato@dpo2u.com.br
         </a>
         .
       </>

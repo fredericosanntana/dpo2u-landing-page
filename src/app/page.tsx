@@ -29,7 +29,7 @@ export default function HomePage() {
   usePageHead({
     title: 'DPO2U — Compliance as a protocol.',
     description:
-      'The HTTPS of compliance. Provable compliance for anything that processes data, issues tokens, or runs AI — built for Midnight, where the record stays shielded and disclosure is a rule, not an exposure. The same attestation covers both regimes: data privacy and AI governance, across 25 jurisdictions and 67 countries. The agent that seals also funds itself: it holds NIGHT, and NIGHT regenerates the DUST that pays for the next proof. Score stays private, proof is public.',
+      'The HTTPS of compliance. Provable compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. Score stays private, proof is public.',
     path: '/',
   });
   return (

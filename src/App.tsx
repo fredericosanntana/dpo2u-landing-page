@@ -59,7 +59,6 @@ const PilotV2Oracle       = lazy(() => import('@/app/pilot/v2/oracle'));
 const LoginPage           = lazy(() => import('@/app/login'));
 const AppDashboard        = lazy(() => import('@/app/app/dashboard'));
 const AppActivate         = lazy(() => import('@/app/app/activate'));
-const AppMidnight         = lazy(() => import('@/app/app/midnight'));
 const AppEvidence         = lazy(() => import('@/app/app/evidence'));
 const AppEscrow           = lazy(() => import('@/app/app/escrow'));
 const AppBilling          = lazy(() => import('@/app/app/billing'));
@@ -150,10 +149,10 @@ function App() {
                             <Route path="/verify/:id"       element={<VerifyPublicPage />}   />
                             <Route path="/verify/uc/:uc/hash/:hash" element={<VerifyPublicPage />} />
                             <Route path="/verify"           element={<VerifyPublicPage />}   />
-                            {/* Midnight alpha — wallet-free, self-funding onboarding (chain=midnight via
-                                .dpo2u.yml). Public chrome, NO RequireWallet → renders without a wallet. */}
-                            <Route path="/app/midnight"     element={<AppMidnight />}         />
-                            <Route path="/midnight"         element={<AppMidnight />}         />
+                            {/* S0 15/10/2026: onboarding Midnight fora do ar (backend midnight.dpo2u.com em 502).
+                                Reversão: voltar o lazy import de '@/app/app/midnight' e as duas rotas. */}
+                            <Route path="/app/midnight"     element={<Navigate to="/protocol" replace />} />
+                            <Route path="/midnight"         element={<Navigate to="/protocol" replace />} />
                             {/* Retired pre-app intake — superseded by the functional app (Fase C-E).
                                 /register-dapp → /app/activate · /demo → /login (open the app). */}
                             <Route path="/register-dapp"    element={<Navigate to="/app/activate" replace />} />

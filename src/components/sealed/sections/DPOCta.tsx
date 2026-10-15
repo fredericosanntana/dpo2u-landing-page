@@ -5,7 +5,7 @@ import { SmallLabel, FONTS, PALETTE, WaxSeal } from '../atoms';
 
 const TRUST = [
   ['2021', 'founded · independent'],
-  ['24', 'jurisdictions'],
+  ['25', 'jurisdictions'],
   ['On-chain', 'auditable evidence'],
 ];
 

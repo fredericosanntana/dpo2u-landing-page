@@ -181,9 +181,9 @@ export function VerifyResultCard({ result, useCaseId, evidenceHashHex, chain = '
             ) : (
               <p className="text-xs text-dpo2u-ink/60 font-body italic">
                 Verificação feita diretamente contra o contrato {truncateContract(result.contract_id)} via Soroban
-                RPC pública. Nenhuma credencial DPO2U foi usada. Você pode reproduzir essa consulta com{' '}
-                <code className="bg-dpo2u-ink/5 px-1 py-0.5 rounded font-mono text-[10px]">npm i -g @dpo2u/stellar-sdk</code> e{' '}
-                <code className="bg-dpo2u-ink/5 px-1 py-0.5 rounded font-mono text-[10px]">dpo2u-attest verify {useCaseId} {truncateHash(evidenceHashHex, 6, 4)}</code>.
+                RPC pública. Nenhuma credencial DPO2U foi usada. Você pode reproduzir essa consulta chamando{' '}
+                <code className="bg-dpo2u-ink/5 px-1 py-0.5 rounded font-mono text-[10px]">verify_attestation {useCaseId} {truncateHash(evidenceHashHex, 6, 4)}</code>{' '}
+                em qualquer RPC Soroban pública (Stellar testnet).
               </p>
             )}
           </div>

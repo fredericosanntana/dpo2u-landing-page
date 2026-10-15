@@ -267,7 +267,6 @@ export default function PsavLandingPage() {
           <li>As regras são públicas e versionadas, e cada uma cita o artigo. O passaporte fixa o hash da versão avaliada.</li>
           <li>Um revisor com relação declarada com o avaliado fica bloqueado pelo sistema. A cobrança nunca depende do veredito.</li>
           <li>Regra que depende de evidência ausente falha. Nenhum veredito pendente aparece como aprovado.</li>
-          <li>Feito por DPO com 15 anos de proteção de dados, coautor da especificação ERC-8004.</li>
         </ul>
         <p className="mt-6">
           <a href="https://docs.dpo2u.com/docs/psav/padrao-psav-parceiro" style={{ color: PALETTE.ink, borderBottom: `1px solid ${TERRA}`, textDecoration: 'none' }}>

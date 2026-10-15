@@ -8,21 +8,21 @@ const TIERS = [
   {
     name: 'Run it yourself',
     sub: 'Open Source',
-    price: 'Free SDK + $0.0002 / attestation',
-    points: ['Open-source SDK (npm + cargo)', 'Run primitives in your own CI/CD', 'You hold the keys · all chains · 24 jurisdictions'],
+    price: 'Pricing under review',
+    points: ['SDK in private alpha', 'Run primitives in your own CI/CD', 'You hold the keys · 25 jurisdictions'],
     featured: false,
   },
   {
     name: 'We run it',
     sub: 'Managed Protocol',
-    price: 'In calibration + $0.0002 / attestation',
+    price: 'Pricing under review',
     points: ['Connect your repo — we execute the pipeline', 'Automatic on-chain anchoring + monitoring', 'Dashboard + audit-evidence export'],
     featured: true,
   },
   {
     name: 'We’re your DPO',
     sub: 'DPO-as-a-Service',
-    price: 'Custom retainer + per-attestation',
+    price: 'Pricing under review',
     points: ['Everything in Managed', 'Named, accountable DPO of record', 'Audit defense + regulator interface'],
     featured: false,
   },
@@ -74,7 +74,7 @@ export default function Ladder() {
           See full pricing →
         </Link>
         <span style={{ fontFamily: FONTS.mono, fontSize: 10, letterSpacing: '.16em', textTransform: 'uppercase', color: PALETTE.concrete, marginLeft: 16 }}>
-          Managed · DPO pricing in calibration
+          Pricing under review · talk to us
         </span>
       </div>
     </div>

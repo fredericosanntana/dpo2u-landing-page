@@ -88,7 +88,7 @@ function LiveContractStats() {
         ))}
       </div>
       <div style={{ padding: '10px 22px', borderTop: `.5px solid ${PALETTE.rule}`, fontFamily: FONTS.mono, fontSize: 11, color: PALETTE.concrete }}>
-        {error ? `indexer: ${error}` : loading ? 'reading the chain…' : `read-only · Midnight ${DEFAULT_CONTRACT.network} · refreshed every 30s`}
+        {error ? `indexer: ${error}` : loading ? 'reading the chain…' : `read-only · Stellar ${DEFAULT_CONTRACT.network} · refreshed every 30s`}
       </div>
     </div>
   );
@@ -96,8 +96,8 @@ function LiveContractStats() {
 
 export default function ProtocolPage() {
   usePageHead({
-    title: 'Protocol — compliance on Midnight | DPO2U',
-    description: 'DPO2U is compliance as a protocol on Midnight. The record is kept shielded and disclosure is a rule, not an exposure; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. ~$0.0002 per seal, read-only verify is free.',
+    title: 'Protocol — compliance as a protocol | DPO2U',
+    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.',
     path: '/protocol',
   });
 
@@ -110,7 +110,7 @@ export default function ProtocolPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 items-start">
           <div>
             <SmallLabel style={{ marginBottom: 16, color: PALETTE.terracotta }}>
-              PROTOCOL · ON-CHAIN PRIMITIVES · MIDNIGHT · SELECTIVE DISCLOSURE
+              PROTOCOL · ON-CHAIN PRIMITIVES · SELECTIVE DISCLOSURE
             </SmallLabel>
             <h1
               style={{ fontFamily: FONTS.display, fontWeight: 500, lineHeight: 1.02, letterSpacing: '-.035em', margin: 0 }}
@@ -131,6 +131,7 @@ export default function ProtocolPage() {
                 (use_case_id, evidence_hash)
               </code>{' '}
               over public RPC — no wallet, no fee. The source data stays off-chain; the proof of compliance is public.
+              {' '}Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.
             </p>
           </div>
           <div className="flex justify-center lg:justify-end pt-2">
@@ -189,7 +190,7 @@ export default function ProtocolPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3">
             {[
-              ['Network', `Midnight ${DEFAULT_CONTRACT.network}`],
+              ['Network', `Stellar ${DEFAULT_CONTRACT.network}`],
               ['Deployed', DEFAULT_CONTRACT.deployed_at.slice(0, 10)],
               ['WASM hash', truncateContract(DEFAULT_CONTRACT.wasm_hash, 8, 6)],
             ].map(([l, v], i) => (
@@ -253,7 +254,7 @@ export default function ProtocolPage() {
 │ score              : [PRIVATE]       │
 │ submitted_by       : GDJSDCHT…       │
 └──────────────────────────────────────┘
-✓ verified on Midnight ${DEFAULT_CONTRACT.network} [Stellar Expert↗]`}
+✓ verified on Stellar ${DEFAULT_CONTRACT.network} [Stellar Expert↗]`}
             </pre>
           </div>
         </div>
@@ -270,16 +271,9 @@ export default function ProtocolPage() {
             Read the chain <span style={{ fontStyle: 'italic' }}>yourself.</span>
           </h2>
           <p style={{ fontFamily: FONTS.body, fontSize: 17, lineHeight: 1.6, color: PALETTE.inkSoft, marginTop: 24 }}>
-            The trustless verifier ships as an npm package. No wallet, no key — verification is a read-only
-            Midnight call. Or open any{' '}
+            No wallet, no key — verification is a read-only Stellar testnet call. Open any{' '}
             <code style={{ fontFamily: FONTS.mono, color: PALETTE.terracotta }}>/verify</code> link in the browser.
           </p>
-          <div style={{ marginTop: 24, background: PALETTE.paper2, border: `.5px solid ${PALETTE.ruleStrong}`, padding: 20, borderRadius: 4 }}>
-            <pre style={{ fontFamily: FONTS.mono, fontSize: 13, lineHeight: 1.75, color: PALETTE.ink, margin: 0, overflowX: 'auto', whiteSpace: 'pre' }}>
-{`npm i -g @dpo2u/stellar-sdk
-dpo2u-attest verify --use-case <id> --evidence-hash <hex>`}
-            </pre>
-          </div>
           <div className="mt-10 flex gap-3 flex-wrap">
             <Button kind="terracotta" href="/verify">Open /verify →</Button>
             <Button kind="ghost" href="https://github.com/fredericosanntana/dpo2u-stellar">Read the SDK</Button>

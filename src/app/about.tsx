@@ -37,17 +37,17 @@ const TIMELINE: TimelineItem[] = [
   {
     year: '2024',
     title: 'Cross-jurisdictional',
-    body: 'DPDP, PDPA, MiCAR, UAE regulations added. Six jurisdictions operationalized as typed tools (POPIA · NDPA · PDPL added 2026 Q1 for EMEA; CCPA · PIPEDA · LAW25 added 2026 Q2 for Americas). Peer-reviewed DAO research co-authored.',
+    body: 'DPDP, PDPA, MiCAR, UAE regulations added. Six jurisdictions operationalized as typed tools (POPIA · NDPA · PDPL added 2026 Q1 for EMEA; CCPA · PIPEDA · LAW25 added 2026 Q2 for Americas).',
   },
   {
     year: '2025',
     title: 'ZK prototype',
-    body: 'ERC-8004 self-funding agent spec published. Zero-knowledge compliance proofs prototyped on Midnight Network.',
+    body: 'Zero-knowledge compliance proofs prototyped: circuits in Circom (Groth16, BN254) and Compact contracts (Midnight).',
   },
   {
     year: '2026',
     title: 'On-chain',
-    body: 'Compliance as a protocol on Midnight. The record is written to the ledger in shielded state; a zero-knowledge layer proves score ≥ threshold without revealing the score. Anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC — no wallet, no fee. $0.0002 per attestation.',
+    body: 'Compliance as a protocol. A zero-knowledge layer proves score ≥ threshold without revealing the score. Anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC — no wallet, no fee. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.',
   },
 ];
 
@@ -60,25 +60,11 @@ interface Publication {
 
 const PUBLICATIONS: Publication[] = [
   {
-    title: 'DPO2U: Compliance as a Computable Primitive',
-    type: 'Whitepaper v1.1',
+    title: 'Compliance as Protocol',
+    type: 'Paper v0.4',
     year: '2026',
     description:
-      'How MCP tools + zero-knowledge proofs + a shielded on-chain registry on Midnight transform compliance into a verifiable, cost-efficient cryptographic asset.',
-  },
-  {
-    title: 'ERC-8004: Autonomous Agent Standard',
-    type: 'Technical specification',
-    year: '2025',
-    description:
-      'An Ethereum standard that enables AI agents to operate with self-funding smart contracts and verifiable on-chain identity.',
-  },
-  {
-    title: 'Decentralized Autonomous Organizations',
-    type: 'Academic paper (co-author)',
-    year: '2024',
-    description:
-      'Peer-reviewed research on DAO governance mechanisms and on-chain accountability patterns.',
+      'How MCP tools and zero-knowledge proofs turn a compliance verdict into a verifiable on-chain attestation.',
   },
 ];
 
@@ -87,16 +73,16 @@ const MANIFESTO_PARAGRAPHS: Array<{ text: string; pullQuote?: boolean }> = [
   { text: 'Five years ago, DPO2U began as twenty lines in a Zettelkasten.' },
   { text: 'We did not want to found a SaaS for compliance. We wanted to understand why compliance had become an industry of monthly dashboards, hours-of-lawyer, and signed PDFs — when the underlying claim is, at heart, verifiable mathematics.' },
   { text: 'Publish before you sell. Research before you code. Code before you hire. That order is the thesis: research first, primitive next, product third.', pullQuote: true },
-  { text: 'Five years on: seventeen jurisdictions operationalised in code (LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA — São Paulo to San Francisco to Lagos to Dubai to Tokyo). Plus AI Governance vertical (six frameworks: Japan AI Promotion Act + Hiroshima ICOC G7 + EU AI Act + Korea AI Basic Act + CAIDP Universal Guidelines + UNESCO RAM, aligned with CAIDP submission to the UN Global Dialogue on AI Governance). A Midnight compliance contract on Midnight testnet. Seventy typed MCP tools. A public Zettelkasten — thousands of atomic notes feeding all of it.' },
+  { text: 'Today: 25 jurisdictions in the norms engine, each with source and date. Res. BCB 520 written as code: 55 obligations with article, check and proof (v0). ZK circuits in Circom (Groth16, BN254) and Compact contracts (Midnight). 77 MCP tools. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.' },
   { text: 'No dashboard. No monthly subscription with a PDF report. No consultant billing by the hour.' },
-  { text: 'We are not the $50k compliance consultancy. We are not Vanta, Drata, or OneTrust. We are the research house that writes the primitive that makes them obsolete.' },
+  { text: 'We are not the $50k compliance consultancy. We are the research house that writes the primitive.' },
   { text: 'We are the DPO who ships code. The lawyer who learned to compute. The house that proved — in zero-knowledge proofs on-chain — that compliance can be mathematics.', pullQuote: true },
 ];
 
 export default function AboutPage() {
   usePageHead({
     title: 'About — Origin story & F13 manifesto | DPO2U',
-    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with a Midnight compliance protocol on Midnight, 70 typed MCP tools, and eight AI governance frameworks aligned with CAIDP and the UN Global Dialogue on AI Governance. The full story.',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. The full story.',
     path: '/about',
   });
 
@@ -123,8 +109,8 @@ export default function AboutPage() {
             color: PALETTE.inkSoft, marginTop: 28, maxWidth: 640,
           }}
         >
-          DPO2U is the compliance research house that ships code. One founder. Five years.
-          Seventeen jurisdictions + AI Governance vertical (six frameworks, CAIDP-aligned).
+          DPO2U is the compliance research house that ships code. One founder.
+          25 jurisdictions in the norms engine, each with source and date.
         </p>
       </section>
 
@@ -207,7 +193,7 @@ export default function AboutPage() {
           className="text-[36px] sm:text-[48px] lg:text-[60px]"
         >
           From a Zettelkasten<br />
-          <span style={{ fontStyle: 'italic' }}>to a Midnight ledger.</span>
+          <span style={{ fontStyle: 'italic' }}>to an on-chain protocol.</span>
         </h2>
 
         <div
@@ -304,12 +290,12 @@ export default function AboutPage() {
           Frederico <span style={{ fontStyle: 'italic' }}>Santana</span>
         </h2>
         <p style={{ fontFamily: FONTS.body, fontSize: 17, lineHeight: 1.6, color: PALETTE.inkSoft, marginTop: 20, maxWidth: 640 }}>
-          Founder and sole author. Five years of compliance research. Seventeen jurisdictions
-          in code. Sixty-six MCP tools. Six AI governance frameworks. Based in São Paulo, BR.
+          Founder and sole author. 25 jurisdictions in the norms engine. 77 MCP tools.
+          Based in São Paulo, BR.
         </p>
         <div className="mt-10 flex gap-3 flex-wrap">
-          <Button kind="terracotta" href="mailto:fredericosanntana@gmail.com">
-            fredericosanntana@gmail.com →
+          <Button kind="terracotta" href="mailto:contato@dpo2u.com.br">
+            contato@dpo2u.com.br →
           </Button>
           <Button kind="ghost" href="https://github.com/fredericosanntana">
             GitHub

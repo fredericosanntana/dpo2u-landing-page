@@ -17,7 +17,7 @@ const NAV_LINKS: NavLinkSpec[] = [
   { label: 'Protocol',     to: '/protocol' },
   { label: 'Coverage',     to: '/coverage' },
   { label: 'Pricing',      to: '/pricing' },
-  { label: 'Docs',         to: '/research' },
+  { label: 'Docs',         to: 'https://docs.dpo2u.com' },
   { label: 'About',        to: '/about' },
   { label: 'Talk to us',   to: '/alpha-signup' },
 ];

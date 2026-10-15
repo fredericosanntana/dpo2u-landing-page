@@ -1,7 +1,7 @@
 {
   "name": "DPO2U - Compliance as a protocol",
   "short_name": "DPO2U",
-  "description": "Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 24 jurisdictions, selective-disclosure proofs.",
+  "description": "Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions, selective-disclosure proofs.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

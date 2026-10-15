@@ -105,7 +105,7 @@ const COVERAGE: JurisdictionCard[] = [
     law: 'Act 4 of 2013',
     primaryArticle: '§19 security · §22 breach · §71 automated decisions',
     authority: 'Information Regulator (SA)',
-    position: 'SADC gateway · POPIA-compliant ZK feeds for Standard Bank / Absa.',
+    position: 'Southern Africa · POPIA rule primitives.',
   },
   {
     code: 'NDPA',
@@ -114,7 +114,7 @@ const COVERAGE: JurisdictionCard[] = [
     law: 'Nigeria Data Protection Act 2023',
     primaryArticle: '§28 rights · §37 automated · §40 breach (72h)',
     authority: 'NDPC',
-    position: 'West Africa fintech · Flutterwave / Paystack / Chipper integration.',
+    position: 'West Africa · NDPA rule primitives.',
   },
   {
     code: 'CCPA',
@@ -123,7 +123,7 @@ const COVERAGE: JurisdictionCard[] = [
     law: 'CCPA (2018) + CPRA (2023)',
     primaryArticle: '§1798.100 know · §1798.105 delete · §1798.121 sensitive PI · CPPA ADM Rules 2025',
     authority: 'CPPA + California AG',
-    position: 'US enterprise market entry · primary ZK alternative to Vanta/OneTrust/Drata.',
+    position: 'United States · CCPA rule primitives.',
   },
   {
     code: 'PIPEDA',
@@ -177,7 +177,7 @@ const COVERAGE: JurisdictionCard[] = [
     law: 'LFPDPPP (2010) + Reglamento 2011 + Ley Fintech 2018 (sector financeiro)',
     primaryArticle: 'Art. 22-32 ARCO · Art. 8-9 consent (11 lawful bases) · Art. 36 cross-border · Art. 20 breach',
     authority: 'INAI (Instituto Nacional de Transparencia)',
-    position: 'Largest LatAm crypto retail market · 8 ITF licenses ativas · LGPD-LFPDPPP 85% cross-mapping.',
+    position: 'Mexico · LFPDPPP rule primitives.',
   },
   {
     code: 'VIETNAM',
@@ -259,9 +259,9 @@ export default function CoveragePage() {
   const targetCode = slugCode ? URL_SLUG_TO_CODE[slugCode] : undefined;
 
   usePageHead({
-    title: 'Coverage — Twenty-four jurisdictions, one primitive | DPO2U',
+    title: 'Coverage — Twenty-five jurisdictions, one primitive | DPO2U',
     description:
-      'Visual map of the twenty-five regulatory regimes DPO2U covers in code: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), PDPA-MY (Malaysia), Kenya DPA, Ghana DPA, Colombia Ley 1581, Tanzania PDPA, and Uganda DPPA. Plus the AI Governance vertical (eight frameworks): Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines for AI, UNESCO Recommendation on Ethics of AI, Singapore IMDA Model AI Governance Framework for Agentic AI v1.0, and the L1-L5 AI Governance Stack methodology (Kenney 2026). Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Resolution 79/325). Legal-source manifests anchored on Midnight  testnet, referenced by the attestation contract. EMEA + Americas + APAC + LatAm in one composition step.',
+      'Map of the 25 jurisdictions in the DPO2U norms engine, each with source and date: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, POPIA, NDPA, CCPA, PIPEDA, Law 25, PIPA, PDP, APPI, Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.',
     path: params.code ? `/coverage/${slugCode}` : '/coverage',
   });
 
@@ -296,7 +296,7 @@ export default function CoveragePage() {
             margin: 0,
           }}
         >
-          Twenty-four jurisdictions.
+          Twenty-five jurisdictions.
           <br />
           <span style={{ fontStyle: 'italic' }}>One primitive layer.</span>
         </h1>
@@ -325,7 +325,7 @@ export default function CoveragePage() {
             marginTop: 28,
           }}
         >
-          — Compliance contract · 70 MCP tools · 8 AI governance frameworks · legal-source manifests anchored on Midnight · trustless verify by (use_case_id, evidence_hash) · Stellar testnet live · last updated 2026-06-05 —
+          — Compliance contract on Stellar testnet · 77 MCP tools · trustless verify by (use_case_id, evidence_hash) · Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. —
         </p>
       </section>
 
@@ -770,11 +770,11 @@ export default function CoveragePage() {
           >
             packages/mcp-server/src/kb/jurisdictions/
           </code>
-          {' '}— twenty-four Zod-validated JSONs, addressable by
+          {' '}— twenty-five Zod-validated JSONs, addressable by
           code or alias (PDPL → UAE, ZA → POPIA, NG → NDPA, US/CA-US → CCPA, CA → PIPEDA, QC → LAW25, JP/JAPAN → APPI, CASP → MiCA Title V).
           Each entry powers <em>compare_jurisdictions</em>,{' '}
           <em>check_compliance</em>, and the on-chain attestation schemas in the
-          DPO2U compliance contract on Midnight.
+          DPO2U compliance contract (Stellar testnet).
         </p>
       </section>
     </article>

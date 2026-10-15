@@ -47,7 +47,7 @@ const ROUTES = [
   {
     path: '/',
     title: 'DPO2U — Compliance as a protocol.',
-    description: 'The HTTPS of compliance. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI — built for Midnight, where the record stays shielded and disclosure is a rule, not an exposure. The only protocol that seals both regimes: data privacy and AI governance. 24 jurisdictions, 70+ countries, 8 AI-governance frameworks. Score private, proof public. 1.94s · $0.0002 per seal · since 2021.',
+    description: 'The HTTPS of compliance. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. Score stays private, proof is public.',
   },
   {
     path: '/verify',
@@ -66,20 +66,20 @@ const ROUTES = [
   },
   {
     path: '/protocol',
-    title: 'Protocol — compliance on Midnight | DPO2U',
-    description: 'DPO2U is compliance as a protocol on Midnight. An immutable compliance contract anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. ~$0.0002 per seal, read-only verify is free.',
+    title: 'Protocol — compliance as a protocol | DPO2U',
+    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.',
   },
   // /mcp removed 2026-04-29 — Sealed globalization sprint. Content lives on
   // home (#mcp) + /research#mcp-reference. server.js issues a 301 → /#mcp.
   {
     path: '/about',
     title: 'About — Origin story & F13 manifesto | DPO2U',
-    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house with a Midnight compliance protocol on Midnight and a typed MCP tool suite. The full story.',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. The full story.',
   },
   {
     path: '/research',
     title: 'Research — Whitepaper & accumulation | DPO2U',
-    description: 'Whitepaper, public Zettelkasten, and the publish-first principle in practice. The full DPO2U research surface — primitives before product.',
+    description: 'The paper "Compliance as Protocol" (v0.4), the MCP tool reference and the publish-first principle in practice. The DPO2U research surface — primitives before product.',
   },
   {
     path: '/privacy',
@@ -89,7 +89,7 @@ const ROUTES = [
   {
     path: '/terms',
     title: 'Terms of Service | DPO2U',
-    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U compliance contract on Midnight.',
+    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U compliance contract.',
   },
   {
     path: '/alpha-signup',
@@ -103,24 +103,24 @@ const ROUTES = [
   },
   {
     path: '/coverage',
-    title: 'Coverage — Twenty-four jurisdictions, one primitive | DPO2U',
-    description: 'Visual map of twenty-four regulatory regimes covered in code: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, LFPDPPP (Mexico), Decree 13 (Vietnam), PDPA-MY (Malaysia), Kenya DPA, Ghana DPA, Colombia Ley 1581, Tanzania PDPA, and Uganda DPPA — plus 8 AI-governance frameworks. EMEA + Americas + APAC + LatAm in one composition step.',
+    title: 'Coverage — Twenty-five jurisdictions, one primitive | DPO2U',
+    description: 'Map of the 25 jurisdictions in the DPO2U norms engine, each with source and date: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, POPIA, NDPA, CCPA, PIPEDA, Law 25, PIPA, PDP, APPI, Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.',
   },
   {
     path: '/pricing',
-    title: 'Pricing — Open Source, Managed, DPO-as-a-Service | DPO2U',
-    description: 'Open-core ladder for on-chain compliance: Open Source (free SDK + $0.0002 per attestation), Managed Protocol, and DPO-as-a-Service. The attestation is the unit of billing. 24 jurisdictions, 8 AI-governance frameworks. Managed/DPO pricing in calibration — talk to us.',
+    title: 'Pricing — DPO2U',
+    description: 'Pricing is under review until the first mainnet deployment. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet. Talk to us for a pilot.',
   },
   // Sprint M (2026-05-26) — alias público do painel de alertas anticorrupção
   {
     path: '/sentinela-anticorrupcao',
     title: 'Sentinela Anticorrupção — alertas D+0 nacional | DPO2U',
-    description: 'Painel público de alertas anticorrupção em contratações públicas brasileiras. Cruzamento D+0 entre vencedoras de pregão (PNCP, cobertura nacional) e sanções vigentes (CEIS/CNEP/CEPIM da CGU). Atestação on-chain Stellar Midnight testnet. 1.273 alertas detectados; R$ 1,39M em risco mapeados na Sprint M.',
+    description: 'Painel público de alertas anticorrupção em contratações públicas brasileiras. Cruzamento entre vencedoras de pregão (PNCP) e sanções vigentes (CEIS/CNEP/CEPIM da CGU). Atestação on-chain em Stellar testnet.',
   },
   {
     path: '/pilot/alertas',
     title: 'Painel de alertas do piloto — DPO2U Stellar',
-    description: 'Painel interno do piloto anticorrupção: 1.273 alertas reais (sanction_check + overpricing + leniency), severidade ponderada, atestações on-chain Stellar testnet.',
+    description: 'Painel interno do piloto anticorrupção, com atestações on-chain em Stellar testnet.',
   },
   // Per-jurisdiction prerender entries (added 2026-05-11) — Sprint 3 KB add
   // (Mexico/Vietnam/Malaysia). Server serves dist/coverage/<code>/index.html
@@ -131,17 +131,17 @@ const ROUTES = [
   {
     path: '/coverage/mexico',
     title: 'LFPDPPP (Mexico) — Compliance kit for fintech ITF | DPO2U',
-    description: 'Mexico LFPDPPP compliance on Midnight — INAI authority, ARCO rights (Acceso/Rectificación/Cancelación/Oposición), Art. 36 cross-border adequacy. Built for 8 ITF fintech licenses + 3M crypto retail wallets. 17 jurisdictions, 6 AI gov frameworks.',
+    description: 'Mexico LFPDPPP rule primitives — INAI authority, ARCO rights (Acceso/Rectificación/Cancelación/Oposición), Art. 36 cross-border adequacy. One of the 25 jurisdictions in the DPO2U norms engine.',
   },
   {
     path: '/coverage/vietnam',
     title: 'Vietnam Decree 13 / Law 91/2025 — Cross-border DPIA on-chain | DPO2U',
-    description: 'Vietnam Personal Data Protection Decree 13/2023 + Law 91/2025 compliance on Midnight — MPS authority, Art. 25 cross-border DPIA mandatória, Art. 23 breach 72h notification. Most restrictive APAC cross-border regime, attested on-chain.',
+    description: 'Vietnam Personal Data Protection Decree 13/2023 + Law 91/2025 rule primitives — MPS authority, Art. 25 cross-border DPIA, Art. 23 breach 72h notification. One of the 25 jurisdictions in the DPO2U norms engine.',
   },
   {
     path: '/coverage/malaysia',
     title: 'PDPA-MY 2024 — DPO mandatory + Data portability on-chain | DPO2U',
-    description: 'Malaysia PDPA 2010 + Amendment 2024 compliance on Midnight — PDPC authority, s. 12A DPO mandatory (NEW 2024), s. 43A data portability (NEW), s. 12B breach 72h. First SEA regime com DPO mandatory; built for 5 SC-licensed crypto RMOs + Malaysian Web3 builders.',
+    description: 'Malaysia PDPA 2010 + Amendment 2024 rule primitives — PDPC authority, s. 12A DPO mandatory, s. 43A data portability, s. 12B breach 72h. One of the 25 jurisdictions in the DPO2U norms engine.',
   },
 ];
 
@@ -217,20 +217,18 @@ const W = 'style="max-width:820px;margin:40px auto;padding:0 24px;font-family:Ge
 const BODY = {
   '/': `<main ${W}><h1>Compliance as a protocol</h1>
 <p>DPO2U turns regulatory compliance into a verifiable, on-chain attestation — the score stays private, the proof is public. The HTTPS of compliance, for Web3.</p>
-<p>The only protocol that seals both regimes — data privacy and AI governance — across 24 jurisdictions and 8 AI-governance frameworks. Provable compliance for anything that processes data, issues tokens, or runs AI, built for Midnight.</p>
-<h2>Two ways in</h2><ul><li><strong>I'm building</strong> — run the open-source SDK and DPO2U's compliance primitives inside your own CI/CD.</li><li><strong>Run it for me</strong> — we execute the pipeline for you, or become your accountable DPO of record.</li></ul>
-<h2>The open-core ladder</h2><ul><li><strong>Open Source</strong> — free SDK + $0.0002 per on-chain attestation.</li><li><strong>Managed Protocol</strong> — we run the pipeline (platform pricing in calibration).</li><li><strong>DPO-as-a-Service</strong> — a named, accountable DPO of record.</li></ul>
-<p>Independent research house since 2021. Founder: Frederico Santana — DPO for 15 years, FGV Master's in Law, Technology & Innovation, co-author of ERC-8004. 1.94s per seal · $0.0002 per attestation · 70+ countries.</p></main>`,
-  '/coverage': `<main ${W}><h1>Twenty-four jurisdictions, one primitive layer</h1>
-<p>Each regime is a typed compliance primitive in one engine. Data-protection jurisdictions: LGPD (Brazil), GDPR (EU), MiCAR and MiCA Title V CASP (EU), DPDP (India), PDPA (Singapore), UAE (ADGM/VARA), PDPL (UAE federal), POPIA (South Africa), NDPA (Nigeria), CCPA (California), PIPEDA (Canada), Quebec Law 25, PIPA (South Korea), PDP (Indonesia), APPI (Japan), LFPDPPP (Mexico), Decree 13 (Vietnam), PDPA (Malaysia), and the data-protection acts of Kenya, Ghana, Colombia, Tanzania and Uganda.</p>
-<p>Plus eight AI-governance frameworks: Japan AI Promotion Act, Hiroshima ICOC (G7), EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO Recommendation on the Ethics of AI, Singapore IMDA MGF-Agentic v1.0, and the L1-L5 AI Governance Stack — aligned with the CAIDP submission to the UN Global Dialogue on AI Governance (UN GA Resolution 79/325).</p></main>`,
-  '/pricing': `<main ${W}><h1>Pricing — the attestation is the unit of billing</h1>
-<p>An open-core ladder, defined by who runs the primitives and who stands behind the result:</p>
-<ul><li><strong>Open Source</strong> — free SDK (npm + cargo) + $0.0002 per on-chain attestation. You run it yourself and hold the keys.</li><li><strong>Managed Protocol</strong> — connect your repo, we execute the pipeline and anchor every seal. Platform pricing in calibration — talk to us.</li><li><strong>DPO-as-a-Service</strong> — a named, accountable DPO of record, audit defense and regulator interface. Custom retainer.</li></ul>
-<p>The on-chain seal costs $0.0002 per attestation. 24 jurisdictions, 8 AI-governance frameworks.</p></main>`,
-  '/research': `<main ${W}><h1>Compliance as a computable primitive</h1>
-<p>DPO2U is the research house that ships code. Compliance is exposed three ways: an open-source SDK, an MCP server, and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
-<p>Coverage spans 24 jurisdictions and 8 AI-governance frameworks, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
+<p>Provable compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.</p>
+<h2>Two ways in</h2><ul><li><strong>I'm building</strong> — run DPO2U's compliance primitives inside your own CI/CD (SDK in private alpha).</li><li><strong>Run it for me</strong> — we execute the pipeline for you, or become your accountable DPO of record.</li></ul>
+<h2>Pricing</h2><p>Pricing under review until the first mainnet deployment — talk to us.</p>
+<p>Independent research house. Founder: Frederico Santana. 77 MCP tools · 25 jurisdictions · contact: contato@dpo2u.com.br.</p></main>`,
+  '/coverage': `<main ${W}><h1>Twenty-five jurisdictions, one primitive layer</h1>
+<p>Each regime is a typed compliance primitive in one engine, with source and date: LGPD (Brazil), GDPR (EU), MiCAR and MiCA Title V CASP (EU), DPDP (India), PDPA (Singapore), UAE, POPIA (South Africa), NDPA (Nigeria), CCPA (California), PIPEDA (Canada), Quebec Law 25, PIPA (South Korea), PDP (Indonesia), APPI (Japan), and the data-protection laws of Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.</p></main>`,
+  '/pricing': `<main ${W}><h1>Pricing under review</h1>
+<p>We are not publishing prices until the first mainnet deployment. Pilots are scoped case by case — write to contato@dpo2u.com.br.</p>
+<p>Solana: devnet · Stellar: testnet · Midnight: preview. No mainnet deployment yet.</p></main>`,
+  '/research': `<main ${W}><h1>Compliance as Protocol</h1>
+<p>DPO2U is the research house that ships code. Compliance is exposed through an MCP server and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
+<p>Coverage spans the 25 jurisdictions of the norms engine, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
   '/psav': `<main ${W} lang="pt-BR"><h1>Padrão PSAV-parceiro</h1>
 <p>A Res. BCB 520/2025 permite que uma sociedade prestadora de serviços de ativos virtuais (SPSAV) autorizada contrate prestadores de serviço relevante — tecnologia, custódia, liquidez, formador de mercado, conta (art. 33). O prestador atua por conta e sob as diretrizes da SPSAV, que permanece responsável (arts. 35 e 36).</p>
 <p>A DPO2U entrega, por prestador contratado, a diligência que o art. 34 exige: regras artigo por artigo (34, 35, 37, 40, 41, 42), revisão por revisor nomeado e um passaporte de conformidade selado em blockchain que mostra de onde vem cada veredito — máquina, revisor ou terceiro independente.</p>
@@ -239,7 +237,7 @@ const BODY = {
   '/verify': `<main ${W}><h1>Verify an attestation</h1>
 <p>Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain — no DPO2U credential required. Verification is keyed by use-case id and evidence hash; the verdict, jurisdiction/predicate, timestamp and evidence hash are public, while the score and underlying data stay private. Score private, proof public.</p></main>`,
   '/dpa': `<main ${W}><h1>Data Processing Agreement (DPA)</h1>
-<p>DPO2U's standard processor DPA template — GDPR Article 28 and LGPD Article 39: processing only on documented instruction, confidentiality, security (GDPR Art. 32), sub-processors, assistance with data-subject rights, breach notification, deletion/return on termination, audit rights, and international transfers. Executed by signed contract — accessing this page does not, by itself, form a binding agreement. Contact dpo@dpo2u.com.</p></main>`,
+<p>DPO2U's standard processor DPA template — GDPR Article 28 and LGPD Article 39: processing only on documented instruction, confidentiality, security (GDPR Art. 32), sub-processors, assistance with data-subject rights, breach notification, deletion/return on termination, audit rights, and international transfers. Executed by signed contract — accessing this page does not, by itself, form a binding agreement. Contact contato@dpo2u.com.br.</p></main>`,
 };
 
 let written = 0;

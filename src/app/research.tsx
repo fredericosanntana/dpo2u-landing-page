@@ -24,29 +24,20 @@ interface Whitepaper {
 
 const WHITEPAPERS: Whitepaper[] = [
   {
-    title: 'Compliance as a Computable Primitive',
-    version: 'v1.1',
+    title: 'Compliance as Protocol',
+    version: 'v0.4',
     year: '2026',
     summary:
-      'Foundational whitepaper. Reframes compliance — from SaaS-dashboards and consulting-by-hour to typed tools and zero-knowledge attestations — with a concrete implementation on Midnight .',
+      'Foundational paper. Reframes compliance — from SaaS-dashboards and consulting-by-hour to typed tools and zero-knowledge attestations.',
     status: 'available',
     href: '/research#whitepaper',
-  },
-  {
-    title: 'ERC-8004: Autonomous Agent Standard',
-    version: 'v1.0',
-    year: '2025',
-    summary:
-      'An Ethereum standard enabling AI agents to operate with self-funding smart contracts and verifiable on-chain identity.',
-    status: 'available',
-    href: 'https://github.com/fredericosanntana',
   },
   {
     title: 'Cross-jurisdictional Compliance Matrix',
     version: 'Draft',
     year: '2026',
     summary:
-      'LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA side-by-side. Proposes a shared primitive layer (attestation PDA + typed tools) across seventeen regulatory regimes spanning Brazil, EU, India, Southeast Asia, MENA, Sub-Saharan Africa, North America, and Northeast Asia (Japan + Korea).',
+      'The 25 jurisdictions of the norms engine side-by-side. Proposes a shared primitive layer (attestation + typed tools) across them.',
     status: 'draft',
   },
 ];
@@ -97,7 +88,7 @@ const MCP_SKILLS: MCPSkill[] = [
   {
     name: 'dpo2u-consent-record',
     title: 'On-chain consent record',
-    desc: 'Record or revoke a DPDP India / LGPD consent event on Midnight via the consent contract. Purpose hashing + AES-GCM payload + ZK-bound consent via the zero-knowledge verifier.',
+    desc: 'Record or revoke a DPDP India / LGPD consent event on-chain (pre-mainnet) via the consent contract. Purpose hashing + AES-GCM payload + ZK-bound consent via the zero-knowledge verifier.',
     tags: ['Stellar', 'DPDP', 'ZK'],
   },
 ];
@@ -105,11 +96,7 @@ const MCP_SKILLS: MCPSkill[] = [
 const MCP_CONFIG = `{
   "mcpServers": {
     "dpo2u": {
-      "command": "npx",
-      "args": ["-y", "@dpo2u/mcp-server"],
-      "env": {
-        "STELLAR_NETWORK": "testnet"
-      }
+      "url": "https://mcp.dpo2u.com/mcp"
     }
   }
 }`;
@@ -138,8 +125,7 @@ export default function ResearchPage() {
           <span style={{ fontStyle: 'italic', color: PALETTE.terracotta }}>before the pitch.</span>
         </h1>
         <p style={{ fontFamily: FONTS.body, fontSize: 19, lineHeight: 1.55, color: PALETTE.inkSoft, marginTop: 28, maxWidth: 640 }}>
-          Whitepapers, newsletter, MCP tool reference, and the public Zettelkasten.
-          Five years of compounding notes — published under Apache 2.0.
+          Whitepapers, newsletter and the MCP tool reference.
         </p>
         <div className="mt-10 flex gap-3 flex-wrap">
           <Button kind="terracotta" href="#whitepaper">
@@ -283,11 +269,6 @@ export default function ResearchPage() {
           ))}
         </div>
 
-        <div className="mt-12">
-          <Button kind="ghost" href="https://github.com/fredericosanntana/dpo2u-zettelkasten">
-            Full archive on GitHub ↗
-          </Button>
-        </div>
       </section>
 
       {/* MCP Tool Reference — absorbed from the retired /mcp page */}
@@ -303,18 +284,14 @@ export default function ResearchPage() {
               }}
               className="text-[36px] sm:text-[44px] lg:text-[52px]"
             >
-              Sixty-six typed tools.<br />
-              <span style={{ fontStyle: 'italic' }}>Seventeen jurisdictions.</span>
+              Seventy-seven typed tools.<br />
+              <span style={{ fontStyle: 'italic' }}>Twenty-five jurisdictions.</span>
             </h2>
           </div>
           <div style={{ fontFamily: FONTS.body, fontSize: 16, color: PALETTE.inkSoft, lineHeight: 1.6 }}>
-            Compiled from five years of research in LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL,
-            POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, and APPI regulation — plus the AI Governance
-            vertical (six frameworks: Japan AI Promotion Act + Hiroshima ICOC G7 + EU AI Act + Korea
-            AI Basic Act + CAIDP Universal Guidelines + UNESCO RAM, aligned with the UN Global
-            Dialogue on AI Governance).
+            Built on the norms engine: 25 jurisdictions, each with source and date.
             Every tool returns structured JSON and links to an auditable artifact — not prose. Four
-            are publicly documented; fifty-five more are internal.
+            are publicly documented; the rest are internal.
           </div>
         </div>
 
@@ -453,17 +430,14 @@ export default function ResearchPage() {
               The raw <span style={{ fontStyle: 'italic' }}>research.</span>
             </h2>
             <p style={{ fontFamily: FONTS.body, fontSize: 17, lineHeight: 1.6, color: PALETTE.inkSoft, marginTop: 20, maxWidth: 640 }}>
-              Five years of atomic notes on compliance, cryptography, and regulation. Public
-              on GitHub. The ground truth everything else is distilled from.
+              Atomic notes on compliance, cryptography, and regulation — the ground truth
+              everything else is distilled from. Not yet public.
             </p>
             <p style={{ fontFamily: FONTS.mono, fontSize: 11, letterSpacing: '.14em', color: PALETTE.concrete, marginTop: 16, textTransform: 'uppercase' }}>
-              Last indexed 2026-04-24 · 178 MB · Markdown · Apache 2.0
+              Markdown · private for now
             </p>
             <div className="mt-10 flex gap-3 flex-wrap">
-              <Button kind="terracotta" href="https://github.com/fredericosanntana/dpo2u-zettelkasten">
-                Browse the Zettelkasten ↗
-              </Button>
-              <Button kind="ghost" href="https://github.com/fredericosanntana/dpo2u-stellar">
+              <Button kind="terracotta" href="https://github.com/fredericosanntana/dpo2u-stellar">
                 Protocol code ↗
               </Button>
             </div>
