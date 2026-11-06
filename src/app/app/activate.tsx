@@ -34,8 +34,8 @@ const JUR_GROUPS: { region: string; items: { id: string; label: string }[] }[] =
   ] },
   { region: 'Europe', items: [
     { id: 'GDPR', label: 'Europe (GDPR)' },
-    { id: 'MICAR', label: 'MiCAR · Crypto EU (ART)' },
-    { id: 'MICAR-CASP', label: 'MiCAR · Crypto EU (CASP)' },
+    { id: 'MICAR', label: 'MiCA · Crypto EU (ART)' },
+    { id: 'MICAR-CASP', label: 'MiCA · Crypto EU (CASP)' },
   ] },
   { region: 'Africa', items: [
     { id: 'POPIA', label: 'South Africa (POPIA)' },

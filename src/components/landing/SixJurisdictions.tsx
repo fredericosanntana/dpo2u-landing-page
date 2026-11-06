@@ -13,7 +13,7 @@ interface Jurisdiction {
 const JURISDICTIONS: Jurisdiction[] = [
   { code: 'LGPD',  region: 'Brasil',         year: '2018', statute: 'Lei 13.709',                           mcpTool: 'lgpd_gap_analysis' },
   { code: 'GDPR',  region: 'European Union', year: '2018', statute: 'Regulation 2016/679',                   mcpTool: 'gdpr_dpia' },
-  { code: 'MiCAR', region: 'European Union', year: '2024', statute: 'Regulation 2023/1114',                  mcpTool: 'micar_art_audit' },
+  { code: 'MiCA', region: 'European Union', year: '2024', statute: 'Regulation 2023/1114',                  mcpTool: 'micar_art_audit' },
   { code: 'DPDP',  region: 'India',          year: '2023', statute: 'Digital Personal Data Protection Act', mcpTool: 'dpdp_consent' },
   { code: 'PDPA',  region: 'Singapore',      year: '2012', statute: 'Act 26 of 2012',                        mcpTool: 'pdpa_transfer' },
   { code: 'UAE',   region: 'ADGM + VARA',    year: '2021', statute: 'Data Protection Regulations',          mcpTool: 'adgm_foundation' },

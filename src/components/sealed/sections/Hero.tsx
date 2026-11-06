@@ -39,7 +39,7 @@ export default function Hero() {
               maxWidth: 580,
             }}
           >
-            The HTTPS of compliance, for Web3.
+            DPO2U is the compliance operator offering Compliance as Protocol on Midnight.
           </div>
           <div
             style={{
@@ -50,9 +50,9 @@ export default function Hero() {
               color: PALETTE.inkSoft,
             }}
           >
-            Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.
+            We turn regulation into tested rules with source and date, prove them with zero-knowledge on Midnight, and stand behind them as the accountable compliance operator — for VASPs and the banks that serve them in Brazil and Argentina.
             <br /><br />
-            Score stays private. Proof is public.
+            Selective disclosure: client data stays shielded, the verdict is public, and supervisors see only what their scoped key allows. 25 jurisdictions in the norms engine, each with source and date. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.
           </div>
           <div
             style={{ marginTop: 36 }}
@@ -62,6 +62,7 @@ export default function Hero() {
               <span style={{ fontFamily: FONTS.mono, fontSize: 13.5 }}>$ npm install @dpo2u/client-sdk</span>
             </Button>
             <Button kind="ghost" href="https://docs.dpo2u.com">Read the docs →</Button>
+            <Button kind="ghost" href="https://docs.dpo2u.com/docs/compliance-operator">Compliance operator →</Button>
             <span
               style={{
                 fontFamily: FONTS.mono,

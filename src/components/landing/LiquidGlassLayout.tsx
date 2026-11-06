@@ -55,7 +55,7 @@ export default function LiquidGlassLayout({ children }: LiquidGlassLayoutProps) 
               </p>
               <div className="flex gap-4 mt-4">
                 <a href="https://github.com/fredericosanntana" target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-zinc-400 transition-colors text-sm">GitHub</a>
-                <a href="https://x.com/fredsanntana" target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-zinc-400 transition-colors text-sm">X</a>
+                <a href="https://x.com/dpo2u" target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-zinc-400 transition-colors text-sm">X</a>
                 <a href="https://linkedin.com/in/fredericosantana" target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-zinc-400 transition-colors text-sm">LinkedIn</a>
               </div>
             </div>

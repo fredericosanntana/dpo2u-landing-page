@@ -69,14 +69,14 @@ interface MCPSkill {
 const MCP_SKILLS: MCPSkill[] = [
   {
     name: 'dpo2u-audit-micar',
-    title: 'MiCAR ART vault audit',
-    desc: 'Audit an EU stablecoin reserve program against MiCAR Art. 23 / 35 / 36 / 39 — Proof of Reserve, Liquidity Vault, Capital Buffer, Velocity Limiter.',
-    tags: ['EU', 'MiCAR'],
+    title: 'MiCA ART vault audit',
+    desc: 'Audit an EU stablecoin reserve program against MiCA Art. 23 / 35 / 36 / 39 — Proof of Reserve, Liquidity Vault, Capital Buffer, Velocity Limiter.',
+    tags: ['EU', 'MiCA'],
   },
   {
     name: 'dpo2u-compliance-check',
     title: 'Compliance checklist + score',
-    desc: 'Run an LGPD / GDPR / DPDP / MiCAR / PDPA / UAE / PDPL / POPIA / NDPA / CCPA / PIPEDA / LAW25 / PIPA / PDP compliance scan. Returns scored checklist, gap analysis, and prioritized action plan.',
+    desc: 'Run an LGPD / GDPR / DPDP / MiCA / PDPA / UAE / PDPL / POPIA / NDPA / CCPA / PIPEDA / LAW25 / PIPA / PDP compliance scan. Returns scored checklist, gap analysis, and prioritized action plan.',
     tags: ['LGPD', 'GDPR', 'DPDP', 'PDPA', 'POPIA', 'NDPA', 'CCPA', 'PIPEDA'],
   },
   {

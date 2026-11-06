@@ -47,7 +47,7 @@ const ROUTES = [
   {
     path: '/',
     title: 'DPO2U — Compliance as a protocol.',
-    description: 'The HTTPS of compliance. Provable, on-chain compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. Score stays private, proof is public.',
+    description: 'DPO2U is the compliance operator offering Compliance as Protocol on Midnight. We turn regulation into tested rules with source and date, prove them with zero-knowledge on Midnight, and stand behind them as the accountable compliance operator — for VASPs and the banks that serve them in Brazil and Argentina. Selective disclosure by design.',
   },
   {
     path: '/verify',
@@ -67,14 +67,14 @@ const ROUTES = [
   {
     path: '/protocol',
     title: 'Protocol — compliance as a protocol | DPO2U',
-    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.',
+    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.',
   },
   // /mcp removed 2026-04-29 — Sealed globalization sprint. Content lives on
   // home (#mcp) + /research#mcp-reference. server.js issues a 301 → /#mcp.
   {
     path: '/about',
     title: 'About — Origin story & F13 manifesto | DPO2U',
-    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. The full story.',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet. The full story.',
   },
   {
     path: '/research',
@@ -104,12 +104,12 @@ const ROUTES = [
   {
     path: '/coverage',
     title: 'Coverage — Twenty-five jurisdictions, one primitive | DPO2U',
-    description: 'Map of the 25 jurisdictions in the DPO2U norms engine, each with source and date: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, POPIA, NDPA, CCPA, PIPEDA, Law 25, PIPA, PDP, APPI, Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.',
+    description: 'Map of the 25 jurisdictions in the DPO2U norms engine, each with source and date: LGPD, GDPR, MiCA, MiCA Title V (CASP), DPDP, PDPA, UAE, POPIA, NDPA, CCPA, PIPEDA, Law 25, PIPA, PDP, APPI, Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.',
   },
   {
     path: '/pricing',
     title: 'Pricing — DPO2U',
-    description: 'Pricing is under review. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. Talk to us for a pilot.',
+    description: 'Pricing is under review. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet. Talk to us for a pilot.',
   },
   // Sprint M (2026-05-26) — alias público do painel de alertas anticorrupção
   {
@@ -216,16 +216,17 @@ function rewriteHead(html, { title, description, url, image }) {
 const W = 'style="max-width:820px;margin:40px auto;padding:0 24px;font-family:Georgia,serif;color:#0C0D10;line-height:1.5"';
 const BODY = {
   '/': `<main ${W}><h1>Compliance as a protocol</h1>
-<p>DPO2U turns regulatory compliance into a verifiable, on-chain attestation — the score stays private, the proof is public. The HTTPS of compliance, for Web3.</p>
-<p>Provable compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.</p>
+<p>DPO2U is the compliance operator offering Compliance as Protocol on Midnight. We turn regulation into tested rules with source and date, prove them with zero-knowledge on Midnight, and stand behind them as the accountable compliance operator — for VASPs and the banks that serve them in Brazil and Argentina.</p>
+<p>Selective disclosure: client data stays shielded, the verdict is public, and supervisors see only what their scoped key allows.</p>
+<p>25 jurisdictions in the norms engine, each with source and date. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.</p>
 <h2>Two ways in</h2><ul><li><strong>I'm building</strong> — run DPO2U's compliance primitives inside your own CI/CD (SDK in private alpha).</li><li><strong>Run it for me</strong> — we execute the pipeline for you, or become your accountable DPO of record.</li></ul>
 <h2>Pricing</h2><p>Pricing under review — talk to us.</p>
 <p>Independent research house. Founder: Frederico Santana. 77 MCP tools · 25 jurisdictions · contact: contato@dpo2u.com.</p></main>`,
   '/coverage': `<main ${W}><h1>Twenty-five jurisdictions, one primitive layer</h1>
-<p>Each regime is a typed compliance primitive in one engine, with source and date: LGPD (Brazil), GDPR (EU), MiCAR and MiCA Title V CASP (EU), DPDP (India), PDPA (Singapore), UAE, POPIA (South Africa), NDPA (Nigeria), CCPA (California), PIPEDA (Canada), Quebec Law 25, PIPA (South Korea), PDP (Indonesia), APPI (Japan), and the data-protection laws of Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.</p></main>`,
+<p>Each regime is a typed compliance primitive in one engine, with source and date: LGPD (Brazil), GDPR (EU), MiCA and MiCA Title V CASP (EU), DPDP (India), PDPA (Singapore), UAE, POPIA (South Africa), NDPA (Nigeria), CCPA (California), PIPEDA (Canada), Quebec Law 25, PIPA (South Korea), PDP (Indonesia), APPI (Japan), and the data-protection laws of Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.</p></main>`,
   '/pricing': `<main ${W}><h1>Pricing under review</h1>
 <p>We are not publishing prices yet. Pilots are scoped case by case — write to contato@dpo2u.com.</p>
-<p>Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.</p></main>`,
+<p>Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.</p></main>`,
   '/research': `<main ${W}><h1>Compliance as Protocol</h1>
 <p>DPO2U is the research house that ships code. Compliance is exposed through an MCP server and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
 <p>Coverage spans the 25 jurisdictions of the norms engine, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,

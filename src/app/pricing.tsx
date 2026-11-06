@@ -12,7 +12,7 @@ import { usePageHead } from '@/lib/page-head';
 import { FONTS, PALETTE } from '@/components/sealed/atoms';
 
 const CONTACT_EMAIL = 'contato@dpo2u.com';
-const NETWORK_STATUS = 'Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.';
+const NETWORK_STATUS = 'Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.';
 
 const WAYS = [
   { name: 'Run it yourself', pitch: 'You run the compliance primitives in your own CI/CD and hold the keys. SDK in private alpha.' },

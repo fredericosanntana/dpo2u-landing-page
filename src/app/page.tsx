@@ -29,7 +29,7 @@ export default function HomePage() {
   usePageHead({
     title: 'DPO2U — Compliance as a protocol.',
     description:
-      'The HTTPS of compliance. Provable compliance for anything that processes data, issues tokens, or runs AI. 25 jurisdictions in the norms engine, each with source and date. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. Score stays private, proof is public.',
+      'DPO2U is the compliance operator offering Compliance as Protocol on Midnight. We turn regulation into tested rules with source and date, prove them with zero-knowledge on Midnight, and stand behind them as the accountable compliance operator — for VASPs and the banks that serve them in Brazil and Argentina. Selective disclosure by design.',
     path: '/',
   });
   return (

@@ -30,7 +30,7 @@ export default function Footer() {
                 <a href="https://github.com/fredericosanntana" target="_blank" rel="noopener noreferrer" className="text-brand-platinum-500 hover:text-white transition-colors">
                   <Github className="h-5 w-5" />
                 </a>
-                <a href="https://x.com/fredsanntana" target="_blank" rel="noopener noreferrer" className="text-brand-platinum-500 hover:text-white transition-colors">
+                <a href="https://x.com/dpo2u" target="_blank" rel="noopener noreferrer" className="text-brand-platinum-500 hover:text-white transition-colors">
                   <Twitter className="h-5 w-5" />
                 </a>
                 <a href="https://www.linkedin.com/in/fredericosantana/" target="_blank" rel="noopener noreferrer" className="text-brand-platinum-500 hover:text-white transition-colors">

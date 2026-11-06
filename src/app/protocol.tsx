@@ -13,7 +13,7 @@ const FLOW_STEPS = [
   {
     n: '01',
     title: 'Run the predicate engine',
-    desc: 'The MCP compliance engine evaluates a subject against a jurisdiction predicate set (LGPD, GDPR, MiCAR…). The verdict — PASS / FAIL / REVIEW — and an evidence hash are produced off-chain. Source data never leaves your side.',
+    desc: 'The MCP compliance engine evaluates a subject against a jurisdiction predicate set (LGPD, GDPR, MiCA…). The verdict — PASS / FAIL / REVIEW — and an evidence hash are produced off-chain. Source data never leaves your side.',
   },
   {
     n: '02',
@@ -97,7 +97,7 @@ function LiveContractStats() {
 export default function ProtocolPage() {
   usePageHead({
     title: 'Protocol — compliance as a protocol | DPO2U',
-    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.',
+    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.',
     path: '/protocol',
   });
 
@@ -131,7 +131,7 @@ export default function ProtocolPage() {
                 (use_case_id, evidence_hash)
               </code>{' '}
               over public RPC — no wallet, no fee. The source data stays off-chain; the proof of compliance is public.
-              {' '}Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.
+              {' '}Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.
             </p>
           </div>
           <div className="flex justify-center lg:justify-end pt-2">

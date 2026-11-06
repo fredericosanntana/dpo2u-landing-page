@@ -24,7 +24,7 @@ export const FONTS = {
 export const JURISDICTIONS = [
   { code: 'LGPD',     region: 'Brazil',         lat: '−23.5° S' },
   { code: 'GDPR',     region: 'EU',             lat: '+50.1° N' },
-  { code: 'MiCAR',    region: 'EU',             lat: '+50.8° N' },
+  { code: 'MiCA',    region: 'EU',             lat: '+50.8° N' },
   { code: 'DPDP',     region: 'India',          lat: '+28.6° N' },
   { code: 'PDPA',     region: 'Singapore',      lat: '+1.3° N'  },
   { code: 'UAE',      region: 'U.A.E.',         lat: '+25.2° N' },

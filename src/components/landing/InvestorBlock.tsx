@@ -10,7 +10,7 @@ interface Column {
 const COLUMNS: Column[] = [
   {
     title: 'What we do',
-    body: 'Compliance research house. Publish research, ship code. Seventeen jurisdictions + AI Governance vertical (six frameworks) in code: LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA + Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM. 66 MCP tools. 14 Anchor programs on Solana. Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Res 79/325). Five years of research.',
+    body: 'Compliance research house. Publish research, ship code. Seventeen jurisdictions + AI Governance vertical (six frameworks) in code: LGPD, GDPR, MiCA, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA + Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM. 66 MCP tools. 14 Anchor programs on Solana. Aligned with CAIDP submission to UN Global Dialogue on AI Governance (UN GA Res 79/325). Five years of research.',
   },
   {
     title: 'Why it matters',

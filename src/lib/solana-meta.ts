@@ -16,7 +16,7 @@ export const PROGRAMS_META: ProgramMetaLite[] = [
   { key: 'agentRegistry', displayName: 'Agent Registry', tagline: 'DPO agent DIDs with capability bitmask.', programId: '5qeuUAaJi9kTzsfmiphQ89PNrpqy7xW7sCvhBZQ6mya7' },
   { key: 'agentWalletFactory', displayName: 'Agent Wallet Factory', tagline: 'Deterministic per-agent wallet PDAs.', programId: 'AjRqmxyieQieov2qsNefdYpa6HbPhzciED7s5TfZi1in' },
   { key: 'aiverifyAttestation', displayName: 'AI Verify Attestation', tagline: 'AI model assurance attestations (IMDA AI Verify).', programId: 'CmPVUPo54hV25r5iw59X1yR1f5tEsn7FNmywFMDiPT7j' },
-  { key: 'artVault', displayName: 'ART Vault', tagline: 'MiCAR Asset-Referenced Token reserve management.', programId: 'C7sGZFeWPxEkaGHACwqdzCcy4QkacqPLYEwEarVpidna' },
+  { key: 'artVault', displayName: 'ART Vault', tagline: 'MiCA Asset-Referenced Token reserve management.', programId: 'C7sGZFeWPxEkaGHACwqdzCcy4QkacqPLYEwEarVpidna' },
   { key: 'consentManager', displayName: 'Consent Manager', tagline: 'DPDP India / LGPD on-chain consent records.', programId: 'D5mLHU4uUQAkoMvtviAzBe1ugpdxfdqQ7VuGoKLaTjfB' },
   { key: 'feeDistributor', displayName: 'Fee Distributor', tagline: 'Routes per-attestation fees via Squads vault.', programId: '88eKEEMMnugv8AFWRvqa4i7LEiL7tM9bEuPTVkRbD76x' },
   { key: 'paymentGateway', displayName: 'Payment Gateway', tagline: 'USDC payment rails for compliance work.', programId: '4Qj6GziMjUfh4TszuSnasnEqnASqQBS6SHw6YAu9U23Q' },

@@ -22,7 +22,7 @@ const JURISDICTIONS: { code: string; label: string }[] = [
   { code: 'pipeda', label: 'Canada · PIPEDA' },
   { code: 'dpdp', label: 'India · DPDP' },
   { code: 'pdpa', label: 'Singapore · PDPA' },
-  { code: 'micar', label: 'EU · MiCAR' },
+  { code: 'micar', label: 'EU · MiCA' },
   { code: 'popia', label: 'South Africa · POPIA' },
 ];
 

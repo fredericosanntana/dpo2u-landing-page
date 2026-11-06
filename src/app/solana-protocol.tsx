@@ -84,7 +84,7 @@ function SectionHeader({ marker, title, lede }: { marker: string; title: React.R
 export default function SolanaProtocolPage() {
   usePageHead({
     title: 'Solana Protocol — 14 ZK programs on devnet | DPO2U',
-    description: 'Fourteen DPO2U Solana programs across compliance, consent, MiCAR ART, agent infra, 4 jurisdiction-specific (POPIA, CCPA, PIPEDA, PIPA Korea) and the Hiroshima ICOC G7 attestation — SP1 Groth16 proofs. ~$0.0002/attestation, 156k CU, 356-byte proofs.',
+    description: 'Fourteen DPO2U Solana programs across compliance, consent, MiCA ART, agent infra, 4 jurisdiction-specific (POPIA, CCPA, PIPEDA, PIPA Korea) and the Hiroshima ICOC G7 attestation — SP1 Groth16 proofs. ~$0.0002/attestation, 156k CU, 356-byte proofs.',
     path: '/solana-protocol',
   });
 

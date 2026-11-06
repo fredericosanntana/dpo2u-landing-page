@@ -34,7 +34,7 @@ import {
 // the home Roadmap rhythm. Updated 2026-04-29 in the Sealed globalization sprint.
 const WHY_REGISTER = [
     'Compliance attested on-chain — auditable, revocable, immutable.',
-    'Seventeen jurisdictions in scope (LGPD, GDPR, MiCAR, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA) + AI Governance vertical (six frameworks: Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM).',
+    'Seventeen jurisdictions in scope (LGPD, GDPR, MiCA, DPDP, PDPA, UAE, PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA) + AI Governance vertical (six frameworks: Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM).',
     'Names public, scores private. Proof, not prose.',
     'No $50k consultant. No PDFs. No monthly dashboard.',
     'Draft auto-saves locally. Close the tab — pick up later.',
@@ -777,7 +777,7 @@ function Step7({ value, onChange, errors }: any) {
                 </label>
                 <label className={checkCls}>
                     <input type="checkbox" checked={value.hasMiCARVault} onChange={ev => set('hasMiCARVault', ev.target.checked)} />
-                    <span className="text-[14px]">Has MiCAR vault</span>
+                    <span className="text-[14px]">Has MiCA vault</span>
                 </label>
             </div>
             {value.hasMiCARVault && (

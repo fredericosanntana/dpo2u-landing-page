@@ -142,7 +142,7 @@ export default function PilotCompliancePage() {
           <SmallLabel style={{ marginBottom: 6 }}>Catálogo de jurisdições · compliance_attestation_v1</SmallLabel>
           <p style={{ ...mono(10), color: PALETTE.concrete, margin: '0 0 16px' }}>
             16 regimes de proteção de dados — um use case parametrizado por jurisdição
-            (a 17ª, MiCAR, é regime de cripto-ativos com trilha própria)
+            (a 17ª, MiCA, é regime de cripto-ativos com trilha própria)
           </p>
           <div
             className="grid gap-px"

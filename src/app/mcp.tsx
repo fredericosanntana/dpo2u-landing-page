@@ -16,14 +16,14 @@ interface Skill {
 const SKILLS: Skill[] = [
   {
     name: 'dpo2u-audit-micar',
-    title: 'MiCAR ART vault audit',
-    desc: 'Audit an EU stablecoin reserve program against MiCAR Art. 23 / 35 / 36 / 39 — Proof of Reserve, Liquidity Vault, Capital Buffer, Velocity Limiter.',
-    tags: ['EU', 'MiCAR', 'Crypto'],
+    title: 'MiCA ART vault audit',
+    desc: 'Audit an EU stablecoin reserve program against MiCA Art. 23 / 35 / 36 / 39 — Proof of Reserve, Liquidity Vault, Capital Buffer, Velocity Limiter.',
+    tags: ['EU', 'MiCA', 'Crypto'],
   },
   {
     name: 'dpo2u-compliance-check',
     title: 'Compliance checklist + score',
-    desc: 'Run an LGPD / GDPR / DPDP / MiCAR / PDPA / UAE / PDPL / POPIA / NDPA / CCPA / PIPEDA / LAW25 / PIPA / PDP compliance scan. Returns scored checklist, gap analysis, and prioritized action plan.',
+    desc: 'Run an LGPD / GDPR / DPDP / MiCA / PDPA / UAE / PDPL / POPIA / NDPA / CCPA / PIPEDA / LAW25 / PIPA / PDP compliance scan. Returns scored checklist, gap analysis, and prioritized action plan.',
     tags: ['LGPD', 'GDPR', 'DPDP', 'PDPA', 'POPIA', 'NDPA', 'CCPA', 'PIPEDA'],
   },
   {
@@ -87,7 +87,7 @@ const MCP_CONFIG = `{
 export default function MCPPage() {
   usePageHead({
     title: 'MCP — 66 typed compliance tools across 17 jurisdictions + 6 AI governance frameworks | DPO2U',
-    description: '66 typed Model Context Protocol tools covering LGPD, GDPR, MiCAR, DPDP, PDPA, UAE/PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA plus six AI governance frameworks (Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM). Run compliance gap analysis, DPIA, HRIA, AI red-line audit, AI Index scoring, ZK attestation inside any MCP-compatible LLM.',
+    description: '66 typed Model Context Protocol tools covering LGPD, GDPR, MiCA, DPDP, PDPA, UAE/PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA plus six AI governance frameworks (Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM). Run compliance gap analysis, DPIA, HRIA, AI red-line audit, AI Index scoring, ZK attestation inside any MCP-compatible LLM.',
     path: '/mcp',
   });
   return (
@@ -122,7 +122,7 @@ export default function MCPPage() {
               className="mt-8 font-body text-[19px] md:text-[21px] leading-snug text-dpo2u-ink/75 max-w-[58ch]"
             >
               66 typed tools. 4 public skills. Compiled from five years of research across 17 jurisdictions —
-              LGPD, GDPR, MiCAR, DPDP, PDPA, UAE/PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA —
+              LGPD, GDPR, MiCA, DPDP, PDPA, UAE/PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA —
               plus six AI governance frameworks: Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM.
             </motion.p>
             <motion.div

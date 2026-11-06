@@ -22,7 +22,7 @@ const FEATURES = [
   {
     icon: Brain,
     title: 'MCP Compliance Brain',
-    desc: 'LGPD, GDPR, DPDP, MiCAR, PDPA, and UAE skills exposed as typed MCP tools. Plug into Claude, ChatGPT, or custom agents.',
+    desc: 'LGPD, GDPR, DPDP, MiCA, PDPA, and UAE skills exposed as typed MCP tools. Plug into Claude, ChatGPT, or custom agents.',
     statValue: '6',
     statLabel: 'jurisdictions covered',
   },

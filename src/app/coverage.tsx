@@ -51,16 +51,16 @@ const COVERAGE: JurisdictionCard[] = [
     law: 'Regulation (EU) 2016/679',
     primaryArticle: 'Art. 22 — automated decisions · Art. 25 — privacy by design',
     authority: 'National DPAs (CSSF lead for EU passport)',
-    position: 'Cross-border EU compliance · CASP passport via MiCAR.',
+    position: 'Cross-border EU compliance · CASP passport via MiCA.',
   },
   {
-    code: 'MiCAR',
+    code: 'MiCA',
     flag: '🇪🇺',
     region: 'EU crypto',
     law: 'Regulation (EU) 2023/1114',
     primaryArticle: 'Art. 23/35/36/39 — ART vault: PoR, liquidity, capital, velocity',
     authority: 'EBA / ESMA',
-    position: 'EU stablecoin reserve audits — MiCAR ART vault primitive.',
+    position: 'EU stablecoin reserve audits — MiCA ART vault primitive.',
   },
   {
     code: 'DPDP',
@@ -261,7 +261,7 @@ export default function CoveragePage() {
   usePageHead({
     title: 'Coverage — Twenty-five jurisdictions, one primitive | DPO2U',
     description:
-      'Map of the 25 jurisdictions in the DPO2U norms engine, each with source and date: LGPD, GDPR, MiCAR, MiCA Title V (CASP), DPDP, PDPA, UAE, POPIA, NDPA, CCPA, PIPEDA, Law 25, PIPA, PDP, APPI, Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.',
+      'Map of the 25 jurisdictions in the DPO2U norms engine, each with source and date: LGPD, GDPR, MiCA, MiCA Title V (CASP), DPDP, PDPA, UAE, POPIA, NDPA, CCPA, PIPEDA, Law 25, PIPA, PDP, APPI, Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.',
     path: params.code ? `/coverage/${slugCode}` : '/coverage',
   });
 
@@ -325,7 +325,7 @@ export default function CoveragePage() {
             marginTop: 28,
           }}
         >
-          — Compliance contract on Stellar testnet · 77 MCP tools · trustless verify by (use_case_id, evidence_hash) · Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview. —
+          — Compliance contract on Stellar testnet · 77 MCP tools · trustless verify by (use_case_id, evidence_hash) · Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet. —
         </p>
       </section>
 

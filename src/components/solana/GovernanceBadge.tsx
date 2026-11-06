@@ -92,7 +92,7 @@ export default function GovernanceBadge() {
           maxWidth: 640,
         }}
       >
-        DPO2U program upgrades, MiCAR reserve management, compressed
+        DPO2U program upgrades, MiCA reserve management, compressed
         attestation revokes, and treasury operations are all governed by
         independent Squads v4 multisigs with role-specific thresholds and
         time-locks. No single keypair can act unilaterally. Every proposal

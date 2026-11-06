@@ -258,7 +258,7 @@ export default function AlphaPage() {
                 >
                     Seventeen jurisdictions. One primitive layer.
                     <br />
-                    LGPD · GDPR · MiCAR · DPDP · PDPA · UAE · PDPL · POPIA · NDPA · CCPA · PIPEDA · LAW25 · PIPA · PDP · APPI · MEXICO · VIETNAM · MALAYSIA.
+                    LGPD · GDPR · MiCA · DPDP · PDPA · UAE · PDPL · POPIA · NDPA · CCPA · PIPEDA · LAW25 · PIPA · PDP · APPI · MEXICO · VIETNAM · MALAYSIA.
                 </p>
             </section>
         </>

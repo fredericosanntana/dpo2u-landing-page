@@ -22,7 +22,7 @@ interface JurisdictionDot {
 const JURISDICTION_DOTS: JurisdictionDot[] = [
   { code: 'LGPD',      region: 'Brazil',           lng: -46.6, lat: -23.5 },
   { code: 'GDPR',      region: 'EU',               lng:   8.7, lat:  50.1 },
-  { code: 'MiCAR',     region: 'EU',               lng:   4.4, lat:  50.8 },
+  { code: 'MiCA',     region: 'EU',               lng:   4.4, lat:  50.8 },
   { code: 'DPDP',      region: 'India',            lng:  77.2, lat:  28.6 },
   { code: 'PDPA',      region: 'Singapore',        lng: 103.8, lat:   1.3 },
   { code: 'UAE',       region: 'U.A.E.',           lng:  55.3, lat:  25.2 },

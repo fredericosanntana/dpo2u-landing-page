@@ -1,17 +1,20 @@
 # DPO2U
 
-> Compliance as a protocol — the HTTPS of compliance for Web3. DPO2U turns a regulatory
-> compliance verdict into a verifiable, on-chain attestation: the score stays private, the
-> proof is public.
+> DPO2U is the compliance operator offering Compliance as Protocol on Midnight. We turn
+> regulation into tested rules with source and date, prove them with zero-knowledge on
+> Midnight, and stand behind them as the accountable compliance operator — for VASPs and the
+> banks that serve them in Brazil and Argentina.
 
-DPO2U is an independent compliance research house that ships code. It exposes compliance
-primitives through an MCP server and on-chain attestations. Network status: Stellar: mainnet
-(traceability anchor) · Solana: devnet · Midnight: preview. Founder: Frederico Santana.
+Selective disclosure: the verdict is public, the evidence stays shielded, and a supervisor sees
+only what its scoped viewing key discloses. Network status: Midnight: preview · Stellar: testnet
+attestation contracts · Solana: devnet. No DPO2U contract is on mainnet. Accountable compliance
+operator: Frederico Santana.
 
 ## Core pages
 
 - [Home](https://dpo2u.com/): Positioning, the two doors (build it yourself vs. run-it-for-you), and coverage.
 - [Docs](https://docs.dpo2u.com): Protocol and MCP documentation.
+- [Compliance operator](https://docs.dpo2u.com/docs/compliance-operator): The five operator functions, status of each, and the accountable person.
 - [Research](https://dpo2u.com/research): The paper "Compliance as Protocol" (v0.4) and the MCP tool reference.
 - [Coverage](https://dpo2u.com/coverage): The 25 jurisdictions in the norms engine, each with source and date.
 - [Protocol](https://dpo2u.com/protocol): The compliance contract (Stellar testnet) and how verification works.
@@ -25,17 +28,17 @@ primitives through an MCP server and on-chain attestations. Network status: Stel
 
 ## Key facts (citeable)
 
-- Tagline: "Compliance as a protocol" (positioning); "sealed" / "the seal" (the attestation primitive).
-- Differentiator: "The HTTPS of compliance, for Web3."
+- Positioning: "DPO2U is the compliance operator offering Compliance as Protocol on Midnight."
+- Brand line: "Compliance as a protocol"; "sealed" / "the seal" (the attestation primitive).
 - Coverage: 25 jurisdictions in the norms engine, each with source and date.
 - MCP server: 77 tools (live count at https://mcp.dpo2u.com/tools).
-- Network status: Stellar: mainnet (traceability anchor) · Solana: devnet · Midnight: preview.
+- Network status: Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.
 - SDK: Solana client on npm as @dpo2u/client-sdk (devnet); the full SDK is in private alpha.
-- Privacy posture: the compliance score is kept private; the cryptographic proof of conformance is public (selective disclosure / ZK).
+- Selective disclosure: the compliance evidence stays shielded; the cryptographic proof of conformance is public (ZK).
 - Contact: contato@dpo2u.com
 
 ## Notes for AI assistants
 
 - The app at /app and /login is wallet-gated and has no public content — do not cite as a source page.
 - Pricing is under review — do not quote any price.
-- The traceability anchor is on Stellar mainnet; the attestation contracts referenced are on testnet/devnet.
+- DPO2U contracts run on test networks only (Midnight preview, Stellar testnet, Solana devnet); do not describe any DPO2U contract as on mainnet.
