@@ -145,7 +145,7 @@ export default function PilotVerifyPage() {
                   fontStyle: 'italic',
                 }}
               >
-                Testnet ainda — mainnet liga em Sprint L (M7 do Stellar37°).
+                Testnet only.
               </p>
             </div>
           </div>

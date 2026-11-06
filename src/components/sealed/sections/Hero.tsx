@@ -84,7 +84,7 @@ export default function Hero() {
               ['25', 'jurisdictions'],
               ['77', 'MCP tools'],
               ['Groth16', 'ZK verifier · Stellar testnet'],
-              ['0.00021 SOL', 'est. per attestation · devnet'],
+              ['Preview', 'proof layer · Midnight'],
             ].map(([n, l], i) => (
               <div
                 key={l}
@@ -121,7 +121,7 @@ export default function Hero() {
               zIndex: 2,
             }}
           >
-            <Stamp rotate={8}>Mainnet anchor · Stellar</Stamp>
+            <Stamp rotate={8}>Proof layer · Midnight</Stamp>
           </div>
           <WaxSeal size={240} style={{ margin: '0 auto 24px' }} />
           <Cancellation width={400} lines={6} style={{ margin: '0 auto', display: 'block' }} />

@@ -5,7 +5,7 @@ import { SmallLabel, FONTS, PALETTE } from '../atoms';
 const MILESTONES = [
   { t: '2021 → 2025', label: 'Foundation', items: ['DPO2U founded · São Paulo', 'Paper “Compliance as Protocol” (v0.4)', 'LGPD kit generator as an MCP tool'] },
   { t: '2026',        label: 'Now',         items: ['Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet', '77 MCP tools', '25 jurisdictions in the norms engine, with source and date', 'ZK verifier (Groth16) on Stellar testnet'] },
-  { t: 'Next',        label: 'Mainnet',     items: ['Attestation contracts on mainnet (after audit)', 'SDK out of private alpha', 'SOC2 + HIPAA primitives', 'KSA PDPL · LATAM expansion'] },
+  { t: 'Next',        label: 'Midnight',    items: ['Travel Rule gate on Midnight preview', 'Compliance operator: disclosure governance and examiner evidence packs', 'Argentina rule pack (ar-psav-cnv)', 'SDK out of private alpha'] },
   { t: '2027',        label: 'Open',        items: ['Permissionless verifier set', 'On-chain attestation marketplace', 'Cross-chain proofs · zk-bridges'] },
 ];
 

@@ -72,7 +72,7 @@ export default function Traction() {
         />
         <TractionCard
           metric="NETWORK STATUS"
-          value="Mainnet anchor · Stellar"
+          value="Midnight first · preview"
           note="Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet."
         />
       </div>

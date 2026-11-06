@@ -205,7 +205,7 @@ export default function ProtocolPage() {
           Contract methods: <code style={{ fontFamily: FONTS.mono }}>register_attestation</code>,{' '}
           <code style={{ fontFamily: FONTS.mono }}>verify_attestation</code>,{' '}
           <code style={{ fontFamily: FONTS.mono }}>configure_use_case</code>,{' '}
-          <code style={{ fontFamily: FONTS.mono }}>authorize_submitter</code>. Mainnet deploy is gated behind the Sprint L ceremony.
+          <code style={{ fontFamily: FONTS.mono }}>authorize_submitter</code>. DPO2U contracts run on test networks only.
         </p>
       </section>
 

@@ -93,7 +93,7 @@ const SECTIONS: Section[] = [
   },
   {
     title: 'Multi-jurisdiction coverage',
-    body: 'DPO2U operates under 17 jurisdictions: LGPD · GDPR · MICAR · DPDP · PDPA · UAE/PDPL · POPIA · NDPA · CCPA · PIPEDA · LAW25 · PIPA · PDP · APPI · MEXICO · VIETNAM · MALAYSIA. Per-jurisdiction obligations (DPO mandate, breach notification deadlines, data subject rights, cross-border safeguards) are documented in the RoPA available on request to the contact below.',
+    body: 'DPO2U operates under 17 jurisdictions: LGPD · GDPR · MiCA · DPDP · PDPA · UAE/PDPL · POPIA · NDPA · CCPA · PIPEDA · LAW25 · PIPA · PDP · APPI · MEXICO · VIETNAM · MALAYSIA. Per-jurisdiction obligations (DPO mandate, breach notification deadlines, data subject rights, cross-border safeguards) are documented in the RoPA available on request to the contact below.',
   },
   {
     title: 'Contact',
