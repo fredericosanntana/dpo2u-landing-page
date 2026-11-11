@@ -60,6 +60,11 @@ const ROUTES = [
     description: 'SPSAV autorizada e prestador de serviço relevante (Res. BCB 520, arts. 32–42): diligência artigo por artigo, revisor nomeado e passaporte de conformidade selado em blockchain. Prazos: 30/10/2026 (art. 88) e 06/11/2026 (art. 91).',
   },
   {
+    path: '/avalanche',
+    title: 'DPO2U on Avalanche — compliance seals on the C-Chain | DPO2U',
+    description: 'DPO2U on Avalanche Fuji: seven verified contracts. SP1 Groth16 proofs verified on the C-Chain, a compliance registry, a conformity passport any contract can check, a Travel Rule gate, proof of reserves and a Midnight relay.',
+  },
+  {
     path: '/dpa',
     title: 'Data Processing Agreement (DPA) — DPO2U',
     description: 'DPO2U processor DPA template — GDPR Art. 28 + LGPD Art. 39: documented instruction, confidentiality, security (Art. 32), sub-processors, data-subject assistance, breach notification, deletion/return, audit, and international transfers.',
@@ -235,6 +240,10 @@ const BODY = {
 <p>A DPO2U entrega, por prestador contratado, a diligência que o art. 34 exige: regras artigo por artigo (34, 35, 37, 40, 41, 42), revisão por revisor nomeado e um passaporte de conformidade selado em blockchain que mostra de onde vem cada veredito — máquina, revisor ou terceiro independente.</p>
 <h2>Prazos</h2><ul><li>30/10/2026 — prazo para quem já opera pedir autorização (Res. BCB 520, art. 88, I).</li><li>06/11/2026 — instituições autorizadas deixam de operar com contraparte não autorizada (Res. BCB 520, art. 91, redação da Res. BCB 589/2026).</li></ul>
 <p>O selo prova integridade e data da avaliação; não prova, sozinho, conformidade, e não substitui a diligência da SPSAV, a auditoria independente nem a autorização do Banco Central. Conteúdo informativo, não é aconselhamento jurídico.</p></main>`,
+  '/avalanche': `<main ${W}><h1>DPO2U on Avalanche</h1>
+<p>Compliance as a protocol on the Avalanche C-Chain. DPO2U turns regulation into seals that any smart contract can check: institutions, banks and crypto asset service providers prove the result of a compliance evaluation with a zero-knowledge proof. The verdict is public; the data stays with them.</p>
+<p>Live on Fuji testnet (chain 43113), all verified on Snowtrace: SP1Verifier (Groth16, SP1 v6.1.0), ComplianceRegistry, ZkThresholdAttestor, PassportOracle (admin under a 2-of-3 Safe), TravelRuleGate, SolvencyRegistry (SP1 proof of reserves) and MidnightRelay. Open source (MIT): github.com/fredericosanntana/dpo2u-avalanche.</p>
+<p>The seal proves the integrity and date of an evaluation. On its own, it does not prove compliance. Testnet only; not on mainnet.</p></main>`,
   '/verify': `<main ${W}><h1>Verify an attestation</h1>
 <p>Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain — no DPO2U credential required. Verification is keyed by use-case id and evidence hash; the verdict, jurisdiction/predicate, timestamp and evidence hash are public, while the score and underlying data stay private. Score private, proof public.</p></main>`,
   '/dpa': `<main ${W}><h1>Data Processing Agreement (DPA)</h1>
