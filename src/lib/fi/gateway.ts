@@ -8,15 +8,16 @@ export const GATEWAY_BASE = (
 ).replace(/\/+$/, '');
 
 export class GatewayError extends Error {
-  constructor(readonly status: number, readonly code: string, message: string) {
+  constructor(readonly status: number, readonly code: string, message: string, readonly body: Record<string, unknown> = {}) {
     super(message);
   }
 }
 
-export async function gw<T>(path: string, init: { method?: string; body?: unknown; apiKey?: string } = {}): Promise<T> {
+export async function gw<T>(path: string, init: { method?: string; body?: unknown; apiKey?: string; payment?: string } = {}): Promise<T> {
   const headers: Record<string, string> = {};
   if (init.body !== undefined) headers['content-type'] = 'application/json';
   if (init.apiKey) headers['x-api-key'] = init.apiKey;
+  if (init.payment) headers['x-payment'] = init.payment;
   const res = await fetch(`${GATEWAY_BASE}${path}`, {
     method: init.method ?? (init.body === undefined ? 'GET' : 'POST'),
     // Chave de operador nunca vai junto com o cookie da instituição.
@@ -26,7 +27,7 @@ export async function gw<T>(path: string, init: { method?: string; body?: unknow
   });
   if (res.status === 204) return undefined as T;
   const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
-  if (!res.ok) throw new GatewayError(res.status, String(data.error ?? 'error'), String(data.message ?? data.error ?? `HTTP ${res.status}`));
+  if (!res.ok) throw new GatewayError(res.status, String(data.error ?? 'error'), String(data.message ?? data.error ?? `HTTP ${res.status}`), data);
   return data as T;
 }
 
@@ -95,6 +96,19 @@ export const reviewApi = {
   decide: (apiKey: string, id: string, body: { reviewer_id: string; verdicts: Record<string, 'PASS' | 'FAIL'>; signature: string }) =>
     gw<{ passport: PassportView; midnight?: { status: string }; avalanche?: { status: string } }>(`/api/v1/review/requests/${encodeURIComponent(id)}/decision`, { apiKey, body }),
   giveBack: (apiKey: string, id: string, reason: string) => gw<ReviewRequestView>(`/api/v1/review/requests/${encodeURIComponent(id)}/return`, { apiKey, body: { reason } }),
+};
+
+// ── E8: planos e cobrança x402 ──────────────────────────────────────────────
+export interface PlanView { id: string; name: string; annual_usd: number; monthly_usd: number; limits: { passportsPerYear: number; transfersPerMonth: number; members: number } }
+export interface BillingView {
+  state: 'trial' | 'active' | 'expired'; trial_ends_at: string; days_left: number;
+  plan: { id: string; name: string; period: 'annual' | 'monthly'; paid_through: string } | null;
+  invoices: { id: string; plan: string; period: string; amount_usd: number; asset: string; network: string; tx_hash: string; paid_at: string; period_end: string }[];
+}
+export const billingApi = {
+  get: () => gw<{ plans: PlanView[]; subscription: BillingView; payment: { method: string; asset: string; network: string; available: boolean } }>('/api/v1/billing'),
+  /** Sem payment: o gateway responde 402 com o desafio x402 (vem em GatewayError.body). */
+  buy: (plan: string, period: 'annual' | 'monthly', payment?: string) => gw<{ subscription: BillingView }>('/api/v1/billing/plan', { body: { plan, period }, payment }),
 };
 
 /** sha256 hex de um arquivo, calculado no navegador. O arquivo nunca sai da máquina. */

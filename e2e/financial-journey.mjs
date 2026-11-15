@@ -6,7 +6,7 @@
 // Usa só contas e empresas fictícias. Grava o relatório em e2e/report/financial-journey.json.
 //
 // Passos cobertos até agora: 1 (diagnóstico), 2 (conta, aprovador, chave) e
-// 3 (passaporte de parceiro com revisão humana assinada). Os demais entram com M3–M5.
+// 3 (passaporte de parceiro com revisão humana assinada) e 4 (plano e métricas). Os demais entram com M4–M5.
 //   E2E_OPERATOR_KEY    chave de API do operador (fila de revisão)
 //   E2E_SEEDED_ATTEMPT  teste local: tentativa já selada de e2e/fixtures/partner-submit.json
 //   E2E_FULL_SEAL=1     preview: o assistente sela de verdade na rede de teste
@@ -167,6 +167,18 @@ try {
     if (JSON.stringify(pub).includes('parceiro-ficticio')) throw new Error('o passaporte público vazou evidência');
     await page.screenshot({ path: path.join(OUT, '03c-passaporte.png'), fullPage: true });
     return { passport: id, verdicts: pub.verdicts };
+  });
+
+  await step('4. plano: trial de 30 dias e os três planos do deck', async () => {
+    await page.goto(`${SITE}/app/fi/billing`);
+    await page.waitForSelector('[data-testid=billing-state][data-state=trial]');
+    for (const id of ['starter', 'growth', 'enterprise']) await page.waitForSelector(`[data-plan=${id}]`);
+    const txt = await page.textContent('[data-plan=starter]');
+    if (!txt?.includes('$24,000')) throw new Error(`preço do Starter inesperado: ${txt}`);
+    const m = await fetch(`${GW}/api/v1/metrics/business`, { headers: { 'x-api-key': OP } }).then((r) => r.json());
+    if (m.funnel.passports_issued < 1 || m.funnel.workspaces < 1) throw new Error(`métricas inesperadas: ${JSON.stringify(m.funnel)}`);
+    await page.screenshot({ path: path.join(OUT, '04-plano.png'), fullPage: true });
+    return { funnel: m.funnel, billing: m.billing };
   });
 } catch {
   failed = true;
