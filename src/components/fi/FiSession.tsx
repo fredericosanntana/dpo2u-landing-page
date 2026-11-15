@@ -29,6 +29,7 @@ const NAV = [
   { to: '/app/fi/workspace', label: 'Workspace' },
   { to: '/app/fi/passport', label: 'Passaporte' },
   { to: '/app/fi/sponsorships', label: 'Parceiros' },
+  { to: '/app/fi/cases', label: 'Transferências' },
   { to: '/app/fi/billing', label: 'Plano' },
 ];
 

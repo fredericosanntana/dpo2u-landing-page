@@ -106,7 +106,7 @@ export interface BillingView {
   invoices: { id: string; plan: string; period: string; amount_usd: number; asset: string; network: string; tx_hash: string; paid_at: string; period_end: string }[];
 }
 export const billingApi = {
-  get: () => gw<{ plans: PlanView[]; subscription: BillingView; payment: { method: string; asset: string; network: string; available: boolean } }>('/api/v1/billing'),
+  get: () => gw<{ plans: PlanView[]; subscription: BillingView; usage?: { transfers_30d: number; pass: number; fail: number; review: number }; payment: { method: string; asset: string; network: string; available: boolean } }>('/api/v1/billing'),
   /** Sem payment: o gateway responde 402 com o desafio x402 (vem em GatewayError.body). */
   buy: (plan: string, period: 'annual' | 'monthly', payment?: string) => gw<{ subscription: BillingView }>('/api/v1/billing/plan', { body: { plan, period }, payment }),
 };
@@ -121,6 +121,23 @@ export const sponsorshipApi = {
   list: () => gw<{ sent: InviteView[]; received: InviteView[] }>('/api/v1/sponsorship-invites'),
   invite: (body: { partner_email: string; accountable_director: string; min_tier?: Tier }) => gw<InviteView>('/api/v1/sponsorship-invites', { body }),
   accept: (id: string) => gw<InviteView>(`/api/v1/sponsorship-invites/${encodeURIComponent(id)}/accept`, { body: {} }),
+};
+
+// ── E6: Travel Rule e casos ─────────────────────────────────────────────────
+export interface TransferView {
+  id: string; transfer_ref: string; verdict: 'PASS' | 'FAIL' | 'REVIEW'; status: string;
+  reasons: { code: string; ruleId?: string; detail: string }[]; amount_usd: number; market: string; threshold_usd: number;
+  counterparty: { type: string; passport_id?: string; passport_status?: string }; case_id?: string; created_at: string; latency_ms: number;
+}
+export interface CaseView {
+  id: string; transferId: string; verdict: 'FAIL' | 'REVIEW'; status: 'open' | 'released' | 'kept_blocked'; ownerEmail?: string; dueAt: string;
+  reasons: TransferView['reasons']; history: { at: string; by: string; action: string; justification?: string }[]; createdAt: string; transfer: TransferView | null;
+}
+export const travelRuleApi = {
+  transfers: () => gw<{ transfers: TransferView[] }>('/api/v1/travel-rule/transfers'),
+  cases: () => gw<{ cases: CaseView[] }>('/api/v1/travel-rule/cases'),
+  decide: (id: string, action: 'release' | 'keep_blocked', justification: string) => gw<CaseView>(`/api/v1/travel-rule/cases/${encodeURIComponent(id)}/decision`, { body: { action, justification } }),
+  webhookSecret: () => gw<{ secret: string; header: string; scheme: string }>('/api/v1/workspace/webhook-secret'),
 };
 
 /** sha256 hex de um arquivo, calculado no navegador. O arquivo nunca sai da máquina. */

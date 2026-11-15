@@ -16,7 +16,7 @@ const STATE_PT = { trial: 'Trial', active: 'Ativo', expired: 'Vencido' } as cons
 
 export default function FiBillingPage() {
   const { session } = useFiSession();
-  const [data, setData] = useState<{ plans: PlanView[]; subscription: BillingView; payment: { available: boolean; network: string; asset: string } } | null>(null);
+  const [data, setData] = useState<{ plans: PlanView[]; subscription: BillingView; usage?: { transfers_30d: number; pass: number; fail: number; review: number }; payment: { available: boolean; network: string; asset: string } } | null>(null);
   const [period, setPeriod] = useState<'annual' | 'monthly'>('annual');
   const [busy, setBusy] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
@@ -69,6 +69,7 @@ export default function FiBillingPage() {
           {sub.state === 'active' && sub.plan && `Pago até ${new Date(sub.plan.paid_through).toLocaleDateString()}.`}
           {sub.state === 'expired' && 'O trial terminou. Escolha um plano para continuar pedindo passaportes.'}
         </p>
+        {data.usage && <p data-testid="billing-usage" style={{ fontSize: 13, color: PALETTE.concrete, marginTop: 4 }}>Transferências avaliadas nos últimos 30 dias: {data.usage.transfers_30d} ({data.usage.pass} PASS, {data.usage.fail} FAIL, {data.usage.review} em revisão). Incluídas no plano; FAIL custa o mesmo que PASS.</p>}
       </section>
 
       <section aria-labelledby="bl-plans" className="grid gap-4">

@@ -79,6 +79,7 @@ async function step(name, fn) {
   }
 }
 
+let apiKey;
 const browser = await chromium.launch();
 const owner = await browser.newContext();
 const page = await owner.newPage();
@@ -122,6 +123,7 @@ try {
     await page.fill('input[name=key_label]', 'e2e');
     await page.getByRole('button', { name: 'Gerar chave' }).click();
     const key = (await page.textContent('[data-testid=new-api-key]'))?.trim();
+    apiKey = key;
     const r = await fetch(`${GW}/api/v1/psav/passports/prepare`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', 'x-api-key': key },
@@ -238,6 +240,52 @@ try {
     await page.reload();
     await page.waitForSelector('[data-testid=sp-sent] tr[data-status=active]');
     await page.screenshot({ path: path.join(OUT, '05-patrocinio.png'), fullPage: true });
+  });
+
+  let cptyPassport;
+  await step('7. VASP contraparte (UE) cria conta e faz o próprio passaporte', async () => {
+    const CPTY = `owner-${run}@vasp-ue.test`;
+    const cc = await browser.newContext();
+    const cp = await cc.newPage();
+    await cp.goto(`${SITE}/financial-institutions`);
+    await cp.getByRole('button', { name: 'Reject All' }).click({ timeout: 3000 }).catch(() => {});
+    await cp.getByRole('button', { name: 'EN', exact: true }).click();
+    await cp.selectOption('select[name=market]', 'DE');
+    await cp.selectOption('select[name=institution_type]', 'casp');
+    await cp.getByRole('button', { name: 'See what applies' }).click();
+    await cp.waitForSelector('[data-pack="travel-rule-fatf@1.0.0"]');
+    await cp.fill('input[name=workspace_name]', `VASP UE ${run} (fictitious)`);
+    await cp.fill('input[name=signup_email]', CPTY);
+    await cp.getByRole('button', { name: 'Create workspace' }).click();
+    await cp.waitForSelector('text=the link is on its way');
+    await cp.goto(linkFor(CPTY));
+    await cp.waitForURL(/\/app\/fi/);
+    // O fluxo guiado de passaporte cobre hoje o pacote de parceiro BR; a contraparte usa o mesmo caminho.
+    cptyPassport = process.env.E2E_FULL_SEAL === '1' ? null : await seededPassportFor(cp, `${process.env.E2E_SEEDED_ATTEMPT}-cpty`, OP);
+    await cc.close();
+    return { passport: cptyPassport, note: 'pacote FATF genérico aparece no diagnóstico; passaporte pelo fluxo de parceiro' };
+  });
+
+  await step('8. duas transferências pelo SDK: contraparte com passaporte (PASS) e sem passaporte (FAIL)', async () => {
+    const sdkDir = process.env.SDK_DIR ?? path.resolve(process.env.GATEWAY_DIR ?? '../DPO2U/packages/pilot-gateway', '../travel-rule-sdk');
+    const { TravelRuleClient } = await import(path.join(sdkDir, 'dist/index.js'));
+    const tr = new TravelRuleClient({ apiKey, baseUrl: GW });
+    const now = Math.floor(Date.now() / 1000);
+    const sanctions = { provider_id: 'screening-lists', list_root: 'ab'.repeat(32), issued_at: now - 60, valid_until: now + 86400, signature: { announcement: { x: '01', y: '02' }, response: '03' } };
+    const parties = { originator: { name: 'Cliente Ficticio', account: 'acct-ficticia', customer_id: 'cli-1' }, beneficiary: { name: 'Beneficiario Ficticio', wallet_address: '0xficticio' } };
+    const ok = await tr.evaluate({ transfer_ref: `e2e-${run}-pass`, amount_usd: 5000, market: 'BR', counterparty: { type: 'vasp', passport_id: cptyPassport }, ...parties, sanctions });
+    if (ok.verdict !== 'PASS') throw new Error(`esperava PASS: ${JSON.stringify(ok.reasons)}`);
+    await tr.release(ok.id);
+    const bad = await tr.evaluate({ transfer_ref: `e2e-${run}-fail`, amount_usd: 5000, market: 'BR', counterparty: { type: 'vasp', passport_id: 'sem-passaporte' }, ...parties, sanctions });
+    if (bad.verdict !== 'FAIL' || !bad.reasons.some((r) => r.code === 'counterparty_no_valid_passport')) throw new Error(`esperava FAIL: ${JSON.stringify(bad)}`);
+    let blocked = false;
+    try { await tr.release(bad.id); } catch (e) { blocked = e.status === 409; }
+    if (!blocked) throw new Error('a transferência FAIL foi liberada');
+    await page.goto(`${SITE}/app/fi/cases`);
+    await page.waitForSelector(`[data-testid=tr-list] tr[data-verdict=FAIL]`);
+    await page.waitForSelector('article[data-case][data-status=open]');
+    await page.screenshot({ path: path.join(OUT, '08-transferencias.png'), fullPage: true });
+    return { pass: { id: ok.id, latency_ms: ok.latency_ms }, fail: { id: bad.id, reasons: bad.reasons.map((r) => r.code), latency_ms: bad.latency_ms } };
   });
 } catch {
   failed = true;
