@@ -6,7 +6,8 @@
 // Usa só contas e empresas fictícias. Grava o relatório em e2e/report/financial-journey.json.
 //
 // Passos cobertos até agora: 1 (diagnóstico), 2 (conta, aprovador, chave) e
-// 3 (passaporte de parceiro com revisão humana assinada) e 4 (plano e métricas). Os demais entram com M4–M5.
+// 3 (passaporte de parceiro com revisão humana assinada), 4 (plano), 5 (patrocínio), 6 (relógio
+// adiantado: vencimento e suspensão), 7 e 8 (Travel Rule pelo SDK) e 9 (supervisor).
 //   E2E_OPERATOR_KEY    chave de API do operador (fila de revisão)
 //   E2E_SEEDED_ATTEMPT  teste local: tentativa já selada de e2e/fixtures/partner-submit.json
 //   E2E_FULL_SEAL=1     preview: o assistente sela de verdade na rede de teste
@@ -240,6 +241,23 @@ try {
     await page.reload();
     await page.waitForSelector('[data-testid=sp-sent] tr[data-status=active]');
     await page.screenshot({ path: path.join(OUT, '05-patrocinio.png'), fullPage: true });
+  });
+
+  await step('6. relógio adiantado: o passaporte do parceiro vence, o patrocínio é suspenso e a licenciada é avisada', async () => {
+    // A rotina diária roda com o relógio 400 dias à frente (só fora de produção).
+    const res = await fetch(`${GW}/api/v1/ops/journey/cadence`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': OP }, body: JSON.stringify({ now: new Date(Date.now() + 400 * 86_400_000).toISOString() }) });
+    if (res.status !== 200) throw new Error(`cadence ${res.status}`);
+    const out = await res.json();
+    if (!out.expired.length) throw new Error('nenhum passaporte expirou');
+    const mails = fs.readFileSync(MAILS, 'utf-8').trim().split('\n').map((l) => JSON.parse(l));
+    if (!mails.some((m) => m.to === OWNER && m.kind === 'sponsorship_suspended')) throw new Error('licenciada sem aviso de suspensão');
+    if (!mails.some((m) => m.to === PARTNER && m.kind === 'passport_expired')) throw new Error('parceiro sem aviso de vencimento');
+    await page.goto(`${SITE}/app/fi/sponsorships`);
+    await page.waitForSelector('[data-testid=sp-sent] tr[data-status=suspended]');
+    await page.goto(`${SITE}/app/fi`);
+    await page.waitForSelector('[data-testid=dash-sponsorships]:has-text("1 suspenso")');
+    await page.screenshot({ path: path.join(OUT, '06-painel.png'), fullPage: true });
+    return { expired: out.expired.length, escalated: out.escalatedCases.length };
   });
 
   let cptyPassport;

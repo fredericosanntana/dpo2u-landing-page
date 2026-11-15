@@ -193,3 +193,15 @@ export function recallLead(): { id: string; report: DiagnosticReport } | null {
     return null;
   }
 }
+
+// ── E9: painel ─────────────────────────────────────────────────────────────
+export interface DashboardView {
+  workspace: { id: string; name: string };
+  passports: { items: { id: string; status: string; tier: string; packs: string[]; issued_at: string; expires_at: string; days_left: number }[]; pending_reviews: number };
+  sponsorships: { as_sponsor: Record<string, number>; as_partner: Record<string, number> };
+  transfers_30d: { total: number; by_status: Record<string, number>; dust_spent: number };
+  cases: { open: number; overdue: number };
+  grants: { pending: number; active: number };
+  billing: BillingView;
+}
+export const dashboardApi = { get: () => gw<DashboardView>('/api/v1/workspace/dashboard') };
