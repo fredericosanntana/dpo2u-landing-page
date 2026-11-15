@@ -90,6 +90,23 @@ export default function FinancialInstitutionsPage({ initialLang }: { initialLang
     }
   }
 
+  const invited = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('invite') : null;
+  const signupCard = (
+          <div style={{ ...card, padding: 24, marginTop: 32, maxWidth: 640 }}>
+            <h3 style={{ ...h2, fontSize: 26 }}>{t.createH}</h3>
+            <p style={{ marginTop: 8, color: PALETTE.inkSoft }}>{t.createP}</p>
+            {signup.sent ? (
+              <p role="status" style={{ marginTop: 16 }}>{t.sent}</p>
+            ) : (
+              <form onSubmit={createWorkspace} className="grid gap-3 mt-4">
+                <input required placeholder={t.wsName} value={signup.name} onChange={(e) => setSignup((s) => ({ ...s, name: e.target.value }))} style={field} name="workspace_name" />
+                <input required type="email" placeholder="email" value={signup.email} onChange={(e) => setSignup((s) => ({ ...s, email: e.target.value }))} style={field} name="signup_email" autoComplete="email" />
+                <div><button type="submit" disabled={signup.busy} style={btn}>{t.create}</button></div>
+              </form>
+            )}
+          </div>
+  );
+
   return (
     <div style={{ color: PALETTE.ink, fontFamily: FONTS.body }}>
       <section className="px-6 lg:px-14 pt-16 pb-10 lg:pt-24" aria-labelledby="fi-hero">
@@ -116,6 +133,12 @@ export default function FinancialInstitutionsPage({ initialLang }: { initialLang
 
       <Rule />
 
+      {invited && !report && (
+        <section id="fi-signup" className="px-6 lg:px-14 py-12" aria-label={t.createH}>
+          <p style={{ color: PALETTE.inkSoft, maxWidth: 640 }}>{t.invited}</p>
+          {signupCard}
+        </section>
+      )}
       <section id="fi-diagnostic" className="px-6 lg:px-14 py-12" aria-labelledby="fi-diag-h">
         <h2 id="fi-diag-h" style={{ ...h2, fontSize: 32, marginBottom: 24 }}>{t.cta}</h2>
         <form onSubmit={run} className="grid gap-5" style={{ maxWidth: 760 }}>
@@ -203,19 +226,7 @@ export default function FinancialInstitutionsPage({ initialLang }: { initialLang
           </div>
           <p style={{ marginTop: 16, fontSize: 13, color: PALETTE.concrete }}>{t.disclaimer}</p>
 
-          <div style={{ ...card, padding: 24, marginTop: 32, maxWidth: 640 }}>
-            <h3 style={{ ...h2, fontSize: 26 }}>{t.createH}</h3>
-            <p style={{ marginTop: 8, color: PALETTE.inkSoft }}>{t.createP}</p>
-            {signup.sent ? (
-              <p role="status" style={{ marginTop: 16 }}>{t.sent}</p>
-            ) : (
-              <form onSubmit={createWorkspace} className="grid gap-3 mt-4">
-                <input required placeholder={t.wsName} value={signup.name} onChange={(e) => setSignup((s) => ({ ...s, name: e.target.value }))} style={field} name="workspace_name" />
-                <input required type="email" placeholder="email" value={signup.email} onChange={(e) => setSignup((s) => ({ ...s, email: e.target.value }))} style={field} name="signup_email" autoComplete="email" />
-                <div><button type="submit" disabled={signup.busy} style={btn}>{t.create}</button></div>
-              </form>
-            )}
-          </div>
+          {signupCard}
         </section>
       )}
     </div>

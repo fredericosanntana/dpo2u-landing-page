@@ -111,6 +111,18 @@ export const billingApi = {
   buy: (plan: string, period: 'annual' | 'monthly', payment?: string) => gw<{ subscription: BillingView }>('/api/v1/billing/plan', { body: { plan, period }, payment }),
 };
 
+// ── E5: patrocínio por convite ──────────────────────────────────────────────
+export interface InviteView {
+  id: string; sponsor: { id: string; name?: string }; partner_email: string; partner_workspace_id?: string;
+  required_packs: string[]; min_tier: Tier; accountable_director: string;
+  status: 'invited' | 'proposed' | 'active' | 'suspended' | 'ended'; created_at: string; accepted_at?: string; passport: PassportView | null;
+}
+export const sponsorshipApi = {
+  list: () => gw<{ sent: InviteView[]; received: InviteView[] }>('/api/v1/sponsorship-invites'),
+  invite: (body: { partner_email: string; accountable_director: string; min_tier?: Tier }) => gw<InviteView>('/api/v1/sponsorship-invites', { body }),
+  accept: (id: string) => gw<InviteView>(`/api/v1/sponsorship-invites/${encodeURIComponent(id)}/accept`, { body: {} }),
+};
+
 /** sha256 hex de um arquivo, calculado no navegador. O arquivo nunca sai da máquina. */
 export async function sha256File(file: Blob): Promise<string> {
   const buf = await crypto.subtle.digest('SHA-256', await file.arrayBuffer());

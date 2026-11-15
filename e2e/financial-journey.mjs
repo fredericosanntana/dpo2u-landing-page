@@ -16,7 +16,7 @@ import { createRequire } from 'node:module';
 const { chromium } = createRequire(import.meta.url)('playwright');
 import fs from 'node:fs';
 import path from 'node:path';
-import { generateKeyPairSync } from 'node:crypto';
+import { generateKeyPairSync, sign } from 'node:crypto';
 
 const SITE = process.env.SITE_URL ?? 'http://localhost:4173';
 const GW = process.env.GATEWAY_URL ?? 'http://localhost:3999';
@@ -36,6 +36,33 @@ function linkFor(to) {
   const m = rec?.text.match(/https?:\/\/\S+token=[A-Za-z0-9_%-]+/);
   if (!m) throw new Error(`sem link mágico para ${to}`);
   return m[0].replace(/^https?:\/\/[^/]+/, SITE);
+}
+
+function seededBody(attemptId) {
+  const b = JSON.parse(fs.readFileSync(path.resolve('e2e/fixtures/partner-submit.json'), 'utf-8'));
+  b.request_id = `${b.request_id}-${attemptId}`.slice(0, 64);
+  return b;
+}
+
+/** Pede revisão pela sessão da página (tentativa semeada) e o operador assina. */
+async function seededPassportFor(pg, attemptId, opKey) {
+  const res = await pg.evaluate(async ({ gw, attempt, body }) => {
+    const post = (p, b) => fetch(`${gw}${p}`, { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(b) }).then(async (r) => ({ s: r.status, b: await r.json() }));
+    const prep = await post('/api/v1/psav/passports/prepare', { attempt_id: attempt, submit_body: body });
+    if (prep.s !== 200) return prep;
+    const rq = await post('/api/v1/psav/review-requests', { run_id: prep.b.run_id, tier: 'tier1' });
+    return { ...rq, toReview: prep.b.to_review };
+  }, { gw: GW, attempt: attemptId, body: seededBody(attemptId) });
+  if (res.s !== 201) throw new Error(`pedido de revisão: ${res.s} ${JSON.stringify(res.b)}`);
+  const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+  const op = { 'content-type': 'application/json', 'x-api-key': opKey };
+  const reg = await (await fetch(`${GW}/api/v1/psav/reviewers`, { method: 'POST', headers: op, body: JSON.stringify({ name: 'Revisor Ficticio', public_key_pem: publicKey.export({ type: 'spki', format: 'pem' }) }) })).json();
+  const verdicts = Object.fromEntries(res.toReview.map((x) => [x.id, 'PASS']));
+  const pl = await (await fetch(`${GW}/api/v1/review/requests/${res.b.id}/payload`, { method: 'POST', headers: op, body: JSON.stringify({ verdicts }) })).json();
+  const signature = sign(null, Buffer.from(pl.payload), privateKey).toString('base64');
+  const d = await fetch(`${GW}/api/v1/review/requests/${res.b.id}/decision`, { method: 'POST', headers: op, body: JSON.stringify({ reviewer_id: reg.reviewer_id, verdicts, signature }) });
+  if (d.status !== 201) throw new Error(`decisão: ${d.status}`);
+  return (await d.json()).passport.id;
 }
 
 async function step(name, fn) {
@@ -121,7 +148,7 @@ try {
       await page.getByRole('button', { name: 'Selar e pedir revisão' }).click();
     } else {
       // Local: o selo na rede é substituído pela tentativa semeada; o resto segue o mesmo caminho do assistente.
-      const body = JSON.parse(fs.readFileSync(path.resolve('e2e/fixtures/partner-submit.json'), 'utf-8'));
+      const body = seededBody(process.env.E2E_SEEDED_ATTEMPT);
       const res = await page.evaluate(async ({ gw, attempt, body }) => {
         const post = (p, b) => fetch(`${gw}${p}`, { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(b) }).then(async (r) => ({ s: r.status, b: await r.json() }));
         const prep = await post('/api/v1/psav/passports/prepare', { attempt_id: attempt, submit_body: body });
@@ -179,6 +206,38 @@ try {
     if (m.funnel.passports_issued < 1 || m.funnel.workspaces < 1) throw new Error(`métricas inesperadas: ${JSON.stringify(m.funnel)}`);
     await page.screenshot({ path: path.join(OUT, '04-plano.png'), fullPage: true });
     return { funnel: m.funnel, billing: m.billing };
+  });
+
+  const PARTNER = `owner-${run}@parceiro.test`;
+  await step('5. convida o prestador; ele cria conta, faz o passaporte e consente; o patrocínio fica ativo', async () => {
+    await page.goto(`${SITE}/app/fi/sponsorships`);
+    await page.fill('input[name=partner_email]', PARTNER);
+    await page.fill('input[name=accountable_director]', 'Diretora Ficticia');
+    await page.getByRole('button', { name: 'Convidar parceiro' }).click();
+    await page.waitForSelector('[data-testid=sp-sent] tr[data-status=invited]');
+    const lines = fs.readFileSync(MAILS, 'utf-8').trim().split('\n').map((l) => JSON.parse(l));
+    const invite = lines.reverse().find((m) => m.to === PARTNER && m.kind === 'sponsorship_invite');
+    const url = invite?.text.match(/https?:\/\/\S+invite=\S+/)?.[0]?.replace(/^https?:\/\/[^/]+/, SITE);
+    if (!url) throw new Error('sem e-mail de convite');
+    const pc = await browser.newContext();
+    const pp = await pc.newPage();
+    await pp.goto(url);
+    await pp.getByRole('button', { name: 'Reject All' }).click({ timeout: 3000 }).catch(() => {});
+    await pp.fill('input[name=workspace_name]', `Parceiro ${run} (fictitious)`);
+    await pp.fill('input[name=signup_email]', PARTNER);
+    await pp.locator('#fi-signup button[type=submit]').click();
+    await pp.waitForSelector('#fi-signup [role=status]');
+    await pp.goto(linkFor(PARTNER));
+    await pp.waitForURL(/\/app\/fi/);
+    if (process.env.E2E_FULL_SEAL !== '1') await seededPassportFor(pp, `${process.env.E2E_SEEDED_ATTEMPT}-partner`, OP);
+    await pp.goto(`${SITE}/app/fi/sponsorships`);
+    await pp.getByRole('button', { name: 'Aceitar e compartilhar o status' }).click();
+    await pp.waitForSelector('[data-testid=sp-msg]:has-text("Patrocínio ativo.")');
+    await pp.screenshot({ path: path.join(OUT, '05-parceiro.png'), fullPage: true });
+    await pc.close();
+    await page.reload();
+    await page.waitForSelector('[data-testid=sp-sent] tr[data-status=active]');
+    await page.screenshot({ path: path.join(OUT, '05-patrocinio.png'), fullPage: true });
   });
 } catch {
   failed = true;
