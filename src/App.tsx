@@ -9,6 +9,7 @@ import SealedLayout from '@/components/sealed/SealedLayout';
 import { WalletAuthProvider } from '@/components/app/WalletAuthProvider';
 import RequireWallet from '@/components/app/RequireWallet';
 import AppLayout from '@/components/app/AppLayout';
+import { FiLayout, FiSessionProvider } from '@/components/fi/FiSession';
 // Home stays eager — it's the LCP route. All others lazy-loaded
 // to keep the initial JS chunk under ~400 KB on mobile (F007/F014, audit cycle 2).
 //
@@ -67,6 +68,11 @@ const AppSettings         = lazy(() => import('@/app/app/settings'));
 const AppStart            = lazy(() => import('@/app/app/start'));
 const AppRun              = lazy(() => import('@/app/app/run'));
 const AppProof            = lazy(() => import('@/app/app/proof'));
+// Jornada da instituição financeira (PRD E1/E2): sessão por link mágico, sem carteira.
+const FinancialInstitutionsPage = lazy(() => import('@/app/financial-institutions'));
+const AuthVerifyPage      = lazy(() => import('@/app/auth/verify'));
+const FiDashboardPage     = lazy(() => import('@/app/app/fi/index'));
+const FiWorkspacePage     = lazy(() => import('@/app/app/fi/workspace'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
 const RouteFallback = () => (
@@ -124,6 +130,7 @@ function App() {
         <Router>
             <ConsentProvider>
               <WalletAuthProvider>
+              <FiSessionProvider>
                 <MarketingScripts />
                 <a
                     href="#main"
@@ -146,6 +153,7 @@ function App() {
                             <Route path="/dpa"              element={<DPAPage />}            />
                             {/* Public attestation proof (Fase B) — shareable, trustless (Stellar) */}
                             <Route path="/psav"              element={<PsavLandingPage />} />
+                            <Route path="/financial-institutions" element={<FinancialInstitutionsPage />} />
                             <Route path="/avalanche"         element={<AvalanchePage />} />
                             <Route path="/verify/passport/:id" element={<PassportPage />} />
                             <Route path="/verify/:id"       element={<VerifyPublicPage />}   />
@@ -227,6 +235,11 @@ function App() {
 
                           {/* Authenticated app — wallet-gated (Fase C). No public chrome. */}
                           <Route path="/login" element={<LoginPage />} />
+                          <Route path="/auth/verify" element={<AuthVerifyPage />} />
+                          <Route element={<FiLayout />}>
+                              <Route path="/app/fi" element={<FiDashboardPage />} />
+                              <Route path="/app/fi/workspace" element={<FiWorkspacePage />} />
+                          </Route>
                           <Route element={<RequireWallet><AppLayout /></RequireWallet>}>
                               <Route path="/app" element={<AppDashboard />} />
                               <Route path="/app/activate" element={<AppActivate />} />
@@ -243,6 +256,7 @@ function App() {
                         </Suspense>
                 <Toaster />
                 <CookieBanner />
+              </FiSessionProvider>
               </WalletAuthProvider>
             </ConsentProvider>
         </Router>
