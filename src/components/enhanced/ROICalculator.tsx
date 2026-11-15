@@ -152,7 +152,7 @@ const ROICalculator: React.FC = () => {
             </span>
           </h2>
 
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-brand-gray-600 max-w-3xl mx-auto leading-relaxed">
             Compare the costs of renting software (SaaS) versus investing in your own AI infrastructure (VPS)
           </p>
 
@@ -189,8 +189,8 @@ const ROICalculator: React.FC = () => {
                     <stat.icon className="h-6 w-6 text-white" />
                   </div>
                   <div className="text-2xl font-bold text-brand-sapphire-600 mb-1">{stat.value}</div>
-                  <div className="font-semibold text-gray-900 mb-1">{stat.label}</div>
-                  <div className="text-sm text-gray-600">{stat.description}</div>
+                  <div className="font-semibold text-brand-gray-900 mb-1">{stat.label}</div>
+                  <div className="text-sm text-brand-gray-600">{stat.description}</div>
                 </Card>
               </motion.div>
             ))}
@@ -206,12 +206,12 @@ const ROICalculator: React.FC = () => {
         >
           <Card className="shadow-2xl border-brand-sapphire-200">
             {/* Tabs */}
-            <div className="flex border-b border-gray-200">
+            <div className="flex border-b border-brand-gray-200">
               <button
                 onClick={() => setActiveTab('calculator')}
                 className={`flex-1 px-6 py-4 text-center font-semibold transition-colors ${activeTab === 'calculator'
                     ? 'text-brand-sapphire-600 border-b-2 border-brand-sapphire-600 bg-brand-sapphire-50'
-                    : 'text-gray-600 hover:text-gray-800'
+                    : 'text-brand-gray-600 hover:text-brand-gray-800'
                   }`}
               >
                 <Calculator className="h-5 w-5 inline mr-2" />
@@ -221,7 +221,7 @@ const ROICalculator: React.FC = () => {
                 onClick={() => setActiveTab('results')}
                 className={`flex-1 px-6 py-4 text-center font-semibold transition-colors ${activeTab === 'results'
                     ? 'text-brand-emerald-600 border-b-2 border-brand-emerald-600 bg-brand-emerald-50'
-                    : 'text-gray-600 hover:text-gray-800'
+                    : 'text-brand-gray-600 hover:text-brand-gray-800'
                   }`}
               >
                 <BarChart3 className="h-5 w-5 inline mr-2" />
@@ -241,74 +241,74 @@ const ROICalculator: React.FC = () => {
                   >
                     {/* Left Column - Inputs */}
                     <div className="space-y-6">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      <h3 className="text-xl font-semibold text-brand-gray-900 mb-4">
                         Your Current Costs (SaaS)
                       </h3>
 
                       <div>
-                        <Label className="text-gray-700 font-medium">Total Monthly Software Spend ($)</Label>
+                        <Label className="text-brand-gray-700 font-medium">Total Monthly Software Spend ($)</Label>
                         <Input
                           type="number"
                           value={metrics.currentSaaSCosts}
                           onChange={(e) => updateMetric('currentSaaSCosts', Number(e.target.value))}
-                          className="mt-2 border-gray-300 focus:border-brand-sapphire-500"
+                          className="mt-2 border-brand-gray-300 focus:border-brand-sapphire-500"
                           placeholder="15000"
                         />
-                        <p className="text-sm text-gray-600 mt-1">Sum of all subscriptions (CRM, ERP, AI, etc.)</p>
+                        <p className="text-sm text-brand-gray-600 mt-1">Sum of all subscriptions (CRM, ERP, AI, etc.)</p>
                       </div>
 
                       <div>
-                        <Label className="text-gray-700 font-medium">Number of Users</Label>
+                        <Label className="text-brand-gray-700 font-medium">Number of Users</Label>
                         <Input
                           type="number"
                           value={metrics.userCount}
                           onChange={(e) => updateMetric('userCount', Number(e.target.value))}
-                          className="mt-2 border-gray-300 focus:border-brand-sapphire-500"
+                          className="mt-2 border-brand-gray-300 focus:border-brand-sapphire-500"
                           placeholder="50"
                         />
-                        <p className="text-sm text-gray-600 mt-1">Many SaaS charge per license/user</p>
+                        <p className="text-sm text-brand-gray-600 mt-1">Many SaaS charge per license/user</p>
                       </div>
 
                       <div>
-                        <Label className="text-gray-700 font-medium">Cost to develop internally ($)</Label>
+                        <Label className="text-brand-gray-700 font-medium">Cost to develop internally ($)</Label>
                         <Input
                           type="number"
                           value={metrics.internalDevCost}
                           onChange={(e) => updateMetric('internalDevCost', Number(e.target.value))}
-                          className="mt-2 border-gray-300 focus:border-brand-sapphire-500"
+                          className="mt-2 border-brand-gray-300 focus:border-brand-sapphire-500"
                           placeholder="50000"
                         />
-                        <p className="text-sm text-gray-600 mt-1">How much would it cost to hire devs to build this from scratch?</p>
+                        <p className="text-sm text-brand-gray-600 mt-1">How much would it cost to hire devs to build this from scratch?</p>
                       </div>
                     </div>
 
                     {/* Right Column - Visual */}
-                    <div className="flex flex-col justify-center space-y-6 bg-slate-50 p-6 rounded-xl border border-slate-200">
-                      <h3 className="text-lg font-semibold text-gray-800">Comparative Scenario</h3>
+                    <div className="flex flex-col justify-center space-y-6 bg-brand-platinum-100 p-6 rounded-xl border border-brand-platinum-300">
+                      <h3 className="text-lg font-semibold text-brand-gray-800">Comparative Scenario</h3>
 
                       <div className="space-y-4">
                         <div className="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
                           <div className="flex items-center">
-                            <Users className="h-5 w-5 text-blue-500 mr-3" />
+                            <Users className="h-5 w-5 text-brand-sapphire-500 mr-3" />
                             <span>SaaS Model (Rental)</span>
                           </div>
                           <span className="font-bold text-red-500">High Recurring</span>
                         </div>
 
                         <div className="flex justify-center">
-                          <ArrowRight className="h-6 w-6 text-slate-400 rotate-90" />
+                          <ArrowRight className="h-6 w-6 text-brand-platinum-500 rotate-90" />
                         </div>
 
-                        <div className="flex justify-between items-center bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 p-3 rounded-lg shadow-sm">
+                        <div className="flex justify-between items-center bg-gradient-to-r from-brand-emerald-50 to-teal-50 border border-brand-emerald-100 p-3 rounded-lg shadow-sm">
                           <div className="flex items-center">
-                            <Server className="h-5 w-5 text-emerald-600 mr-3" />
-                            <span className="font-medium text-emerald-900">Own Stack Model (VPS)</span>
+                            <Server className="h-5 w-5 text-brand-emerald-600 mr-3" />
+                            <span className="font-medium text-brand-emerald-900">Own Stack Model (VPS)</span>
                           </div>
-                          <span className="font-bold text-emerald-600">Low Fixed</span>
+                          <span className="font-bold text-brand-emerald-600">Low Fixed</span>
                         </div>
                       </div>
 
-                      <p className="text-sm text-gray-500 text-center mt-4">
+                      <p className="text-sm text-brand-gray-500 text-center mt-4">
                         With Your Own Stack, you pay for infrastructure (VPS), not per user. The software is yours forever.
                       </p>
 
@@ -342,13 +342,13 @@ const ROICalculator: React.FC = () => {
                     className="space-y-8"
                   >
                     <div className="text-center mb-8">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                      <h3 className="text-2xl font-bold text-brand-gray-900 mb-4">
                         Projected Annual Savings
                       </h3>
                       <div className="text-5xl font-bold bg-gradient-to-r from-brand-emerald-600 to-brand-sapphire-600 bg-clip-text text-transparent">
                         {formatCurrency(results.annualSavings)}
                       </div>
-                      <p className="text-gray-600 mt-2">Cost difference SaaS vs VPS over 12 months</p>
+                      <p className="text-brand-gray-600 mt-2">Cost difference SaaS vs VPS over 12 months</p>
                     </div>
 
                     {/* Results Grid */}
@@ -389,8 +389,8 @@ const ROICalculator: React.FC = () => {
                             <div className={`w-12 h-12 bg-gradient-to-br from-brand-${result.color}-500 to-brand-${result.color}-600 rounded-full flex items-center justify-center mx-auto mb-4`}>
                               <result.icon className="h-6 w-6 text-white" />
                             </div>
-                            <div className="text-xl font-bold text-gray-900 mb-1">{result.value}</div>
-                            <div className="text-sm text-gray-600">{result.label}</div>
+                            <div className="text-xl font-bold text-brand-gray-900 mb-1">{result.value}</div>
+                            <div className="text-sm text-brand-gray-600">{result.label}</div>
                           </Card>
                         </motion.div>
                       ))}
@@ -398,7 +398,7 @@ const ROICalculator: React.FC = () => {
 
                     {/* Benefits List */}
                     <Card className="p-6 bg-gradient-to-r from-brand-emerald-50 to-brand-sapphire-50 border-brand-emerald-200">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4">Own Stack Advantages:</h4>
+                      <h4 className="text-lg font-semibold text-brand-gray-900 mb-4">Own Stack Advantages:</h4>
                       <div className="grid md:grid-cols-2 gap-4">
                         {[
                           "No cost per additional user",
@@ -412,7 +412,7 @@ const ROICalculator: React.FC = () => {
                         ].map((benefit, idx) => (
                           <div key={idx} className="flex items-center text-sm">
                             <CheckCircle className="h-4 w-4 text-brand-emerald-600 mr-2 flex-shrink-0" />
-                            <span className="text-gray-700">{benefit}</span>
+                            <span className="text-brand-gray-700">{benefit}</span>
                           </div>
                         ))}
                       </div>
@@ -425,7 +425,7 @@ const ROICalculator: React.FC = () => {
                         I Want My Own Stack
                         <ArrowRight className="h-5 w-5 ml-2" />
                       </Button>
-                      <p className="text-sm text-gray-600 mt-3">
+                      <p className="text-sm text-brand-gray-600 mt-3">
                         Free technical feasibility analysis • Guaranteed setup
                       </p>
                     </div>

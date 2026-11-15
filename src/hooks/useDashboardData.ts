@@ -84,8 +84,6 @@ export interface DashboardData {
   metrics: SystemMetrics;
   autoHealingEvents: AutoHealingEvent[];
   chartData: ChartData[];
-  dataMode: 'live' | 'demo' | 'degraded';
-  dataDisclaimer?: string;
   alerts: Array<{
     id: string;
     type: 'info' | 'warning' | 'error' | 'success';
@@ -245,7 +243,7 @@ export function useDashboardData(autoRefresh: boolean = true, interval: number =
     try {
       setError(null);
       
-      // Dashboard em modo demonstrativo até existir conexão com backend canônico em tempo real
+      // Simular chamada de API com delay realístico
       await new Promise(resolve => setTimeout(resolve, 300));
       
       const mockMetrics: SystemMetrics = {
@@ -307,8 +305,6 @@ export function useDashboardData(autoRefresh: boolean = true, interval: number =
         metrics: mockMetrics,
         autoHealingEvents: MOCK_AUTO_HEALING_EVENTS,
         chartData: generateChartData(),
-        dataMode: 'demo',
-        dataDisclaimer: 'Visualização demonstrativa. Os dados abaixo são simulados até a conexão com um backend canônico em tempo real.',
         alerts: mockAlerts
       };
 

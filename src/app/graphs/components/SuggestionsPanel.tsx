@@ -59,7 +59,7 @@ export default function SuggestionsPanel({
 
   if (isLoading) {
     return (
-      <Card className="h-full bg-slate-900/50 border-white/10 backdrop-blur">
+      <Card className="h-full bg-brand-chrome-900/50 border-white/10 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
             <Lightbulb className="h-5 w-5" />
@@ -69,9 +69,9 @@ export default function SuggestionsPanel({
         <CardContent>
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-slate-800/50 rounded-lg p-4 animate-pulse">
-                <div className="h-4 bg-slate-700 rounded mb-2"></div>
-                <div className="h-3 bg-slate-700 rounded"></div>
+              <div key={i} className="bg-brand-chrome-800/50 rounded-lg p-4 animate-pulse">
+                <div className="h-4 bg-brand-platinum-800 rounded mb-2"></div>
+                <div className="h-3 bg-brand-platinum-800 rounded"></div>
               </div>
             ))}
           </div>
@@ -85,13 +85,13 @@ export default function SuggestionsPanel({
                            (suggestions.learning_paths?.length || 0)
 
   return (
-    <Card className="h-full bg-slate-900/50 border-white/10 backdrop-blur">
+    <Card className="h-full bg-brand-chrome-900/50 border-white/10 backdrop-blur">
       <CardHeader className="pb-4">
         <CardTitle className="text-white flex items-center gap-2">
           <Lightbulb className="h-5 w-5" />
           Sugestões Inteligentes
         </CardTitle>
-        <div className="flex items-center gap-2 text-sm text-gray-300">
+        <div className="flex items-center gap-2 text-sm text-brand-gray-300">
           <Sparkles className="h-4 w-4 text-yellow-400" />
           <span>{totalSuggestions} sugestões encontradas</span>
         </div>
@@ -122,7 +122,7 @@ export default function SuggestionsPanel({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="bg-slate-800/30 rounded-lg p-4 border border-white/10 hover:border-cyan-500/30 transition-colors"
+                      className="bg-brand-chrome-800/30 rounded-lg p-4 border border-white/10 hover:border-cyan-500/30 transition-colors"
                     >
                       <div className="flex items-start gap-3">
                         <div className="p-2 bg-cyan-500/20 rounded-lg flex-shrink-0">
@@ -138,7 +138,7 @@ export default function SuggestionsPanel({
                             >
                               {connection.from.substring(0, 8)}...
                             </Button>
-                            <ArrowRight className="h-3 w-3 text-gray-400" />
+                            <ArrowRight className="h-3 w-3 text-brand-gray-400" />
                             <Button
                               variant="ghost"
                               size="sm"
@@ -149,13 +149,13 @@ export default function SuggestionsPanel({
                             </Button>
                           </div>
                           
-                          <p className="text-sm text-gray-300 mb-3">
+                          <p className="text-sm text-brand-gray-300 mb-3">
                             {connection.reason}
                           </p>
                           
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <span className="text-xs text-gray-400">Similaridade:</span>
+                              <span className="text-xs text-brand-gray-400">Similaridade:</span>
                               <Progress 
                                 value={connection.similarity * 100} 
                                 className="w-16 h-2"
@@ -206,7 +206,7 @@ export default function SuggestionsPanel({
                   </Button>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-2 mt-3">
-                  <div className="text-sm text-gray-400 mb-3 p-3 bg-amber-500/10 rounded-lg border border-amber-500/20">
+                  <div className="text-sm text-brand-gray-400 mb-3 p-3 bg-amber-500/10 rounded-lg border border-amber-500/20">
                     Estas notas não possuem conexões e podem precisar de mais contexto:
                   </div>
                   {suggestions.orphaned_notes.slice(0, 6).map((noteId, index) => (
@@ -219,7 +219,7 @@ export default function SuggestionsPanel({
                       <Button
                         variant="ghost"
                         onClick={() => onNodeSelect(noteId)}
-                        className="w-full justify-between text-left bg-slate-800/30 hover:bg-slate-700/50 border border-white/10 hover:border-amber-500/30"
+                        className="w-full justify-between text-left bg-brand-chrome-800/30 hover:bg-brand-platinum-800/50 border border-white/10 hover:border-amber-500/30"
                       >
                         <span className="text-white font-mono text-sm truncate">
                           {noteId.substring(0, 12)}...
@@ -228,7 +228,7 @@ export default function SuggestionsPanel({
                           <Badge variant="outline" className="bg-amber-500/20 text-amber-200 border-amber-500/30 text-xs">
                             Órfã
                           </Badge>
-                          <ExternalLink className="h-3 w-3 text-gray-400" />
+                          <ExternalLink className="h-3 w-3 text-brand-gray-400" />
                         </div>
                       </Button>
                     </motion.div>
@@ -236,7 +236,7 @@ export default function SuggestionsPanel({
                   
                   {suggestions.orphaned_notes.length > 6 && (
                     <div className="text-center pt-2">
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-brand-gray-400">
                         +{suggestions.orphaned_notes.length - 6} notas órfãs adicionais
                       </span>
                     </div>
@@ -251,9 +251,9 @@ export default function SuggestionsPanel({
                 <CollapsibleTrigger asChild>
                   <Button variant="ghost" className="w-full justify-between text-white hover:bg-white/10">
                     <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-purple-400" />
+                      <MapPin className="h-4 w-4 text-brand-purple-400" />
                       <span>Trilhas de Aprendizado</span>
-                      <Badge variant="secondary" className="bg-purple-500/20 text-purple-200">
+                      <Badge variant="secondary" className="bg-brand-purple-500/20 text-brand-purple-200">
                         {suggestions.learning_paths.length}
                       </Badge>
                     </div>
@@ -267,18 +267,18 @@ export default function SuggestionsPanel({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="bg-slate-800/30 rounded-lg p-4 border border-white/10 hover:border-purple-500/30 transition-colors"
+                      className="bg-brand-chrome-800/30 rounded-lg p-4 border border-white/10 hover:border-brand-purple-500/30 transition-colors"
                     >
                       <div className="flex items-start gap-3">
-                        <div className="p-2 bg-purple-500/20 rounded-lg flex-shrink-0">
-                          <MapPin className="h-4 w-4 text-purple-400" />
+                        <div className="p-2 bg-brand-purple-500/20 rounded-lg flex-shrink-0">
+                          <MapPin className="h-4 w-4 text-brand-purple-400" />
                         </div>
                         <div className="flex-1">
                           <h4 className="text-white font-medium mb-2">{path.name}</h4>
-                          <p className="text-sm text-gray-300 mb-3">{path.description}</p>
+                          <p className="text-sm text-brand-gray-300 mb-3">{path.description}</p>
                           
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="text-xs text-gray-400">Caminho:</span>
+                            <span className="text-xs text-brand-gray-400">Caminho:</span>
                             <Badge variant="outline" className="text-xs">
                               {path.nodes.length} etapas
                             </Badge>
@@ -291,13 +291,13 @@ export default function SuggestionsPanel({
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => onNodeSelect(nodeId)}
-                                className="text-xs text-purple-400 hover:text-purple-300 p-1 h-auto font-mono"
+                                className="text-xs text-brand-purple-400 hover:text-brand-purple-300 p-1 h-auto font-mono"
                               >
                                 {nodeIndex + 1}. {nodeId.substring(0, 6)}...
                               </Button>
                             ))}
                             {path.nodes.length > 4 && (
-                              <span className="text-xs text-gray-400 px-2 py-1">
+                              <span className="text-xs text-brand-gray-400 px-2 py-1">
                                 +{path.nodes.length - 4}
                               </span>
                             )}
@@ -313,9 +313,9 @@ export default function SuggestionsPanel({
             {/* Empty State */}
             {totalSuggestions === 0 && (
               <div className="text-center py-8">
-                <Sparkles className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <Sparkles className="h-12 w-12 text-brand-gray-400 mx-auto mb-4" />
                 <h3 className="text-white font-medium mb-2">Nenhuma sugestão disponível</h3>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-brand-gray-400">
                   Continue explorando o grafo para descobrir novas conexões
                 </p>
               </div>

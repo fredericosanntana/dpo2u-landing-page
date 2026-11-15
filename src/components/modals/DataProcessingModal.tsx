@@ -94,9 +94,9 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
 
   const getStatusColor = (status: ProcessingStep['status']) => {
     switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100'
-      case 'processing': return 'text-blue-600 bg-blue-100 animate-pulse'
-      case 'pending': return 'text-gray-400 bg-gray-100'
+      case 'completed': return 'text-brand-emerald-600 bg-brand-emerald-100'
+      case 'processing': return 'text-brand-sapphire-600 bg-brand-sapphire-100 animate-pulse'
+      case 'pending': return 'text-brand-gray-400 bg-brand-gray-100'
     }
   }
 
@@ -135,13 +135,13 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
               className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden"
             >
               {/* Header */}
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6 text-white">
+              <div className="bg-gradient-to-r from-brand-sapphire-600 to-brand-sapphire-700 px-8 py-6 text-white">
                 <div className="flex items-center justify-between">
                   <div>
                     <Dialog.Title className="text-2xl font-bold">
                       DPO2U Initial Assessment
                     </Dialog.Title>
-                    <p className="text-blue-100 mt-1">
+                    <p className="text-brand-sapphire-100 mt-1">
                       Strategic evaluation of digital maturity and compliance
                     </p>
                   </div>
@@ -159,15 +159,15 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                 {/* Progress Bar */}
                 <div className="mb-8">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-700">Assessment Progress</span>
-                    <span className="text-sm text-gray-500">{Math.round(getProgressWidth())}% Complete</span>
+                    <span className="text-sm font-medium text-brand-gray-700">Assessment Progress</span>
+                    <span className="text-sm text-brand-gray-500">{Math.round(getProgressWidth())}% Complete</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-brand-gray-200 rounded-full h-2">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${getProgressWidth()}%` }}
                       transition={{ duration: 0.5 }}
-                      className="bg-gradient-to-r from-blue-500 to-green-500 h-2 rounded-full"
+                      className="bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 h-2 rounded-full"
                     />
                   </div>
                 </div>
@@ -180,28 +180,28 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex items-center p-4 rounded-xl border border-gray-200 bg-gray-50"
+                      className="flex items-center p-4 rounded-xl border border-brand-gray-200 bg-brand-gray-50"
                     >
                       <div className={`p-3 rounded-lg mr-4 ${getStatusColor(step.status)}`}>
                         {step.icon}
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-semibold text-gray-900">{step.name}</h3>
-                        <p className="text-gray-600 text-sm">{step.description}</p>
+                        <h3 className="font-semibold text-brand-gray-900">{step.name}</h3>
+                        <p className="text-brand-gray-600 text-sm">{step.description}</p>
                       </div>
                       <div className="ml-4">
                         {step.status === 'completed' && (
-                          <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                          <div className="w-6 h-6 bg-brand-emerald-500 rounded-full flex items-center justify-center">
                             <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           </div>
                         )}
                         {step.status === 'processing' && (
-                          <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                          <div className="w-6 h-6 border-2 border-brand-sapphire-500 border-t-transparent rounded-full animate-spin" />
                         )}
                         {step.status === 'pending' && (
-                          <div className="w-6 h-6 bg-gray-300 rounded-full" />
+                          <div className="w-6 h-6 bg-brand-gray-300 rounded-full" />
                         )}
                       </div>
                     </motion.div>
@@ -209,19 +209,19 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                 </div>
 
                 {/* Digital Transformation Benefits */}
-                <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 mb-8">
-                  <h3 className="font-semibold text-gray-900 mb-3">DPO2U Assessment Benefits</h3>
+                <div className="bg-gradient-to-r from-brand-emerald-50 to-brand-sapphire-50 rounded-xl p-6 mb-8">
+                  <h3 className="font-semibold text-brand-gray-900 mb-3">DPO2U Assessment Benefits</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
+                      <div className="w-2 h-2 bg-brand-emerald-500 rounded-full mr-2" />
                       <span>Complete diagnostic in 72h</span>
                     </div>
                     <div className="flex items-center">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-2" />
+                      <div className="w-2 h-2 bg-brand-sapphire-500 rounded-full mr-2" />
                       <span>Custom implementation roadmap</span>
                     </div>
                     <div className="flex items-center">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-2" />
+                      <div className="w-2 h-2 bg-brand-purple-500 rounded-full mr-2" />
                       <span>Automated compliance strategy</span>
                     </div>
                     <div className="flex items-center">
@@ -243,7 +243,7 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                   {!isProcessing && getProgressWidth() < 100 && (
                     <Button
                       onClick={startProcessing}
-                      className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                      className="bg-gradient-to-r from-brand-sapphire-600 to-brand-sapphire-700 hover:from-brand-sapphire-700 hover:to-brand-sapphire-800"
                     >
                       Start Assessment
                     </Button>
@@ -251,7 +251,7 @@ export default function DataProcessingModal({ isOpen, onClose }: DataProcessingM
                   {getProgressWidth() === 100 && (
                     <Button
                       onClick={() => {/* Implement save functionality */ }}
-                      className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
+                      className="bg-gradient-to-r from-brand-emerald-600 to-brand-emerald-700 hover:from-brand-emerald-700 hover:to-brand-emerald-800"
                     >
                       Schedule Consultation
                     </Button>

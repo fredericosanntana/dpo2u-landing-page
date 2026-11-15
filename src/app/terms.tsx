@@ -1,49 +1,64 @@
 import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { usePageHead } from '@/lib/page-head';
+import { FONTS, PALETTE, SmallLabel, Rule } from '@/components/sealed/atoms';
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div style={{ marginTop: 28 }}>
+      <h2 style={{ fontFamily: FONTS.display, fontSize: 20, fontWeight: 500, color: PALETTE.ink, marginBottom: 8 }}>{title}</h2>
+      <p style={{ fontFamily: FONTS.body, fontSize: 15, lineHeight: 1.6, color: PALETTE.inkSoft }}>{children}</p>
+    </div>
+  );
+}
 
 export default function TermsPage() {
+  usePageHead({
+    title: 'Terms of Service | DPO2U',
+    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U compliance contract on Midnight.',
+    path: '/terms',
+  });
+
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900">
-      <Header />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-32 max-w-3xl">
-        <h1 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-6">
-          Terms of Use
-        </h1>
+    <section className="px-6 lg:px-14 py-20" style={{ maxWidth: 820, margin: '0 auto' }}>
+      <SmallLabel>Legal</SmallLabel>
+      <h1
+        className="text-[36px] md:text-[48px] font-medium"
+        style={{ fontFamily: FONTS.display, letterSpacing: '-0.02em', color: PALETTE.ink, marginTop: 6 }}
+      >
+        Terms of Use<span style={{ color: PALETTE.terracotta }}>.</span>
+      </h1>
+      <p style={{ fontFamily: FONTS.mono, fontSize: 12, color: PALETTE.concrete, marginTop: 12 }}>
+        Last updated: {new Date().toISOString().slice(0, 10)}
+      </p>
 
-        <p className="text-slate-700 dark:text-slate-300 mb-6">
-          By accessing and using this website, you agree to these Terms.
-          DPO2U may update these Terms as needed.
-        </p>
+      <p style={{ fontFamily: FONTS.body, fontSize: 15, lineHeight: 1.6, color: PALETTE.inkSoft, marginTop: 24 }}>
+        By accessing and using this website, you agree to these Terms. DPO2U may update these Terms as needed.
+      </p>
 
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-3">Use of Content</h2>
-        <p className="text-slate-700 dark:text-slate-300">
-          Content is provided for informational purposes only and does not constitute legal advice.
-          All intellectual property rights remain with DPO2U.
-        </p>
+      <Rule color={PALETTE.ruleStrong} style={{ margin: '28px 0 0' }} />
 
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-3">Responsibilities</h2>
-        <p className="text-slate-700 dark:text-slate-300">
-          You agree not to use this site in any unlawful manner or in a way that
-          violates the rights of third parties.
-        </p>
+      <Section title="Use of Content">
+        Content is provided for informational purposes only and does not constitute legal advice. All
+        intellectual property rights remain with DPO2U.
+      </Section>
 
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-3">Limitation of Liability</h2>
-        <p className="text-slate-700 dark:text-slate-300">
-          DPO2U provides this website and its content "as is" without warranties of any kind.
-          We are not liable for any damages arising from the use of this site.
-        </p>
+      <Section title="Responsibilities">
+        You agree not to use this site in any unlawful manner or in a way that violates the rights of
+        third parties.
+      </Section>
 
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mt-8 mb-3">Contact</h2>
-        <p className="text-slate-700 dark:text-slate-300">
-          For questions about these terms, please contact us at contato@dpo2u.com.br.
-        </p>
+      <Section title="Limitation of Liability">
+        DPO2U provides this website and its content "as is" without warranties of any kind. We are not
+        liable for any damages arising from the use of this site.
+      </Section>
 
-        <p className="text-slate-500 dark:text-slate-500 mt-12 text-sm">
-          Last updated: {new Date().toISOString().slice(0, 10)}
-        </p>
-      </main>
-      <Footer />
-    </div>
+      <Section title="Contact">
+        For questions about these terms, please contact us at{' '}
+        <a href="mailto:contato@dpo2u.com" style={{ color: PALETTE.terracotta, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+          contato@dpo2u.com
+        </a>
+        .
+      </Section>
+    </section>
   );
 }
