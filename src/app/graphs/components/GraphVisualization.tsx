@@ -222,7 +222,7 @@ export default function GraphVisualization({
       {/* Graph Container */}
       <div 
         id="graph-container" 
-        className={`relative overflow-hidden rounded-lg border border-white/10 bg-slate-900/20 backdrop-blur ${
+        className={`relative overflow-hidden rounded-lg border border-white/10 bg-brand-chrome-900/20 backdrop-blur ${
           isFullscreen ? 'fixed inset-0 z-50 rounded-none' : 'h-full'
         }`}
       >
@@ -321,20 +321,20 @@ export default function GraphVisualization({
               
               <div className="flex items-center gap-2 mt-2">
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                  <span className="text-xs text-gray-300">Project</span>
+                  <div className="w-2 h-2 rounded-full bg-brand-purple-500"></div>
+                  <span className="text-xs text-brand-gray-300">Project</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-cyan-500"></div>
-                  <span className="text-xs text-gray-300">Area</span>
+                  <span className="text-xs text-brand-gray-300">Area</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-                  <span className="text-xs text-gray-300">Resource</span>
+                  <div className="w-2 h-2 rounded-full bg-brand-emerald-500"></div>
+                  <span className="text-xs text-brand-gray-300">Resource</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="w-2 h-2 rounded-full bg-amber-500"></div>
-                  <span className="text-xs text-gray-300">Permanent</span>
+                  <span className="text-xs text-brand-gray-300">Permanent</span>
                 </div>
               </div>
             </div>

@@ -91,7 +91,7 @@ export function PremiumDialog({
         };
       default:
         return {
-          background: 'bg-gradient-to-br from-brand-sapphire-900 via-brand-sapphire-800 to-slate-900',
+          background: 'bg-gradient-to-br from-brand-sapphire-900 via-brand-sapphire-800 to-brand-chrome-900',
           border: 'border-brand-sapphire-500/30',
           accent: 'from-brand-sapphire-400 to-brand-emerald-500'
         };
@@ -168,7 +168,7 @@ export function PremiumDialog({
                     <DialogTitle className={`text-4xl md:text-5xl font-serif font-bold mb-4 bg-gradient-to-r ${styles.accent} bg-clip-text text-transparent`}>
                       {title}
                     </DialogTitle>
-                    <DialogDescription className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+                    <DialogDescription className="text-xl text-brand-platinum-400 max-w-2xl mx-auto leading-relaxed">
                       {description}
                     </DialogDescription>
                   </motion.div>
@@ -302,7 +302,7 @@ export function PremiumTrigger({
       case 'luxury':
         return 'bg-gradient-to-r from-brand-purple-500 to-brand-purple-600 hover:from-brand-purple-600 hover:to-brand-purple-700 shadow-brand-purple-500/25';
       case 'executive':
-        return 'bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 shadow-emerald-500/25';
+        return 'bg-gradient-to-r from-brand-emerald-500 to-brand-emerald-600 hover:from-brand-emerald-600 hover:to-brand-emerald-700 shadow-brand-emerald-500/25';
       default:
         return 'bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 hover:from-brand-sapphire-600 hover:to-brand-emerald-600 shadow-brand-sapphire-500/25';
     }

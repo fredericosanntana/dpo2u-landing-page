@@ -1,21 +1,39 @@
+# DPO2U — robots.txt · reviewed 2026-05-29
+# Canonical host: https://dpo2u.com
+
 User-agent: *
 Allow: /
 
-# SEO Optimization
-Sitemap: https://dpo2u.com.br/sitemap.xml
-
-# Block admin and internal pages
-Disallow: /admin/
+# Private / gated app — keep out of the index (wallet-gated, no public content)
+Disallow: /app
+Disallow: /app/
+Disallow: /login
+# Gated pilot operator/admin consoles
+Disallow: /pilot/operator
+Disallow: /pilot/admin
+# Internal read-only portals
+Disallow: /portal
+Disallow: /dsr
+# API + dynamic per-attestation proofs (the /verify landing is allowed; deep ids aren't useful to crawl)
 Disallow: /api/
-Disallow: /_next/
-Disallow: /dashboard/
+Disallow: /verify/uc/
 
-# Allow important pages
+# AI / LLM crawlers — explicitly welcomed. See /llms.txt for a curated map.
+User-agent: GPTBot
 Allow: /
-Allow: /servicos/
-Allow: /sobre/
-Allow: /contato/
-Allow: /blog/
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: CCBot
+Allow: /
 
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
+Sitemap: https://dpo2u.com/sitemap.xml

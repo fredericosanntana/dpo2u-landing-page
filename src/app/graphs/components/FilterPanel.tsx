@@ -81,7 +81,7 @@ export default function FilterPanel({
     filters.dateRange.to
 
   return (
-    <Card className="h-full bg-slate-900/50 border-white/10 backdrop-blur">
+    <Card className="h-full bg-brand-chrome-900/50 border-white/10 backdrop-blur">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
           <CardTitle className="text-white flex items-center gap-2">
@@ -93,7 +93,7 @@ export default function FilterPanel({
               variant="ghost"
               size="sm"
               onClick={resetFilters}
-              className="text-gray-400 hover:text-white"
+              className="text-brand-gray-400 hover:text-white"
             >
               Limpar
             </Button>
@@ -101,12 +101,12 @@ export default function FilterPanel({
         </div>
         
         {/* Results Summary */}
-        <div className="flex items-center gap-2 text-sm text-gray-300">
+        <div className="flex items-center gap-2 text-sm text-brand-gray-300">
           <span>
             {filteredCount} de {totalNodes} notas
           </span>
           {hasActiveFilters && (
-            <Badge variant="secondary" className="bg-purple-500/20 text-purple-200">
+            <Badge variant="secondary" className="bg-brand-purple-500/20 text-brand-purple-200">
               Filtrado
             </Badge>
           )}
@@ -120,7 +120,7 @@ export default function FilterPanel({
             <div className="space-y-2">
               <div className="relative">
                 <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 transition-colors ${
-                  isSearchFocused ? 'text-purple-400' : 'text-gray-400'
+                  isSearchFocused ? 'text-brand-purple-400' : 'text-brand-gray-400'
                 }`} />
                 <Input
                   placeholder="Buscar notas, conceitos, caminhos..."
@@ -128,14 +128,14 @@ export default function FilterPanel({
                   onChange={(e) => updateFilter('search', e.target.value)}
                   onFocus={() => setIsSearchFocused(true)}
                   onBlur={() => setIsSearchFocused(false)}
-                  className="pl-10 pr-10 bg-slate-800/50 border-white/10 text-white placeholder-gray-400"
+                  className="pl-10 pr-10 bg-brand-chrome-800/50 border-white/10 text-white placeholder-brand-gray-400"
                 />
                 {filters.search && (
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={clearSearch}
-                    className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 text-gray-400 hover:text-white"
+                    className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0 text-brand-gray-400 hover:text-white"
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -151,7 +151,7 @@ export default function FilterPanel({
                     <Hash className="h-4 w-4" />
                     Tipos de Nota
                     {filters.types.length > 0 && (
-                      <Badge variant="secondary" className="bg-purple-500/20 text-purple-200">
+                      <Badge variant="secondary" className="bg-brand-purple-500/20 text-brand-purple-200">
                         {filters.types.length}
                       </Badge>
                     )}
@@ -179,7 +179,7 @@ export default function FilterPanel({
                         />
                         <span className="capitalize">{type}</span>
                       </div>
-                      <span className="text-gray-400">{count}</span>
+                      <span className="text-brand-gray-400">{count}</span>
                     </label>
                   </div>
                 ))}
@@ -194,7 +194,7 @@ export default function FilterPanel({
                     <BarChart3 className="h-4 w-4" />
                     Conexões
                     {(filters.minConnections > 0 || filters.maxConnections < 100) && (
-                      <Badge variant="secondary" className="bg-purple-500/20 text-purple-200">
+                      <Badge variant="secondary" className="bg-brand-purple-500/20 text-brand-purple-200">
                         {filters.minConnections}-{filters.maxConnections}
                       </Badge>
                     )}
@@ -204,7 +204,7 @@ export default function FilterPanel({
               </CollapsibleTrigger>
               <CollapsibleContent className="space-y-4 mt-2">
                 <div className="space-y-2">
-                  <div className="flex justify-between text-sm text-gray-300">
+                  <div className="flex justify-between text-sm text-brand-gray-300">
                     <span>Min: {filters.minConnections}</span>
                     <span>Max: {filters.maxConnections}</span>
                   </div>
@@ -234,7 +234,7 @@ export default function FilterPanel({
                     <Hash className="h-4 w-4" />
                     Conceitos Principais
                     {filters.concepts.length > 0 && (
-                      <Badge variant="secondary" className="bg-purple-500/20 text-purple-200">
+                      <Badge variant="secondary" className="bg-brand-purple-500/20 text-brand-purple-200">
                         {filters.concepts.length}
                       </Badge>
                     )}
@@ -273,7 +273,7 @@ export default function FilterPanel({
                     <Calendar className="h-4 w-4" />
                     Período de Criação
                     {(filters.dateRange.from || filters.dateRange.to) && (
-                      <Badge variant="secondary" className="bg-purple-500/20 text-purple-200">
+                      <Badge variant="secondary" className="bg-brand-purple-500/20 text-brand-purple-200">
                         Ativo
                       </Badge>
                     )}
@@ -282,7 +282,7 @@ export default function FilterPanel({
                 </Button>
               </CollapsibleTrigger>
               <CollapsibleContent className="space-y-2 mt-2">
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-brand-gray-400">
                   Filtro por data em desenvolvimento...
                 </div>
               </CollapsibleContent>

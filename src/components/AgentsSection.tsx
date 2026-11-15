@@ -16,12 +16,12 @@ const fadeInUp = {
 function SectionHeader({ icon: Icon, title, subtitle }: { icon: React.ElementType; title: string; subtitle?: string }) {
   return (
     <div className="text-center mb-12">
-      <div className="inline-flex items-center px-4 py-2 bg-slate-100 rounded-full mb-4">
+      <div className="inline-flex items-center px-4 py-2 bg-brand-platinum-200 rounded-full mb-4">
         <Icon className="h-4 w-4 text-primary-600 mr-2" />
-        <span className="text-sm font-medium text-slate-700">{title}</span>
+        <span className="text-sm font-medium text-brand-platinum-800">{title}</span>
       </div>
       {subtitle && (
-        <p className="text-slate-600 max-w-2xl mx-auto">{subtitle}</p>
+        <p className="text-brand-platinum-700 max-w-2xl mx-auto">{subtitle}</p>
       )}
     </div>
   );
@@ -36,21 +36,21 @@ function AgentCard({ id }: { id: string }) {
       <Card variant="elevated" padding="lg" hover>
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-slate-800">{agent.name}</h3>
-            <p className="text-sm text-slate-500 mt-1">{agent.role} • {agent.level}</p>
+            <h3 className="text-lg font-semibold text-brand-chrome-800">{agent.name}</h3>
+            <p className="text-sm text-brand-platinum-600 mt-1">{agent.role} • {agent.level}</p>
           </div>
           <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary-700 border border-primary/20">
             Agent
           </span>
         </div>
-        <p className="text-slate-600 mt-4 text-sm leading-relaxed">{agent.description}</p>
+        <p className="text-brand-platinum-700 mt-4 text-sm leading-relaxed">{agent.description}</p>
         <div className="mt-5 flex flex-wrap gap-2">
           {agent.tools?.slice(0, 4).map((t) => (
-            <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">{t}</span>
+            <span key={t} className="text-xs px-2.5 py-1 rounded-full bg-brand-platinum-200 text-brand-platinum-800 border border-brand-platinum-300">{t}</span>
           ))}
         </div>
         {agent.kpis && (
-          <div className="mt-4 text-xs text-slate-500">KPIs: {agent.kpis.join(' • ')}</div>
+          <div className="mt-4 text-xs text-brand-platinum-600">KPIs: {agent.kpis.join(' • ')}</div>
         )}
       </Card>
     </motion.div>
@@ -59,7 +59,7 @@ function AgentCard({ id }: { id: string }) {
 
 export default function AgentsSection() {
   return (
-    <section id="agents" className="bg-white dark:bg-slate-900 section-padding">
+    <section id="agents" className="bg-white dark:bg-brand-chrome-900 section-padding">
       <div className="container mx-auto container-padding">
         <SectionHeader icon={Sparkles} title="O Que Você Pode Construir" subtitle="Exemplos reais de agentes autônomos rodando hoje em nossa infraestrutura. Sua empresa pode ter os mesmos." />
 
@@ -78,12 +78,12 @@ export default function AgentsSection() {
                   <Card key={a.id} variant="brand">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h4 className="font-semibold text-slate-800 dark:text-white">{a.name}</h4>
-                        <p className="text-xs text-slate-500 mt-1">{a.role} • {a.level}</p>
+                        <h4 className="font-semibold text-brand-chrome-800 dark:text-white">{a.name}</h4>
+                        <p className="text-xs text-brand-platinum-600 mt-1">{a.role} • {a.level}</p>
                       </div>
                       <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary-700 border border-primary/20">{a.id}</span>
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">{a.description}</p>
+                    <p className="text-sm text-brand-platinum-700 dark:text-brand-platinum-400 mt-2">{a.description}</p>
                   </Card>
                 ))}
               </div>
@@ -95,7 +95,7 @@ export default function AgentsSection() {
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-4">
             <Brain className="h-5 w-5 text-primary-600" />
-            <h3 className="font-semibold text-slate-800">Nível 0 — Estratégia</h3>
+            <h3 className="font-semibold text-brand-chrome-800">Nível 0 — Estratégia</h3>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sections.strategy.map((id) => (
@@ -108,7 +108,7 @@ export default function AgentsSection() {
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-4">
             <Network className="h-5 w-5 text-primary-600" />
-            <h3 className="font-semibold text-slate-800">Nível 1 — Orquestração</h3>
+            <h3 className="font-semibold text-brand-chrome-800">Nível 1 — Orquestração</h3>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sections.orchestration.map((id) => (
@@ -121,7 +121,7 @@ export default function AgentsSection() {
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-4">
             <Workflow className="h-5 w-5 text-primary-600" />
-            <h3 className="font-semibold text-slate-800">Nível 2 — Orquestração Especializada</h3>
+            <h3 className="font-semibold text-brand-chrome-800">Nível 2 — Orquestração Especializada</h3>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sections.specialized.map((id) => (
@@ -134,7 +134,7 @@ export default function AgentsSection() {
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="h-5 w-5 text-primary-600" />
-            <h3 className="font-semibold text-slate-800">Nível 3 — Execução (Conteúdo)</h3>
+            <h3 className="font-semibold text-brand-chrome-800">Nível 3 — Execução (Conteúdo)</h3>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sections.executionContent.map((id) => (
@@ -147,7 +147,7 @@ export default function AgentsSection() {
         <div>
           <div className="flex items-center gap-2 mb-4">
             <Wrench className="h-5 w-5 text-primary-600" />
-            <h3 className="font-semibold text-slate-800">Nível 3 — Execução (Técnico)</h3>
+            <h3 className="font-semibold text-brand-chrome-800">Nível 3 — Execução (Técnico)</h3>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sections.executionTech.map((id) => (

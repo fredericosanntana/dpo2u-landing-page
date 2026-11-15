@@ -48,13 +48,13 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent, onClick }) => {
       case 'online':
         return {
           icon: <CheckCircle className="h-4 w-4" />,
-          className: 'bg-green-100 text-green-800 border-green-200',
+          className: 'bg-brand-emerald-100 text-brand-emerald-800 border-brand-emerald-200',
           label: 'Online'
         };
       case 'offline':
         return {
           icon: <XCircle className="h-4 w-4" />,
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
+          className: 'bg-brand-gray-100 text-brand-gray-800 border-brand-gray-200',
           label: 'Offline'
         };
       case 'busy':
@@ -72,7 +72,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent, onClick }) => {
       default:
         return {
           icon: <XCircle className="h-4 w-4" />,
-          className: 'bg-gray-100 text-gray-800 border-gray-200',
+          className: 'bg-brand-gray-100 text-brand-gray-800 border-brand-gray-200',
           label: 'Desconhecido'
         };
     }
@@ -110,7 +110,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent, onClick }) => {
       className={cn(
         'cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105',
         'bg-white/80 backdrop-blur-sm border border-white/20',
-        agent.status === 'online' ? 'ring-2 ring-green-200' :
+        agent.status === 'online' ? 'ring-2 ring-brand-emerald-200' :
         agent.status === 'busy' ? 'ring-2 ring-yellow-200' : ''
       )}
       onClick={() => onClick(agent)}
@@ -132,7 +132,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent, onClick }) => {
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        <p className="text-xs text-gray-600 line-clamp-2">
+        <p className="text-xs text-brand-gray-600 line-clamp-2">
           {agent.description}
         </p>
         
@@ -149,7 +149,7 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent, onClick }) => {
           )}
         </div>
 
-        <div className="flex items-center justify-between text-xs text-gray-500">
+        <div className="flex items-center justify-between text-xs text-brand-gray-500">
           <div className="flex items-center space-x-1">
             <Clock className="h-3 w-3" />
             <span>
@@ -173,11 +173,11 @@ const AgentCard: React.FC<AgentCardProps> = ({ agent, onClick }) => {
 
 const AgentDetails: React.FC<{ agent: Agent }> = ({ agent }) => {
   const statusConfig = {
-    online: { color: 'text-green-600', bg: 'bg-green-100' },
-    offline: { color: 'text-gray-600', bg: 'bg-gray-100' },
+    online: { color: 'text-brand-emerald-600', bg: 'bg-brand-emerald-100' },
+    offline: { color: 'text-brand-gray-600', bg: 'bg-brand-gray-100' },
     busy: { color: 'text-yellow-600', bg: 'bg-yellow-100' },
     error: { color: 'text-red-600', bg: 'bg-red-100' },
-  }[agent.status] || { color: 'text-gray-600', bg: 'bg-gray-100' };
+  }[agent.status] || { color: 'text-brand-gray-600', bg: 'bg-brand-gray-100' };
 
   return (
     <div className="space-y-6">
@@ -186,7 +186,7 @@ const AgentDetails: React.FC<{ agent: Agent }> = ({ agent }) => {
           <h3 className="text-lg font-semibold">
             {agent.name.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
           </h3>
-          <p className="text-sm text-gray-600 mt-1">{agent.description}</p>
+          <p className="text-sm text-brand-gray-600 mt-1">{agent.description}</p>
         </div>
         <Badge className={cn('text-xs', statusConfig.color, statusConfig.bg)}>
           {agent.status.charAt(0).toUpperCase() + agent.status.slice(1)}
@@ -275,7 +275,7 @@ export const AgentGallery: React.FC = () => {
         return (
           <div key={category}>
             <div className="flex items-center space-x-2 mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">{category}</h3>
+              <h3 className="text-lg font-semibold text-brand-gray-800">{category}</h3>
               <Badge variant="secondary" className="text-xs">
                 {categoryAgents.length} agente{categoryAgents.length !== 1 ? 's' : ''}
               </Badge>
@@ -292,18 +292,18 @@ export const AgentGallery: React.FC = () => {
       {/* Header with stats and filters */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold text-gray-900">Agentes DPO2U</h2>
+          <h2 className="text-2xl font-bold text-brand-gray-900">Agentes DPO2U</h2>
           <div className="flex items-center space-x-4 text-sm">
-            <div className="flex items-center space-x-1 text-green-600">
-              <div className="w-2 h-2 bg-green-500 rounded-full" />
+            <div className="flex items-center space-x-1 text-brand-emerald-600">
+              <div className="w-2 h-2 bg-brand-emerald-500 rounded-full" />
               <span>{onlineCount} Online</span>
             </div>
             <div className="flex items-center space-x-1 text-yellow-600">
               <div className="w-2 h-2 bg-yellow-500 rounded-full" />
               <span>{busyCount} Executando</span>
             </div>
-            <div className="flex items-center space-x-1 text-gray-600">
-              <div className="w-2 h-2 bg-gray-500 rounded-full" />
+            <div className="flex items-center space-x-1 text-brand-gray-600">
+              <div className="w-2 h-2 bg-brand-gray-500 rounded-full" />
               <span>{offlineCount} Offline</span>
             </div>
           </div>
@@ -331,7 +331,7 @@ export const AgentGallery: React.FC = () => {
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-brand-gray-400 h-4 w-4" />
             <Input
               placeholder="Buscar agentes..."
               value={agentFilter}
@@ -360,8 +360,8 @@ export const AgentGallery: React.FC = () => {
       {/* Agent display */}
       {filteredAgents.length === 0 ? (
         <div className="text-center py-12">
-          <Bot className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600">Nenhum agente encontrado</p>
+          <Bot className="h-12 w-12 text-brand-gray-400 mx-auto mb-4" />
+          <p className="text-brand-gray-600">Nenhum agente encontrado</p>
         </div>
       ) : viewMode === 'grid' ? renderAgentGrid(filteredAgents) : renderCategoryView()}
 

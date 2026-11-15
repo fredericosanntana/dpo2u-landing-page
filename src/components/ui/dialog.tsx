@@ -302,7 +302,7 @@ const ConsultationDialog: React.FC<ConsultationDialogProps> = ({
             </div>
             <div className="text-right">
               <div className="text-2xl font-bold text-brand-gray-400 line-through">$2,500</div>
-              <div className="text-3xl font-black text-brand-green-600">FREE</div>
+              <div className="text-3xl font-black text-brand-emerald-600">FREE</div>
             </div>
           </div>
         </div>

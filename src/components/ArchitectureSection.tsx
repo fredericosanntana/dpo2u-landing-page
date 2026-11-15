@@ -23,14 +23,14 @@ function Level({
 }) {
   const accentMap: Record<typeof accent, string> = {
     blue: 'from-primary/15 to-primary/5 border-primary/30',
-    green: 'from-brand-green-500/15 to-brand-green-500/5 border-brand-green-500/30',
+    green: 'from-brand-emerald-500/15 to-brand-emerald-500/5 border-brand-emerald-500/30',
     purple: 'from-brand-purple-500/15 to-brand-purple-500/5 border-brand-purple-500/30',
-    slate: 'from-slate-400/15 to-slate-400/5 border-slate-400/30',
+    slate: 'from-brand-platinum-500/15 to-brand-platinum-500/5 border-brand-platinum-500/30',
   } as any;
 
   return (
     <motion.div variants={fadeInUp} className="relative">
-      <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-slate-200 to-transparent" />
+      <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-brand-platinum-300 to-transparent" />
       <Card
         variant="elevated"
         padding="lg"
@@ -43,8 +43,8 @@ function Level({
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
-            <p className="text-slate-600 mt-1 text-sm leading-relaxed">{description}</p>
+            <h3 className="text-lg font-semibold text-brand-chrome-800">{title}</h3>
+            <p className="text-brand-platinum-700 mt-1 text-sm leading-relaxed">{description}</p>
           </div>
         </div>
       </Card>
@@ -54,7 +54,7 @@ function Level({
 
 export default function ArchitectureSection() {
   return (
-    <section id="architecture" className="bg-white dark:bg-slate-900 section-padding">
+    <section id="architecture" className="bg-white dark:bg-brand-chrome-900 section-padding">
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div
@@ -64,14 +64,14 @@ export default function ArchitectureSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center px-4 py-2 bg-slate-100 rounded-full mb-4">
+          <div className="inline-flex items-center px-4 py-2 bg-brand-platinum-200 rounded-full mb-4">
             <Layers className="h-4 w-4 text-primary mr-2" />
-            <span className="text-sm font-medium text-slate-700">Arquitetura da Solução</span>
+            <span className="text-sm font-medium text-brand-platinum-800">Arquitetura da Solução</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-800 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-chrome-800 leading-tight">
             Sua Stack de IA em 4 Camadas
           </h2>
-          <p className="text-slate-600 mt-4 max-w-3xl mx-auto">
+          <p className="text-brand-platinum-700 mt-4 max-w-3xl mx-auto">
             Uma fundação sólida e segura para suas aplicações de IA, construída sobre tecnologias open-source líderes de mercado.
           </p>
         </motion.div>
@@ -112,9 +112,9 @@ export default function ArchitectureSection() {
             <Card variant="elevated" padding="lg" hover>
               <div className="flex items-center gap-3 mb-3">
                 <Code2 className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-slate-800">Seu GitHub Privado (Gitea)</h3>
+                <h3 className="text-lg font-semibold text-brand-chrome-800">Seu GitHub Privado (Gitea)</h3>
               </div>
-              <ul className="list-none space-y-2 text-slate-700">
+              <ul className="list-none space-y-2 text-brand-platinum-800">
                 <li className="flex items-start gap-2">
                   <span className="mt-1.5 h-2 w-2 rounded-full bg-primary" />
                   <span><strong>Hospedagem de Código:</strong> Repositórios Git ilimitados em seu próprio servidor.</span>
@@ -134,9 +134,9 @@ export default function ArchitectureSection() {
             <Card variant="elevated" padding="lg" hover>
               <div className="flex items-center gap-3 mb-3">
                 <Box className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-slate-800">Template de Aplicação Moderna</h3>
+                <h3 className="text-lg font-semibold text-brand-chrome-800">Template de Aplicação Moderna</h3>
               </div>
-              <ul className="list-disc pl-6 text-slate-700 space-y-2">
+              <ul className="list-disc pl-6 text-brand-platinum-800 space-y-2">
                 <li><strong>Frontend Next.js:</strong> React, TypeScript, TailwindCSS - Rápido e SEO-friendly.</li>
                 <li><strong>Backend Python:</strong> FastAPI para alta performance em APIs de IA.</li>
                 <li><strong>Database:</strong> PostgreSQL ou Vector DB para dados corporativos.</li>
@@ -147,9 +147,9 @@ export default function ArchitectureSection() {
             <Card variant="elevated" padding="lg" hover>
               <div className="flex items-center gap-3 mb-3">
                 <Shield className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold text-slate-800">Segurança & Privacidade</h3>
+                <h3 className="text-lg font-semibold text-brand-chrome-800">Segurança & Privacidade</h3>
               </div>
-              <ul className="list-none space-y-2 text-slate-700">
+              <ul className="list-none space-y-2 text-brand-platinum-800">
                 <li className="flex items-start gap-2">
                   <Globe className="h-4 w-4 mt-1 text-primary" />
                   <span><strong>HTTPS Automático:</strong> Certificados SSL renovados automaticamente.</span>

@@ -1,320 +1,287 @@
-
+// LEGACY — route removed 2026-04-29; content moved to home FMCP section + /research MCP reference
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { Shield, Brain, Zap, Users, ArrowRight, Check, Star, Activity, Database, Lock, Server, Code, Terminal, Fingerprint } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { trackCTA } from '@/lib/analytics';
-import { Card } from '@/components/ui/card';
-import Header from '@/components/Header';
-import FAQSection from '@/components/FAQSection';
-import { ConsultationDialog } from '@/components/ui/premium-dialog';
-import DataProcessingModal from '@/components/modals/DataProcessingModal';
-import Footer from '@/components/Footer';
-import { fadeInUp, staggerContainer } from '@/lib/animations';
+import LiquidGlassNav from '@/components/landing/LiquidGlassNav';
+import CTAFooterWrapper from '@/components/landing/CTAFooterWrapper';
+import { fadeIn, viewportOnce } from '@/lib/animations';
+import { usePageHead } from '@/lib/page-head';
 
-const AnimatedSection: React.FC<{
-    children: React.ReactNode;
-    className?: string;
-    id?: string;
-}> = ({ children, className = '', id }) => {
-    const [ref, inView] = useInView({
-        triggerOnce: true,
-        threshold: 0.1,
-    });
+interface Skill {
+  name: string;
+  title: string;
+  desc: string;
+  tags: string[];
+}
 
-    return (
-        <motion.section
-            ref={ref}
-            id={id}
-            initial="initial"
-            animate={inView ? "animate" : "initial"}
-            variants={staggerContainer}
-            className={className}
-        >
-            {children}
-        </motion.section>
-    );
-};
+const SKILLS: Skill[] = [
+  {
+    name: 'dpo2u-audit-micar',
+    title: 'MiCA ART vault audit',
+    desc: 'Audit an EU stablecoin reserve program against MiCA Art. 23 / 35 / 36 / 39 — Proof of Reserve, Liquidity Vault, Capital Buffer, Velocity Limiter.',
+    tags: ['EU', 'MiCA', 'Crypto'],
+  },
+  {
+    name: 'dpo2u-compliance-check',
+    title: 'Compliance checklist + score',
+    desc: 'Run an LGPD / GDPR / DPDP / MiCA / PDPA / UAE / PDPL / POPIA / NDPA / CCPA / PIPEDA / LAW25 / PIPA / PDP compliance scan. Returns scored checklist, gap analysis, and prioritized action plan.',
+    tags: ['LGPD', 'GDPR', 'DPDP', 'PDPA', 'POPIA', 'NDPA', 'CCPA', 'PIPEDA'],
+  },
+  {
+    name: 'dpo2u-compare-jurisdictions',
+    title: 'Cross-jurisdiction matrix',
+    desc: 'Regulatory matrix across Brazil, EU, India, Singapore, UAE, South Africa, Nigeria, California, Canada, Quebec. Includes ADGM foundation charter generation for market entry.',
+    tags: ['Multi-jurisdiction'],
+  },
+  {
+    name: 'dpo2u-consent-record',
+    title: 'On-chain consent record',
+    desc: 'Record or revoke a DPDP India / LGPD consent event on Solana via the consent-manager program. Purpose hashing + AES-GCM payload + ZK-bound consent via SP1 verifier.',
+    tags: ['Solana', 'DPDP', 'ZK'],
+  },
+  // CAIDP UN Global Dialogue alignment (May 2026).
+  {
+    name: 'audit_ai_red_lines',
+    title: 'AI red-line audit',
+    desc: 'Audits an AI system against the seven CAIDP red-line categories — emotion analysis, biometric categorization, biometric mass surveillance, predictive policing, child targeting, social scoring, subliminal manipulation — and EU AI Act Article 5. Returns termination obligation recommendation per CAIDP Universal Guidelines Princípio 12.',
+    tags: ['CAIDP', 'EU-AIA', 'Red lines'],
+  },
+  {
+    name: 'generate_ai_hria',
+    title: 'AI Human Rights Impact Assessment',
+    desc: 'Generates an HRIA distinct from a DPIA — covers free expression, association, privacy, gender-based violence facilitation, vulnerable populations, and children safety. Aligned with UNESCO RAM social-cultural dimension and EU AI Act Art. 27 FRIA.',
+    tags: ['HRIA', 'UNESCO', 'CAIDP'],
+  },
+  {
+    name: 'report_ai_incident',
+    title: 'AI incident report',
+    desc: 'AIAAIC-aligned incident reporting for AI failures: discrimination, safety failures, privacy breaches, agentic misbehavior, children harm, gender-based violence. Severity ≥4 with rights-violation triggers UN Special Rapporteur escalation hint plus jurisdiction mandatory-report list (EU AI Act Art. 73, GDPR Art. 33, LGPD Art. 48).',
+    tags: ['AIAAIC', 'UN', 'Incident'],
+  },
+  {
+    name: 'caidp_ai_index_score',
+    title: 'CAIDP AI Index baseline',
+    desc: 'Scores an organization against the CAIDP AI Index 2026 ten indicators — public participation, algorithmic transparency, fairness, independent oversight, accountability, human rights commitment, data protection, democratic values, research collaboration, capacity building. 90-country baseline per the CAIDP Index report.',
+    tags: ['CAIDP', 'AI Index', 'Human rights'],
+  },
+];
 
-export default function MCPPage() {
-    const [isDataModalOpen, setIsDataModalOpen] = React.useState(false);
+const INTEGRATION_BULLETS = [
+  'Typed tool schemas (JSON-Schema) for every skill',
+  'Idempotent outputs — suitable for audit trails',
+  'Pluggable against the Solana on-chain programs',
+  'Transport: stdio (local) and SSE (remote)',
+];
 
-    return (
-        <div className="min-h-screen">
-            <Header />
-
-            {/* Hero Section */}
-            <AnimatedSection className="relative min-h-screen flex items-center overflow-hidden bg-gradient-premium">
-                {/* Background Effects */}
-                <div className="absolute inset-0">
-                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-brand-sapphire-500/10 via-brand-emerald-500/5 to-transparent"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-sapphire-500/10 rounded-full blur-[100px] animate-pulse-subtle"></div>
-                </div>
-
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <motion.div
-                            variants={fadeInUp}
-                            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-brand-sapphire-500/20 to-brand-emerald-500/20 rounded-full border border-brand-sapphire-400/30 mb-8 backdrop-blur-sm"
-                        >
-                            <Brain className="h-5 w-5 text-primary mr-3" />
-                            <span className="text-base font-semibold text-brand-sapphire-300">Model Context Protocol (MCP) Server</span>
-                        </motion.div>
-
-                        <motion.h1
-                            variants={fadeInUp}
-                            className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold mb-8 leading-tight text-white"
-                        >
-                            Your Compliance <br />
-                            <span className="bg-gradient-to-r from-brand-emerald-400 to-brand-sapphire-400 bg-clip-text text-transparent">
-                                AI Brain
-                            </span>
-                        </motion.h1>
-
-                        <motion.p
-                            variants={fadeInUp}
-                            className="text-xl md:text-2xl mb-12 text-brand-platinum-300 leading-relaxed font-light"
-                        >
-                            An intelligent bridge between your local infrastructure and AI.
-                            <span className="text-brand-emerald-400 font-medium"> Public MCP and OpenAPI-discoverable tools</span> for auditing, compliance, and homomorphic encryption, running 100% on your server.
-                        </motion.p>
-
-                        <motion.div
-                            variants={fadeInUp}
-                            className="flex flex-col sm:flex-row gap-6 justify-center"
-                        >
-                            <ConsultationDialog />
-                            <Button
-                                variant="outline"
-                                size="xl"
-                                className="border-2 border-brand-gray-400/50 text-brand-gray-200 hover:bg-brand-gray-700 hover:text-white backdrop-blur-md bg-brand-gray-800/20 font-bold px-12"
-                                onClick={() => window.open('https://github.com/dpo2u/dpo2u-mcp', '_blank')}
-                            >
-                                <Code className="h-5 w-5 mr-2" />
-                                View Technical Documentation
-                            </Button>
-                        </motion.div>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* Architecture Section */}
-            <AnimatedSection className="section-padding bg-slate-900 text-white">
-                <div className="container mx-auto container-padding">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-                            <span className="text-brand-emerald-400">Zero-Trust AI</span> Architecture
-                        </h2>
-                        <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-                            Your data never leaves your infrastructure. The MCP Server orchestrates intelligence locally.
-                        </p>
-                    </div>
-
-                    <div className="grid lg:grid-cols-3 gap-8 items-center">
-                        {/* Client */}
-                        <Card className="bg-slate-800 border-slate-700 p-8 text-center relative">
-                            <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 hidden lg:block z-10">
-                                <ArrowRight className="h-8 w-8 text-slate-600" />
-                            </div>
-                            <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Terminal className="h-8 w-8 text-blue-400" />
-                            </div>
-                            <h3 className="text-xl font-bold mb-2 text-white">MCP Clients</h3>
-                            <p className="text-slate-400 text-sm">Claude Desktop, Cursor, Custom Apps</p>
-                        </Card>
-
-                        {/* Server */}
-                        <Card className="bg-slate-800 border-brand-emerald-500/50 p-8 text-center ring-2 ring-brand-emerald-500/20 shadow-[0_0_50px_rgba(16,185,129,0.1)]">
-                            <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Server className="h-10 w-10 text-emerald-400" />
-                            </div>
-                            <h3 className="text-2xl font-bold mb-2 text-white">DPO2U MCP Server</h3>
-                            <div className="flex flex-wrap gap-2 justify-center mt-4">
-                                <span className="px-2 py-1 bg-emerald-500/10 rounded text-xs text-emerald-400 border border-emerald-500/20">Node.js</span>
-                                <span className="px-2 py-1 bg-emerald-500/10 rounded text-xs text-emerald-400 border border-emerald-500/20">TypeScript</span>
-                                <span className="px-2 py-1 bg-emerald-500/10 rounded text-xs text-emerald-400 border border-emerald-500/20">Docker</span>
-                            </div>
-                        </Card>
-
-                        {/* Backend */}
-                        <Card className="bg-slate-800 border-slate-700 p-8 text-center relative">
-                            <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 hidden lg:block z-10">
-                                <ArrowRight className="h-8 w-8 text-slate-600 rotate-180" />
-                            </div>
-                            <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <Database className="h-8 w-8 text-purple-400" />
-                            </div>
-                            <h3 className="text-xl font-bold mb-2 text-white">Local Intelligence</h3>
-                            <div className="space-y-2 mt-4">
-                                <div className="flex items-center justify-center gap-2 text-sm text-slate-300">
-                                    <Database className="h-4 w-4" /> LEANN Vector DB
-                                </div>
-                                <div className="flex items-center justify-center gap-2 text-sm text-slate-300">
-                                    <Lock className="h-4 w-4" /> OpenFHE Crypto
-                                </div>
-                            </div>
-                        </Card>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* Tools Showcase */}
-            <AnimatedSection className="section-padding bg-slate-50 dark:bg-slate-900">
-                <div className="container mx-auto container-padding">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-gray-800 dark:text-white mb-6">
-                            Specialized Tools for Privacy Compliance
-                        </h2>
-                        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                            Full automation for LGPD, GDPR, and Information Security.
-                        </p>
-                    </div>
-
-                    {/* Midnight-Specific Tools - Prominent Section */}
-                    <div className="grid md:grid-cols-2 gap-6 mb-10">
-                        {[
-                            { title: 'midnight_zk_compliance_proof', desc: 'Generate Zero-Knowledge compliance proofs on Midnight blockchain. Prove regulatory adherence without exposing sensitive data, leveraging Midnight\'s native ZK capabilities for verifiable privacy.', icon: Shield, color: 'cyan' },
-                            { title: 'midnight_did_management', desc: 'Decentralized Identity management powered by Midnight. Create, verify, and revoke DIDs for data subjects and processors with on-chain privacy guarantees and selective disclosure.', icon: Fingerprint, color: 'purple' },
-                        ].map((tool, idx) => (
-                            <motion.div key={`midnight-${idx}`} variants={fadeInUp}>
-                                <Card className="h-full p-8 hover:shadow-xl transition-all border-2 border-brand-emerald-500/40 bg-gradient-to-br from-slate-50 to-emerald-50 dark:from-slate-800 dark:to-emerald-950/30 ring-1 ring-brand-emerald-500/20">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <span className="px-2 py-0.5 bg-emerald-500/10 rounded text-xs font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">Midnight</span>
-                                    </div>
-                                    <div className="flex items-start justify-between mb-4">
-                                        <h3 className="font-mono text-lg font-bold text-brand-blue-600 dark:text-brand-blue-400">
-                                            {tool.title}
-                                        </h3>
-                                        <tool.icon className={`h-6 w-6 text-${tool.color}-500`} />
-                                    </div>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                                        {tool.desc}
-                                    </p>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[
-                            { title: 'auditinfrastructure', desc: 'Complete server and VPS auditing for compliance.', icon: Activity, color: 'blue' },
-                            { title: 'assessrisk', desc: 'Automatic DPIA/RIPD generation and risk assessment.', icon: Shield, color: 'red' },
-                            { title: 'mapdataflow', desc: 'Visual mapping of personal data flows.', icon: Database, color: 'emerald' },
-                            { title: 'generateprivacypolicy', desc: 'Creation of customized, legally valid policies.', icon: Code, color: 'purple' },
-                            { title: 'simulatebreach', desc: 'Technical incident simulation for resilience testing.', icon: Zap, color: 'orange' },
-                            { title: 'verifyconsent', desc: 'Audit of consent bases and opt-ins.', icon: Check, color: 'green' },
-                            { title: 'encryptedreporting', desc: 'Reports generated over encrypted data (FHE).', icon: Lock, color: 'indigo' },
-                            { title: 'zkcomplianceproof', desc: 'Zero-Knowledge compliance proofs without exposing data.', icon: Shield, color: 'cyan' },
-                            { title: 'homomorphicanalytics', desc: 'Analytics preserving full privacy.', icon: Activity, color: 'pink' },
-                        ].map((tool, idx) => (
-                            <motion.div key={idx} variants={fadeInUp}>
-                                <Card className="h-full p-6 hover:shadow-lg transition-all border-l-4 border-l-transparent hover:border-l-brand-emerald-500">
-                                    <div className="flex items-start justify-between mb-4">
-                                        <h3 className="font-mono text-lg font-bold text-brand-blue-600 dark:text-brand-blue-400">
-                                            {tool.title}
-                                        </h3>
-                                        <tool.icon className={`h-5 w-5 text-${tool.color}-500`} />
-                                    </div>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                                        {tool.desc}
-                                    </p>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <div className="text-center mt-12">
-                        <p className="text-sm text-gray-500 italic">...plus additional security, governance, on-chain, and analysis tools exposed in the public inventory.</p>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* Integration Code */}
-            <AnimatedSection className="section-padding bg-slate-900 text-white">
-                <div className="container mx-auto container-padding">
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-white">
-                                Simple Integration
-                            </h2>
-                            <p className="text-lg text-slate-300 mb-8">
-                                Add it to your Claude Desktop or Cursor in seconds. The server runs locally via Docker, exposing a standard MCP interface.
-                            </p>
-
-                            <ul className="space-y-4 mb-8">
-                                {[
-                                    'Compatible with Claude 3.5 Sonnet',
-                                    'Compatible with Cursor IDE',
-                                    'HTTP API for custom integrations',
-                                    'API Key authentication'
-                                ].map((item, idx) => (
-                                    <li key={idx} className="flex items-center text-slate-400">
-                                        <Check className="h-5 w-5 text-emerald-400 mr-3" />
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <Button
-                                variant="primary"
-                                size="lg"
-                                className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold"
-                                onClick={() => window.open('https://github.com/dpo2u/dpo2u-mcp', '_blank')}
-                            >
-                                View Installation Guide
-                            </Button>
-                        </div>
-
-                        <div className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
-                            <div className="flex items-center px-4 py-2 bg-slate-900 border-b border-slate-800">
-                                <div className="flex space-x-2">
-                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                                </div>
-                                <span className="ml-4 text-xs text-slate-500 font-mono">claude_desktop_config.json</span>
-                            </div>
-                            <div className="p-6 overflow-x-auto">
-                                <pre className="text-sm font-mono text-emerald-400 pointer-events-none select-none">
-                                    {`{
+const MCP_CONFIG = `{
   "mcpServers": {
     "dpo2u": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "dpo2u-mcp"
-      ],
+      "command": "npx",
+      "args": ["-y", "@dpo2u/mcp-server"],
       "env": {
-        "MCP_API_KEY": "sk-..."
+        "DPO2U_CLUSTER": "devnet"
       }
     }
   }
-}`}
-                                </pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </AnimatedSection>
+}`;
 
-            {/* Final CTA */}
-            <AnimatedSection className="py-24 bg-brand-sapphire-900 text-center">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-8">
-                        Start your Sovereign AI journey today
-                    </h2>
-                    <ConsultationDialog />
-                </div>
-            </AnimatedSection>
+export default function MCPPage() {
+  usePageHead({
+    title: 'MCP — 66 typed compliance tools across 17 jurisdictions + 6 AI governance frameworks | DPO2U',
+    description: '66 typed Model Context Protocol tools covering LGPD, GDPR, MiCA, DPDP, PDPA, UAE/PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA plus six AI governance frameworks (Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM). Run compliance gap analysis, DPIA, HRIA, AI red-line audit, AI Index scoring, ZK attestation inside any MCP-compatible LLM.',
+    path: '/mcp',
+  });
+  return (
+    <div className="min-h-screen bg-dpo2u-ivory text-dpo2u-ink font-body">
+      <LiquidGlassNav />
+      <main className="pt-16">
+        {/* Hero */}
+        <section className="border-b border-dpo2u-ink/10">
+          <div className="mx-auto max-w-[1200px] px-6 sm:px-8 lg:px-10 pt-24 md:pt-32 pb-20 md:pb-28">
+            <motion.p
+              initial="initial"
+              animate="animate"
+              variants={fadeIn}
+              className="font-mono text-[11px] uppercase tracking-[0.18em] text-dpo2u-ink/70 mb-8"
+            >
+              — MCP · Model Context Protocol —
+            </motion.p>
+            <motion.h1
+              initial="initial"
+              animate="animate"
+              variants={fadeIn}
+              transition={{ delay: 0.1 }}
+              className="font-display text-hero text-dpo2u-ink font-medium max-w-[20ch]"
+            >
+              Compliance tools, callable from any LLM.
+            </motion.h1>
+            <motion.p
+              initial="initial"
+              animate="animate"
+              variants={fadeIn}
+              transition={{ delay: 0.2 }}
+              className="mt-8 font-body text-[19px] md:text-[21px] leading-snug text-dpo2u-ink/75 max-w-[58ch]"
+            >
+              66 typed tools. 4 public skills. Compiled from five years of research across 17 jurisdictions —
+              LGPD, GDPR, MiCA, DPDP, PDPA, UAE/PDPL, POPIA, NDPA, CCPA, PIPEDA, LAW25, PIPA, PDP, APPI, MEXICO, VIETNAM, MALAYSIA —
+              plus six AI governance frameworks: Japan AI Promotion Act, Hiroshima ICOC G7, EU AI Act, Korea AI Basic Act, CAIDP Universal Guidelines, UNESCO RAM.
+            </motion.p>
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={fadeIn}
+              transition={{ delay: 0.3 }}
+              className="mt-10 flex flex-wrap gap-x-10 gap-y-3 font-body text-[14px]"
+            >
+              <a
+                href="#skills"
+                className="group inline-flex items-center gap-2 text-dpo2u-ink border-b border-dpo2u-ink/30 hover:border-dpo2u-indigo hover:text-dpo2u-indigo transition-colors pb-1"
+              >
+                Browse the skills
+                <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+              </a>
+              <a
+                href="https://github.com/fredericosanntana/dpo2u-solana"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 text-dpo2u-ink/70 border-b border-dpo2u-ink/15 hover:border-dpo2u-ink hover:text-dpo2u-ink transition-colors pb-1"
+              >
+                Read the MCP design doc (coming 2026-Q2)
+                <span aria-hidden className="transition-transform group-hover:translate-x-1">↗</span>
+              </a>
+            </motion.div>
+          </div>
+        </section>
 
-            <DataProcessingModal
-                isOpen={isDataModalOpen}
-                onClose={() => setIsDataModalOpen(false)}
-            />
-            <Footer />
-        </div>
-    );
+        {/* Skills — editorial table */}
+        <section id="skills" className="border-b border-dpo2u-ink/10">
+          <div className="mx-auto max-w-[1200px] px-6 sm:px-8 lg:px-10 py-24 md:py-32">
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={viewportOnce}
+              variants={fadeIn}
+            >
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-dpo2u-ink/70 mb-6">
+                — Eight public skills —
+              </p>
+              <h2 className="font-display text-section text-dpo2u-ink font-medium max-w-[24ch]">
+                Published skills, deterministic outputs.
+              </h2>
+              <p className="mt-4 font-body text-[16px] text-dpo2u-ink/70 max-w-[56ch]">
+                Every skill returns structured JSON and links to an auditable artifact — not prose.
+                Four new AI-governance skills are aligned with CAIDP&apos;s submission to the UN
+                Global Dialogue on AI Governance (UN GA Resolution 79/325): red-line audit, HRIA,
+                incident reporting, and AI Index scoring. Fifty-five more tools are internal,
+                documented in the design note.
+              </p>
+            </motion.div>
+
+            <div className="mt-14 border-t border-dpo2u-ink/15">
+              {/* Column headers */}
+              <div className="hidden md:grid md:grid-cols-12 gap-4 py-3 border-b border-dpo2u-ink/10 font-mono text-[10px] uppercase tracking-[0.16em] text-dpo2u-ink/70">
+                <div className="md:col-span-4">Tool</div>
+                <div className="md:col-span-6">Description</div>
+                <div className="md:col-span-2">Jurisdictions</div>
+              </div>
+
+              {SKILLS.map((s, i) => (
+                <motion.article
+                  key={s.name}
+                  initial="initial"
+                  whileInView="animate"
+                  viewport={viewportOnce}
+                  variants={fadeIn}
+                  transition={{ delay: 0.05 * i }}
+                  className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 py-6 md:py-8 border-b border-dpo2u-ink/10 items-baseline"
+                >
+                  <div className="md:col-span-4">
+                    <code className="font-mono text-[13px] text-dpo2u-indigo">{s.name}</code>
+                    <h3 className="mt-2 font-display text-[20px] text-dpo2u-ink font-medium leading-tight">
+                      {s.title}
+                    </h3>
+                  </div>
+                  <p className="md:col-span-6 font-body text-[14.5px] leading-relaxed text-dpo2u-ink/80">
+                    {s.desc}
+                  </p>
+                  <div className="md:col-span-2 flex flex-wrap gap-1.5">
+                    {s.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="font-mono text-[9px] uppercase tracking-[0.12em] px-1.5 py-0.5 border border-dpo2u-ink/20 text-dpo2u-ink/70"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Integration — config block */}
+        <section className="border-b border-dpo2u-ink/10">
+          <div className="mx-auto max-w-[1200px] px-6 sm:px-8 lg:px-10 py-24 md:py-32">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+              <motion.div
+                initial="initial"
+                whileInView="animate"
+                viewport={viewportOnce}
+                variants={fadeIn}
+              >
+                <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-dpo2u-indigo mb-6">
+                  — Integration —
+                </p>
+                <h2 className="font-display text-[36px] md:text-[44px] leading-[1.15] tracking-[-0.015em] text-dpo2u-ink font-medium max-w-[22ch]">
+                  Point any MCP-capable agent here.
+                </h2>
+                <p className="mt-6 font-body text-[16px] leading-relaxed text-dpo2u-ink/75">
+                  The DPO2U MCP server runs locally (stdio) or remotely (SSE). Add it to Claude
+                  Code, ChatGPT with MCP, or your custom orchestrator with a single config entry.
+                  Every tool call is auditable and returns structured data.
+                </p>
+                <ul className="mt-8 space-y-3">
+                  {INTEGRATION_BULLETS.map((b) => (
+                    <li
+                      key={b}
+                      className="flex items-start gap-3 font-body text-[14.5px] text-dpo2u-ink/85 leading-relaxed"
+                    >
+                      <span aria-hidden className="font-mono text-dpo2u-indigo text-[12px] mt-1">
+                        ✓
+                      </span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              <motion.div
+                initial="initial"
+                whileInView="animate"
+                viewport={viewportOnce}
+                variants={fadeIn}
+                transition={{ delay: 0.1 }}
+                className="bg-dpo2u-ivory-warm/60 border border-dpo2u-ink/15 rounded-md overflow-hidden h-fit"
+              >
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-dpo2u-ink/10">
+                  <div className="flex gap-1.5">
+                    <span aria-hidden className="w-2.5 h-2.5 rounded-full bg-dpo2u-terracotta/50" />
+                    <span aria-hidden className="w-2.5 h-2.5 rounded-full bg-dpo2u-gold/60" />
+                    <span aria-hidden className="w-2.5 h-2.5 rounded-full bg-dpo2u-verdigris/60" />
+                  </div>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-dpo2u-ink/70 ml-2">
+                    ~/.claude/mcp_servers.json
+                  </span>
+                </div>
+                <pre className="p-5 font-mono text-[13px] text-dpo2u-ink leading-[1.7] overflow-x-auto whitespace-pre">
+                  {MCP_CONFIG}
+                </pre>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <CTAFooterWrapper />
+    </div>
+  );
 }

@@ -127,24 +127,24 @@ const IntegrationCapabilities: React.FC = () => {
 
   const getStatusColor = (status: IntegrationCapability['status']) => {
     switch (status) {
-      case 'production': return 'bg-emerald-100 text-emerald-700 border-emerald-200';
+      case 'production': return 'bg-brand-emerald-100 text-brand-emerald-700 border-brand-emerald-200';
       case 'beta': return 'bg-brand-emerald-100 text-brand-emerald-700 border-brand-emerald-200';
-      case 'development': return 'bg-blue-100 text-blue-700 border-blue-200';
+      case 'development': return 'bg-brand-sapphire-100 text-brand-sapphire-700 border-brand-sapphire-200';
     }
   };
 
   const getMethodColor = (method: string) => {
     switch (method) {
-      case 'GET': return 'bg-green-100 text-green-700';
-      case 'POST': return 'bg-blue-100 text-blue-700';
+      case 'GET': return 'bg-brand-emerald-100 text-brand-emerald-700';
+      case 'POST': return 'bg-brand-sapphire-100 text-brand-sapphire-700';
       case 'PUT': return 'bg-brand-sapphire-100 text-brand-sapphire-700';
       case 'DELETE': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-brand-gray-100 text-brand-gray-700';
     }
   };
 
   return (
-    <section className="section-padding bg-gradient-to-b from-white to-slate-50">
+    <section className="section-padding bg-gradient-to-b from-white to-brand-platinum-100">
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div
@@ -153,17 +153,17 @@ const IntegrationCapabilities: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full mb-6">
-            <Puzzle className="h-4 w-4 text-blue-600 mr-2" />
-            <span className="text-sm font-medium text-blue-600">Integration Architecture</span>
+          <div className="inline-flex items-center px-4 py-2 bg-brand-sapphire-100 rounded-full mb-6">
+            <Puzzle className="h-4 w-4 text-brand-sapphire-600 mr-2" />
+            <span className="text-sm font-medium text-brand-sapphire-600">Integration Architecture</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-text-dark mb-6">
             Connect with{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-brand-sapphire-600 to-brand-emerald-600 bg-clip-text text-transparent">
               Any System
             </span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-brand-gray-600 max-w-3xl mx-auto">
             Flexible integration architecture based on MCP, REST APIs and Agent Factory
             to connect with your existing infrastructure
           </p>
@@ -182,10 +182,10 @@ const IntegrationCapabilities: React.FC = () => {
             { label: "API Response", value: "~200ms", desc: "Live production" },
             { label: "Monitoring", value: "24/7", desc: "Real-time status" }
           ].map((stat, idx) => (
-            <Card key={idx} className="p-6 text-center border border-slate-200">
+            <Card key={idx} className="p-6 text-center border border-brand-platinum-300">
               <div className="text-2xl font-bold text-brand-sapphire-600 mb-2">{stat.value}</div>
-              <div className="font-medium text-gray-900 mb-1">{stat.label}</div>
-              <div className="text-sm text-gray-600">{stat.desc}</div>
+              <div className="font-medium text-brand-gray-900 mb-1">{stat.label}</div>
+              <div className="text-sm text-brand-gray-600">{stat.desc}</div>
             </Card>
           ))}
         </motion.div>
@@ -221,12 +221,12 @@ const IntegrationCapabilities: React.FC = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="font-semibold text-gray-900">{capability.title}</h3>
+                          <h3 className="font-semibold text-brand-gray-900">{capability.title}</h3>
                           <Badge className={getStatusColor(capability.status)}>
                             {capability.status}
                           </Badge>
                         </div>
-                        <p className="text-gray-600 text-sm leading-relaxed">
+                        <p className="text-brand-gray-600 text-sm leading-relaxed">
                           {capability.description}
                         </p>
                       </div>
@@ -254,7 +254,7 @@ const IntegrationCapabilities: React.FC = () => {
                         })}
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900">
+                        <h3 className="text-xl font-semibold text-brand-gray-900">
                           {integrationCapabilities[selectedCapability]?.title}
                         </h3>
                         <Badge className={getStatusColor(integrationCapabilities[selectedCapability]?.status || 'development')}>
@@ -263,18 +263,18 @@ const IntegrationCapabilities: React.FC = () => {
                       </div>
                     </div>
 
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                    <p className="text-brand-gray-600 mb-6 leading-relaxed">
                       {integrationCapabilities[selectedCapability]?.description}
                     </p>
 
                     {/* Features */}
                     <div className="mb-6">
-                      <h4 className="font-semibold text-gray-900 mb-3">Key Features:</h4>
+                      <h4 className="font-semibold text-brand-gray-900 mb-3">Key Features:</h4>
                       <div className="space-y-2">
                         {integrationCapabilities[selectedCapability]?.features?.map((feature, idx) => (
                           <div key={idx} className="flex items-center space-x-2">
-                            <CheckCircle className="h-4 w-4 text-emerald-500 flex-shrink-0" />
-                            <span className="text-sm text-gray-700">{feature}</span>
+                            <CheckCircle className="h-4 w-4 text-brand-emerald-500 flex-shrink-0" />
+                            <span className="text-sm text-brand-gray-700">{feature}</span>
                           </div>
                         ))}
                       </div>
@@ -282,7 +282,7 @@ const IntegrationCapabilities: React.FC = () => {
 
                     {/* Technical Specs */}
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-3">Technical Specifications:</h4>
+                      <h4 className="font-semibold text-brand-gray-900 mb-3">Technical Specifications:</h4>
                       <div className="grid grid-cols-2 gap-2">
                         {integrationCapabilities[selectedCapability]?.techSpecs?.map((spec, idx) => (
                           <Badge key={idx} variant="secondary" className="text-xs">
@@ -309,7 +309,7 @@ const IntegrationCapabilities: React.FC = () => {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-3">
                 <Code className="h-6 w-6 text-brand-sapphire-600" />
-                <h3 className="text-xl font-semibold text-gray-900">APIs & Developer Tools</h3>
+                <h3 className="text-xl font-semibold text-brand-gray-900">APIs & Developer Tools</h3>
               </div>
               <Button
                 variant="outline"
@@ -321,7 +321,7 @@ const IntegrationCapabilities: React.FC = () => {
               </Button>
             </div>
 
-            <p className="text-gray-600 mb-6">
+            <p className="text-brand-gray-600 mb-6">
               Complete REST APIs with documentation, code examples and active endpoints
               for integration with the production AI Stack.
             </p>
@@ -335,14 +335,14 @@ const IntegrationCapabilities: React.FC = () => {
                   className="space-y-4"
                 >
                   {apiExamples.map((api, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border">
+                    <div key={idx} className="flex items-center justify-between p-4 bg-brand-platinum-100 rounded-lg border">
                       <div className="flex items-center space-x-4">
                         <Badge className={getMethodColor(api.method)}>
                           {api.method}
                         </Badge>
                         <div>
-                          <code className="text-sm font-mono text-gray-900">{api.path}</code>
-                          <p className="text-xs text-gray-600">{api.description}</p>
+                          <code className="text-sm font-mono text-brand-gray-900">{api.path}</code>
+                          <p className="text-xs text-brand-gray-600">{api.description}</p>
                         </div>
                       </div>
                       <Badge variant="secondary" className="text-xs">
@@ -367,7 +367,7 @@ const IntegrationCapabilities: React.FC = () => {
             <h3 className="text-2xl font-serif font-bold text-brand-text-dark mb-4">
               Need a Custom Integration?
             </h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            <p className="text-brand-gray-600 mb-6 max-w-2xl mx-auto">
               Our Agent Factory can create specialized connectors for your infrastructure.
               Custom development with our sovereign architecture.
             </p>

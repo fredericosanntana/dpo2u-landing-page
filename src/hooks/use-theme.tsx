@@ -71,45 +71,45 @@ export function ThemeProvider({
 
       // Set CSS custom properties for theme colors
       if (theme === 'dark') {
-        root.style.setProperty('--background', '15 23 42'); // slate-900
-        root.style.setProperty('--foreground', '248 250 252'); // slate-50
-        root.style.setProperty('--card', '30 41 59'); // slate-800
-        root.style.setProperty('--card-foreground', '248 250 252'); // slate-50
-        root.style.setProperty('--popover', '15 23 42'); // slate-900
-        root.style.setProperty('--popover-foreground', '248 250 252'); // slate-50
+        root.style.setProperty('--background', '15 23 42'); // brand-chrome-900
+        root.style.setProperty('--foreground', '248 250 252'); // brand-platinum-100
+        root.style.setProperty('--card', '30 41 59'); // brand-chrome-800
+        root.style.setProperty('--card-foreground', '248 250 252'); // brand-platinum-100
+        root.style.setProperty('--popover', '15 23 42'); // brand-chrome-900
+        root.style.setProperty('--popover-foreground', '248 250 252'); // brand-platinum-100
         root.style.setProperty('--primary', '0 109 255'); // brand-sapphire-500
         root.style.setProperty('--primary-foreground', '255 255 255');
-        root.style.setProperty('--secondary', '51 65 85'); // slate-700
-        root.style.setProperty('--secondary-foreground', '248 250 252'); // slate-50
-        root.style.setProperty('--muted', '51 65 85'); // slate-700
-        root.style.setProperty('--muted-foreground', '148 163 184'); // slate-400
-        root.style.setProperty('--accent', '51 65 85'); // slate-700
-        root.style.setProperty('--accent-foreground', '248 250 252'); // slate-50
+        root.style.setProperty('--secondary', '51 65 85'); // brand-platinum-800
+        root.style.setProperty('--secondary-foreground', '248 250 252'); // brand-platinum-100
+        root.style.setProperty('--muted', '51 65 85'); // brand-platinum-800
+        root.style.setProperty('--muted-foreground', '148 163 184'); // brand-platinum-500
+        root.style.setProperty('--accent', '51 65 85'); // brand-platinum-800
+        root.style.setProperty('--accent-foreground', '248 250 252'); // brand-platinum-100
         root.style.setProperty('--destructive', '220 38 38'); // red-600
-        root.style.setProperty('--destructive-foreground', '248 250 252'); // slate-50
-        root.style.setProperty('--border', '51 65 85'); // slate-700
-        root.style.setProperty('--input', '51 65 85'); // slate-700
+        root.style.setProperty('--destructive-foreground', '248 250 252'); // brand-platinum-100
+        root.style.setProperty('--border', '51 65 85'); // brand-platinum-800
+        root.style.setProperty('--input', '51 65 85'); // brand-platinum-800
         root.style.setProperty('--ring', '0 109 255'); // brand-sapphire-500
         root.style.setProperty('--radius', '0.75rem');
       } else {
         root.style.setProperty('--background', '255 255 255'); // white
-        root.style.setProperty('--foreground', '15 23 42'); // slate-900
+        root.style.setProperty('--foreground', '15 23 42'); // brand-chrome-900
         root.style.setProperty('--card', '255 255 255'); // white
-        root.style.setProperty('--card-foreground', '15 23 42'); // slate-900
+        root.style.setProperty('--card-foreground', '15 23 42'); // brand-chrome-900
         root.style.setProperty('--popover', '255 255 255'); // white
-        root.style.setProperty('--popover-foreground', '15 23 42'); // slate-900
+        root.style.setProperty('--popover-foreground', '15 23 42'); // brand-chrome-900
         root.style.setProperty('--primary', '0 109 255'); // brand-sapphire-500
         root.style.setProperty('--primary-foreground', '255 255 255');
-        root.style.setProperty('--secondary', '241 245 249'); // slate-100
-        root.style.setProperty('--secondary-foreground', '15 23 42'); // slate-900
-        root.style.setProperty('--muted', '241 245 249'); // slate-100
-        root.style.setProperty('--muted-foreground', '100 116 139'); // slate-500
-        root.style.setProperty('--accent', '241 245 249'); // slate-100
-        root.style.setProperty('--accent-foreground', '15 23 42'); // slate-900
+        root.style.setProperty('--secondary', '241 245 249'); // brand-platinum-200
+        root.style.setProperty('--secondary-foreground', '15 23 42'); // brand-chrome-900
+        root.style.setProperty('--muted', '241 245 249'); // brand-platinum-200
+        root.style.setProperty('--muted-foreground', '100 116 139'); // brand-platinum-600
+        root.style.setProperty('--accent', '241 245 249'); // brand-platinum-200
+        root.style.setProperty('--accent-foreground', '15 23 42'); // brand-chrome-900
         root.style.setProperty('--destructive', '220 38 38'); // red-600
-        root.style.setProperty('--destructive-foreground', '248 250 252'); // slate-50
-        root.style.setProperty('--border', '226 232 240'); // slate-200
-        root.style.setProperty('--input', '226 232 240'); // slate-200
+        root.style.setProperty('--destructive-foreground', '248 250 252'); // brand-platinum-100
+        root.style.setProperty('--border', '226 232 240'); // brand-platinum-300
+        root.style.setProperty('--input', '226 232 240'); // brand-platinum-300
         root.style.setProperty('--ring', '0 109 255'); // brand-sapphire-500
         root.style.setProperty('--radius', '0.75rem');
       }

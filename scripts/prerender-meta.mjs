@@ -1,0 +1,275 @@
+#!/usr/bin/env node
+/**
+ * prerender-meta.mjs — postbuild crude prerender (cycle 2 fallback for F001/F016)
+ *
+ * What this does:
+ *   For each known route, copy `dist/index.html` to `dist/<route>/index.html`
+ *   with the <title>, <meta name="description">, canonical, and OG/Twitter
+ *   tags replaced for that route. This gives crawlers (Googlebot first-pass,
+ *   LLM crawlers without JS) a unique pre-hydration head per route.
+ *
+ * Why crude (not vite-plugin-prerender / react-snap):
+ *   We tried react-snap; the headless-Chrome dependency was brittle in the
+ *   container environment and `@unhead/react` doesn't SSR cleanly against
+ *   our current `usePageHead` flow. This script ships the unique meta SEO
+ *   crawlers need without re-rendering the React tree. Hydration still
+ *   runs normally on the client; @unhead/react updates DOM post-hydration.
+ *
+ * Limitation honestly noted:
+ *   The <body> still ships an empty <div id="root"></div> — semantic
+ *   landmarks (F016) are still post-hydration only. F001 (per-route head)
+ *   is closed; F016 is still partial. Cycle 3 can revisit a real prerender
+ *   pass once the toolchain stabilises.
+ */
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(__dirname, '..');
+const dist = path.join(root, 'dist');
+const indexPath = path.join(dist, 'index.html');
+const SITE_BASE = 'https://dpo2u.com';
+
+if (!fs.existsSync(indexPath)) {
+  console.error('[prerender-meta] dist/index.html not found — did you run vite build?');
+  process.exit(1);
+}
+
+const indexHtml = fs.readFileSync(indexPath, 'utf8');
+
+/**
+ * Per-route head data — must match `usePageHead({...})` calls in src/app/*.tsx.
+ * Keep these in sync; add a route here when you add one to the router.
+ */
+const ROUTES = [
+  {
+    path: '/',
+    title: 'DPO2U — Compliance as a protocol.',
+    description: 'DPO2U is the compliance operator offering Compliance as Protocol on Midnight. We turn regulation into tested rules with source and date, prove them with zero-knowledge on Midnight, and stand behind them as the accountable compliance operator — for VASPs and the banks that serve them in Brazil and Argentina. Selective disclosure by design.',
+  },
+  {
+    path: '/verify',
+    title: 'Verify an attestation — DPO2U',
+    description: 'Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain. The verdict, jurisdiction, timestamp and evidence hash are public; the score stays private.',
+  },
+  {
+    path: '/psav',
+    title: 'Padrão PSAV-parceiro — diligência verificável para SPSAV e prestadores | DPO2U',
+    description: 'SPSAV autorizada e prestador de serviço relevante (Res. BCB 520, arts. 32–42): diligência artigo por artigo, revisor nomeado e passaporte de conformidade selado em blockchain. Prazos: 30/10/2026 (art. 88) e 06/11/2026 (art. 91).',
+  },
+  {
+    path: '/avalanche',
+    title: 'DPO2U on Avalanche — compliance seals on the C-Chain | DPO2U',
+    description: 'DPO2U on Avalanche Fuji: seven verified contracts. SP1 Groth16 proofs verified on the C-Chain, a compliance registry, a conformity passport any contract can check, a Travel Rule gate, proof of reserves and a Midnight relay.',
+  },
+  {
+    path: '/dpa',
+    title: 'Data Processing Agreement (DPA) — DPO2U',
+    description: 'DPO2U processor DPA template — GDPR Art. 28 + LGPD Art. 39: documented instruction, confidentiality, security (Art. 32), sub-processors, data-subject assistance, breach notification, deletion/return, audit, and international transfers.',
+  },
+  {
+    path: '/protocol',
+    title: 'Protocol — compliance as a protocol | DPO2U',
+    description: 'DPO2U is compliance as a protocol. An immutable compliance contract on Stellar testnet anchors PASS/FAIL/REVIEW attestations; anyone verifies trustlessly by (use_case_id, evidence_hash) over public RPC. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.',
+  },
+  // /mcp removed 2026-04-29 — Sealed globalization sprint. Content lives on
+  // home (#mcp) + /research#mcp-reference. server.js issues a 301 → /#mcp.
+  {
+    path: '/about',
+    title: 'About — Origin story & F13 manifesto | DPO2U',
+    description: 'DPO2U started in 2021 as twenty lines in a Zettelkasten. Today: a publish-first compliance research house — 25 jurisdictions in the norms engine and 77 MCP tools. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet. The full story.',
+  },
+  {
+    path: '/research',
+    title: 'Research — Whitepaper & accumulation | DPO2U',
+    description: 'The paper "Compliance as Protocol" (v0.4), the MCP tool reference and the publish-first principle in practice. The DPO2U research surface — primitives before product.',
+  },
+  {
+    path: '/privacy',
+    title: 'Privacy Policy | DPO2U',
+    description: 'How DPO2U handles personal data on its own surfaces. Minimal collection, no tracking by default, and full LGPD/GDPR rights.',
+  },
+  {
+    path: '/terms',
+    title: 'Terms of Service | DPO2U',
+    description: 'Terms governing use of dpo2u.com, the public artifacts, and the DPO2U compliance contract.',
+  },
+  {
+    path: '/alpha-signup',
+    title: 'Alpha signup — DPO2U',
+    description: 'Three fields. Submit your project, we run the MCP chain on your repo, and we book a call with the result.',
+  },
+  {
+    path: '/alpha',
+    title: 'Alpha — Showcase | DPO2U',
+    description: 'Public showcase of dApps attested through the DPO2U alpha pipeline. Names only. Scores stay private. Proof is public.',
+  },
+  {
+    path: '/coverage',
+    title: 'Coverage — Twenty-five jurisdictions, one primitive | DPO2U',
+    description: 'Map of the 25 jurisdictions in the DPO2U norms engine, each with source and date: LGPD, GDPR, MiCA, MiCA Title V (CASP), DPDP, PDPA, UAE, POPIA, NDPA, CCPA, PIPEDA, Law 25, PIPA, PDP, APPI, Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.',
+  },
+  {
+    path: '/pricing',
+    title: 'Pricing — DPO2U',
+    description: 'Pricing is under review. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet. Talk to us for a pilot.',
+  },
+  // Sprint M (2026-05-26) — alias público do painel de alertas anticorrupção
+  {
+    path: '/sentinela-anticorrupcao',
+    title: 'Sentinela Anticorrupção — alertas D+0 nacional | DPO2U',
+    description: 'Painel público de alertas anticorrupção em contratações públicas brasileiras. Cruzamento entre vencedoras de pregão (PNCP) e sanções vigentes (CEIS/CNEP/CEPIM da CGU). Atestação on-chain em Stellar testnet.',
+  },
+  {
+    path: '/pilot/alertas',
+    title: 'Painel de alertas do piloto — DPO2U Stellar',
+    description: 'Painel interno do piloto anticorrupção, com atestações on-chain em Stellar testnet.',
+  },
+  // Per-jurisdiction prerender entries (added 2026-05-11) — Sprint 3 KB add
+  // (Mexico/Vietnam/Malaysia). Server serves dist/coverage/<code>/index.html
+  // com meta tags SEO-targeted; React Router /coverage/:code route renderiza
+  // CoveragePage normalmente, com scroll-to-card opcional via useParams.
+  // Goal: ranquear pra queries específicas tipo "LFPDPPP compliance Solana"
+  // ou "Vietnam Decree 13 DPIA on-chain", sem precisar de página dedicada.
+  {
+    path: '/coverage/mexico',
+    title: 'LFPDPPP (Mexico) — Compliance kit for fintech ITF | DPO2U',
+    description: 'Mexico LFPDPPP rule primitives — INAI authority, ARCO rights (Acceso/Rectificación/Cancelación/Oposición), Art. 36 cross-border adequacy. One of the 25 jurisdictions in the DPO2U norms engine.',
+  },
+  {
+    path: '/coverage/vietnam',
+    title: 'Vietnam Decree 13 / Law 91/2025 — Cross-border DPIA on-chain | DPO2U',
+    description: 'Vietnam Personal Data Protection Decree 13/2023 + Law 91/2025 rule primitives — MPS authority, Art. 25 cross-border DPIA, Art. 23 breach 72h notification. One of the 25 jurisdictions in the DPO2U norms engine.',
+  },
+  {
+    path: '/coverage/malaysia',
+    title: 'PDPA-MY 2024 — DPO mandatory + Data portability on-chain | DPO2U',
+    description: 'Malaysia PDPA 2010 + Amendment 2024 rule primitives — PDPC authority, s. 12A DPO mandatory, s. 43A data portability, s. 12B breach 72h. One of the 25 jurisdictions in the DPO2U norms engine.',
+  },
+];
+
+function escapeHtml(s) {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function rewriteHead(html, { title, description, url, image }) {
+  let out = html;
+  const t = escapeHtml(title);
+  const d = escapeHtml(description);
+  const u = escapeHtml(url);
+  const i = escapeHtml(image);
+
+  // <title>
+  out = out.replace(/<title>[^<]*<\/title>/i, `<title>${t}</title>`);
+
+  // <meta name="description" content="...">
+  out = out.replace(
+    /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="description" content="${d}" />`
+  );
+
+  // <link rel="canonical" href="...">
+  out = out.replace(
+    /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i,
+    `<link rel="canonical" href="${u}" />`
+  );
+
+  // og:title / og:description / og:url
+  out = out.replace(
+    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:title" content="${t}" />`
+  );
+  out = out.replace(
+    /<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:description" content="${d}" />`
+  );
+  out = out.replace(
+    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:url" content="${u}" />`
+  );
+  out = out.replace(
+    /<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/i,
+    `<meta property="og:image" content="${i}" />`
+  );
+
+  // twitter:title / description / image
+  out = out.replace(
+    /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="twitter:title" content="${t}" />`
+  );
+  out = out.replace(
+    /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="twitter:description" content="${d}" />`
+  );
+  out = out.replace(
+    /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/i,
+    `<meta name="twitter:image" content="${i}" />`
+  );
+
+  return out;
+}
+
+// Crawler/LLM body content — injected into <div id="root">. React's createRoot()
+// REPLACES #root children on mount, so users get the live SPA while JS-less crawlers
+// (GPTBot/ClaudeBot/PerplexityBot, Bing, social unfurlers) read real, citeable prose.
+const W = 'style="max-width:820px;margin:40px auto;padding:0 24px;font-family:Georgia,serif;color:#0C0D10;line-height:1.5"';
+const BODY = {
+  '/': `<main ${W}><h1>Compliance as a protocol</h1>
+<p>DPO2U is the compliance operator offering Compliance as Protocol on Midnight. We turn regulation into tested rules with source and date, prove them with zero-knowledge on Midnight, and stand behind them as the accountable compliance operator — for VASPs and the banks that serve them in Brazil and Argentina.</p>
+<p>Selective disclosure: client data stays shielded, the verdict is public, and supervisors see only what their scoped key allows.</p>
+<p>25 jurisdictions in the norms engine, each with source and date. Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.</p>
+<h2>Two ways in</h2><ul><li><strong>I'm building</strong> — run DPO2U's compliance primitives inside your own CI/CD (SDK in private alpha).</li><li><strong>Run it for me</strong> — we execute the pipeline for you, or become your accountable DPO of record.</li></ul>
+<h2>Pricing</h2><p>Pricing under review — talk to us.</p>
+<p>Independent research house. Founder: Frederico Santana. 77 MCP tools · 25 jurisdictions · contact: contato@dpo2u.com.</p></main>`,
+  '/coverage': `<main ${W}><h1>Twenty-five jurisdictions, one primitive layer</h1>
+<p>Each regime is a typed compliance primitive in one engine, with source and date: LGPD (Brazil), GDPR (EU), MiCA and MiCA Title V CASP (EU), DPDP (India), PDPA (Singapore), UAE, POPIA (South Africa), NDPA (Nigeria), CCPA (California), PIPEDA (Canada), Quebec Law 25, PIPA (South Korea), PDP (Indonesia), APPI (Japan), and the data-protection laws of Mexico, Vietnam, Malaysia, Kenya, Ghana, Colombia, Tanzania, Rwanda, Uganda and Argentina.</p></main>`,
+  '/pricing': `<main ${W}><h1>Pricing under review</h1>
+<p>We are not publishing prices yet. Pilots are scoped case by case — write to contato@dpo2u.com.</p>
+<p>Midnight: preview · Stellar: testnet attestation contracts · Solana: devnet.</p></main>`,
+  '/research': `<main ${W}><h1>Compliance as Protocol</h1>
+<p>DPO2U is the research house that ships code. Compliance is exposed through an MCP server and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
+<p>Coverage spans the 25 jurisdictions of the norms engine, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
+  '/psav': `<main ${W} lang="pt-BR"><h1>Padrão PSAV-parceiro</h1>
+<p>A Res. BCB 520/2025 permite que uma sociedade prestadora de serviços de ativos virtuais (SPSAV) autorizada contrate prestadores de serviço relevante — tecnologia, custódia, liquidez, formador de mercado, conta (art. 33). O prestador atua por conta e sob as diretrizes da SPSAV, que permanece responsável (arts. 35 e 36).</p>
+<p>A DPO2U entrega, por prestador contratado, a diligência que o art. 34 exige: regras artigo por artigo (34, 35, 37, 40, 41, 42), revisão por revisor nomeado e um passaporte de conformidade selado em blockchain que mostra de onde vem cada veredito — máquina, revisor ou terceiro independente.</p>
+<h2>Prazos</h2><ul><li>30/10/2026 — prazo para quem já opera pedir autorização (Res. BCB 520, art. 88, I).</li><li>06/11/2026 — instituições autorizadas deixam de operar com contraparte não autorizada (Res. BCB 520, art. 91, redação da Res. BCB 589/2026).</li></ul>
+<p>O selo prova integridade e data da avaliação; não prova, sozinho, conformidade, e não substitui a diligência da SPSAV, a auditoria independente nem a autorização do Banco Central. Conteúdo informativo, não é aconselhamento jurídico.</p></main>`,
+  '/avalanche': `<main ${W}><h1>DPO2U on Avalanche</h1>
+<p>Compliance as a protocol on the Avalanche C-Chain. DPO2U turns regulation into seals that any smart contract can check: institutions, banks and crypto asset service providers prove the result of a compliance evaluation with a zero-knowledge proof. The verdict is public; the data stays with them.</p>
+<p>Live on Fuji testnet (chain 43113), all verified on Snowtrace: SP1Verifier (Groth16, SP1 v6.1.0), ComplianceRegistry, ZkThresholdAttestor, PassportOracle (admin under a 2-of-3 Safe), TravelRuleGate, SolvencyRegistry (SP1 proof of reserves) and MidnightRelay. Open source (MIT): github.com/fredericosanntana/dpo2u-avalanche.</p>
+<p>The seal proves the integrity and date of an evaluation. On its own, it does not prove compliance. Testnet only; not on mainnet.</p></main>`,
+  '/verify': `<main ${W}><h1>Verify an attestation</h1>
+<p>Public, trustless verification of any DPO2U compliance attestation, read directly from the contract on-chain — no DPO2U credential required. Verification is keyed by use-case id and evidence hash; the verdict, jurisdiction/predicate, timestamp and evidence hash are public, while the score and underlying data stay private. Score private, proof public.</p></main>`,
+  '/dpa': `<main ${W}><h1>Data Processing Agreement (DPA)</h1>
+<p>DPO2U's standard processor DPA template — GDPR Article 28 and LGPD Article 39: processing only on documented instruction, confidentiality, security (GDPR Art. 32), sub-processors, assistance with data-subject rights, breach notification, deletion/return on termination, audit rights, and international transfers. Executed by signed contract — accessing this page does not, by itself, form a binding agreement. Contact contato@dpo2u.com.</p></main>`,
+};
+
+let written = 0;
+for (const route of ROUTES) {
+  const url = `${SITE_BASE}${route.path}`;
+  const image = `${SITE_BASE}/og-image.png`;
+  let html = rewriteHead(indexHtml, {
+    title: route.title,
+    description: route.description,
+    url,
+    image,
+  });
+  // Inject crawler-readable body for key routes (React replaces it on mount).
+  if (BODY[route.path]) {
+    html = html.replace('<div id="root"></div>', `<div id="root">${BODY[route.path]}</div>`);
+  }
+
+  const targetDir = path.join(dist, route.path.replace(/^\/+/, ''));
+  fs.mkdirSync(targetDir, { recursive: true });
+  fs.writeFileSync(path.join(targetDir, 'index.html'), html, 'utf8');
+  written += 1;
+  console.log(`[prerender-meta]  ${route.path} → ${path.relative(root, path.join(targetDir, 'index.html'))}`);
+}
+
+console.log(`[prerender-meta] Wrote ${written} per-route HTML files (F001 closed; F016 still partial).`);

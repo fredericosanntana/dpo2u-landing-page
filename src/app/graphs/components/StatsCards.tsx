@@ -31,10 +31,10 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map((i) => (
-          <Card key={i} className="bg-slate-900/50 border-white/10 backdrop-blur animate-pulse">
+          <Card key={i} className="bg-brand-chrome-900/50 border-white/10 backdrop-blur animate-pulse">
             <CardContent className="p-6">
-              <div className="h-4 bg-slate-700 rounded mb-2"></div>
-              <div className="h-8 bg-slate-700 rounded"></div>
+              <div className="h-4 bg-brand-platinum-800 rounded mb-2"></div>
+              <div className="h-8 bg-brand-platinum-800 rounded"></div>
             </CardContent>
           </Card>
         ))}
@@ -86,31 +86,31 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
       {/* Key Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <motion.div variants={itemVariants}>
-          <Card className="bg-slate-900/50 border-white/10 backdrop-blur hover:bg-slate-800/50 transition-colors">
+          <Card className="bg-brand-chrome-900/50 border-white/10 backdrop-blur hover:bg-brand-chrome-800/50 transition-colors">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Total de Notas</p>
+                  <p className="text-sm text-brand-gray-400">Total de Notas</p>
                   <p className="text-3xl font-bold text-white">{stats.total_notes}</p>
                 </div>
-                <div className="p-3 bg-purple-500/20 rounded-lg">
-                  <BarChart3 className="h-6 w-6 text-purple-400" />
+                <div className="p-3 bg-brand-purple-500/20 rounded-lg">
+                  <BarChart3 className="h-6 w-6 text-brand-purple-400" />
                 </div>
               </div>
               <div className="mt-4">
                 <Progress value={75} className="h-2" />
-                <p className="text-xs text-gray-400 mt-2">75% do objetivo anual</p>
+                <p className="text-xs text-brand-gray-400 mt-2">75% do objetivo anual</p>
               </div>
             </CardContent>
           </Card>
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Card className="bg-slate-900/50 border-white/10 backdrop-blur hover:bg-slate-800/50 transition-colors">
+          <Card className="bg-brand-chrome-900/50 border-white/10 backdrop-blur hover:bg-brand-chrome-800/50 transition-colors">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Conexões</p>
+                  <p className="text-sm text-brand-gray-400">Conexões</p>
                   <p className="text-3xl font-bold text-white">{stats.connections}</p>
                 </div>
                 <div className="p-3 bg-cyan-500/20 rounded-lg">
@@ -119,7 +119,7 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
               </div>
               <div className="mt-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-400">Média:</span>
+                  <span className="text-xs text-brand-gray-400">Média:</span>
                   <Badge variant="outline" className="bg-cyan-500/20 text-cyan-200 border-cyan-500/30">
                     {stats.average_connections.toFixed(1)} por nota
                   </Badge>
@@ -130,21 +130,21 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Card className="bg-slate-900/50 border-white/10 backdrop-blur hover:bg-slate-800/50 transition-colors">
+          <Card className="bg-brand-chrome-900/50 border-white/10 backdrop-blur hover:bg-brand-chrome-800/50 transition-colors">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Conceitos</p>
+                  <p className="text-sm text-brand-gray-400">Conceitos</p>
                   <p className="text-3xl font-bold text-white">{stats.concepts_learned}</p>
                 </div>
-                <div className="p-3 bg-emerald-500/20 rounded-lg">
-                  <Hash className="h-6 w-6 text-emerald-400" />
+                <div className="p-3 bg-brand-emerald-500/20 rounded-lg">
+                  <Hash className="h-6 w-6 text-brand-emerald-400" />
                 </div>
               </div>
               <div className="mt-4">
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="h-3 w-3 text-emerald-400" />
-                  <span className="text-xs text-emerald-400">+12% esta semana</span>
+                  <TrendingUp className="h-3 w-3 text-brand-emerald-400" />
+                  <span className="text-xs text-brand-emerald-400">+12% esta semana</span>
                 </div>
               </div>
             </CardContent>
@@ -152,11 +152,11 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Card className="bg-slate-900/50 border-white/10 backdrop-blur hover:bg-slate-800/50 transition-colors">
+          <Card className="bg-brand-chrome-900/50 border-white/10 backdrop-blur hover:bg-brand-chrome-800/50 transition-colors">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-400">Conectividade</p>
+                  <p className="text-sm text-brand-gray-400">Conectividade</p>
                   <p className="text-3xl font-bold text-white">{connectivityScore.toFixed(0)}%</p>
                 </div>
                 <div className="p-3 bg-amber-500/20 rounded-lg">
@@ -165,7 +165,7 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
               </div>
               <div className="mt-4">
                 <Progress value={connectivityScore} className="h-2" />
-                <p className="text-xs text-gray-400 mt-2">
+                <p className="text-xs text-brand-gray-400 mt-2">
                   {connectivityScore >= 80 ? 'Excelente' : connectivityScore >= 60 ? 'Boa' : 'Regular'}
                 </p>
               </div>
@@ -178,7 +178,7 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Distribution Chart */}
         <motion.div variants={itemVariants}>
-          <Card className="bg-slate-900/50 border-white/10 backdrop-blur">
+          <Card className="bg-brand-chrome-900/50 border-white/10 backdrop-blur">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <GitBranch className="h-5 w-5" />
@@ -213,8 +213,8 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: type.color }}
                     />
-                    <span className="text-sm text-gray-300">{type.name}</span>
-                    <Badge variant="outline" className="ml-auto bg-slate-800/50">
+                    <span className="text-sm text-brand-gray-300">{type.name}</span>
+                    <Badge variant="outline" className="ml-auto bg-brand-chrome-800/50">
                       {type.value}
                     </Badge>
                   </div>
@@ -226,7 +226,7 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
 
         {/* Top Concepts Chart */}
         <motion.div variants={itemVariants}>
-          <Card className="bg-slate-900/50 border-white/10 backdrop-blur">
+          <Card className="bg-brand-chrome-900/50 border-white/10 backdrop-blur">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
                 <Hash className="h-5 w-5" />
@@ -262,24 +262,24 @@ export default function StatsCards({ stats, isLoading }: StatsCardsProps) {
 
       {/* Quick Stats Row */}
       <motion.div variants={itemVariants}>
-        <Card className="bg-slate-900/50 border-white/10 backdrop-blur">
+        <Card className="bg-brand-chrome-900/50 border-white/10 backdrop-blur">
           <CardContent className="p-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-400">{stats.projects}</div>
-                <div className="text-sm text-gray-400">Projetos Ativos</div>
+                <div className="text-2xl font-bold text-brand-purple-400">{stats.projects}</div>
+                <div className="text-sm text-brand-gray-400">Projetos Ativos</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-cyan-400">{stats.areas}</div>
-                <div className="text-sm text-gray-400">Áreas de Foco</div>
+                <div className="text-sm text-brand-gray-400">Áreas de Foco</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-emerald-400">{stats.resources}</div>
-                <div className="text-sm text-gray-400">Recursos</div>
+                <div className="text-2xl font-bold text-brand-emerald-400">{stats.resources}</div>
+                <div className="text-sm text-brand-gray-400">Recursos</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-amber-400">{stats.permanent_notes}</div>
-                <div className="text-sm text-gray-400">Notas Permanentes</div>
+                <div className="text-sm text-brand-gray-400">Notas Permanentes</div>
               </div>
             </div>
           </CardContent>

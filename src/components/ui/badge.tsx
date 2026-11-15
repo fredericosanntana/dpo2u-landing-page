@@ -19,14 +19,14 @@ const badgeVariants = cva(
         // DPO2U Brand variants
         brand: "border-transparent bg-gradient-to-r from-brand-sapphire-500 to-brand-emerald-500 text-white shadow-md hover:shadow-lg",
         premium: "border-brand-sapphire-200/30 bg-gradient-to-r from-brand-sapphire-500/10 to-brand-emerald-500/10 text-brand-sapphire-700 backdrop-blur-sm",
-        success: "border-transparent bg-brand-green-500 text-white shadow-sm",
-        info: "border-transparent bg-brand-blue-500 text-white shadow-sm",
+        success: "border-transparent bg-brand-emerald-500 text-white shadow-sm",
+        info: "border-transparent bg-brand-sapphire-500 text-white shadow-sm",
         warning: "border-transparent bg-brand-emerald-500 text-white shadow-sm",
         
         // Status badges
-        'status-active': "border-green-200 bg-green-50 text-green-700 shadow-sm",
+        'status-active': "border-brand-emerald-200 bg-brand-emerald-50 text-brand-emerald-700 shadow-sm",
         'status-pending': "border-brand-emerald-200 bg-brand-emerald-50 text-brand-emerald-700 shadow-sm",
-        'status-completed': "border-emerald-200 bg-emerald-50 text-emerald-700 shadow-sm",
+        'status-completed': "border-brand-emerald-200 bg-brand-emerald-50 text-brand-emerald-700 shadow-sm",
         
         // Glassmorphism variant for hero sections
         glassmorphism: "border-white/20 bg-white/10 text-white backdrop-blur-md shadow-lg hover:bg-white/20 transition-all duration-300"

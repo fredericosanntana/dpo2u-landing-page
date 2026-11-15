@@ -142,7 +142,7 @@ const SystemArchitectureDashboard: React.FC = () => {
   }, [isLive]);
 
   return (
-    <section className="section-padding bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <section className="section-padding bg-gradient-to-br from-brand-chrome-900 via-brand-chrome-800 to-brand-chrome-900 text-white">
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div
@@ -162,25 +162,25 @@ const SystemArchitectureDashboard: React.FC = () => {
             </span>
             in Production
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+          <p className="text-xl text-brand-platinum-400 max-w-3xl mx-auto">
             Real-time view of your dedicated VPS operating with maximum security and performance of containerized services.
           </p>
         </motion.div>
 
         {/* Controls */}
         <div className="flex justify-center mb-8">
-          <div className="flex items-center space-x-4 bg-slate-800/50 backdrop-blur rounded-lg p-2">
+          <div className="flex items-center space-x-4 bg-brand-chrome-800/50 backdrop-blur rounded-lg p-2">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsLive(!isLive)}
-              className={`flex items-center gap-2 ${isLive ? 'text-emerald-400' : 'text-slate-400'}`}
+              className={`flex items-center gap-2 ${isLive ? 'text-brand-emerald-400' : 'text-brand-platinum-500'}`}
             >
               {isLive ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
               {isLive ? 'Live' : 'Paused'}
             </Button>
 
-            <div className="h-4 w-px bg-slate-600" />
+            <div className="h-4 w-px bg-brand-platinum-700" />
 
             {(['overview', 'performance', 'services', 'security'] as const).map((tab) => (
               <Button
@@ -189,8 +189,8 @@ const SystemArchitectureDashboard: React.FC = () => {
                 size="sm"
                 onClick={() => setSelectedTab(tab)}
                 className={`${selectedTab === tab
-                  ? 'text-white bg-slate-700'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'text-white bg-brand-platinum-800'
+                  : 'text-brand-platinum-500 hover:text-white'
                   }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -211,22 +211,22 @@ const SystemArchitectureDashboard: React.FC = () => {
             >
               {/* System Architecture Visual */}
               <div className="lg:col-span-2">
-                <Card className="p-6 bg-slate-800/50 border-slate-700">
+                <Card className="p-6 bg-brand-chrome-800/50 border-brand-platinum-800">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-lg font-semibold text-white flex items-center">
                       <Layers className="h-5 w-5 text-brand-sapphire-400 mr-2" />
                       4-Layer Architecture
                     </h3>
                     <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                      <span className="text-sm text-emerald-400">Online</span>
+                      <div className="w-2 h-2 bg-brand-emerald-400 rounded-full animate-pulse"></div>
+                      <span className="text-sm text-brand-emerald-400">Online</span>
                     </div>
                   </div>
 
                   {/* Architecture Diagram */}
-                  <div className="relative h-96 bg-slate-900/50 rounded-lg p-4">
+                  <div className="relative h-96 bg-brand-chrome-900/50 rounded-lg p-4">
                     {/* Level indicators */}
-                    <div className="absolute left-2 space-y-16 text-xs font-medium text-slate-400">
+                    <div className="absolute left-2 space-y-16 text-xs font-medium text-brand-platinum-500">
                       <div>Layer 4</div>
                       <div>Layer 3</div>
                       <div>Layer 2</div>
@@ -240,9 +240,9 @@ const SystemArchitectureDashboard: React.FC = () => {
                         <Globe className="h-8 w-8 text-brand-sapphire-400" />
                         <div>
                           <div className="font-medium text-white">Application Layer</div>
-                          <div className="text-sm text-slate-300">Next.js UI & User Interfaces</div>
+                          <div className="text-sm text-brand-platinum-400">Next.js UI & User Interfaces</div>
                         </div>
-                        <Badge className="ml-auto bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+                        <Badge className="ml-auto bg-brand-emerald-500/20 text-brand-emerald-400 border-brand-emerald-500/30">
                           {metrics.throughput} req/min
                         </Badge>
                       </div>
@@ -252,9 +252,9 @@ const SystemArchitectureDashboard: React.FC = () => {
                         <Network className="h-8 w-8 text-brand-emerald-400" />
                         <div>
                           <div className="font-medium text-white">Routing & Security</div>
-                          <div className="text-sm text-slate-300">Traefik + SSL + Firewall</div>
+                          <div className="text-sm text-brand-platinum-400">Traefik + SSL + Firewall</div>
                         </div>
-                        <Badge className="ml-auto bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+                        <Badge className="ml-auto bg-brand-emerald-500/20 text-brand-emerald-400 border-brand-emerald-500/30">
                           {metrics.latency} ms
                         </Badge>
                       </div>
@@ -294,16 +294,16 @@ const SystemArchitectureDashboard: React.FC = () => {
 
               {/* Live Metrics */}
               <div className="space-y-6">
-                <Card className="p-6 bg-slate-800/50 border-slate-700">
+                <Card className="p-6 bg-brand-chrome-800/50 border-brand-platinum-800">
                   <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                    <Activity className="h-5 w-5 text-emerald-400 mr-2" />
+                    <Activity className="h-5 w-5 text-brand-emerald-400 mr-2" />
                     VPS Metrics
                   </h3>
 
                   <div className="space-y-4">
                     <div>
                       <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm text-slate-300">CPU Usage</span>
+                        <span className="text-sm text-brand-platinum-400">CPU Usage</span>
                         <span className="text-sm font-medium text-white">{metrics.cpuUsage}%</span>
                       </div>
                       <Progress value={metrics.cpuUsage} className="h-2" />
@@ -311,7 +311,7 @@ const SystemArchitectureDashboard: React.FC = () => {
 
                     <div>
                       <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm text-slate-300">Memory (RAM)</span>
+                        <span className="text-sm text-brand-platinum-400">Memory (RAM)</span>
                         <span className="text-sm font-medium text-white">{metrics.memoryUsage}%</span>
                       </div>
                       <Progress value={metrics.memoryUsage} className="h-2" />
@@ -319,15 +319,15 @@ const SystemArchitectureDashboard: React.FC = () => {
 
                     <div>
                       <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm text-slate-300">Disk I/O</span>
-                        <span className="text-sm font-medium text-emerald-400">Good</span>
+                        <span className="text-sm text-brand-platinum-400">Disk I/O</span>
+                        <span className="text-sm font-medium text-brand-emerald-400">Good</span>
                       </div>
                       <Progress value={20} className="h-2" />
                     </div>
 
                     <div>
                       <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm text-slate-300">Network Load</span>
+                        <span className="text-sm text-brand-platinum-400">Network Load</span>
                         <span className="text-sm font-medium text-white">{metrics.networkIO} MB/s</span>
                       </div>
                       <Progress value={metrics.networkIO * 10} className="h-2" />
@@ -335,7 +335,7 @@ const SystemArchitectureDashboard: React.FC = () => {
                   </div>
                 </Card>
 
-                <Card className="p-6 bg-slate-800/50 border-slate-700">
+                <Card className="p-6 bg-brand-chrome-800/50 border-brand-platinum-800">
                   <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
                     <Box className="h-5 w-5 text-brand-sapphire-400 mr-2" />
                     Swarm Status
@@ -343,16 +343,16 @@ const SystemArchitectureDashboard: React.FC = () => {
 
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-slate-300">Services</span>
+                      <span className="text-sm text-brand-platinum-400">Services</span>
                       <span className="text-lg font-bold text-brand-sapphire-400">{metrics.activeContainers}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-slate-300">Replicas Running</span>
+                      <span className="text-sm text-brand-platinum-400">Replicas Running</span>
                       <span className="text-lg font-bold text-brand-emerald-400">14/14</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-slate-300">Manager Status</span>
-                      <span className="text-lg font-bold text-emerald-400">Ready</span>
+                      <span className="text-sm text-brand-platinum-400">Manager Status</span>
+                      <span className="text-lg font-bold text-brand-emerald-400">Ready</span>
                     </div>
                   </div>
                 </Card>
@@ -404,13 +404,13 @@ const SystemArchitectureDashboard: React.FC = () => {
                     color: "emerald"
                   }
                 ].map((metric, idx) => (
-                  <Card key={idx} className="p-6 bg-slate-800/50 border-slate-700 text-center">
+                  <Card key={idx} className="p-6 bg-brand-chrome-800/50 border-brand-platinum-800 text-center">
                     <div className={`text-3xl font-bold text-brand-${metric.color}-400 mb-2`}>
                       {metric.value}
                       <span className="text-sm ml-1">{metric.unit}</span>
                     </div>
                     <div className="text-sm font-medium text-white mb-1">{metric.label}</div>
-                    <div className="text-xs text-slate-400">{metric.benchmark}</div>
+                    <div className="text-xs text-brand-platinum-500">{metric.benchmark}</div>
                     <Badge className={`mt-2 bg-${metric.color}-500/20 text-${metric.color}-400 border-${metric.color}-500/30`}>
                       {metric.improvement} improved
                     </Badge>
@@ -422,7 +422,7 @@ const SystemArchitectureDashboard: React.FC = () => {
 
           {selectedTab === 'services' && (
             <motion.div key="services" className="space-y-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <Card className="p-6 bg-slate-800/50 border-slate-700">
+              <Card className="p-6 bg-brand-chrome-800/50 border-brand-platinum-800">
                 <h3 className="text-lg font-semibold text-white mb-6 flex items-center">
                   <Box className="h-5 w-5 text-brand-emerald-400 mr-2" />
                   Active Services ({metrics.activeContainers})
@@ -436,17 +436,17 @@ const SystemArchitectureDashboard: React.FC = () => {
                     { name: 'api_backend', type: 'Application', status: 'active', load: 15, mem: '210MB' },
                     { name: 'portainer_agent', type: 'System', status: 'active', load: 1, mem: '32MB' }
                   ].map((agent, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg border border-slate-700">
+                    <div key={idx} className="flex items-center justify-between p-3 bg-brand-chrome-900/50 rounded-lg border border-brand-platinum-800">
                       <div className="flex items-center space-x-3">
-                        <div className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse" />
+                        <div className="w-3 h-3 rounded-full bg-brand-emerald-400 animate-pulse" />
                         <div>
                           <div className="font-medium text-white text-sm">{agent.name}</div>
-                          <div className="text-xs text-slate-400">{agent.type}</div>
+                          <div className="text-xs text-brand-platinum-500">{agent.type}</div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-sm font-medium text-emerald-400">{agent.load}% CPU</div>
-                        <div className="text-xs text-slate-400">{agent.mem}</div>
+                        <div className="text-sm font-medium text-brand-emerald-400">{agent.load}% CPU</div>
+                        <div className="text-xs text-brand-platinum-500">{agent.mem}</div>
                       </div>
                     </div>
                   ))}
@@ -457,24 +457,24 @@ const SystemArchitectureDashboard: React.FC = () => {
 
           {selectedTab === 'security' && (
             <motion.div key="security" className="space-y-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <Card className="p-6 bg-slate-800/50 border-slate-700">
+              <Card className="p-6 bg-brand-chrome-800/50 border-brand-platinum-800">
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                  <Shield className="h-5 w-5 text-emerald-400 mr-2" />
+                  <Shield className="h-5 w-5 text-brand-emerald-400 mr-2" />
                   Security Hardening Status
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-300">Firewall (UFW)</span>
-                    <Badge className="bg-emerald-500/20 text-emerald-400">ACTIVE</Badge>
+                    <span className="text-sm text-brand-platinum-400">Firewall (UFW)</span>
+                    <Badge className="bg-brand-emerald-500/20 text-brand-emerald-400">ACTIVE</Badge>
                   </div>
 
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-300">Docker Socket</span>
-                    <Badge className="bg-emerald-500/20 text-emerald-400">PROTECTED</Badge>
+                    <span className="text-sm text-brand-platinum-400">Docker Socket</span>
+                    <Badge className="bg-brand-emerald-500/20 text-brand-emerald-400">PROTECTED</Badge>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-300">SSL Certificates</span>
-                    <Badge className="bg-emerald-500/20 text-emerald-400">AUTO-RENEW</Badge>
+                    <span className="text-sm text-brand-platinum-400">SSL Certificates</span>
+                    <Badge className="bg-brand-emerald-500/20 text-brand-emerald-400">AUTO-RENEW</Badge>
                   </div>
                 </div>
               </Card>

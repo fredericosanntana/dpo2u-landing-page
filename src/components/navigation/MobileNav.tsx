@@ -8,8 +8,6 @@ import {
   Shield,
   Brain,
   Fingerprint,
-  Coins,
-  Lock,
   Users,
   ChevronRight,
   ChevronDown,
@@ -40,41 +38,27 @@ interface NavItem {
 
 const productItems: NavItem[] = [
   {
-    title: 'Compliance Engine',
-    href: '/compliance-automate',
-    description: 'Automated LGPD/GDPR compliance',
-    icon: Shield,
-    num: '01',
-  },
-  {
-    title: 'AI Compliance Brain',
-    href: '/mcp-brain',
-    description: 'AI-native compliance tools for agents',
-    icon: Brain,
-    num: '02',
-  },
-  {
-    title: 'ZK Compliance Protocol',
-    href: '/midnight-protocol',
-    description: 'Zero-knowledge proofs on Midnight',
+    title: 'Midnight',
+    href: '/midnight',
+    description: 'SP1 v6 ZK verifier + 6 Anchor programs on devnet',
     icon: Fingerprint,
-    num: '03',
+    num: '01',
     highlight: true,
     badge: 'ZK',
   },
   {
-    title: 'Self-Funding Agents',
-    href: '/self-funding-agent',
-    description: '$NIGHT/$DUST autonomous economics',
-    icon: Coins,
-    num: '04',
+    title: 'MCP Brain',
+    href: '/mcp',
+    description: 'Model Context Protocol tools for compliance agents',
+    icon: Brain,
+    num: '02',
   },
   {
-    title: 'Private AI Stack',
-    href: '/private-stack',
-    description: 'On-chain security layer',
-    icon: Lock,
-    num: '05',
+    title: 'Compliance Engine',
+    href: '/compliance-automate',
+    description: 'LGPD/GDPR automated audit wizard',
+    icon: Shield,
+    num: '03',
   },
 ];
 
@@ -149,7 +133,7 @@ export default function MobileNav() {
 
       <SheetContent
         side="right"
-        className="w-full sm:w-96 bg-gradient-to-br from-white to-brand-platinum-50 dark:from-slate-900 dark:to-slate-800 border-l border-brand-gray-200 dark:border-slate-700"
+        className="w-full sm:w-96 bg-gradient-to-br from-white to-brand-platinum-50 dark:from-brand-chrome-900 dark:to-brand-chrome-800 border-l border-brand-gray-200 dark:border-brand-platinum-800"
       >
         <motion.div
           initial="initial"
@@ -158,7 +142,7 @@ export default function MobileNav() {
           className="h-full flex flex-col"
         >
           {/* Header */}
-          <SheetHeader className="pb-6 border-b border-brand-gray-200 dark:border-slate-700">
+          <SheetHeader className="pb-6 border-b border-brand-gray-200 dark:border-brand-platinum-800">
             <motion.div variants={fadeInUp} className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-brand-sapphire-500 to-brand-emerald-500 rounded-lg flex items-center justify-center">
                 <Shield className="h-6 w-6 text-white" />
@@ -167,7 +151,7 @@ export default function MobileNav() {
                 <SheetTitle className="text-xl font-serif font-bold text-brand-gray-800 dark:text-white">
                   DPO2U
                 </SheetTitle>
-                <SheetDescription className="text-brand-gray-600 dark:text-gray-400">
+                <SheetDescription className="text-brand-gray-600 dark:text-brand-gray-400">
                   Private AI Stack
                 </SheetDescription>
               </div>
@@ -181,17 +165,17 @@ export default function MobileNav() {
               <motion.div variants={fadeInUp}>
                 <button
                   onClick={() => handleNavClick('/')}
-                  className="w-full group flex items-center justify-between p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 hover:shadow-md transition-all duration-200 text-left"
+                  className="w-full group flex items-center justify-between p-4 rounded-2xl hover:bg-white dark:hover:bg-brand-platinum-800 hover:shadow-md transition-all duration-200 text-left"
                 >
                   <div className="flex items-start space-x-3 flex-1">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-slate-700 dark:to-slate-600 group-hover:scale-110 transition-transform duration-200">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-brand-platinum-800 dark:to-brand-platinum-700 group-hover:scale-110 transition-transform duration-200">
                       <Shield className="h-5 w-5 text-brand-sapphire-600 dark:text-brand-sapphire-400" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-semibold text-brand-gray-800 dark:text-white group-hover:text-brand-sapphire-600 transition-colors">
                         DPO2U Home
                       </h3>
-                      <p className="text-sm text-brand-gray-600 dark:text-gray-400 leading-relaxed">
+                      <p className="text-sm text-brand-gray-600 dark:text-brand-gray-400 leading-relaxed">
                         Company overview & products
                       </p>
                     </div>
@@ -206,8 +190,8 @@ export default function MobileNav() {
                   onClick={() => setProductsExpanded(!productsExpanded)}
                   className="w-full flex items-center justify-between px-4 py-3 text-left"
                 >
-                  <span className="text-xs font-bold text-brand-gray-500 dark:text-gray-500 uppercase tracking-widest">
-                    Products
+                  <span className="text-xs font-bold text-brand-gray-500 dark:text-brand-gray-500 uppercase tracking-widest">
+                    Compliance Engine
                   </span>
                   <ChevronDown className={`h-4 w-4 text-brand-gray-400 transition-transform ${productsExpanded ? 'rotate-180' : ''}`} />
                 </button>
@@ -225,7 +209,7 @@ export default function MobileNav() {
                         <button
                           key={item.title}
                           onClick={() => handleNavClick(item.href)}
-                          className={`w-full group flex items-center justify-between p-3 pl-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 hover:shadow-md transition-all duration-200 text-left ${
+                          className={`w-full group flex items-center justify-between p-3 pl-4 rounded-2xl hover:bg-white dark:hover:bg-brand-platinum-800 hover:shadow-md transition-all duration-200 text-left ${
                             item.highlight ? 'bg-brand-purple-50 dark:bg-brand-purple-900/20 border border-brand-purple-200 dark:border-brand-purple-700' : ''
                           }`}
                         >
@@ -234,14 +218,14 @@ export default function MobileNav() {
                               <div className={`flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200 ${
                                 item.highlight
                                   ? 'bg-gradient-to-br from-brand-purple-100 to-brand-purple-200 dark:from-brand-purple-800 dark:to-brand-purple-700'
-                                  : 'bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-slate-700 dark:to-slate-600'
+                                  : 'bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-brand-platinum-800 dark:to-brand-platinum-700'
                               }`}>
                                 <item.icon className={`h-4 w-4 ${item.highlight ? 'text-brand-purple-600 dark:text-brand-purple-400' : 'text-brand-sapphire-600 dark:text-brand-sapphire-400'}`} />
                               </div>
                             )}
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center space-x-2 mb-0.5">
-                                <span className="text-[10px] font-mono text-slate-400">{item.num}</span>
+                                <span className="text-[10px] font-mono text-brand-platinum-500">{item.num}</span>
                                 <h3 className={`text-sm font-semibold transition-colors ${
                                   item.highlight
                                     ? 'text-brand-purple-700 dark:text-brand-purple-400'
@@ -256,7 +240,7 @@ export default function MobileNav() {
                                 )}
                               </div>
                               {item.description && (
-                                <p className="text-xs text-brand-gray-600 dark:text-gray-400 leading-relaxed">
+                                <p className="text-xs text-brand-gray-600 dark:text-brand-gray-400 leading-relaxed">
                                   {item.description}
                                 </p>
                               )}
@@ -275,11 +259,11 @@ export default function MobileNav() {
                 <motion.div key={item.title} variants={fadeInUp}>
                   <button
                     onClick={() => handleNavClick(item.href)}
-                    className="w-full group flex items-center justify-between p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-700 hover:shadow-md transition-all duration-200 text-left"
+                    className="w-full group flex items-center justify-between p-4 rounded-2xl hover:bg-white dark:hover:bg-brand-platinum-800 hover:shadow-md transition-all duration-200 text-left"
                   >
                     <div className="flex items-start space-x-3 flex-1">
                       {item.icon && (
-                        <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-slate-700 dark:to-slate-600 group-hover:scale-110 transition-transform duration-200">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-brand-sapphire-100 to-brand-emerald-100 dark:from-brand-platinum-800 dark:to-brand-platinum-700 group-hover:scale-110 transition-transform duration-200">
                           <item.icon className="h-5 w-5 text-brand-sapphire-600 dark:text-brand-sapphire-400" />
                         </div>
                       )}
@@ -288,7 +272,7 @@ export default function MobileNav() {
                           {item.title}
                         </h3>
                         {item.description && (
-                          <p className="text-sm text-brand-gray-600 dark:text-gray-400 leading-relaxed">
+                          <p className="text-sm text-brand-gray-600 dark:text-brand-gray-400 leading-relaxed">
                             {item.description}
                           </p>
                         )}
@@ -304,13 +288,13 @@ export default function MobileNav() {
           {/* Contact CTA */}
           <motion.div
             variants={fadeInUp}
-            className="border-t border-brand-gray-200 dark:border-slate-700 pt-6"
+            className="border-t border-brand-gray-200 dark:border-brand-platinum-800 pt-6"
           >
             <Button
               variant="primary"
               size="lg"
               onClick={() => {
-                window.location.href = 'mailto:contato@dpo2u.com.br';
+                window.location.href = 'mailto:contato@dpo2u.com';
                 setIsOpen(false);
               }}
               className="w-full flex items-center justify-center space-x-2"
@@ -323,20 +307,20 @@ export default function MobileNav() {
           {/* Footer Info */}
           <motion.div
             variants={fadeInUp}
-            className="pt-4 text-center border-t border-brand-gray-200 dark:border-slate-700 mt-6"
+            className="pt-4 text-center border-t border-brand-gray-200 dark:border-brand-platinum-800 mt-6"
           >
             <div className="flex items-center justify-center space-x-4 text-xs text-brand-gray-500">
               <Badge variant="status-active" size="sm">
-                5 Products
+                6 Programs
               </Badge>
               <Badge variant="success" size="sm">
-                6 AI Agents
+                Devnet Live
               </Badge>
               <Badge variant="premium" size="sm">
-                5 ZK Contracts
+                SP1 v6
               </Badge>
             </div>
-            <p className="text-xs text-brand-gray-500 dark:text-gray-500 mt-2">
+            <p className="text-xs text-brand-gray-500 dark:text-brand-gray-500 mt-2">
               &copy; 2026 DPO2U &middot; All rights reserved
             </p>
           </motion.div>
