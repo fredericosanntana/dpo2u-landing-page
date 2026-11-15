@@ -1,7 +1,7 @@
 // /app/fi/workspace — membros, convites (quatro olhos) e chaves de API (E2).
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { api, GatewayError, type Role } from '@/lib/fi/gateway';
+import { api, GatewayError, travelRuleApi, type Role } from '@/lib/fi/gateway';
 import { useFiSession } from '@/components/fi/FiSession';
 import { FONTS, PALETTE } from '@/components/sealed/atoms';
 
@@ -20,6 +20,7 @@ export default function FiWorkspacePage() {
   const [label, setLabel] = useState('');
   const [invite, setInvite] = useState<{ email: string; role: Role }>({ email: '', role: 'approver' });
   const [msg, setMsg] = useState<string | null>(null);
+  const [secret, setSecret] = useState<string | null>(null);
   const isOwner = session?.member.role === 'owner';
 
   const loadKeys = () => api.listKeys().then((r) => setKeys(r.api_keys)).catch(() => setKeys([]));
@@ -104,6 +105,13 @@ export default function FiWorkspacePage() {
           </form>
         )}
       </section>
+      {isOwner && (
+        <section style={card} aria-labelledby="ws-webhook">
+          <h2 id="ws-webhook" style={{ fontFamily: FONTS.display, fontSize: 24, margin: 0 }}>Webhook de Travel Rule</h2>
+          <p style={{ fontSize: 13, color: PALETTE.concrete }}>O resultado de cada transferência vai para o callback_url com o cabeçalho dpo2u-signature (HMAC-SHA256). Confira com verifyWebhook do SDK @dpo2u/travel-rule.</p>
+          {secret ? <code data-testid="webhook-secret" style={{ wordBreak: 'break-all', fontSize: 12 }}>{secret}</code> : <button type="button" style={btn} onClick={() => travelRuleApi.webhookSecret().then((r) => setSecret(r.secret)).catch(fail)}>Mostrar segredo</button>}
+        </section>
+      )}
       {msg && <p role="status">{msg}</p>}
     </div>
   );
