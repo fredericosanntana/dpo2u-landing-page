@@ -77,6 +77,8 @@ const FiPassportPage      = lazy(() => import('@/app/app/fi/passport'));
 const FiBillingPage       = lazy(() => import('@/app/app/fi/billing'));
 const FiSponsorshipsPage  = lazy(() => import('@/app/app/fi/sponsorships'));
 const FiCasesPage         = lazy(() => import('@/app/app/fi/cases'));
+const FiDisclosurePage    = lazy(() => import('@/app/app/fi/disclosure'));
+const SupervisorGrantPage = lazy(() => import('@/app/supervisor/grant'));
 const ReviewQueuePage     = lazy(() => import('@/app/app/review/index'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
@@ -160,6 +162,7 @@ function App() {
                             <Route path="/psav"              element={<PsavLandingPage />} />
                             <Route path="/financial-institutions" element={<FinancialInstitutionsPage />} />
                             <Route path="/app/review" element={<ReviewQueuePage />} />
+                            <Route path="/supervisor/:grant" element={<SupervisorGrantPage />} />
                             <Route path="/avalanche"         element={<AvalanchePage />} />
                             <Route path="/verify/passport/:id" element={<PassportPage />} />
                             <Route path="/verify/:id"       element={<VerifyPublicPage />}   />
@@ -249,6 +252,7 @@ function App() {
                               <Route path="/app/fi/billing" element={<FiBillingPage />} />
                               <Route path="/app/fi/sponsorships" element={<FiSponsorshipsPage />} />
                               <Route path="/app/fi/cases" element={<FiCasesPage />} />
+                              <Route path="/app/fi/disclosure" element={<FiDisclosurePage />} />
                           </Route>
                           <Route element={<RequireWallet><AppLayout /></RequireWallet>}>
                               <Route path="/app" element={<AppDashboard />} />

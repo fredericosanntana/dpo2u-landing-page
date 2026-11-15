@@ -13,15 +13,16 @@ export class GatewayError extends Error {
   }
 }
 
-export async function gw<T>(path: string, init: { method?: string; body?: unknown; apiKey?: string; payment?: string } = {}): Promise<T> {
+export async function gw<T>(path: string, init: { method?: string; body?: unknown; apiKey?: string; payment?: string; grantToken?: string } = {}): Promise<T> {
   const headers: Record<string, string> = {};
   if (init.body !== undefined) headers['content-type'] = 'application/json';
   if (init.apiKey) headers['x-api-key'] = init.apiKey;
   if (init.payment) headers['x-payment'] = init.payment;
+  if (init.grantToken) headers['x-grant-token'] = init.grantToken;
   const res = await fetch(`${GATEWAY_BASE}${path}`, {
     method: init.method ?? (init.body === undefined ? 'GET' : 'POST'),
     // Chave de operador nunca vai junto com o cookie da instituição.
-    credentials: init.apiKey ? 'omit' : 'include',
+    credentials: init.apiKey || init.grantToken ? 'omit' : 'include',
     headers,
     body: init.body === undefined ? undefined : JSON.stringify(init.body),
   });
@@ -138,6 +139,26 @@ export const travelRuleApi = {
   cases: () => gw<{ cases: CaseView[] }>('/api/v1/travel-rule/cases'),
   decide: (id: string, action: 'release' | 'keep_blocked', justification: string) => gw<CaseView>(`/api/v1/travel-rule/cases/${encodeURIComponent(id)}/decision`, { body: { action, justification } }),
   webhookSecret: () => gw<{ secret: string; header: string; scheme: string }>('/api/v1/workspace/webhook-secret'),
+};
+
+// ── E7: portal do supervisor ────────────────────────────────────────────────
+export type DisclosureScope = 'passports' | 'transfers' | 'cases' | 'sponsorships';
+export interface LogEntry { seq: number; at: string; action: string; actor: string; detail?: string; prev: string; hash: string }
+export interface GrantView {
+  id: string; supervisor_email: string; scope: DisclosureScope[]; from?: string; to?: string; purpose: string; legal_basis: string; purpose_hash: string;
+  status: 'pending' | 'approved' | 'rejected' | 'revoked' | 'expired'; expires_at: string; requested_by: string; approved_by?: string; created_at: string; accesses: number;
+  log: LogEntry[]; log_verified: boolean;
+}
+export const disclosureApi = {
+  list: () => gw<{ grants: GrantView[] }>('/api/v1/disclosure/grants'),
+  create: (body: { supervisor_email: string; scope: DisclosureScope[]; purpose: string; legal_basis: string; expires_at: string }) => gw<GrantView>('/api/v1/disclosure/grants', { body }),
+  approve: (id: string) => gw<GrantView>(`/api/v1/disclosure/grants/${encodeURIComponent(id)}/approve`, { body: {} }),
+  reject: (id: string) => gw<GrantView>(`/api/v1/disclosure/grants/${encodeURIComponent(id)}/reject`, { body: {} }),
+  revoke: (id: string) => gw<GrantView>(`/api/v1/disclosure/grants/${encodeURIComponent(id)}/revoke`, { body: {} }),
+};
+export const supervisorApi = {
+  view: (id: string, token: string) => gw<{ institution?: string; scope: DisclosureScope[]; purpose: string; legal_basis: string; purpose_hash: string; expires_at: string; log: LogEntry[]; log_verified: boolean }>(`/api/v1/supervisor/grants/${encodeURIComponent(id)}`, { grantToken: token }),
+  pack: (id: string, token: string) => gw<{ pack: Record<string, unknown>; pack_hash: string }>(`/api/v1/supervisor/grants/${encodeURIComponent(id)}/pack`, { grantToken: token }),
 };
 
 /** sha256 hex de um arquivo, calculado no navegador. O arquivo nunca sai da máquina. */

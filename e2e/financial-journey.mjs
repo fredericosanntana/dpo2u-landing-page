@@ -287,6 +287,52 @@ try {
     await page.screenshot({ path: path.join(OUT, '08-transferencias.png'), fullPage: true });
     return { pass: { id: ok.id, latency_ms: ok.latency_ms }, fail: { id: bad.id, reasons: bad.reasons.map((r) => r.code), latency_ms: bad.latency_ms } };
   });
+
+  await step('9. grant para supervisor: aprovador aprova, supervisor baixa o pacote, licenciada revoga, segundo acesso falha, log íntegro', async () => {
+    const SUP = `supervisor-${run}@regulador.test`;
+    await page.goto(`${SITE}/app/fi/disclosure`);
+    await page.fill('input[name=supervisor_email]', SUP);
+    await page.check('input[name=scope_transfers]');
+    await page.fill('input[name=purpose]', 'Supervisão de rotina do programa (teste)');
+    await page.fill('input[name=legal_basis]', 'Res. BCB 520 art. 40');
+    await page.getByRole('button', { name: 'Pedir acesso' }).click();
+    await page.waitForSelector('article[data-grant][data-status=pending]');
+    // aprovador entra por link mágico de login
+    await fetch(`${GW}/api/v1/auth/magic-link`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ email: APPROVER }) });
+    const ac = await browser.newContext();
+    const ap = await ac.newPage();
+    await ap.goto(linkFor(APPROVER));
+    await ap.waitForURL(/\/app\/fi/);
+    await ap.goto(`${SITE}/app/fi/disclosure`);
+    await ap.getByRole('button', { name: 'Reject All' }).click({ timeout: 3000 }).catch(() => {});
+    await ap.getByRole('button', { name: 'Aprovar' }).click({ timeout: 10_000 }).catch(async (e) => { await ap.screenshot({ path: path.join(OUT, 'falha-aprovador.png'), fullPage: true }); throw e; });
+    await ap.waitForSelector('[data-testid=ds-msg]:has-text("Aprovado")');
+    await ac.close();
+    const lines = fs.readFileSync(MAILS, 'utf-8').trim().split('\n').map((l) => JSON.parse(l));
+    const link = lines.reverse().find((m) => m.to === SUP && m.kind === 'disclosure_link')?.text.match(/https?:\/\/\S+#t=\S+/)?.[0]?.replace(/^https?:\/\/[^/]+/, SITE);
+    if (!link) throw new Error('sem link do supervisor');
+    const sc = await browser.newContext({ acceptDownloads: true });
+    const sp = await sc.newPage();
+    await sp.goto(link);
+    await sp.getByRole('button', { name: 'Reject All' }).click({ timeout: 3000 }).catch(() => {});
+    await sp.waitForSelector('[data-testid=sv-scope]:has-text("passports, transfers")');
+    const dl = sp.waitForEvent('download');
+    await sp.getByRole('button', { name: 'Baixar o pacote de evidências' }).click();
+    await dl;
+    await sp.waitForSelector('[data-testid=sv-pack-hash]');
+    await sp.screenshot({ path: path.join(OUT, '09-supervisor.png'), fullPage: true });
+    await page.reload();
+    await page.getByRole('button', { name: 'Revogar' }).first().click();
+    await page.waitForSelector('article[data-grant][data-status=revoked]');
+    await sp.reload();
+    await sp.waitForSelector('[data-testid=sv-error]:has-text("revogado")');
+    await sc.close();
+    await page.reload();
+    const verified = await page.textContent('article[data-grant][data-status=revoked] [data-testid=log-verified]');
+    if (!verified?.includes('Log íntegro')) throw new Error(`log: ${verified}`);
+    await page.screenshot({ path: path.join(OUT, '09-disclosure.png'), fullPage: true });
+    return { log: verified };
+  });
 } catch {
   failed = true;
 } finally {
