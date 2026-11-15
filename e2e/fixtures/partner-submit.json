@@ -1,0 +1,18 @@
+{
+  "request_id": "e2e-partner-seeded-0001",
+  "use_case_id": "psav_partner_br_v1",
+  "evidence": {
+    "partner": "parceiro-ficticio-e2e",
+    "sponsor": "licenciada-ficticia-e2e",
+    "service_category": "technology",
+    "service_scope": "Onboarding de clientes (fictício)",
+    "documents": {
+      "due_diligence": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "contract": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "client_disclosure": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "director_designation": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "partner_kyc": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    "contract_clauses": ["acts_on_behalf", "no_direct_charge", "bcb_access"]
+  }
+}

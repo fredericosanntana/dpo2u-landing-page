@@ -5,14 +5,18 @@
 //   MAIL_CAPTURE_FILE  o mesmo arquivo JSONL que o gateway escreve (para ler os links mágicos)
 // Usa só contas e empresas fictícias. Grava o relatório em e2e/report/financial-journey.json.
 //
-// Passos cobertos até agora: 1 (diagnóstico) e 2 (conta, aprovador, chave).
-// Os demais entram junto com os marcos M2–M5.
+// Passos cobertos até agora: 1 (diagnóstico), 2 (conta, aprovador, chave) e
+// 3 (passaporte de parceiro com revisão humana assinada). Os demais entram com M3–M5.
+//   E2E_OPERATOR_KEY    chave de API do operador (fila de revisão)
+//   E2E_SEEDED_ATTEMPT  teste local: tentativa já selada de e2e/fixtures/partner-submit.json
+//   E2E_FULL_SEAL=1     preview: o assistente sela de verdade na rede de teste
 
 import { createRequire } from 'node:module';
 // require (não import) para achar o Playwright instalado globalmente ou no projeto.
 const { chromium } = createRequire(import.meta.url)('playwright');
 import fs from 'node:fs';
 import path from 'node:path';
+import { generateKeyPairSync } from 'node:crypto';
 
 const SITE = process.env.SITE_URL ?? 'http://localhost:4173';
 const GW = process.env.GATEWAY_URL ?? 'http://localhost:3999';
@@ -98,6 +102,71 @@ try {
     });
     if (r.status !== 404) throw new Error(`esperava 404 (autenticado), veio ${r.status}`);
     await page.screenshot({ path: path.join(OUT, '02-workspace.png'), fullPage: true });
+  });
+
+  const OP = process.env.E2E_OPERATOR_KEY;
+  if (!OP) throw new Error('E2E_OPERATOR_KEY é obrigatório');
+  await step('3a. pede o passaporte do parceiro (documentos resumidos no navegador)', async () => {
+    await page.goto(`${SITE}/app/fi/passport`);
+    await page.waitForSelector('text=Novo passaporte de parceiro');
+    const tmp = path.join(OUT, 'doc-ficticio.txt');
+    fs.writeFileSync(tmp, `documento fictício ${run}`);
+    await page.setInputFiles('input[name=doc_contract]', tmp);
+    await page.waitForSelector('text=/sha256 [0-9a-f]{16}/');
+    if (process.env.E2E_FULL_SEAL === '1') {
+      await page.fill('input[name=partner]', `parceiro-ficticio-${run}`);
+      await page.fill('input[name=service_scope]', 'Onboarding (fictício)');
+      for (const d of ['due_diligence', 'client_disclosure', 'director_designation', 'partner_kyc']) await page.setInputFiles(`input[name=doc_${d}]`, tmp);
+      for (const c of ['acts_on_behalf', 'no_direct_charge', 'bcb_access']) await page.check(`input[name=clause_${c}]`);
+      await page.getByRole('button', { name: 'Selar e pedir revisão' }).click();
+    } else {
+      // Local: o selo na rede é substituído pela tentativa semeada; o resto segue o mesmo caminho do assistente.
+      const body = JSON.parse(fs.readFileSync(path.resolve('e2e/fixtures/partner-submit.json'), 'utf-8'));
+      const res = await page.evaluate(async ({ gw, attempt, body }) => {
+        const post = (p, b) => fetch(`${gw}${p}`, { method: 'POST', credentials: 'include', headers: { 'content-type': 'application/json' }, body: JSON.stringify(b) }).then(async (r) => ({ s: r.status, b: await r.json() }));
+        const prep = await post('/api/v1/psav/passports/prepare', { attempt_id: attempt, submit_body: body });
+        if (prep.s !== 200) return prep;
+        return post('/api/v1/psav/review-requests', { run_id: prep.b.run_id, tier: 'tier1' });
+      }, { gw: GW, attempt: process.env.E2E_SEEDED_ATTEMPT, body });
+      if (res.s !== 201) throw new Error(`pedido de revisão: ${res.s} ${JSON.stringify(res.b)}`);
+      await page.reload();
+    }
+    await page.waitForSelector('[data-testid=pp-requests] tr[data-status=pending]', { timeout: 180_000 });
+    await page.screenshot({ path: path.join(OUT, '03a-pedido.png'), fullPage: true });
+  });
+
+  await step('3b. revisor nomeado assina no navegador e o passaporte sai', async () => {
+    const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+    const reg = await fetch(`${GW}/api/v1/psav/reviewers`, {
+      method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': OP },
+      body: JSON.stringify({ name: `Revisora Ficticia ${run}`, public_key_pem: publicKey.export({ type: 'spki', format: 'pem' }) }),
+    });
+    if (reg.status !== 201) throw new Error(`cadastro do revisor: ${reg.status}`);
+    const { reviewer_id } = await reg.json();
+    const rv = await (await browser.newContext()).newPage();
+    await rv.goto(`${SITE}/app/review`);
+    await rv.getByRole('button', { name: 'Reject All' }).click({ timeout: 3000 }).catch(() => {});
+    await rv.fill('input[name=operator_key]', OP);
+    await rv.getByRole('button', { name: 'Entrar' }).click();
+    const card = rv.locator('article[data-request]').first();
+    await card.waitFor();
+    await card.locator('input[name=reviewer_id]').fill(reviewer_id);
+    await card.getByRole('button', { name: 'Ver o que vou assinar' }).click();
+    await card.locator('[data-testid=review-payload]').waitFor();
+    await card.locator('textarea[name=reviewer_pem]').fill(String(privateKey.export({ type: 'pkcs8', format: 'pem' })));
+    await card.getByRole('button', { name: 'Assinar e emitir' }).click();
+    await rv.waitForSelector('[data-testid=review-msg]:has-text("emitido (valid, tier1)")');
+    await rv.screenshot({ path: path.join(OUT, '03b-revisor.png'), fullPage: true });
+    await rv.close();
+    await page.reload();
+    await page.waitForSelector('[data-testid=pp-requests] tr[data-status=issued]');
+    const href = await page.getAttribute('[data-testid=pp-requests] tr[data-status=issued] a', 'href');
+    const id = decodeURIComponent(String(href).split('/').pop());
+    const pub = await (await fetch(`${GW}/api/v1/psav/passports/${encodeURIComponent(id)}`)).json();
+    if (pub.status !== 'valid' || pub.reviewer?.id !== reviewer_id) throw new Error(`passaporte público inesperado: ${JSON.stringify(pub)}`);
+    if (JSON.stringify(pub).includes('parceiro-ficticio')) throw new Error('o passaporte público vazou evidência');
+    await page.screenshot({ path: path.join(OUT, '03c-passaporte.png'), fullPage: true });
+    return { passport: id, verdicts: pub.verdicts };
   });
 } catch {
   failed = true;

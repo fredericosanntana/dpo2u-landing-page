@@ -16,7 +16,7 @@ export default function FiDashboardPage() {
   const steps = [
     { done: true, label: 'Workspace criado' },
     { done: hasApprover, label: 'Aprovador convidado e ativo', to: '/app/fi/workspace' },
-    { done: false, label: 'Passaporte da instituição (em breve)' },
+    { done: false, label: 'Pedir o passaporte de um parceiro', to: '/app/fi/passport' },
   ];
   return (
     <div className="grid gap-6" style={{ maxWidth: 860 }}>

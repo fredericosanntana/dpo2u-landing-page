@@ -73,6 +73,8 @@ const FinancialInstitutionsPage = lazy(() => import('@/app/financial-institution
 const AuthVerifyPage      = lazy(() => import('@/app/auth/verify'));
 const FiDashboardPage     = lazy(() => import('@/app/app/fi/index'));
 const FiWorkspacePage     = lazy(() => import('@/app/app/fi/workspace'));
+const FiPassportPage      = lazy(() => import('@/app/app/fi/passport'));
+const ReviewQueuePage     = lazy(() => import('@/app/app/review/index'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
 const RouteFallback = () => (
@@ -154,6 +156,7 @@ function App() {
                             {/* Public attestation proof (Fase B) — shareable, trustless (Stellar) */}
                             <Route path="/psav"              element={<PsavLandingPage />} />
                             <Route path="/financial-institutions" element={<FinancialInstitutionsPage />} />
+                            <Route path="/app/review" element={<ReviewQueuePage />} />
                             <Route path="/avalanche"         element={<AvalanchePage />} />
                             <Route path="/verify/passport/:id" element={<PassportPage />} />
                             <Route path="/verify/:id"       element={<VerifyPublicPage />}   />
@@ -239,6 +242,7 @@ function App() {
                           <Route element={<FiLayout />}>
                               <Route path="/app/fi" element={<FiDashboardPage />} />
                               <Route path="/app/fi/workspace" element={<FiWorkspacePage />} />
+                              <Route path="/app/fi/passport" element={<FiPassportPage />} />
                           </Route>
                           <Route element={<RequireWallet><AppLayout /></RequireWallet>}>
                               <Route path="/app" element={<AppDashboard />} />
