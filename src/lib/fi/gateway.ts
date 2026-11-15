@@ -13,11 +13,15 @@ export class GatewayError extends Error {
   }
 }
 
-export async function gw<T>(path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
+export async function gw<T>(path: string, init: { method?: string; body?: unknown; apiKey?: string } = {}): Promise<T> {
+  const headers: Record<string, string> = {};
+  if (init.body !== undefined) headers['content-type'] = 'application/json';
+  if (init.apiKey) headers['x-api-key'] = init.apiKey;
   const res = await fetch(`${GATEWAY_BASE}${path}`, {
     method: init.method ?? (init.body === undefined ? 'GET' : 'POST'),
-    credentials: 'include',
-    headers: init.body === undefined ? undefined : { 'content-type': 'application/json' },
+    // Chave de operador nunca vai junto com o cookie da instituição.
+    credentials: init.apiKey ? 'omit' : 'include',
+    headers,
     body: init.body === undefined ? undefined : JSON.stringify(init.body),
   });
   if (res.status === 204) return undefined as T;
@@ -28,7 +32,7 @@ export async function gw<T>(path: string, init: { method?: string; body?: unknow
 
 export type Role = 'owner' | 'approver' | 'client_reviewer';
 export interface Member { id: string; email: string; role: Role; status: 'invited' | 'active' }
-export interface Workspace { id: string; name: string; created_at: string; members: Member[] }
+export interface Workspace { id: string; name: string; created_at: string; self_company_id?: string; members: Member[] }
 export interface SessionView { member: Member; workspace: Workspace }
 
 export interface DiagnosticGap { ruleId: string; title: string; citation: string; severity: string; origin: string }
@@ -63,6 +67,50 @@ export const api = {
   createKey: (label: string) => gw<{ api_key: string; user_id: string; label: string }>('/api/v1/workspace/api-keys', { body: { label } }),
   revokeKey: (id: string) => gw<{ revoked: true }>(`/api/v1/workspace/api-keys/${encodeURIComponent(id)}/revoke`, { body: {} }),
 };
+
+// ── E3: passaporte e fila de revisão ─────────────────────────────────────────
+export type Tier = 'tier1-machine-only' | 'tier1' | 'tier2' | 'tier3';
+export interface SubmitBody { use_case_id: string; request_id: string; evidence: Record<string, unknown>; chain?: string }
+export interface Attempt { attempt_id: string; status: string; result?: { verdict: string; evidence_hash_hex: string; predicate_results: { id: string; verdict: string; reason: string }[]; tx?: { explorerUrl?: string } }; error?: string }
+export interface Prepared { run_id: string; packs: { id: string; hash: string }[]; verdicts: Record<string, string>; to_review: { id: string; origin: string; citation: string }[] }
+export interface ReviewRequestView {
+  id: string; client_id: string; run_id: string; tier: Tier; packs: { id: string; hash: string }[];
+  to_review: { id: string; origin: string; citation: string }[]; server_verdicts: Record<string, string>;
+  status: 'pending' | 'issued' | 'returned' | 'blocked'; requested_at: string; decided_at?: string; passport_id?: string; note?: string;
+}
+export interface PassportView { id: string; status: string; tier: Tier; verdicts: { pass: number; pending: number }; reviewer?: { id: string; name: string }; issuedAt: string; expiresAt: string }
+
+export const passportApi = {
+  submit: (body: SubmitBody) => gw<{ attempt_id: string; status: string }>('/api/v1/attestation/submit', { body }),
+  attempt: (id: string) => gw<Attempt>(`/api/v1/attestation/${encodeURIComponent(id)}`),
+  prepare: (attempt_id: string, submit_body: SubmitBody) => gw<Prepared>('/api/v1/psav/passports/prepare', { body: { attempt_id, submit_body } }),
+  requestReview: (run_id: string, tier: Tier) => gw<ReviewRequestView>('/api/v1/psav/review-requests', { body: { run_id, tier } }),
+  myRequests: () => gw<{ requests: ReviewRequestView[] }>('/api/v1/psav/review-requests'),
+  passport: (id: string) => gw<PassportView>(`/api/v1/psav/passports/${encodeURIComponent(id)}`),
+};
+
+export const reviewApi = {
+  queue: (apiKey: string) => gw<{ requests: ReviewRequestView[] }>('/api/v1/review/queue', { apiKey }),
+  payload: (apiKey: string, id: string, verdicts: Record<string, 'PASS' | 'FAIL'>) => gw<{ payload: string }>(`/api/v1/review/requests/${encodeURIComponent(id)}/payload`, { apiKey, body: { verdicts } }),
+  decide: (apiKey: string, id: string, body: { reviewer_id: string; verdicts: Record<string, 'PASS' | 'FAIL'>; signature: string }) =>
+    gw<{ passport: PassportView; midnight?: { status: string }; avalanche?: { status: string } }>(`/api/v1/review/requests/${encodeURIComponent(id)}/decision`, { apiKey, body }),
+  giveBack: (apiKey: string, id: string, reason: string) => gw<ReviewRequestView>(`/api/v1/review/requests/${encodeURIComponent(id)}/return`, { apiKey, body: { reason } }),
+};
+
+/** sha256 hex de um arquivo, calculado no navegador. O arquivo nunca sai da máquina. */
+export async function sha256File(file: Blob): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', await file.arrayBuffer());
+  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/** Assina com Ed25519 (WebCrypto) a partir de uma chave PKCS#8 PEM. A chave fica só na memória da aba. */
+export async function signEd25519(pkcs8Pem: string, message: string): Promise<string> {
+  const b64 = pkcs8Pem.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
+  const der = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+  const key = await crypto.subtle.importKey('pkcs8', der, { name: 'Ed25519' }, false, ['sign']);
+  const sig = await crypto.subtle.sign({ name: 'Ed25519' }, key, new TextEncoder().encode(message));
+  return btoa(String.fromCharCode(...new Uint8Array(sig)));
+}
 
 /** Guarda o lead do diagnóstico para o cadastro levar junto. */
 export const LEAD_KEY = 'dpo2u.fi.lead';

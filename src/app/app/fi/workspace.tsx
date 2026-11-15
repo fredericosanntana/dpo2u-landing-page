@@ -38,6 +38,7 @@ export default function FiWorkspacePage() {
       <section style={card} aria-labelledby="ws-members">
         <h2 id="ws-members" style={{ fontFamily: FONTS.display, fontSize: 24, margin: 0 }}>Membros</h2>
         <p style={{ fontSize: 13, color: PALETTE.concrete, marginTop: 4 }}>Identificador da instituição: <code>{session.workspace.id}</code></p>
+        {session.workspace.self_company_id && <p style={{ fontSize: 12, color: PALETTE.concrete, marginTop: 2 }}>Id público da autoatestação (TRAVEL_RULE_SELF_COMPANY_ID): <code style={{ wordBreak: 'break-all' }}>{session.workspace.self_company_id}</code></p>}
         <table style={{ width: '100%', marginTop: 12, borderCollapse: 'collapse', fontSize: 14 }}>
           <tbody>
             {session.workspace.members.map((m) => (

@@ -27,6 +27,7 @@ export function FiSessionProvider({ children }: { children: React.ReactNode }) {
 const NAV = [
   { to: '/app/fi', label: 'Painel' },
   { to: '/app/fi/workspace', label: 'Workspace' },
+  { to: '/app/fi/passport', label: 'Passaporte' },
 ];
 
 export function FiLayout() {
