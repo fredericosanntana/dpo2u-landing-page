@@ -28,6 +28,7 @@ const NAV = [
   { to: '/app/fi', label: 'Painel' },
   { to: '/app/fi/workspace', label: 'Workspace' },
   { to: '/app/fi/passport', label: 'Passaporte' },
+  { to: '/app/fi/billing', label: 'Plano' },
 ];
 
 export function FiLayout() {

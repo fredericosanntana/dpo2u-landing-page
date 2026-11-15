@@ -74,6 +74,7 @@ const AuthVerifyPage      = lazy(() => import('@/app/auth/verify'));
 const FiDashboardPage     = lazy(() => import('@/app/app/fi/index'));
 const FiWorkspacePage     = lazy(() => import('@/app/app/fi/workspace'));
 const FiPassportPage      = lazy(() => import('@/app/app/fi/passport'));
+const FiBillingPage       = lazy(() => import('@/app/app/fi/billing'));
 const ReviewQueuePage     = lazy(() => import('@/app/app/review/index'));
 
 // Editorial fade — no spinner, no layout shift. A thin ivory veil.
@@ -243,6 +244,7 @@ function App() {
                               <Route path="/app/fi" element={<FiDashboardPage />} />
                               <Route path="/app/fi/workspace" element={<FiWorkspacePage />} />
                               <Route path="/app/fi/passport" element={<FiPassportPage />} />
+                              <Route path="/app/fi/billing" element={<FiBillingPage />} />
                           </Route>
                           <Route element={<RequireWallet><AppLayout /></RequireWallet>}>
                               <Route path="/app" element={<AppDashboard />} />
