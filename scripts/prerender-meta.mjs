@@ -60,6 +60,11 @@ const ROUTES = [
     description: 'SPSAV autorizada e prestador de serviço relevante (Res. BCB 520, arts. 32–42): diligência artigo por artigo, revisor nomeado e passaporte de conformidade selado em blockchain. Prazos: 30/10/2026 (art. 88) e 06/11/2026 (art. 91).',
   },
   {
+    path: '/financial-institutions',
+    title: 'For financial institutions: Travel Rule, partner passports and supervisor evidence | DPO2U',
+    description: 'Compliance operator for VASPs, CASPs, PSAVs and payment institutions. Run a free diagnostic of the rules that apply in your market: Brazil, the EU and FATF jurisdictions.',
+  },
+  {
     path: '/avalanche',
     title: 'DPO2U on Avalanche — compliance seals on the C-Chain | DPO2U',
     description: 'DPO2U on Avalanche Fuji: seven verified contracts. SP1 Groth16 proofs verified on the C-Chain, a compliance registry, a conformity passport any contract can check, a Travel Rule gate, proof of reserves and a Midnight relay.',
@@ -235,6 +240,9 @@ const BODY = {
   '/research': `<main ${W}><h1>Compliance as Protocol</h1>
 <p>DPO2U is the research house that ships code. Compliance is exposed through an MCP server and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
 <p>Coverage spans the 25 jurisdictions of the norms engine, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
+  '/financial-institutions': `<main ${W}><h1>For financial institutions</h1>
+<p>DPO2U is a compliance operator for VASPs, CASPs, PSAVs and payment institutions: Travel Rule checks that block before value moves, partner passports reviewed by a named person, and evidence packs a supervisor can open.</p>
+<p>The free diagnostic lists the rule packs that apply in your market (Brazil, the European Union, or the generic FATF Recommendation 16 pack elsewhere) and each gap with its legal citation. It is indicative and not legal advice.</p></main>`,
   '/psav': `<main ${W} lang="pt-BR"><h1>Padrão PSAV-parceiro</h1>
 <p>A Res. BCB 520/2025 permite que uma sociedade prestadora de serviços de ativos virtuais (SPSAV) autorizada contrate prestadores de serviço relevante — tecnologia, custódia, liquidez, formador de mercado, conta (art. 33). O prestador atua por conta e sob as diretrizes da SPSAV, que permanece responsável (arts. 35 e 36).</p>
 <p>A DPO2U entrega, por prestador contratado, a diligência que o art. 34 exige: regras artigo por artigo (34, 35, 37, 40, 41, 42), revisão por revisor nomeado e um passaporte de conformidade selado em blockchain que mostra de onde vem cada veredito — máquina, revisor ou terceiro independente.</p>
