@@ -16,3 +16,4 @@ node_modules/
 
 # S0 15/10/2026: .env.local sai do versionamento (config local do build; continua no disco)
 .env.local
+e2e/report/
