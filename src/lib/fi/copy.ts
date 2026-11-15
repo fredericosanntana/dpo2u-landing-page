@@ -64,6 +64,7 @@ export const COPY: Record<Lang, Dict> = {
     sent: 'If the address can receive it, the link is on its way. It is valid for 15 minutes.',
     error: 'Something went wrong. Try again in a minute.',
     disclaimer: 'Indicative diagnostic based on what you declared. Not legal advice, and not a statement of compliance.',
+    invited: 'A licensed institution invited you as a service provider. Create your workspace, then build your partner passport.',
   },
   pt: {
     tag: 'Para instituições financeiras',
@@ -93,6 +94,7 @@ export const COPY: Record<Lang, Dict> = {
     sent: 'Se o endereço puder receber, o link está a caminho. Ele vale 15 minutos.',
     error: 'Algo deu errado. Tente de novo em um minuto.',
     disclaimer: 'Diagnóstico indicativo a partir do que foi declarado. Não é parecer jurídico nem declara conformidade.',
+    invited: 'Uma instituição licenciada convidou você como prestador de serviço. Crie o seu workspace e depois faça o passaporte de parceiro.',
   },
   es: {
     tag: 'Para instituciones financieras',
@@ -122,6 +124,7 @@ export const COPY: Record<Lang, Dict> = {
     sent: 'Si la dirección puede recibirlo, el enlace está en camino. Vale 15 minutos.',
     error: 'Algo salió mal. Intente de nuevo en un minuto.',
     disclaimer: 'Diagnóstico indicativo basado en lo declarado. No es asesoría legal ni declara cumplimiento.',
+    invited: 'Una institución licenciada lo invitó como proveedor de servicios. Cree su workspace y luego haga el pasaporte de socio.',
   },
 };
 

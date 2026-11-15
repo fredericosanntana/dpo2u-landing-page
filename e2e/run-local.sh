@@ -9,7 +9,7 @@ export E2E_OPERATOR_KEY="e2e-operator-$(date +%s)"
 export E2E_SEEDED_ATTEMPT="att-e2e-seeded"
 FIXTURE="$(pwd)/e2e/fixtures/partner-submit.json"
 # Tentativa selada fictícia (sem rede de blockchain no teste local).
-( cd "$GATEWAY_DIR" && ATTESTATIONS_FILE="$TMP/att.json" NODE_ENV=test node "$OLDPWD/e2e/seed-attempt.mjs" "$FIXTURE" "$E2E_SEEDED_ATTEMPT" >/dev/null )
+( cd "$GATEWAY_DIR" && ATTESTATIONS_FILE="$TMP/att.json" NODE_ENV=test node "$OLDPWD/e2e/seed-attempt.mjs" "$FIXTURE" "$E2E_SEEDED_ATTEMPT" "$E2E_SEEDED_ATTEMPT-partner" >/dev/null )
 (
   cd "$GATEWAY_DIR"
   PORT=3999 NODE_ENV=test MAIL_DISABLED=1 SESSION_COOKIE_INSECURE=1 APP_BASE_URL=http://localhost:4173 \
