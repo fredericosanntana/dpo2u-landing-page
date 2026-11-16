@@ -63,6 +63,7 @@ export default function FinancialInstitutionsPage({ initialLang }: { initialLang
         institution_type: type,
         services,
         uses_partners: partners,
+        lang,
         ...(volume && Number.isFinite(vol) ? { monthly_volume_usd: vol } : {}),
         ...(email && consent ? { contact: { email, consent: true as const, ...(company ? { company } : {}) } } : {}),
       });

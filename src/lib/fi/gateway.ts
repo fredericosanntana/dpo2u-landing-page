@@ -54,6 +54,8 @@ export interface DiagnosticRequest {
   institution_type: string;
   services: string[];
   uses_partners: boolean;
+  /** Língua do relatório; o gateway traduz títulos, motivos, notas e o e-mail. */
+  lang?: 'en' | 'pt' | 'es';
   monthly_volume_usd?: number;
   contact?: { email: string; consent: true; name?: string; company?: string };
 }
