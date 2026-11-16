@@ -3,7 +3,7 @@
  * sem conta, pagando cada passo por chamada via x402 (USDC na Stellar).
  *
  * Os passos e preços vêm do catálogo do gateway (GET /api/v1/agent); sem o gateway, a página
- * mostra os padrões. EN e PT.
+ * mostra os padrões. Só em inglês (pedido do Frederico, 16/11/2026: oferta global).
  */
 import React, { useEffect, useState } from 'react';
 import { usePageHead } from '@/lib/page-head';
@@ -15,30 +15,30 @@ const h2: React.CSSProperties = { fontFamily: FONTS.display, fontWeight: 500, li
 const card: React.CSSProperties = { background: PALETTE.paper2, border: `.5px solid ${PALETTE.ruleStrong}`, borderRadius: 4 };
 const code: React.CSSProperties = { fontFamily: FONTS.mono, fontSize: 13, lineHeight: 1.55, background: PALETTE.ink, color: PALETTE.paper, padding: 16, borderRadius: 4, overflowX: 'auto', whiteSpace: 'pre' };
 
-type Lang = 'en' | 'pt';
+type Lang = 'en';
 
 interface Step { id: string; path: string; mcp: string; price: string; title: Record<Lang, string>; does: Record<Lang, string> }
 
 const STEPS: Step[] = [
   {
     id: 'check', path: 'POST /api/v1/agent/check', mcp: 'dpo2u_check_counterparty', price: '0.01',
-    title: { en: 'Check before you pay', pt: 'Confira antes de pagar' },
-    does: { en: 'Before paying or transferring, confirm the counterparty holds a valid DPO2U passport. PASS or FAIL, reasons, policy hash and the on-chain proof.', pt: 'Antes de pagar ou transferir, confirme que a contraparte tem passaporte DPO2U válido. PASS ou FAIL, motivos, policy hash e a prova on-chain.' },
+    title: { en: 'Check before you pay' },
+    does: { en: 'Before paying or transferring, confirm the counterparty holds a valid DPO2U passport. PASS or FAIL, reasons, policy hash and the on-chain proof.' },
   },
   {
     id: 'compliance', path: 'POST /api/v1/agent/compliance', mcp: 'dpo2u_agent_compliance', price: '0.10',
-    title: { en: 'Your own compliance and privacy', pt: 'Compliance e LGPD do dono' },
-    does: { en: 'The rule packs that apply to your owner in the market (LGPD, GDPR, Travel Rule, MiCA), the gaps, and an optional scan of a public repository.', pt: 'Os pacotes de regras que valem para o dono no mercado (LGPD, GDPR, Travel Rule, MiCA), as lacunas e um scan opcional de repositório público.' },
+    title: { en: 'Your own compliance and privacy' },
+    does: { en: 'The rule packs that apply to your owner in the market (LGPD, GDPR, Travel Rule, MiCA), the gaps, and an optional scan of a public repository.' },
   },
   {
     id: 'due-diligence', path: 'POST /api/v1/agent/due-diligence', mcp: 'dpo2u_counterparty_due_diligence', price: '1',
-    title: { en: 'Counterparty due diligence', pt: 'Due diligence da contraparte' },
-    does: { en: 'Passport, the packs the market requires and what it covers, active sponsorships, history and proof. The report hash is your receipt.', pt: 'Passaporte, pacotes que o mercado exige e o que ele cobre, patrocínios ativos, histórico e prova. O report hash é o seu recibo.' },
+    title: { en: 'Counterparty due diligence' },
+    does: { en: 'Passport, the packs the market requires and what it covers, active sponsorships, history and proof. The report hash is your receipt.' },
   },
   {
     id: 'pentest', path: 'POST /api/v1/agent/pentest', mcp: 'dpo2u_pentest', price: '1 / 500',
-    title: { en: 'Pentest', pt: 'Pentest' },
-    does: { en: 'Prove you own the domain first (HTTP or DNS); nothing is charged before that. Passive: a configuration check right away. Full: a deposit and a pentest scheduled with a partner.', pt: 'Primeiro a prova de posse do domínio (HTTP ou DNS); nada é cobrado antes. Passivo: checagem de configuração na hora. Completo: sinal e pentest agendado com parceiro.' },
+    title: { en: 'Pentest' },
+    does: { en: 'Prove you own the domain first (HTTP or DNS); nothing is charged before that. Passive: a configuration check right away. Full: a deposit and a pentest scheduled with a partner.' },
   },
 ];
 
@@ -57,26 +57,12 @@ const COPY = {
     price: 'USDC per call',
     note: 'Indicative checks, not legal advice. Nothing personal goes on chain.',
   },
-  pt: {
-    tag: 'Para agentes de IA e dApps',
-    h1: 'Compliance como protocolo para a economia das máquinas.',
-    lead: 'O seu agente confere antes de pagar. Sem conta e sem contrato: cada passo é uma chamada HTTP ou MCP, paga por chamada em USDC na Stellar via x402. O veredito é o recibo e a prova.',
-    steps: 'A jornada',
-    how: 'Como o agente paga',
-    howP: 'Chame sem pagamento e receba HTTP 402 com os requisitos x402. Assine o pagamento com qualquer cliente x402 e repita a chamada com o header X-PAYMENT. A resposta traz o resultado e o X-PAYMENT-RESPONSE com a transação de liquidação. A entrada é validada antes da cobrança.',
-    mcp: 'Por MCP',
-    mcpP: 'Os mesmos passos são ferramentas MCP em mcp.dpo2u.com. Sem x_payment a ferramenta devolve payment_required com os requisitos x402; chame de novo com x_payment.',
-    catalog: 'Catálogo ao vivo',
-    institutions: 'É uma instituição financeira? Comece pelo diagnóstico',
-    price: 'USDC por chamada',
-    note: 'Checagens indicativas, não parecer jurídico. Nada pessoal vai à cadeia.',
-  },
 } as const;
 
 interface Catalog { steps: { id: string; price_usdc: string | { passive: string; full: string } }[] }
 
 export default function AgentsPage() {
-  const [lang, setLang] = useState<Lang>(() => (typeof navigator !== 'undefined' && navigator.language?.toLowerCase().startsWith('pt') ? 'pt' : 'en'));
+  const lang: Lang = 'en';
   const [prices, setPrices] = useState<Record<string, string>>({});
   const t = COPY[lang];
 
@@ -87,8 +73,8 @@ export default function AgentsPage() {
   });
 
   useEffect(() => {
-    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
-  }, [lang]);
+    document.documentElement.lang = 'en';
+  }, []);
 
   useEffect(() => {
     fetch(`${GATEWAY_BASE}/api/v1/agent`)
@@ -116,19 +102,6 @@ curl -s -X POST ${GATEWAY_BASE}/api/v1/agent/check \\
       <section className="px-6 lg:px-14 pt-16 pb-10 lg:pt-24" aria-labelledby="ag-hero">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <SmallLabel>{t.tag}</SmallLabel>
-          <div role="group" aria-label="Language" className="flex gap-1">
-            {(['en', 'pt'] as Lang[]).map((l) => (
-              <button
-                key={l}
-                type="button"
-                aria-pressed={lang === l}
-                onClick={() => setLang(l)}
-                style={{ fontFamily: FONTS.mono, fontSize: 12, padding: '6px 10px', borderRadius: 4, cursor: 'pointer', border: `1px solid ${PALETTE.ruleStrong}`, background: lang === l ? PALETTE.ink : 'transparent', color: lang === l ? PALETTE.paper : PALETTE.ink }}
-              >
-                {l.toUpperCase()}
-              </button>
-            ))}
-          </div>
         </div>
         <h1 id="ag-hero" style={{ ...h2, fontSize: 'clamp(34px, 5vw, 60px)', maxWidth: 980 }}>{t.h1}</h1>
         <p style={{ fontSize: 18, lineHeight: 1.55, maxWidth: 760, marginTop: 20, color: PALETTE.inkSoft }}>{t.lead}</p>

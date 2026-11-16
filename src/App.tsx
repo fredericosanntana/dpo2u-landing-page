@@ -71,6 +71,7 @@ const AppProof            = lazy(() => import('@/app/app/proof'));
 // Jornada da instituição financeira (PRD E1/E2): sessão por link mágico, sem carteira.
 const FinancialInstitutionsPage = lazy(() => import('@/app/financial-institutions'));
 const AgentsPage = lazy(() => import('@/app/agents'));
+const AdvisoryPage = lazy(() => import('@/app/advisory'));
 const AuthVerifyPage      = lazy(() => import('@/app/auth/verify'));
 const FiDashboardPage     = lazy(() => import('@/app/app/fi/index'));
 const FiWorkspacePage     = lazy(() => import('@/app/app/fi/workspace'));
@@ -163,6 +164,7 @@ function App() {
                             <Route path="/psav"              element={<PsavLandingPage />} />
                             <Route path="/financial-institutions" element={<FinancialInstitutionsPage />} />
                             <Route path="/agents" element={<AgentsPage />} />
+                            <Route path="/advisory" element={<AdvisoryPage />} />
                             <Route path="/app/review" element={<ReviewQueuePage />} />
                             <Route path="/supervisor/:grant" element={<SupervisorGrantPage />} />
                             <Route path="/avalanche"         element={<AvalanchePage />} />
