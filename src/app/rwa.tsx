@@ -41,6 +41,13 @@ interface Verdict {
   digest?: string;
   policy?: { id: string; version: string; hash: string };
 }
+const CMC_URL = 'https://coinmarketcap.com';
+
+/** Crédito visível da fonte dos dados de mercado, junto dos dados. */
+function CmcCredit() {
+  return <span data-testid="rwa-cmc-credit">Market data: <a href={CMC_URL} target="_blank" rel="noopener noreferrer" style={{ color: TERRA }}>CoinMarketCap</a></span>;
+}
+
 interface Snapshot {
   format: string;
   generated_at: string;
@@ -225,7 +232,7 @@ export default function RwaMonitorPage() {
         </p>
         {snap && (
           <p style={{ ...mono, marginTop: 18, color: PALETTE.concrete, lineHeight: 1.7 }} data-testid="rwa-meta">
-            Snapshot {day(snap.generated_at)} · {snap.summary.tokens} tokens of {snap.summary.assets} assets · reference profile: {profileText} · policy {snap.policy.id}@{snap.policy.version}
+            Snapshot {day(snap.generated_at)} · {snap.summary.tokens} tokens of {snap.summary.assets} assets · reference profile: {profileText} · policy {snap.policy.id}@{snap.policy.version} · <CmcCredit />
           </p>
         )}
       </section>
@@ -281,7 +288,7 @@ export default function RwaMonitorPage() {
               </select>
             </div>
             <p style={{ ...mono, color: PALETTE.concrete, marginTop: 12 }}>
-              {filtered.length} of {rows.length} tokens · signals in policy order: {(policy?.criteria ?? []).map((c) => c.title).join(', ')} · {STATUS_MARK.pass} met {STATUS_MARK.warn} not confirmed {STATUS_MARK.fail} not met
+              {filtered.length} of {rows.length} tokens · signals in policy order: {(policy?.criteria ?? []).map((c) => c.title).join(', ')} · {STATUS_MARK.pass} met {STATUS_MARK.warn} not confirmed {STATUS_MARK.fail} not met · <CmcCredit />
             </p>
             <div style={{ overflowX: 'auto', marginTop: 10, width: '100%', maxWidth: 'calc(100vw - 48px)' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, minWidth: 680 }}>
@@ -376,7 +383,7 @@ export default function RwaMonitorPage() {
                 </>
               )}
               <p style={{ marginTop: 14, color: PALETTE.inkSoft, lineHeight: 1.5 }}>
-                Market data: CoinMarketCap Pro API (real-world assets). Issuers, licences and sale restrictions: the DPO2U issuer registry{registry ? `, reviewed ${registry.reviewed_at}` : ''}. {registry?.method}
+                Market data: <a href={CMC_URL} target="_blank" rel="noopener noreferrer" style={{ color: TERRA }}>CoinMarketCap</a> Pro API (real-world assets). Issuers, licences and sale restrictions: the DPO2U issuer registry{registry ? `, reviewed ${registry.reviewed_at}` : ''}. {registry?.method}
               </p>
               <p style={{ ...mono, marginTop: 12, lineHeight: 1.9 }}>
                 <a href={`${DATA}/policy.json`} style={{ color: TERRA }}>Reference policy (JSON)</a>{' · '}
