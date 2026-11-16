@@ -12,6 +12,7 @@
 //   E2E_SEEDED_ATTEMPT  teste local: tentativa já selada de e2e/fixtures/partner-submit.json
 //   E2E_FULL_SEAL=1     preview: o assistente sela de verdade na rede de teste
 //   E2E_SANCTIONS_PAYLOAD_FILE  JSON da lista de sanções assinada (obrigatório com E2E_FULL_SEAL=1)
+//   E2E_GATED_WORKSPACE + E2E_GATED_API_KEY  opcional: passo 8 transaciona por um workspace com gate deployado
 
 import { createRequire } from 'node:module';
 // require (não import) para achar o Playwright instalado globalmente ou no projeto.
@@ -316,7 +317,11 @@ try {
   await step('8. duas transferências pelo SDK: contraparte com passaporte (PASS) e sem passaporte (FAIL)', async () => {
     const sdkDir = process.env.SDK_DIR ?? path.resolve(process.env.GATEWAY_DIR ?? '../DPO2U/packages/pilot-gateway', '../travel-rule-sdk');
     const { TravelRuleClient } = await import(path.join(sdkDir, 'dist/index.js'));
-    const tr = new TravelRuleClient({ apiKey, baseUrl: GW });
+    // Selo real: as transferências precisam de um workspace com TravelRuleGate deployado. Com
+    // E2E_GATED_WORKSPACE, o passo usa a chave de API desse workspace (E2E_GATED_API_KEY).
+    const gated = process.env.E2E_GATED_WORKSPACE;
+    if (gated && !process.env.E2E_GATED_API_KEY) throw new Error('E2E_GATED_WORKSPACE exige E2E_GATED_API_KEY (chave de API desse workspace)');
+    const tr = new TravelRuleClient({ apiKey: gated ? process.env.E2E_GATED_API_KEY : apiKey, baseUrl: GW });
     const now = Math.floor(Date.now() / 1000);
     // Com selo real o gate confere a assinatura: use uma lista assinada pela chave do provedor de staging.
     const signedFile = process.env.E2E_SANCTIONS_PAYLOAD_FILE;
@@ -334,11 +339,14 @@ try {
     let blocked = false;
     try { await tr.release(bad.id); } catch (e) { blocked = e.status === 409; }
     if (!blocked) throw new Error('a transferência FAIL foi liberada');
-    await page.goto(`${SITE}/app/fi/cases`);
-    await page.waitForSelector(`[data-testid=tr-list] tr[data-verdict=FAIL]`);
-    await page.waitForSelector('article[data-case][data-status=open]');
-    await page.screenshot({ path: path.join(OUT, '08-transferencias.png'), fullPage: true });
-    return { pass: { id: ok.id, latency_ms: ok.latency_ms }, fail: { id: bad.id, reasons: bad.reasons.map((r) => r.code), latency_ms: bad.latency_ms } };
+    // A tela de casos é da licenciada do teste; com workspace com gate as transferências são de outro.
+    if (!gated) {
+      await page.goto(`${SITE}/app/fi/cases`);
+      await page.waitForSelector(`[data-testid=tr-list] tr[data-verdict=FAIL]`);
+      await page.waitForSelector('article[data-case][data-status=open]');
+      await page.screenshot({ path: path.join(OUT, '08-transferencias.png'), fullPage: true });
+    }
+    return { ...(gated ? { gated_workspace: gated } : {}), pass: { id: ok.id, latency_ms: ok.latency_ms }, fail: { id: bad.id, reasons: bad.reasons.map((r) => r.code), latency_ms: bad.latency_ms } };
   });
 
   await step('9. grant para supervisor: aprovador aprova, supervisor baixa o pacote, licenciada revoga, segundo acesso falha, log íntegro', async () => {
