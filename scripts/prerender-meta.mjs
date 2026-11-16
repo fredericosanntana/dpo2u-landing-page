@@ -65,6 +65,16 @@ const ROUTES = [
     description: 'Compliance operator for VASPs, CASPs, PSAVs and payment institutions. Run a free diagnostic of the rules that apply in your market: Brazil, the EU and FATF jurisdictions.',
   },
   {
+    path: '/agents',
+    title: 'For AI agents: check before you pay, pay per call via x402 | DPO2U',
+    description: 'Compliance as a protocol for the machine economy. Counterparty check, LGPD and regulation, due diligence and pentest, paid per call in USDC on Stellar via x402.',
+  },
+  {
+    path: '/advisory',
+    title: 'Web3 compliance advisory: VASP licensing, Travel Rule, MiCA, LGPD | DPO2U',
+    description: 'Compliance and data protection for crypto and Web3 projects: regulatory diagnostic, compliance structuring and a fractional compliance officer, with on-chain proof of each control.',
+  },
+  {
     path: '/avalanche',
     title: 'DPO2U on Avalanche — compliance seals on the C-Chain | DPO2U',
     description: 'DPO2U on Avalanche Fuji: seven verified contracts. SP1 Groth16 proofs verified on the C-Chain, a compliance registry, a conformity passport any contract can check, a Travel Rule gate, proof of reserves and a Midnight relay.',
@@ -240,6 +250,12 @@ const BODY = {
   '/research': `<main ${W}><h1>Compliance as Protocol</h1>
 <p>DPO2U is the research house that ships code. Compliance is exposed through an MCP server and on-chain attestation. The score stays private; the cryptographic proof of conformance is public (selective disclosure / zero-knowledge).</p>
 <p>Coverage spans the 25 jurisdictions of the norms engine, with each rule expressed as a typed, testable primitive anchored to a verifiable on-chain attestation.</p></main>`,
+  '/agents': `<main ${W}><h1>Compliance as a protocol for the machine economy.</h1>
+<p>Your agent checks before it pays. No account and no contract: every step is one HTTP or MCP call, paid per call in USDC on Stellar through x402. The verdict is the receipt and the proof.</p>
+<p>Steps: check the counterparty, the owner's compliance and privacy (LGPD, GDPR, MiCA, Travel Rule), counterparty due diligence, and a pentest after proof of domain ownership. Live catalog: https://mcp.dpo2u.com/api/v1/agent</p></main>`,
+  '/advisory': `<main ${W}><h1>Compliance for crypto projects, from someone who has done it.</h1>
+<p>Web3 compliance advisory: VASP licensing, Travel Rule, MiCA, LGPD and GDPR for dApps. Regulatory diagnostic, compliance structuring and a fractional compliance officer. Price on request: contato@dpo2u.com.</p>
+<p>Advisory on compliance and data protection. Legal opinions are given by your counsel; we work with them.</p></main>`,
   '/financial-institutions': `<main ${W}><h1>For financial institutions</h1>
 <p>DPO2U is a compliance operator for VASPs, CASPs, PSAVs and payment institutions: Travel Rule checks that block before value moves, partner passports reviewed by a named person, and evidence packs a supervisor can open.</p>
 <p>The free diagnostic lists the rule packs that apply in your market (Brazil, the European Union, or the generic FATF Recommendation 16 pack elsewhere) and each gap with its legal citation. It is indicative and not legal advice.</p></main>`,
