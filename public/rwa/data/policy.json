@@ -18,12 +18,51 @@
     "fail": "does_not_meet"
   },
   "criteria": [
-    { "id": "issuer_identified", "title": "Issuer identified", "pass": "Legal entity and jurisdiction found with a source", "warn": "Jurisdiction not found", "fail": "Unknown issuer" },
-    { "id": "issuer_licence", "title": "Issuer licence or registration", "pass": "Found, with a link to the regulator or official document", "warn": "Not found", "fail": "Revoked or suspended" },
-    { "id": "sanctions", "title": "Sanctions (issuer and contracts)", "pass": "No match", "warn": "Not screened or possible match to review", "fail": "Confirmed match" },
-    { "id": "sale_restriction", "title": "Sale restriction for this profile", "pass": "No restriction found for this profile", "warn": "Terms not found", "fail": "Sale barred for this investor type or country" },
-    { "id": "liquidity", "title": "Token liquidity", "pass": "24h volume at or above the minimum", "warn": "Below the minimum", "fail": "No trading" },
-    { "id": "price_consistency", "title": "Token price vs other tokens of the same asset", "pass": "Small deviation", "warn": "Moderate deviation", "fail": "Large deviation" }
+    {
+      "id": "issuer_identified",
+      "title": "Issuer identified",
+      "pass": "Legal entity and jurisdiction found with a source",
+      "warn": "Jurisdiction not found",
+      "fail": "Unknown issuer"
+    },
+    {
+      "id": "issuer_licence",
+      "title": "Issuer licence or registration",
+      "pass": "Found, with a link to the regulator or official document",
+      "warn": "Not found",
+      "fail": "Revoked or suspended"
+    },
+    {
+      "id": "sanctions",
+      "title": "Sanctions (issuer and contracts)",
+      "pass": "No match",
+      "warn": "Not screened or possible match to review",
+      "fail": "Confirmed match"
+    },
+    {
+      "id": "sale_restriction",
+      "title": "Sale restriction for this profile",
+      "pass": "No restriction found for this profile",
+      "warn": "Terms not found",
+      "fail": "Sale barred for this investor type or country"
+    },
+    {
+      "id": "liquidity",
+      "title": "Token liquidity",
+      "pass": "24h volume at or above the minimum",
+      "warn": "Below the minimum",
+      "fail": "No trading"
+    },
+    {
+      "id": "price_consistency",
+      "title": "Token price vs other tokens of the same asset",
+      "pass": "Small deviation",
+      "warn": "Moderate deviation",
+      "fail": "Large deviation"
+    }
   ],
-  "disclaimer": "Due-diligence signals against a published reference policy. Not legal advice, not an investment recommendation and not a credit or asset rating."
+  "disclaimer": "Due-diligence signals against a published reference policy. Not legal advice, not an investment recommendation and not a credit or asset rating.",
+  "limitations": [
+    "This policy does not yet check whether the token is authorized for public offer in the investor's country (for Brazil, registration or exemption with the CVM). 'Meets' means no restriction was found in the issuer's own terms; it does not mean the offer is authorized locally. A criterion for local authorization is under evaluation."
+  ]
 }

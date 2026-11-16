@@ -50,6 +50,7 @@ interface Snapshot {
   assets: { rwa_symbol: string; rwa_name: string; asset_type: string; tokenized_market_cap?: number; verdicts: Verdict[] }[];
   alerts: { token_symbol: string; rwa_symbol: string; kind: string; message: string }[];
   disclaimer: string;
+  limitations?: string[];
 }
 interface Policy {
   id: string; version: string; title: string;
@@ -58,6 +59,7 @@ interface Policy {
   outcomes: Record<string, string>;
   criteria: { id: string; title: string; pass?: string; warn?: string; fail?: string }[];
   disclaimer?: string;
+  limitations?: string[];
 }
 interface Issuer {
   cmc_issuer_name: string; legal_entity?: string | null; jurisdiction?: string | null; regulator?: string | null;
@@ -203,6 +205,8 @@ export default function RwaMonitorPage() {
     return m;
   }, [rows]);
 
+  // Limitações conhecidas (ex.: autorização de oferta local não checada): do snapshot, ou da política.
+  const limitations = snap?.limitations ?? policy?.limitations ?? [];
   const profile = snap?.profile ?? policy?.profile;
   const profileText = profile ? `${profile.client.toUpperCase()} serving ${profile.investor_type} investors in ${COUNTRY[profile.investor_country] ?? profile.investor_country}` : '';
   const mail = `mailto:contato@dpo2u.com?subject=${encodeURIComponent('RWA monitor: data correction')}`;
@@ -251,6 +255,14 @@ export default function RwaMonitorPage() {
               ))}
             </div>
             <p style={{ marginTop: 14, fontSize: 13, color: PALETTE.concrete, maxWidth: 820 }}>{snap.disclaimer} The result says whether a token meets this one published policy for this one profile; another profile or policy can give a different result.</p>
+            {limitations.length > 0 && (
+              <div role="note" data-testid="rwa-limitations" style={{ marginTop: 12, maxWidth: 820, borderLeft: `3px solid ${AMBER}`, padding: '8px 12px', background: PALETTE.paper2 }}>
+                <div style={{ ...mono, color: AMBER }}>What this does not check yet</div>
+                <ul style={{ margin: '6px 0 0', paddingLeft: 18, fontSize: 14, lineHeight: 1.5, color: PALETTE.inkSoft }}>
+                  {limitations.map((l) => <li key={l}>{l}</li>)}
+                </ul>
+              </div>
+            )}
           </section>
 
           <Rule />
