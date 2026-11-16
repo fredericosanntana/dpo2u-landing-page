@@ -75,6 +75,11 @@ const ROUTES = [
     description: 'Compliance and data protection for crypto and Web3 projects: regulatory diagnostic, compliance structuring and a fractional compliance officer, with on-chain proof of each control.',
   },
   {
+    path: '/rwa',
+    title: 'RWA compliance monitor: tokenized assets against a published policy | DPO2U',
+    description: 'Free public monitor of tokenized real-world assets: issuer, licence, sanctions, sale restrictions, liquidity and price, checked daily against a published reference policy, with sources.',
+  },
+  {
     path: '/avalanche',
     title: 'DPO2U on Avalanche — compliance seals on the C-Chain | DPO2U',
     description: 'DPO2U on Avalanche Fuji: seven verified contracts. SP1 Groth16 proofs verified on the C-Chain, a compliance registry, a conformity passport any contract can check, a Travel Rule gate, proof of reserves and a Midnight relay.',
@@ -253,6 +258,9 @@ const BODY = {
   '/agents': `<main ${W}><h1>Compliance as a protocol for the machine economy.</h1>
 <p>Your agent checks before it pays. No account and no contract: every step is one HTTP or MCP call, paid per call in USDC on Stellar through x402. The verdict is the receipt and the proof.</p>
 <p>Steps: check the counterparty, the owner's compliance and privacy (LGPD, GDPR, MiCA, Travel Rule), counterparty due diligence, and a pentest after proof of domain ownership. Live catalog: https://mcp.dpo2u.com/api/v1/agent</p></main>`,
+  '/rwa': `<main ${W}><h1>Tokenized assets, checked against a published policy.</h1>
+<p>Free public monitor of tokenized real-world assets listed by CoinMarketCap. Each token is checked against six criteria of a published reference policy (VASP serving retail investors): issuer identified, issuer licence, sanctions, sale restriction, liquidity and price consistency, with the sources of each result.</p>
+<p>Due-diligence signals against a published reference policy. Not legal advice, not an investment recommendation and not a credit or asset rating. Local offer authorization (for Brazil, CVM registration or exemption) is not checked yet. Issuers can send corrections to contato@dpo2u.com.</p></main>`,
   '/advisory': `<main ${W}><h1>Compliance for crypto projects, from someone who has done it.</h1>
 <p>Web3 compliance advisory: VASP licensing, Travel Rule, MiCA, LGPD and GDPR for dApps. Regulatory diagnostic, compliance structuring and a fractional compliance officer. Price on request: contato@dpo2u.com.</p>
 <p>Advisory on compliance and data protection. Legal opinions are given by your counsel; we work with them.</p></main>`,

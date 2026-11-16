@@ -1,0 +1,710 @@
+{
+  "version": "0.1.0",
+  "reviewed_at": "2026-11-16",
+  "method": "Primary sources only (issuer legal pages, prospectuses, regulator registers). A null field means not found, never assumed. Sale-restriction tags (countries, investor_types, only_countries) are DPO2U's reading of each cited source.",
+  "issuers": [
+    {
+      "cmc_issuer_name": "Backed Assets",
+      "legal_entity": "Backed Assets (JE) Limited",
+      "jurisdiction": "JE",
+      "regulator": "Prospectus approved by Financial Market Authority Liechtenstein (FMA) and passported to EEA states; issuer itself is NOT a regulated entity (registered with Jersey FSC for AML only; JFSC Token Issuance consent explicitly 'does not give the issuer a regulated status').",
+      "licence": {
+        "type": "EU Prospectus Regulation approval (Registration Document + Securities Note / base prospectus) by FMA Liechtenstein; no operating licence",
+        "reference": "Jersey company no. 152608; LEI 984500001AB7C6C7F577; FMA-ID 377027 (prospectus filed 17.11.2025)",
+        "url": "https://www.mfsa.mt/wp-content/uploads/2025/06/Backed-Assets-JE-Limited-Registration-Document-dated-08-May-2025.pdf"
+      },
+      "custodian": "Maerki Baumann & Co. AG (Zurich) and/or InCore Bank AG (Schlieren); Security Agent: Security Agent Services AG (Zug); Tokenizer: Backed Finance AG (Zug) — per Final Terms No.1 (bCSPX, 23 Jul 2024); custodian for each xStock must be confirmed from its own Final Terms",
+      "sale_restrictions": [
+        {
+          "who": "US persons / US citizens / US residents / anyone taxable in the US",
+          "source": "https://assets.backed.fi/geoblock",
+          "countries": [
+            "US"
+          ]
+        },
+        {
+          "who": "Not offered/sold in the United States or to/for benefit of U.S. Persons; transfers only to non-US persons",
+          "source": "https://mfsa.mt/wp-content/uploads/2024/07/Backed-Assets-JE-Limited-Securities-Note-Document-dated-08-May-2024.pdf",
+          "countries": [
+            "US"
+          ]
+        },
+        {
+          "who": "Switzerland: professional investors only (Art. 4(3)-(5) FinSA)",
+          "source": "https://mfsa.mt/wp-content/uploads/2024/07/Backed-Assets-JE-Limited-Securities-Note-Document-dated-08-May-2024.pdf",
+          "countries": [
+            "CH"
+          ],
+          "investor_types": [
+            "retail"
+          ]
+        },
+        {
+          "who": "UK: qualified investors only (UK Prospectus Regulation Art. 2)",
+          "source": "https://mfsa.mt/wp-content/uploads/2024/07/Backed-Assets-JE-Limited-Securities-Note-Document-dated-08-May-2024.pdf",
+          "countries": [
+            "GB"
+          ],
+          "investor_types": [
+            "retail"
+          ]
+        },
+        {
+          "who": "Jersey: only Professional Investors or persons who acknowledged the SPB Order investment warning (JFSC deems unsuitable for other investors)",
+          "source": "https://www.mfsa.mt/wp-content/uploads/2025/06/Backed-Assets-JE-Limited-Registration-Document-dated-08-May-2025.pdf",
+          "countries": [
+            "JE"
+          ],
+          "investor_types": [
+            "retail"
+          ]
+        }
+      ],
+      "sale_terms_complete": true,
+      "products": [
+        "xStocks (e.g. Visa xStock ISIN CH1436219310, TBLL xStock)",
+        "bTokens (e.g. bCSPX, bIB01)"
+      ],
+      "confidence": "high",
+      "notes": "Public offer passported to EEA (AT, DE, FR, IT, ES ... plus IS, NO) under FMA-approved prospectus, so EEA retail is not excluded by the prospectus. Products are Swiss-law tracker certificates. Restricted-country list on terms page not enumerated (not found). Registration Document lists offers 'in the EU, Switzerland and other countries worldwide'.",
+      "sources": [
+        "https://www.mfsa.mt/wp-content/uploads/2025/06/Backed-Assets-JE-Limited-Registration-Document-dated-08-May-2025.pdf",
+        "https://www.mfsa.mt/wp-content/uploads/2025/12/Backed-Assets-JE-Limited-Prospectus-Document-dated-14-November-2025.pdf",
+        "https://mfsa.mt/wp-content/uploads/2024/07/Backed-Assets-JE-Limited-Securities-Note-Document-dated-08-May-2024.pdf",
+        "https://mfsa.mt/wp-content/uploads/2024/09/Backed-Assets-JE-Limited-Final-Terms-Document-No-1-dated-23-July-2024-bCSPX.pdf",
+        "https://assets.backed.fi/geoblock",
+        "https://assets.backed.fi/terms-of-service",
+        "https://assets.backed.fi/products/tbll-xstock"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Ondo Assets",
+      "legal_entity": "Ondo Global Markets (BVI) Limited",
+      "jurisdiction": "VG",
+      "regulator": "Base Prospectus approved by Liechtenstein Financial Markets Authority (FMA) on 11.11.2025; issuer and tokens NOT registered with the BVI Financial Services Commission; issuer states it operates without supervision by any authority. US offering via Regulation S only.",
+      "licence": {
+        "type": "EU Prospectus Regulation base prospectus approval (FMA Liechtenstein); no operating licence",
+        "reference": "Base Prospectus dated 11 November 2025 (company number not stated)",
+        "url": "https://www.mfsa.mt/wp-content/uploads/2025/12/Ondo-Global-Markets-BVI-Limited-Base-Prospectus-Document-dated-11-November-2025.pdf"
+      },
+      "custodian": "Unnamed 'one or more US-registered custodial broker-dealers'; Security Agent and Verification Agent: Ankura Trust Company",
+      "sale_restrictions": [
+        {
+          "who": "US persons (Reg S Rule 902), persons in the US, residents of US states/territories; no resale to US persons",
+          "source": "https://docs.ondo.finance/ondo-global-markets/eligibility",
+          "countries": [
+            "US"
+          ]
+        },
+        {
+          "who": "Prohibited: Afghanistan, Belarus, Canada, Cuba, DPRK, Iran, Libya, Myanmar, Russia, Somalia, South Sudan, Sudan, Syria, Crimea/DNR/LNR/Kherson/Zaporizhzhia/Sevastopol",
+          "source": "https://docs.ondo.finance/ondo-global-markets/eligibility",
+          "countries": [
+            "AF",
+            "BY",
+            "CA",
+            "CU",
+            "KP",
+            "IR",
+            "LY",
+            "MM",
+            "RU",
+            "SO",
+            "SS",
+            "SD",
+            "SY"
+          ]
+        },
+        {
+          "who": "Restricted (professional/qualified/accredited/institutional only): Brazil, EEA member states, Hong Kong, Malaysia, Singapore, Switzerland (not available to individuals), United Kingdom",
+          "source": "https://docs.ondo.finance/ondo-global-markets/eligibility",
+          "countries": [
+            "BR",
+            "HK",
+            "MY",
+            "SG",
+            "CH",
+            "AT",
+            "BE",
+            "BG",
+            "HR",
+            "CY",
+            "CZ",
+            "DK",
+            "EE",
+            "FI",
+            "FR",
+            "DE",
+            "GR",
+            "HU",
+            "IE",
+            "IT",
+            "LV",
+            "LT",
+            "LU",
+            "MT",
+            "NL",
+            "PL",
+            "PT",
+            "RO",
+            "SK",
+            "SI",
+            "ES",
+            "SE",
+            "IS",
+            "LI",
+            "NO"
+          ],
+          "investor_types": [
+            "retail"
+          ]
+        },
+        {
+          "who": "British Virgin Islands: no offer to the public or any person in the BVI",
+          "source": "https://www.mfsa.mt/wp-content/uploads/2025/12/Ondo-Global-Markets-BVI-Limited-Base-Prospectus-Document-dated-11-November-2025.pdf",
+          "countries": [
+            "VG"
+          ]
+        }
+      ],
+      "sale_terms_complete": true,
+      "products": [
+        "Ondo Global Markets",
+        "Ondo Stocks (tokenized stocks/ETFs, e.g. NFLXon)"
+      ],
+      "confidence": "high",
+      "notes": "Tokens governed by Swiss law, arbitration in Zurich. Custodian broker-dealer names not found in pages opened (prospectus section 4.2.2 not extracted). Ondo also runs a separate US custodial product with Broadridge (2026) — not covered here.",
+      "sources": [
+        "https://docs.ondo.finance/ondo-global-markets/eligibility",
+        "https://docs.ondo.finance/ondo-global-markets/legal-and-regulatory",
+        "https://docs.ondo.finance/ondo-global-markets/trust-and-transparency",
+        "https://www.mfsa.mt/wp-content/uploads/2025/12/Ondo-Global-Markets-BVI-Limited-Base-Prospectus-Document-dated-11-November-2025.pdf"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Paxos",
+      "legal_entity": "Paxos Trust Company, National Association",
+      "jurisdiction": "US",
+      "regulator": "Office of the Comptroller of the Currency (OCC); PAXG issued 'pursuant to specific approval from the OCC'",
+      "licence": {
+        "type": "National trust bank charter (converted from New York limited-purpose trust charter on 12 Dec 2025)",
+        "reference": "OCC Charter No. 25379",
+        "url": "https://www.paxos.com/terms-and-conditions/licenses"
+      },
+      "custodian": "Paxos Trust Company itself, holding allocated London Good Delivery bars segregated for PAXG holders in LBMA-approved security carrier vaults (vault operator not named)",
+      "sale_restrictions": [
+        {
+          "who": "Only verified (KYC-onboarded) Customers may purchase, convert or redeem PAXG directly with Paxos; issuance/redemption may be refused where contrary to applicable law",
+          "source": "https://paxos.com/pax-gold-terms-conditions/"
+        },
+        {
+          "who": "Physical redemption: minimum 430 PAXG (one bar) plus fees and extra due diligence",
+          "source": "https://paxos.com/pax-gold-terms-conditions/"
+        }
+      ],
+      "sale_terms_complete": false,
+      "products": [
+        "PAX Gold (PAXG)"
+      ],
+      "confidence": "high",
+      "notes": "No explicit list of restricted jurisdictions or US-person exclusion in the PAXG terms (not found). Paxos Global Pte. Ltd (MAS MPI) acts as a PAXG reseller per terms.",
+      "sources": [
+        "https://paxos.com/pax-gold-terms-conditions/",
+        "https://www.paxos.com/terms-and-conditions/licenses"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Tether Holdings",
+      "legal_entity": "TG Commodities, S.A. de C.V.",
+      "jurisdiction": "SV",
+      "regulator": "Comisión Nacional de Activos Digitales (CNAD), El Salvador",
+      "licence": {
+        "type": "Stablecoin issuer authorization (Art. 5, Regulations for Public Offerings of Stablecoins) + Digital Asset Service Provider (DASP) registration; tokens registered in CNAD Public Registry",
+        "reference": "DASP registration PSAD-0032",
+        "url": "https://gold.tether.to/Relevant%20Information%20Document%20-%20TG%20Commodities,%20S.A.%20de%20C.V.%20(ENG).pdf"
+      },
+      "custodian": "Unnamed Swiss related-party custodian; vault in Switzerland (LBMA Good Delivery bars)",
+      "sale_restrictions": [
+        {
+          "who": "Prohibited Persons as defined in the Terms (definition/country list not retrievable: gold.tether.to/legal requires JavaScript)",
+          "source": "https://gold.tether.to/Relevant%20Information%20Document%20-%20TG%20Commodities,%20S.A.%20de%20C.V.%20(ENG).pdf"
+        },
+        {
+          "who": "Primary purchases only by KYC-verified customers; minimum purchase 50 XAUt; redemption in whole bars (generally >=430 XAUt)",
+          "source": "https://gold.tether.to/Relevant%20Information%20Document%20-%20TG%20Commodities,%20S.A.%20de%20C.V.%20(ENG).pdf"
+        }
+      ],
+      "sale_terms_complete": false,
+      "products": [
+        "Tether Gold (XAUt)"
+      ],
+      "confidence": "medium",
+      "notes": "Relevant Information Document dated 27 Jan 2025; confirmed by tether.io press release of 4 May 2026. Specific restricted countries / US-person treatment not found (Terms page not renderable). Custodian name not found.",
+      "sources": [
+        "https://gold.tether.to/Relevant%20Information%20Document%20-%20TG%20Commodities,%20S.A.%20de%20C.V.%20(ENG).pdf",
+        "https://tether.io/?p=2603",
+        "https://gold.tether.to/legal"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Robinhood",
+      "legal_entity": "Robinhood Europe, UAB",
+      "jurisdiction": "LT",
+      "regulator": "Bank of Lithuania (Lietuvos bankas)",
+      "licence": {
+        "type": "Category A financial brokerage firm licence (MiFID investment firm); also CASP (MiCA) licence and payment institution licence",
+        "reference": "Company code 306377915; brokerage licence ID 2250 (from 2025-04-03); CASP licence ID 2256 (from 2025-05-29); PI licence ID 2302 (from 2026-03-12)",
+        "url": "https://www.lb.lt/en/sfi-financial-market-participants/robinhood-europe-uab"
+      },
+      "custodian": null,
+      "sale_restrictions": [
+        {
+          "who": "Non-EU/EEA residents (services only for eligible EU/EEA residents, 18+)",
+          "source": "https://cdn.robinhood.com/assets/robinhood/legal/historical/eu-crypto-user-agreement_20251212143141.pdf",
+          "only_countries": [
+            "AT",
+            "BE",
+            "BG",
+            "HR",
+            "CY",
+            "CZ",
+            "DK",
+            "EE",
+            "FI",
+            "FR",
+            "DE",
+            "GR",
+            "HU",
+            "IE",
+            "IT",
+            "LV",
+            "LT",
+            "LU",
+            "MT",
+            "NL",
+            "PL",
+            "PT",
+            "RO",
+            "SK",
+            "SI",
+            "ES",
+            "SE",
+            "IS",
+            "LI",
+            "NO"
+          ]
+        },
+        {
+          "who": "U.S. persons (IRC 7701(a)(30)) must not use the services",
+          "source": "https://cdn.robinhood.com/assets/robinhood/legal/historical/eu-crypto-user-agreement_20251212143141.pdf",
+          "countries": [
+            "US"
+          ]
+        },
+        {
+          "who": "Natural persons only (no institutional/corporate accounts)",
+          "source": "https://cdn.robinhood.com/assets/robinhood/legal/historical/description_of_services_financial_instruments_and_risks_eu_20250804120024.pdf",
+          "investor_types": [
+            "institutional"
+          ]
+        },
+        {
+          "who": "Target market: informed retail investors with knowledge/experience; complex product",
+          "source": "https://cdn.robinhood.com/assets/robinhood/legal/historical/stock_tokens_kid_eu_2026-06-30-142754.pdf"
+        }
+      ],
+      "sale_terms_complete": true,
+      "products": [
+        "Robinhood Stock Tokens (Classic Stock Tokens) — OTC cash-settled derivatives on US stocks/ETFs"
+      ],
+      "confidence": "high",
+      "notes": "Stock Tokens are derivatives with Robinhood Europe as counterparty, not securities issued by an SPV; no prospectus, KID under PRIIPs. Robinhood hedges 1:1 by buying underlying for own account; custodian of hedge not named (not found).",
+      "sources": [
+        "https://cdn.robinhood.com/assets/robinhood/legal/historical/stock_tokens_kid_eu_2026-06-30-142754.pdf",
+        "https://cdn.robinhood.com/assets/robinhood/legal/historical/description_of_services_financial_instruments_and_risks_eu_20250804120024.pdf",
+        "https://cdn.robinhood.com/assets/robinhood/legal/historical/eu-crypto-user-agreement_20251212143141.pdf",
+        "https://robinhood.com/eu/lt/support/robinhood-crypto/stock-tokens/",
+        "https://robinhood.com/eu/en/support/articles/public-stock-token-giveaway/",
+        "https://www.lb.lt/en/sfi-financial-market-participants/robinhood-europe-uab"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Dinari Assets",
+      "legal_entity": "Dinari, Inc. (seller under dShares/Dinari Tokens T&C for non-US); US customer accounts via Dinari Securities, LLC",
+      "jurisdiction": "US",
+      "regulator": "SEC / FINRA (Dinari Securities, LLC registered broker-dealer); non-US sales under Regulation S exemption",
+      "licence": {
+        "type": "Broker-dealer registration (SEC/FINRA member) for Dinari Securities, LLC",
+        "reference": "CRD #329672",
+        "url": "https://docs.dinari.com/docs/us"
+      },
+      "custodian": null,
+      "sale_restrictions": [
+        {
+          "who": "Non-US T&C: US (incl. territories), PRC, Canada, DPRK, Cuba, Syria, Iran, Sudan, Crimea and FATF-listed jurisdictions excluded; purchasers must be non-US persons (Reg S)",
+          "source": "https://assets.dinari.com/forms/Dinari_dShares_Terms_and_Conditions_20241124.pdf",
+          "countries": [
+            "US",
+            "CN",
+            "CA",
+            "KP",
+            "CU",
+            "SY",
+            "IR",
+            "SD"
+          ]
+        },
+        {
+          "who": "Unsupported countries (platform): Afghanistan, Belarus, BiH, CAR, Croatia, Cuba, DRC, Ethiopia, Guinea-Bissau, Iran, Iraq, Kosovo, Lebanon, Libya, North Macedonia, Mali, Montenegro, Myanmar, Nicaragua, DPRK, Russia, Serbia, Slovenia, Somalia, South Sudan, Sudan, Syria, Ukraine, Venezuela, Yemen, Zimbabwe; Canada pending licensing",
+          "source": "https://docs.dinari.com/docs/restrictions"
+        },
+        {
+          "who": "US customers: private/unregistered assets (private credit funds, index tokens) accredited investors only",
+          "source": "https://docs.dinari.com/docs/us"
+        }
+      ],
+      "sale_terms_complete": false,
+      "products": [
+        "dShares",
+        "USD+ / stUSD+"
+      ],
+      "confidence": "medium",
+      "notes": "Exact issuing entity of dShares not stated explicitly in pages opened; T&C (Nov 2024) names Dinari, Inc. as seller. State of incorporation of Dinari, Inc. not found. Custodian not named (Alpaca Securities LLC is clearing broker for US accounts). The two restriction lists differ (Croatia/Slovenia etc. on docs page); docs page is newer.",
+      "sources": [
+        "https://docs.dinari.com/docs/us",
+        "https://docs.dinari.com/docs/restrictions",
+        "https://docs.dinari.com/user-guide/unsupported-countries",
+        "https://assets.dinari.com/forms/Dinari_dShares_Terms_and_Conditions_20241124.pdf"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Superstate Assets",
+      "legal_entity": "Superstate Short Duration US Government Securities Fund, a series of Superstate Asset Trust (USTB)",
+      "jurisdiction": "US",
+      "regulator": "SEC: private fund relying on Investment Company Act s.3(c)(1)/3(c)(7) (Form D); Superstate Advisers LLC is an SEC-registered investment adviser; Superstate Services LLC is an SEC-registered transfer agent",
+      "licence": {
+        "type": "Form D exempt offering (private fund)",
+        "reference": "CIK 0002004367; accession 0002004367-24-000001",
+        "url": "https://www.sec.gov/Archives/edgar/data/2004367/000200436724000001/0002004367-24-000001-index.html"
+      },
+      "custodian": "The Bank of New York Mellon",
+      "sale_restrictions": [
+        {
+          "who": "Only Accredited Investors and Qualified Purchasers that are US residents (USTB page)",
+          "source": "https://www.superstate.com/ustb",
+          "investor_types": [
+            "retail"
+          ],
+          "only_countries": [
+            "US"
+          ]
+        },
+        {
+          "who": "Only allowlisted wallets after AML/KYC; offers only where permitted by law",
+          "source": "https://superstate.com/terms"
+        }
+      ],
+      "sale_terms_complete": true,
+      "products": [
+        "USTB",
+        "USCC"
+      ],
+      "confidence": "medium",
+      "notes": "superstate.com/ustb now presents the fund as 'Invesco Short Duration US Government Securities Fund' with Invesco Advisers, Inc. as investment manager (CUSIP 86851T204) — differs from 2024 EDGAR name; re-verify current Form D. Superstate 'Opening Bell' tokenized equities not researched. IAPD entry not retrievable (CRD 336188 seen only in third-party sites, not verified).",
+      "sources": [
+        "https://www.superstate.com/ustb",
+        "https://superstate.com/terms",
+        "https://www.sec.gov/Archives/edgar/data/2004367/000200436724000001/0002004367-24-000001-index.html"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Fidelity Investments Assets",
+      "legal_entity": "Fidelity Treasury Digital Fund (OnChain class, FYOXX), a series of Fidelity Hereford Street Trust",
+      "jurisdiction": "US",
+      "regulator": "SEC — registered open-end investment company (money market fund) under the Investment Company Act of 1940; adviser Fidelity Management & Research Company LLC",
+      "licence": {
+        "type": "SEC-registered fund (Form N-1A prospectus, 485BPOS / 497K)",
+        "reference": "Fidelity Hereford Street Trust, CIK 917286",
+        "url": "https://www.sec.gov/Archives/edgar/data/917286/000113322825007435/ftdf-efp16749_485bpos.htm"
+      },
+      "custodian": null,
+      "sale_restrictions": [
+        {
+          "who": "Offered to certain institutional investors who complete an application; minimum initial investment USD 1,000,000",
+          "source": "https://www.sec.gov/Archives/edgar/data/917286/000113322825007437/ftdf-efp16750_497k.htm",
+          "investor_types": [
+            "retail"
+          ]
+        },
+        {
+          "who": "Offered to US residents (and certain approved non-US investors); only transfer-agent-created/approved wallets may hold; no peer-to-peer transfers",
+          "source": "https://www.sec.gov/Archives/edgar/data/917286/000113322825007435/ftdf-efp16749_485bpos.htm"
+        }
+      ],
+      "sale_terms_complete": true,
+      "products": [
+        "Fidelity Treasury Digital Fund OnChain class (FDIT / FYOXX)"
+      ],
+      "confidence": "high",
+      "notes": "Retail effectively excluded (institutional, $1m min). Transfer agent and custodian names not found in the prospectus text opened (likely in SAI). Ethereum used for secondary recordkeeping.",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/917286/000113322825007437/ftdf-efp16750_497k.htm",
+        "https://www.sec.gov/Archives/edgar/data/917286/000113322825007435/ftdf-efp16749_485bpos.htm"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Matrixdock",
+      "legal_entity": null,
+      "jurisdiction": null,
+      "regulator": null,
+      "licence": null,
+      "custodian": "Brink's Hong Kong, Brink's Singapore, Malca-Amit Singapore (per BIT Group affiliate page, not issuer legal doc)",
+      "sale_restrictions": null,
+      "sale_terms_complete": false,
+      "products": [
+        "Matrixdock Gold (XAUm)",
+        "STBT"
+      ],
+      "confidence": "low",
+      "notes": "not found: issuer legal entity, jurisdiction, regulator, licence and sale restrictions. matrixdock.com pages expose no legal entity/terms; gitbook docs redirect to login; blog pages fail to load. bit.com (BIT Group, Matrixdock parent) describes Matrixdock as BIT Group's RWA arm with issuer jurisdiction 'Singapore / Hong Kong' — affiliate source, not used as fact. Mint/redeem is 'permissioned'; eligibility criteria not found.",
+      "sources": [
+        "https://www.matrixdock.com/xaum",
+        "https://www.matrixdock.com/",
+        "https://www.bit.com/knowledge-hub/matrixdock-gold-xaum"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Kinesis Assets",
+      "legal_entity": "Kinesis Cayman (native KAU/KAG on Kinesis Currency Network); KMS Labs S.A. (Panama, co. no. 155772003) issues ERC-20 KAU/KAG",
+      "jurisdiction": "KY",
+      "regulator": "Cayman Islands Monetary Authority (CIMA) — Kinesis Cayman registered as Virtual Asset Service Provider",
+      "licence": {
+        "type": "VASP registration (Cayman Islands)",
+        "reference": "1877923",
+        "url": "https://kinesis.money/about-us/documents/trust-security-detailed-overview/"
+      },
+      "custodian": "Allocated Bullion Exchange (ABX, ACN 149 681 489) with vaulting by Loomis Zurich and Brink's; Kinesis acts as bailee",
+      "sale_restrictions": [
+        {
+          "who": "Persons located in, citizens or residents of jurisdictions where use is unlawful or where Kinesis decides to prohibit access (no country list published in terms)",
+          "source": "https://kinesis.money/about-us/documents/terms-of-use/"
+        }
+      ],
+      "sale_terms_complete": false,
+      "products": [
+        "KAU (gold)",
+        "KAG (silver)"
+      ],
+      "confidence": "medium",
+      "notes": "VASP registration number comes from Kinesis website footer, not verified on CIMA register (not opened). KMS Labs S.A. regulator not found. No explicit US-person ban found.",
+      "sources": [
+        "https://kinesis.money/about-us/documents/terms-of-use/",
+        "https://kinesis.money/about-us/documents/trust-security-detailed-overview/",
+        "https://kinesis.money/resources/Kinesis-Terms-and-Conditions.pdf"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Coinbase",
+      "legal_entity": "Coinbase Onchain SPV Ltd",
+      "jurisdiction": "AE",
+      "regulator": "ADGM Financial Services Regulatory Authority (FSRA) as Listing Authority approved prospectus (3 Sep 2026)",
+      "licence": {
+        "type": "ADGM prospectus approval (securities not admitted to trading)",
+        "reference": "ADGM company number 37941",
+        "url": "https://www.adgm.com/globalassets/market-disclosure/content/prospectus/coinbase-onchain-spv-ltd---prospectus-amznc---3sept2026_09_03_2026_15-22-16.pdf"
+      },
+      "custodian": "Alpaca Securities LLC (Deposited Underlying); issuer holds as bare trustee under Deed of Trust",
+      "sale_restrictions": [
+        {
+          "who": "US / US persons",
+          "source": "https://www.adgm.com/globalassets/market-disclosure/content/prospectus/coinbase-onchain-spv-ltd---prospectus-amznc---3sept2026_09_03_2026_15-22-16.pdf",
+          "countries": [
+            "US"
+          ]
+        },
+        {
+          "who": "Primary offer only to Authorised Participants (Professional Clients / Market Counterparties); prospectus not for distribution outside ADGM",
+          "source": "https://www.adgm.com/globalassets/market-disclosure/content/prospectus/coinbase-onchain-spv-ltd---prospectus-amznc---3sept2026_09_03_2026_15-22-16.pdf",
+          "investor_types": [
+            "retail"
+          ]
+        }
+      ],
+      "sale_terms_complete": true,
+      "products": [
+        "CB Certificates (e.g. Amazon CB Certificates AMZNC, SNDKC)"
+      ],
+      "confidence": "medium",
+      "notes": "Jurisdiction ADGM (Abu Dhabi), UAE. Best-effort; one per-security prospectus reviewed.",
+      "sources": [
+        "https://www.adgm.com/globalassets/market-disclosure/content/prospectus/coinbase-onchain-spv-ltd---prospectus-amznc---3sept2026_09_03_2026_15-22-16.pdf"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Republic",
+      "legal_entity": "RepublicX LLC",
+      "jurisdiction": null,
+      "regulator": "US exempt offerings (Reg D, Reg S; Reg CF 'coming soon'); securities activity via OpenDeal Broker LLC (registered broker-dealer)",
+      "licence": {
+        "type": "Reg D / Reg S / Reg CF exemptions",
+        "reference": null,
+        "url": "https://republic.com/mirror"
+      },
+      "custodian": null,
+      "sale_restrictions": [
+        {
+          "who": "Eligibility may vary by local regulation (no list); 12-month resale/transfer lock; for OpenDeal Broker offerings investors may be restricted to accredited or non-US persons",
+          "source": "https://republic.com/mirror"
+        }
+      ],
+      "sale_terms_complete": false,
+      "products": [
+        "Mirror Tokens (e.g. rSpaceX)"
+      ],
+      "confidence": "low",
+      "notes": "Jurisdiction of RepublicX LLC not found; custodian not found; no Form D/C opened. Page says no accreditation required for Mirror Tokens.",
+      "sources": [
+        "https://republic.com/mirror"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "VNX",
+      "legal_entity": "VNX Commodities AG",
+      "jurisdiction": "LI",
+      "regulator": "Financial Market Authority Liechtenstein (FMA) — registered under TVTG (Blockchain Act)",
+      "licence": {
+        "type": "TT Service Provider registrations: Token Generator, TT Exchange Service Provider, TT Token Depositary, TT Key Depositary, TT Depositary, TT Identity Service Provider",
+        "reference": "Commercial register FL-0002.654.271-8 (FMA register entry not retrievable)",
+        "url": "https://faq.vnx.li/en/articles/5778335-what-licenses-does-vnx-commodities-ag-have"
+      },
+      "custodian": "Philoro Edelmetallhandel AG, Eschen, Liechtenstein (gold for VNXAU)",
+      "sale_restrictions": null,
+      "sale_terms_complete": false,
+      "products": [
+        "VNX Gold (VNXAU)",
+        "VNX fiat-referenced tokens (e.g. VCHF, VEUR)"
+      ],
+      "confidence": "medium",
+      "notes": "Sale restrictions not found. MiCA status of fiat tokens not verified.",
+      "sources": [
+        "https://faq.vnx.li/en/articles/5778335-what-licenses-does-vnx-commodities-ag-have",
+        "https://vnx.li/imprint/",
+        "https://vnx.li/wp-content/uploads/2026/03/VNX_Examination_on_Management_Assertions_VNXAU_31_12_2025_signiert.pdf",
+        "https://vnx.li/regulated-in-liechtenstein-vnx-announces-tokenization-platform-for-precious-metals/"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Comtech Gold",
+      "legal_entity": "ComTech FZCO",
+      "jurisdiction": "AE",
+      "regulator": null,
+      "licence": null,
+      "custodian": "Gold in DMCC-approved vaults (TransGuard per company press release), backed by DMCC Tradeflow warrants",
+      "sale_restrictions": null,
+      "sale_terms_complete": false,
+      "products": [
+        "ComTech Gold (CGO)"
+      ],
+      "confidence": "low",
+      "notes": "not found: regulator/licence and sale restrictions. Entity name from 2022 company press release (Business Wire), not legal terms; comtechgold.com renders no content. Only Shariah certification (Amanie Advisors) and DMCC partnership found.",
+      "sources": [
+        "https://www.businesswire.com/news/home/20220926005591/en",
+        "https://mediaoffice.ae/en/news/2022/November/21-10/DMCC-digitises-gold",
+        "https://comtechgold.com/"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "Swarm Assets",
+      "legal_entity": null,
+      "jurisdiction": null,
+      "regulator": null,
+      "licence": null,
+      "custodian": null,
+      "sale_restrictions": [
+        {
+          "who": "US persons cannot transact on Swarm; identities from non-serviced countries excluded",
+          "source": "https://docs.swarm.com/llms-full.txt",
+          "countries": [
+            "US"
+          ]
+        }
+      ],
+      "sale_terms_complete": false,
+      "products": [
+        "Swarm tokenized stocks (AAPL, TSLA, NVDA, etc.)",
+        "TBONDS01/TBONDS13",
+        "xGOLD"
+      ],
+      "confidence": "low",
+      "notes": "not found: legal issuer of tokenized assets. Docs name platform provider Swarm Capital GmbH (Vaduz, LI, FL-0002.608.155-1) and Swarm Markets as a ZAG technical service provider; custodians unnamed. Historic BaFin licensing claims seen only in press, not verified.",
+      "sources": [
+        "https://docs.swarm.com/llms-full.txt"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "bStocks",
+      "legal_entity": "BTech Holdings Limited",
+      "jurisdiction": null,
+      "regulator": "ADGM FSRA approved prospectuses; bStocks admitted to the FSRA Official List",
+      "licence": {
+        "type": "ADGM approved prospectus / FSRA Official List admission",
+        "reference": null,
+        "url": "https://www.binance.com/learn/bstocks"
+      },
+      "custodian": null,
+      "sale_restrictions": [
+        {
+          "who": "US, US persons and anyone transacting from within the US; only eligible users in permitted jurisdictions (secondary market)",
+          "source": "https://www.binance.com/learn/bstocks",
+          "countries": [
+            "US"
+          ]
+        }
+      ],
+      "sale_terms_complete": false,
+      "products": [
+        "bStocks"
+      ],
+      "confidence": "low",
+      "notes": "Binance group affiliate issuer. Jurisdiction of BTech Holdings Limited not stated (not found); prospectus on ADGM site not opened. Custodian unnamed.",
+      "sources": [
+        "https://www.binance.com/learn/bstocks"
+      ],
+      "reviewed_at": "2026-11-16"
+    },
+    {
+      "cmc_issuer_name": "PreStocks Assets",
+      "legal_entity": null,
+      "jurisdiction": null,
+      "regulator": null,
+      "licence": null,
+      "custodian": null,
+      "sale_restrictions": null,
+      "sale_terms_complete": false,
+      "products": [
+        "PreStocks (tokenized pre-IPO exposure via SPVs, e.g. SpaceX, OpenAI, Anthropic)"
+      ],
+      "confidence": "low",
+      "notes": "not found: no primary legal document located. Third-party FAQ (Bleap) describes tokens as backed 1:1 by SPV exposure; SPV and issuer unnamed.",
+      "sources": [
+        "https://help.bleap.finance/en/articles/15381796-prestocks-faqs"
+      ],
+      "reviewed_at": "2026-11-16"
+    }
+  ]
+}
