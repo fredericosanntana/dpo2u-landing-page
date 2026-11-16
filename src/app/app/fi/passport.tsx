@@ -68,7 +68,7 @@ export default function FiPassportPage() {
         await wait(2000);
         att = await passportApi.attempt(sub.attempt_id);
       }
-      if (att.status !== 'COMPLETED') throw new Error(att.status === 'FAILED' ? `O selo falhou: ${att.error ?? ''}` : 'O selo ainda não terminou. Tente de novo em alguns minutos.');
+      if (att.status !== 'COMPLETED') throw new Error(att.status === 'FAILED' ? `O selo falhou: ${typeof att.error === 'string' ? att.error : (att.error?.message ?? att.error?.code ?? '')}` : 'O selo ainda não terminou. Tente de novo em alguns minutos.');
       setBusy('Preparando o pedido…');
       const prep = await passportApi.prepare(sub.attempt_id, body);
       await passportApi.requestReview(prep.run_id, tier);

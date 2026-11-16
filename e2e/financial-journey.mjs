@@ -11,6 +11,8 @@
 //   E2E_OPERATOR_KEY    chave de API do operador (fila de revisão)
 //   E2E_SEEDED_ATTEMPT  teste local: tentativa já selada de e2e/fixtures/partner-submit.json
 //   E2E_FULL_SEAL=1     preview: o assistente sela de verdade na rede de teste
+//   E2E_SANCTIONS_PAYLOAD_FILE  JSON da lista de sanções assinada (obrigatório com E2E_FULL_SEAL=1)
+//   E2E_GATED_WORKSPACE + E2E_GATED_API_KEY  opcional: passo 8 transaciona por um workspace com gate deployado
 
 import { createRequire } from 'node:module';
 // require (não import) para achar o Playwright instalado globalmente ou no projeto.
@@ -55,13 +57,44 @@ async function seededPassportFor(pg, attemptId, opKey) {
     return { ...rq, toReview: prep.b.to_review };
   }, { gw: GW, attempt: attemptId, body: seededBody(attemptId) });
   if (res.s !== 201) throw new Error(`pedido de revisão: ${res.s} ${JSON.stringify(res.b)}`);
+  return signReview(res.b.id, res.toReview, opKey);
+}
+
+// Selo real: preenche o assistente de passaporte e manda selar (o documento já foi escolhido).
+async function wizardSeal(pg, doc, partner) {
+  await pg.fill('input[name=partner]', partner);
+  await pg.fill('input[name=service_scope]', 'Onboarding (fictício)');
+  for (const d of ['due_diligence', 'client_disclosure', 'director_designation', 'partner_kyc']) await pg.setInputFiles(`input[name=doc_${d}]`, doc);
+  for (const c of ['acts_on_behalf', 'no_direct_charge', 'bcb_access']) await pg.check(`input[name=clause_${c}]`);
+  await pg.getByRole('button', { name: 'Selar e pedir revisão' }).click();
+}
+
+// Selo real para os outros workspaces (prestador no passo 5, contraparte no 7): o assistente sela
+// na rede e o revisor assina pela API do operador, como no seededPassportFor.
+async function fullSealPassportFor(pg, label, opKey) {
+  await pg.goto(`${SITE}/app/fi/passport`);
+  await pg.getByRole('button', { name: 'Reject All' }).click({ timeout: 3000 }).catch(() => {});
+  await pg.waitForSelector('text=Novo passaporte de parceiro');
+  const tmp = path.join(OUT, `doc-ficticio-${label}.txt`);
+  fs.writeFileSync(tmp, `documento fictício ${label}`);
+  await pg.setInputFiles('input[name=doc_contract]', tmp);
+  await pg.waitForSelector('text=/sha256 [0-9a-f]{16}/');
+  await wizardSeal(pg, tmp, `parceiro-ficticio-${label}`);
+  await pg.waitForSelector('[data-testid=pp-requests] tr[data-status=pending]', { timeout: 180_000 });
+  const mine = await pg.evaluate(async (gw) => (await fetch(`${gw}/api/v1/psav/review-requests`, { credentials: 'include' })).json(), GW);
+  const rq = mine.requests.find((r) => r.status === 'pending');
+  if (!rq) throw new Error('sem pedido de revisão pendente');
+  return signReview(rq.id, rq.to_review, opKey);
+}
+
+async function signReview(requestId, toReview, opKey) {
   const { publicKey, privateKey } = generateKeyPairSync('ed25519');
   const op = { 'content-type': 'application/json', 'x-api-key': opKey };
   const reg = await (await fetch(`${GW}/api/v1/psav/reviewers`, { method: 'POST', headers: op, body: JSON.stringify({ name: 'Revisor Ficticio', public_key_pem: publicKey.export({ type: 'spki', format: 'pem' }) }) })).json();
-  const verdicts = Object.fromEntries(res.toReview.map((x) => [x.id, 'PASS']));
-  const pl = await (await fetch(`${GW}/api/v1/review/requests/${res.b.id}/payload`, { method: 'POST', headers: op, body: JSON.stringify({ verdicts }) })).json();
+  const verdicts = Object.fromEntries(toReview.map((x) => [x.id, 'PASS']));
+  const pl = await (await fetch(`${GW}/api/v1/review/requests/${requestId}/payload`, { method: 'POST', headers: op, body: JSON.stringify({ verdicts }) })).json();
   const signature = sign(null, Buffer.from(pl.payload), privateKey).toString('base64');
-  const d = await fetch(`${GW}/api/v1/review/requests/${res.b.id}/decision`, { method: 'POST', headers: op, body: JSON.stringify({ reviewer_id: reg.reviewer_id, verdicts, signature }) });
+  const d = await fetch(`${GW}/api/v1/review/requests/${requestId}/decision`, { method: 'POST', headers: op, body: JSON.stringify({ reviewer_id: reg.reviewer_id, verdicts, signature }) });
   if (d.status !== 201) throw new Error(`decisão: ${d.status}`);
   return (await d.json()).passport.id;
 }
@@ -144,11 +177,7 @@ try {
     await page.setInputFiles('input[name=doc_contract]', tmp);
     await page.waitForSelector('text=/sha256 [0-9a-f]{16}/');
     if (process.env.E2E_FULL_SEAL === '1') {
-      await page.fill('input[name=partner]', `parceiro-ficticio-${run}`);
-      await page.fill('input[name=service_scope]', 'Onboarding (fictício)');
-      for (const d of ['due_diligence', 'client_disclosure', 'director_designation', 'partner_kyc']) await page.setInputFiles(`input[name=doc_${d}]`, tmp);
-      for (const c of ['acts_on_behalf', 'no_direct_charge', 'bcb_access']) await page.check(`input[name=clause_${c}]`);
-      await page.getByRole('button', { name: 'Selar e pedir revisão' }).click();
+      await wizardSeal(page, tmp, `parceiro-ficticio-${run}`);
     } else {
       // Local: o selo na rede é substituído pela tentativa semeada; o resto segue o mesmo caminho do assistente.
       const body = seededBody(process.env.E2E_SEEDED_ATTEMPT);
@@ -232,7 +261,8 @@ try {
     await pp.waitForSelector('#fi-signup [role=status]');
     await pp.goto(linkFor(PARTNER));
     await pp.waitForURL(/\/app\/fi/);
-    if (process.env.E2E_FULL_SEAL !== '1') await seededPassportFor(pp, `${process.env.E2E_SEEDED_ATTEMPT}-partner`, OP);
+    if (process.env.E2E_FULL_SEAL === '1') await fullSealPassportFor(pp, `${run}-prestador`, OP);
+    else await seededPassportFor(pp, `${process.env.E2E_SEEDED_ATTEMPT}-partner`, OP);
     await pp.goto(`${SITE}/app/fi/sponsorships`);
     await pp.getByRole('button', { name: 'Aceitar e compartilhar o status' }).click();
     await pp.waitForSelector('[data-testid=sp-msg]:has-text("Patrocínio ativo.")');
@@ -279,7 +309,7 @@ try {
     await cp.goto(linkFor(CPTY));
     await cp.waitForURL(/\/app\/fi/);
     // O fluxo guiado de passaporte cobre hoje o pacote de parceiro BR; a contraparte usa o mesmo caminho.
-    cptyPassport = process.env.E2E_FULL_SEAL === '1' ? null : await seededPassportFor(cp, `${process.env.E2E_SEEDED_ATTEMPT}-cpty`, OP);
+    cptyPassport = process.env.E2E_FULL_SEAL === '1' ? await fullSealPassportFor(cp, `${run}-contraparte`, OP) : await seededPassportFor(cp, `${process.env.E2E_SEEDED_ATTEMPT}-cpty`, OP);
     await cc.close();
     return { passport: cptyPassport, note: 'pacote FATF genérico aparece no diagnóstico; passaporte pelo fluxo de parceiro' };
   });
@@ -287,9 +317,19 @@ try {
   await step('8. duas transferências pelo SDK: contraparte com passaporte (PASS) e sem passaporte (FAIL)', async () => {
     const sdkDir = process.env.SDK_DIR ?? path.resolve(process.env.GATEWAY_DIR ?? '../DPO2U/packages/pilot-gateway', '../travel-rule-sdk');
     const { TravelRuleClient } = await import(path.join(sdkDir, 'dist/index.js'));
-    const tr = new TravelRuleClient({ apiKey, baseUrl: GW });
+    // Selo real: as transferências precisam de um workspace com TravelRuleGate deployado. Com
+    // E2E_GATED_WORKSPACE, o passo usa a chave de API desse workspace (E2E_GATED_API_KEY).
+    const gated = process.env.E2E_GATED_WORKSPACE;
+    if (gated && !process.env.E2E_GATED_API_KEY) throw new Error('E2E_GATED_WORKSPACE exige E2E_GATED_API_KEY (chave de API desse workspace)');
+    const tr = new TravelRuleClient({ apiKey: gated ? process.env.E2E_GATED_API_KEY : apiKey, baseUrl: GW });
     const now = Math.floor(Date.now() / 1000);
-    const sanctions = { provider_id: 'screening-lists', list_root: 'ab'.repeat(32), issued_at: now - 60, valid_until: now + 86400, signature: { announcement: { x: '01', y: '02' }, response: '03' } };
+    // Com selo real o gate confere a assinatura: use uma lista assinada pela chave do provedor de staging.
+    const signedFile = process.env.E2E_SANCTIONS_PAYLOAD_FILE;
+    if (process.env.E2E_FULL_SEAL === '1' && !signedFile) throw new Error('E2E_FULL_SEAL=1 exige E2E_SANCTIONS_PAYLOAD_FILE (lista de sanções assinada)');
+    const sanctions = signedFile
+      ? JSON.parse(fs.readFileSync(signedFile, 'utf-8'))
+      : { provider_id: 'screening-lists', list_root: 'ab'.repeat(32), issued_at: now - 60, valid_until: now + 86400, signature: { announcement: { x: '01', y: '02' }, response: '03' } };
+    if (sanctions.valid_until <= now) throw new Error('a lista de sanções assinada venceu; gere outra');
     const parties = { originator: { name: 'Cliente Ficticio', account: 'acct-ficticia', customer_id: 'cli-1' }, beneficiary: { name: 'Beneficiario Ficticio', wallet_address: '0xficticio' } };
     const ok = await tr.evaluate({ transfer_ref: `e2e-${run}-pass`, amount_usd: 5000, market: 'BR', counterparty: { type: 'vasp', passport_id: cptyPassport }, ...parties, sanctions });
     if (ok.verdict !== 'PASS') throw new Error(`esperava PASS: ${JSON.stringify(ok.reasons)}`);
@@ -299,11 +339,14 @@ try {
     let blocked = false;
     try { await tr.release(bad.id); } catch (e) { blocked = e.status === 409; }
     if (!blocked) throw new Error('a transferência FAIL foi liberada');
-    await page.goto(`${SITE}/app/fi/cases`);
-    await page.waitForSelector(`[data-testid=tr-list] tr[data-verdict=FAIL]`);
-    await page.waitForSelector('article[data-case][data-status=open]');
-    await page.screenshot({ path: path.join(OUT, '08-transferencias.png'), fullPage: true });
-    return { pass: { id: ok.id, latency_ms: ok.latency_ms }, fail: { id: bad.id, reasons: bad.reasons.map((r) => r.code), latency_ms: bad.latency_ms } };
+    // A tela de casos é da licenciada do teste; com workspace com gate as transferências são de outro.
+    if (!gated) {
+      await page.goto(`${SITE}/app/fi/cases`);
+      await page.waitForSelector(`[data-testid=tr-list] tr[data-verdict=FAIL]`);
+      await page.waitForSelector('article[data-case][data-status=open]');
+      await page.screenshot({ path: path.join(OUT, '08-transferencias.png'), fullPage: true });
+    }
+    return { ...(gated ? { gated_workspace: gated } : {}), pass: { id: ok.id, latency_ms: ok.latency_ms }, fail: { id: bad.id, reasons: bad.reasons.map((r) => r.code), latency_ms: bad.latency_ms } };
   });
 
   await step('9. grant para supervisor: aprovador aprova, supervisor baixa o pacote, licenciada revoga, segundo acesso falha, log íntegro', async () => {
