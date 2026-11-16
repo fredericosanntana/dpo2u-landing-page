@@ -1,10 +1,11 @@
 /**
  * /advisory — advisory de compliance Web3: a linha de receita mais próxima da DPO2U.
  * Voz do Frederico como Chief Compliance and Innovation Officer: quem já fez compliance
- * cripto na prática. Sem nome de parceiro ou cliente e sem número de clientes. EN e PT.
+ * cripto na prática. Sem nome de parceiro ou cliente e sem número de clientes. Só em inglês
+ * (pedido do Frederico, 16/11/2026: oferta global).
  * Contato por e-mail (contato@dpo2u.com); preço sob consulta.
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { usePageHead } from '@/lib/page-head';
 import { FONTS, PALETTE, Rule, SmallLabel } from '@/components/sealed/atoms';
 
@@ -12,46 +13,43 @@ const TERRA = '#A84A2D';
 const h2: React.CSSProperties = { fontFamily: FONTS.display, fontWeight: 500, lineHeight: 1.05, letterSpacing: '-.03em', margin: 0 };
 const card: React.CSSProperties = { background: PALETTE.paper2, border: `.5px solid ${PALETTE.ruleStrong}`, borderRadius: 4 };
 
-type Lang = 'en' | 'pt';
+type Lang = 'en';
 type T = Record<Lang, string>;
 
 // Preço sob consulta (decisão do Frederico, 16/11/2026): a página mostra formato e prazo.
-const ON_REQUEST: T = { en: 'Price on request', pt: 'Preço sob consulta' };
+const ON_REQUEST: T = { en: 'Price on request' };
 
 interface Offer { id: string; name: T; price: T; time: T; for: T; gets: Record<Lang, string[]> }
 
 const OFFERS: Offer[] = [
   {
     id: 'diagnostic',
-    name: { en: 'Regulatory diagnostic', pt: 'Diagnóstico regulatório' },
+    name: { en: 'Regulatory diagnostic' },
     price: ON_REQUEST,
-    time: { en: '2 weeks', pt: '2 semanas' },
-    for: { en: 'A crypto or Web3 project that needs to know which rules apply before launch or before a raise.', pt: 'Projeto cripto ou Web3 que precisa saber quais regras valem antes de lançar ou de captar.' },
+    time: { en: '2 weeks' },
+    for: { en: 'A crypto or Web3 project that needs to know which rules apply before launch or before a raise.' },
     gets: {
       en: ['Map of the rules by market: VASP licensing, Travel Rule, MiCA, LGPD and GDPR', 'Gaps ranked by risk and deadline', 'A 90-day roadmap you can hand to counsel and investors'],
-      pt: ['Mapa das regras por mercado: autorização de PSAV/VASP, Travel Rule, MiCA, LGPD e GDPR', 'Lacunas em ordem de risco e prazo', 'Roteiro de 90 dias para entregar ao jurídico e aos investidores'],
     },
   },
   {
     id: 'structuring',
-    name: { en: 'Compliance structuring', pt: 'Estruturação de compliance' },
+    name: { en: 'Compliance structuring' },
     price: ON_REQUEST,
-    time: { en: '6 to 8 weeks', pt: '6 a 8 semanas' },
-    for: { en: 'A project that will operate in a regulated market and must show the controls working.', pt: 'Projeto que vai operar em mercado regulado e precisa mostrar os controles funcionando.' },
+    time: { en: '6 to 8 weeks' },
+    for: { en: 'A project that will operate in a regulated market and must show the controls working.' },
     gets: {
       en: ['Policies: AML/CFT, Travel Rule, privacy and incident response', 'Travel Rule and data-protection flows designed into the product (privacy by design)', 'DPIA and records of processing', 'On-chain evidence of each control with the DPO2U protocol'],
-      pt: ['Políticas: PLD/FT, Travel Rule, privacidade e resposta a incidentes', 'Fluxos de Travel Rule e de proteção de dados desenhados no produto (privacy by design)', 'RIPD/DPIA e registro das operações de tratamento', 'Evidência on-chain de cada controle com o protocolo DPO2U'],
     },
   },
   {
     id: 'fractional',
-    name: { en: 'Fractional compliance officer', pt: 'Compliance officer fracionado' },
+    name: { en: 'Fractional compliance officer' },
     price: ON_REQUEST,
-    time: { en: '3-month minimum', pt: 'Mínimo de 3 meses' },
-    for: { en: 'A team that needs a compliance and privacy lead (DPO) without a full-time hire.', pt: 'Time que precisa de um responsável por compliance e privacidade (DPO) sem contratar em tempo integral.' },
+    time: { en: '3-month minimum' },
+    for: { en: 'A team that needs a compliance and privacy lead (DPO) without a full-time hire.' },
     gets: {
       en: ['Named DPO and compliance contact for regulators and partners', 'Monthly review of new features, listings and markets', 'Answers to exchanges, banks and auditors on your behalf'],
-      pt: ['DPO e contato de compliance nomeados para reguladores e parceiros', 'Revisão mensal de novas features, listagens e mercados', 'Respostas a exchanges, bancos e auditores em nome do projeto'],
     },
   },
 ];
@@ -76,29 +74,10 @@ const COPY = {
     note: 'Advisory on compliance and data protection. Legal opinions are given by your counsel; we work with them.',
     paid: 'Paid by bank transfer or in USDC.',
   },
-  pt: {
-    tag: 'Advisory de compliance Web3',
-    h1: 'Compliance para projetos cripto, com quem já fez.',
-    lead: 'Frederico Santana, DPO e Chief Compliance and Innovation Officer da DPO2U, estrutura a regulação e a proteção de dados de projetos Web3: autorização de PSAV/VASP, Travel Rule, MiCA, LGPD e GDPR para dApps. Cada controle pode ser provado on-chain com o protocolo DPO2U.',
-    offers: 'Como trabalhamos',
-    for: 'Para',
-    gets: 'Você recebe',
-    how: 'O que muda',
-    howItems: [
-      'Prática, não slides: as mesmas regras rodam no protocolo DPO2U na Midnight, na Stellar e na Avalanche.',
-      'Privacidade e regulação financeira juntas, que é onde a maior parte dos projetos cripto trava.',
-      'Global de origem: Brasil, União Europeia sob a MiCA e outros mercados no mesmo mapa.',
-    ],
-    cta: 'Fale com a gente',
-    ctaNote: 'Conte o projeto, os mercados e o prazo. Respondemos em até dois dias úteis com escopo e preço.',
-    agents: 'Construindo um agente de IA? Ele confere compliance sozinho, pago por chamada',
-    note: 'Advisory de compliance e proteção de dados. Parecer jurídico é do seu advogado; trabalhamos junto com ele.',
-    paid: 'Pagamento por transferência ou em USDC.',
-  },
 } as const;
 
 export default function AdvisoryPage() {
-  const [lang, setLang] = useState<Lang>(() => (typeof navigator !== 'undefined' && navigator.language?.toLowerCase().startsWith('pt') ? 'pt' : 'en'));
+  const lang: Lang = 'en';
   const t = COPY[lang];
 
   usePageHead({
@@ -108,29 +87,16 @@ export default function AdvisoryPage() {
   });
 
   useEffect(() => {
-    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
-  }, [lang]);
+    document.documentElement.lang = 'en';
+  }, []);
 
-  const mail = `mailto:contato@dpo2u.com?subject=${encodeURIComponent(lang === 'pt' ? 'Advisory de compliance Web3' : 'Web3 compliance advisory')}`;
+  const mail = `mailto:contato@dpo2u.com?subject=${encodeURIComponent('Web3 compliance advisory')}`;
 
   return (
     <div style={{ color: PALETTE.ink, fontFamily: FONTS.body }}>
       <section className="px-6 lg:px-14 pt-16 pb-10 lg:pt-24" aria-labelledby="adv-hero">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <SmallLabel>{t.tag}</SmallLabel>
-          <div role="group" aria-label="Language" className="flex gap-1">
-            {(['en', 'pt'] as Lang[]).map((l) => (
-              <button
-                key={l}
-                type="button"
-                aria-pressed={lang === l}
-                onClick={() => setLang(l)}
-                style={{ fontFamily: FONTS.mono, fontSize: 12, padding: '6px 10px', borderRadius: 4, cursor: 'pointer', border: `1px solid ${PALETTE.ruleStrong}`, background: lang === l ? PALETTE.ink : 'transparent', color: lang === l ? PALETTE.paper : PALETTE.ink }}
-              >
-                {l.toUpperCase()}
-              </button>
-            ))}
-          </div>
         </div>
         <h1 id="adv-hero" style={{ ...h2, fontSize: 'clamp(34px, 5vw, 60px)', maxWidth: 980 }}>{t.h1}</h1>
         <p style={{ fontSize: 18, lineHeight: 1.55, maxWidth: 760, marginTop: 20, color: PALETTE.inkSoft }}>{t.lead}</p>
