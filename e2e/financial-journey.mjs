@@ -11,6 +11,7 @@
 //   E2E_OPERATOR_KEY    chave de API do operador (fila de revisão)
 //   E2E_SEEDED_ATTEMPT  teste local: tentativa já selada de e2e/fixtures/partner-submit.json
 //   E2E_FULL_SEAL=1     preview: o assistente sela de verdade na rede de teste
+//   E2E_SANCTIONS_PAYLOAD_FILE  JSON da lista de sanções assinada (obrigatório com E2E_FULL_SEAL=1)
 
 import { createRequire } from 'node:module';
 // require (não import) para achar o Playwright instalado globalmente ou no projeto.
@@ -289,7 +290,13 @@ try {
     const { TravelRuleClient } = await import(path.join(sdkDir, 'dist/index.js'));
     const tr = new TravelRuleClient({ apiKey, baseUrl: GW });
     const now = Math.floor(Date.now() / 1000);
-    const sanctions = { provider_id: 'screening-lists', list_root: 'ab'.repeat(32), issued_at: now - 60, valid_until: now + 86400, signature: { announcement: { x: '01', y: '02' }, response: '03' } };
+    // Com selo real o gate confere a assinatura: use uma lista assinada pela chave do provedor de staging.
+    const signedFile = process.env.E2E_SANCTIONS_PAYLOAD_FILE;
+    if (process.env.E2E_FULL_SEAL === '1' && !signedFile) throw new Error('E2E_FULL_SEAL=1 exige E2E_SANCTIONS_PAYLOAD_FILE (lista de sanções assinada)');
+    const sanctions = signedFile
+      ? JSON.parse(fs.readFileSync(signedFile, 'utf-8'))
+      : { provider_id: 'screening-lists', list_root: 'ab'.repeat(32), issued_at: now - 60, valid_until: now + 86400, signature: { announcement: { x: '01', y: '02' }, response: '03' } };
+    if (sanctions.valid_until <= now) throw new Error('a lista de sanções assinada venceu; gere outra');
     const parties = { originator: { name: 'Cliente Ficticio', account: 'acct-ficticia', customer_id: 'cli-1' }, beneficiary: { name: 'Beneficiario Ficticio', wallet_address: '0xficticio' } };
     const ok = await tr.evaluate({ transfer_ref: `e2e-${run}-pass`, amount_usd: 5000, market: 'BR', counterparty: { type: 'vasp', passport_id: cptyPassport }, ...parties, sanctions });
     if (ok.verdict !== 'PASS') throw new Error(`esperava PASS: ${JSON.stringify(ok.reasons)}`);

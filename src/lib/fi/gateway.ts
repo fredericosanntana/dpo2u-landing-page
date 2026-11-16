@@ -73,7 +73,7 @@ export const api = {
 // ── E3: passaporte e fila de revisão ─────────────────────────────────────────
 export type Tier = 'tier1-machine-only' | 'tier1' | 'tier2' | 'tier3';
 export interface SubmitBody { use_case_id: string; request_id: string; evidence: Record<string, unknown>; chain?: string }
-export interface Attempt { attempt_id: string; status: string; result?: { verdict: string; evidence_hash_hex: string; predicate_results: { id: string; verdict: string; reason: string }[]; tx?: { explorerUrl?: string } }; error?: string }
+export interface Attempt { attempt_id: string; status: string; result?: { verdict: string; evidence_hash_hex: string; predicate_results: { id: string; verdict: string; reason: string }[]; tx?: { explorerUrl?: string } }; error?: string | { message?: string; code?: string } }
 export interface Prepared { run_id: string; packs: { id: string; hash: string }[]; verdicts: Record<string, string>; to_review: { id: string; origin: string; citation: string }[] }
 export interface ReviewRequestView {
   id: string; client_id: string; run_id: string; tier: Tier; packs: { id: string; hash: string }[];
