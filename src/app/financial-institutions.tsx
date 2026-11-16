@@ -129,6 +129,9 @@ export default function FinancialInstitutionsPage({ initialLang }: { initialLang
         <h1 id="fi-hero" style={{ ...h2, fontSize: 'clamp(34px, 5vw, 60px)', maxWidth: 980 }}>{t.h1}</h1>
         <p style={{ fontSize: 18, lineHeight: 1.55, maxWidth: 760, marginTop: 20, color: PALETTE.inkSoft }}>{t.lead}</p>
         <a href="#fi-diagnostic" style={{ ...btn, display: 'inline-block', marginTop: 28, textDecoration: 'none' }}>{t.cta}</a>
+        <p style={{ marginTop: 16, fontSize: 14 }}>
+          <a href="/agents" style={{ color: TERRA }}>{lang === 'pt' ? 'Construindo um agente de IA? Ele faz a jornada sozinho, pago por chamada' : lang === 'es' ? '¿Construye un agente de IA? Hace el recorrido solo, pago por llamada' : 'Building an AI agent? It can run the journey on its own, paid per call'} →</a>
+        </p>
       </section>
 
       <Rule />
