@@ -2,7 +2,7 @@
  * /advisory — advisory de compliance Web3: a linha de receita mais próxima da DPO2U.
  * Voz do Frederico como Chief Compliance and Innovation Officer: quem já fez compliance
  * cripto na prática. Sem nome de parceiro ou cliente e sem número de clientes. EN e PT.
- * Contato por e-mail (contato@dpo2u.com); os preços são a proposta em aprovação.
+ * Contato por e-mail (contato@dpo2u.com); preço sob consulta.
  */
 import React, { useEffect, useState } from 'react';
 import { usePageHead } from '@/lib/page-head';
@@ -15,13 +15,16 @@ const card: React.CSSProperties = { background: PALETTE.paper2, border: `.5px so
 type Lang = 'en' | 'pt';
 type T = Record<Lang, string>;
 
+// Preço sob consulta (decisão do Frederico, 16/11/2026): a página mostra formato e prazo.
+const ON_REQUEST: T = { en: 'Price on request', pt: 'Preço sob consulta' };
+
 interface Offer { id: string; name: T; price: T; time: T; for: T; gets: Record<Lang, string[]> }
 
 const OFFERS: Offer[] = [
   {
     id: 'diagnostic',
     name: { en: 'Regulatory diagnostic', pt: 'Diagnóstico regulatório' },
-    price: { en: 'US$ 6,000 fixed', pt: 'US$ 6.000 fechado' },
+    price: ON_REQUEST,
     time: { en: '2 weeks', pt: '2 semanas' },
     for: { en: 'A crypto or Web3 project that needs to know which rules apply before launch or before a raise.', pt: 'Projeto cripto ou Web3 que precisa saber quais regras valem antes de lançar ou de captar.' },
     gets: {
@@ -32,7 +35,7 @@ const OFFERS: Offer[] = [
   {
     id: 'structuring',
     name: { en: 'Compliance structuring', pt: 'Estruturação de compliance' },
-    price: { en: 'From US$ 20,000', pt: 'A partir de US$ 20.000' },
+    price: ON_REQUEST,
     time: { en: '6 to 8 weeks', pt: '6 a 8 semanas' },
     for: { en: 'A project that will operate in a regulated market and must show the controls working.', pt: 'Projeto que vai operar em mercado regulado e precisa mostrar os controles funcionando.' },
     gets: {
@@ -43,7 +46,7 @@ const OFFERS: Offer[] = [
   {
     id: 'fractional',
     name: { en: 'Fractional compliance officer', pt: 'Compliance officer fracionado' },
-    price: { en: 'US$ 4,000 per month', pt: 'US$ 4.000 por mês' },
+    price: ON_REQUEST,
     time: { en: '3-month minimum', pt: 'Mínimo de 3 meses' },
     for: { en: 'A team that needs a compliance and privacy lead (DPO) without a full-time hire.', pt: 'Time que precisa de um responsável por compliance e privacidade (DPO) sem contratar em tempo integral.' },
     gets: {
@@ -68,7 +71,7 @@ const COPY = {
       'Global by design: Brazil, the EU under MiCA and other markets in the same map.',
     ],
     cta: 'Talk to us',
-    ctaNote: 'Tell us the project, the markets and the deadline. We answer within two business days.',
+    ctaNote: 'Tell us the project, the markets and the deadline. We answer within two business days with scope and price.',
     agents: 'Building an AI agent? It checks compliance on its own, paid per call',
     note: 'Advisory on compliance and data protection. Legal opinions are given by your counsel; we work with them.',
     paid: 'Paid by bank transfer or in USDC.',
@@ -87,7 +90,7 @@ const COPY = {
       'Global de origem: Brasil, União Europeia sob a MiCA e outros mercados no mesmo mapa.',
     ],
     cta: 'Fale com a gente',
-    ctaNote: 'Conte o projeto, os mercados e o prazo. Respondemos em até dois dias úteis.',
+    ctaNote: 'Conte o projeto, os mercados e o prazo. Respondemos em até dois dias úteis com escopo e preço.',
     agents: 'Construindo um agente de IA? Ele confere compliance sozinho, pago por chamada',
     note: 'Advisory de compliance e proteção de dados. Parecer jurídico é do seu advogado; trabalhamos junto com ele.',
     paid: 'Pagamento por transferência ou em USDC.',
